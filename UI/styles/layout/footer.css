@@ -1,0 +1,26 @@
+.footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 20px;
+  background-color: var(--white-04);
+}
+
+.footer-info {
+  display: grid;
+  grid-template: auto auto / auto auto;
+  gap: 4px;
+  font: var(--font-small);
+}
+
+.select-lang {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.select-lang select {
+  font-family: 'Roboto', sans-serif;
+  font-size: 1rem;
+  user-select: none;
+}
