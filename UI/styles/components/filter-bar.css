@@ -1,0 +1,35 @@
+.filter-bar {
+  display: flex;
+  align-items: center;
+  gap: 32px;
+  padding: 6px 16px;
+  border: 1px solid var(--gray900);
+  border-radius: 8px;
+}
+
+.checkbox-dropdown {
+  padding: 2px 32px 2px 4px;
+  position: relative;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.checkbox-dropdown:hover {
+  color: var(--primary500);
+}
+.checkbox-dropdown:hover:after {
+  border-top-color: var(--primary500);
+}
+
+.checkbox-dropdown:after {
+  content: '';
+  height: 0;
+  position: absolute;
+  width: 0;
+  border: 6px solid transparent;
+  border-top-color: var(--black);
+  top: 50%;
+  right: 10px;
+  margin-top: -3px;
+  transition: var(--transition);
+}

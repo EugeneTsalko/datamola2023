@@ -16,3 +16,20 @@
   align-items: center;
   gap: 32px;
 }
+
+.profile-btn {
+  width: 40px;
+  height: 40px;
+  background-image: url('../../assets/png/user-img-3.png');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 24px;
+}
+
+.logout-btn {
+  width: 40px;
+  height: 40px;
+  background-image: url('../../assets/svg/exit.svg');
+  background-repeat: no-repeat;
+  background-position: center;
+}

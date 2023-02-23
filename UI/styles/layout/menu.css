@@ -1,0 +1,29 @@
+.menu {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 20px;
+  border: 1px solid red;
+  background-color: var(--white-04);
+}
+
+.filter-container {
+  display: flex;
+  gap: 1rem;
+}
+
+.menu nav {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 8px;
+}
+
+.add-task-btn {
+  width: 175px;
+  height: 76px;
+}
+
+/* .add-task-btn:hover { */
+/* background-color: var(--white); */
+/* } */

@@ -8,8 +8,9 @@
 
   --gray900: #7e7e7e;
 
-  --font-btn: 1rem/1.5rem 'Roboto';
+  --font-btn: 600 1rem/1.5rem 'Roboto';
   --font-small: 0.75rem/1rem 'Roboto';
+  --font-body-large: 1rem/1.5rem 'Roboto';
 
   --transition: ease-in-out 0.3s;
 }
