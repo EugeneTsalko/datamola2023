@@ -4,20 +4,33 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="./style.css" />
+    <link rel="icon" type="image/x-icon" href="./assets/favicon.ico" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./styles/style.css" />
     <title>TrelloMola by EugeneTsalko</title>
   </head>
   <body>
-    <div class="wrapper">
-      <header class="header">
-        <p>HEADER</p>
-      </header>
-      <main class="main">
-        <p>MAIN</p>
-      </main>
-      <footer class="footer">
-        <p>FOOTER</p>
-      </footer>
-    </div>
+    <header class="header">
+      <div class="logo">
+        <img src="./assets/svg/logo.svg" class="logo-img" alt="logo" />
+      </div>
+      <nav class="nav">
+        <span>Hi, username!</span>
+        <button class="btn secondary-btn profile-btn"></button>
+        <button class="btn logout-btn"></button>
+      </nav>
+    </header>
+
+    <main class="main">
+      <p>MAIN</p>
+    </main>
+    <footer class="footer">
+      <p>FOOTER</p>
+    </footer>
   </body>
 </html>

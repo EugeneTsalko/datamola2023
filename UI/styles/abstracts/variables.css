@@ -1,0 +1,13 @@
+:root {
+  --white: #ffffff;
+  --white-09: #ffffff90;
+  --black: #333333;
+  --primary500: #3990ff;
+  --primary400: #6babff;
+
+  --gray900: #7e7e7e;
+
+  --font-btn: 1rem/1.5rem 'Roboto';
+
+  --transition: ease-in-out 0.3s;
+}
