@@ -21,10 +21,7 @@
 }
 
 .add-task-btn {
+  gap: 8px;
   width: 175px;
   height: 76px;
 }
-
-/* .add-task-btn:hover { */
-/* background-color: var(--white); */
-/* } */

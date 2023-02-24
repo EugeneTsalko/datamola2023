@@ -1,3 +1,81 @@
 .task-card {
-  border: 1px solid red;
+  border: 1px solid var(--gray900);
+  border-radius: 8px;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  /* width: 100%; */
+  background-color: var(--white);
+  transition: var(--transition);
+  cursor: pointer;
+}
+
+.task-card:hover {
+  border-color: var(--primary500);
+}
+
+.task-header {
+  display: grid;
+  grid-template: 1fr 19px / 1fr 64px;
+  gap: 8px;
+  overflow: hidden;
+}
+
+.task-buttons {
+  display: flex;
+  justify-content: flex-end;
+  gap: 16px;
+}
+
+.task-description {
+  color: var(--gray900);
+}
+
+.task-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 70px;
+}
+
+.task-info-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  height: 100%;
+}
+
+.task-info,
+.task-date-container {
+  display: flex;
+  gap: 8px;
+}
+
+.task-comments {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.task-assignee {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  width: 92px;
+}
+
+.assignee-name {
+  display: inline-block;
+  max-width: 92px;
+  max-height: 20px;
+  font: var(--font-body-medium);
+  color: var(--gray900);
+  overflow: hidden;
+}
+
+.assignee-img {
+  width: 48px;
+  height: 48px;
 }

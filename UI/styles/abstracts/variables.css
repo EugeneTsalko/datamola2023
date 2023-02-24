@@ -12,6 +12,8 @@
   --font-btn: 600 1rem/1.5rem 'Roboto';
   --font-small: 0.75rem/1rem 'Roboto';
   --font-body-large: 1rem/1.5rem 'Roboto';
+  --font-body-medium: 0.875rem/1.25rem 'Roboto';
+  --font-title: 500 1.375rem/1.75rem 'Roboto';
 
   --transition: ease-in-out 0.3s;
 }
