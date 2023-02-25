@@ -7,6 +7,14 @@
   text-decoration: none;
 }
 
+select {
+  cursor: pointer;
+}
+
+select:focus {
+  outline: none;
+}
+
 html {
   height: 100%;
 }

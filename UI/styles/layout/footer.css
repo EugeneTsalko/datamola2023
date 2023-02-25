@@ -3,7 +3,6 @@
   justify-content: space-between;
   align-items: center;
   padding: 8px 20px;
-  background-color: var(--white-04);
 }
 
 .footer-info {
@@ -17,6 +16,16 @@
   display: flex;
   align-items: center;
   gap: 8px;
+  transition: var(--transition);
+}
+
+.select-lang label {
+  width: 24px;
+  height: 24px;
+  background-image: url('../../assets/svg/language.svg');
+  background-position: center;
+  background-repeat: no-repeat;
+  cursor: pointer;
 }
 
 .select-lang select {
@@ -24,4 +33,17 @@
   font-size: 1rem;
   user-select: none;
   background-color: transparent;
+}
+
+@media screen and (width <= 414px) {
+  .footer {
+    flex-direction: column-reverse;
+    gap: 16px;
+    padding: 16px 8px;
+  }
+
+  .footer-info span {
+    display: flex;
+    justify-content: center;
+  }
 }
