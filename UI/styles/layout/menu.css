@@ -19,8 +19,10 @@
   gap: 8px;
 }
 
-.add-task-btn {
-  width: 175px;
-  max-height: 76px !important;
-  height: 100%;
+@media screen and (width <= 520px) {
+  .menu {
+    justify-content: center;
+    gap: 1rem;
+    padding: 8px 8px;
+  }
 }

@@ -13,7 +13,7 @@
   background-position: center;
 }
 
-.kanban-btn-active {
+.kanban-btn.active {
   background-image: url('../../assets/svg/kanban-primary500.svg');
   border-color: var(--primary500);
 }
@@ -25,4 +25,10 @@
   background-image: url('../../assets/svg/table.svg');
   background-repeat: no-repeat;
   background-position: center;
+}
+
+@media screen and (width <= 744px) {
+  .view-container {
+    display: none;
+  }
 }

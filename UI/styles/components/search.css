@@ -45,3 +45,9 @@
   border: 1px solid var(--primary500);
   border-left: none;
 }
+
+@media screen and (width <= 1024px) {
+  .search {
+    width: 128px;
+  }
+}

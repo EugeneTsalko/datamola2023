@@ -33,3 +33,16 @@
   margin-top: -3px;
   transition: var(--transition);
 }
+
+@media screen and (width <= 1024px) {
+  .filter-bar {
+    gap: 4px;
+    padding: 6px 8px;
+  }
+}
+
+@media screen and (width <= 744px) {
+  .filter-bar {
+    display: none;
+  }
+}
