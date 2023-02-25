@@ -174,4 +174,12 @@
   .add-task-btn span {
     display: none;
   }
+
+  .to-main-btn {
+    padding: 8px 8px;
+  }
+
+  .to-main-btn span {
+    display: none;
+  }
 }
