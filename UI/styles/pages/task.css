@@ -1,0 +1,9 @@
+.full-task-container {
+  flex: auto;
+  padding: 8px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  /* border: 1px solid red; */
+  /* height: calc(100vh - 230px); */
+}

@@ -1,0 +1,20 @@
+.comments-container {
+  /* border: 1px solid red; */
+}
+
+.title {
+  font: var(--font-title);
+}
+
+.task-assignee.full {
+  width: auto;
+  align-items: flex-end;
+}
+
+.assignee-name.full {
+  max-width: 100%;
+}
+
+.task-assignee.full .assignee-img {
+  margin-right: 16px;
+}

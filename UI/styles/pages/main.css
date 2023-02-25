@@ -39,31 +39,12 @@
   gap: 16px;
 }
 
-::-webkit-scrollbar {
-  width: 4px;
-  display: block;
-  transition: var(--transition);
-}
-
-::-webkit-scrollbar-track {
-  background: transparent;
-}
-
-::-webkit-scrollbar-track-piece:end {
+.column::-webkit-scrollbar-track-piece:end {
   background: transparent;
   margin-bottom: 16px;
 }
 
-::-webkit-scrollbar-track-piece:start {
+.column::-webkit-scrollbar-track-piece:start {
   background: transparent;
   margin-top: 54px;
-}
-
-::-webkit-scrollbar-thumb {
-  background: var(--gray900);
-  border-radius: 2px;
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background: var(--primary500);
 }

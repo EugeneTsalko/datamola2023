@@ -4,14 +4,14 @@
 
 .search {
   width: 240px;
-  font: var(--font-bode-large);
-  padding: 4px 16px;
   border: 1px solid var(--gray900);
   border-right: none;
   border-top-right-radius: 0;
   border-bottom-right-radius: 0;
   border-top-left-radius: 8px;
   border-bottom-left-radius: 8px;
+  font: var(--font-body-large);
+  padding: 4px 16px;
   transition: var(--transition);
 }
 

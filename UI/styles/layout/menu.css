@@ -3,7 +3,6 @@
   justify-content: space-between;
   align-items: center;
   padding: 8px 20px;
-  border-top: 1px solid var(--gray900);
   border-bottom: 1px solid var(--gray900);
   background-color: var(--white-04);
 }
@@ -21,7 +20,7 @@
 }
 
 .add-task-btn {
-  gap: 8px;
   width: 175px;
-  height: 76px;
+  max-height: 76px !important;
+  height: 100%;
 }

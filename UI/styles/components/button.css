@@ -2,6 +2,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  gap: 8px;
   background-color: var(--primary500);
   border-radius: 8px;
   padding: 8px 16px;
@@ -9,6 +10,7 @@
   font: var(--font-btn);
   cursor: pointer;
   transition: var(--transition);
+  max-height: 40px;
 }
 
 .btn:hover {
@@ -52,4 +54,8 @@
 
 .delete-btn:hover {
   background-image: url('../../assets/svg/delete-primary500.svg');
+}
+
+.to-main-btn {
+  width: 175px;
 }
