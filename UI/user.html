@@ -23,10 +23,12 @@
         </a>
       </h1>
       <nav class="nav">
-        <button class="btn secondary-btn to-main-btn">
-          <img src="./assets/svg/back.svg" alt="return" />
-          <span>TO MAIN</span>
-        </button>
+        <a href="main.html">
+          <button class="btn secondary-btn to-main-btn">
+            <img src="./assets/svg/back.svg" alt="return" />
+            <span>TO MAIN</span>
+          </button>
+        </a>
         <button class="btn secondary-btn profile-btn"></button>
         <button class="btn logout-btn"></button>
       </nav>
@@ -1312,155 +1314,61 @@
         </div>
       </section>
 
-      <section class="full-task-container">
-        <div class="task-card">
-          <div class="task-header full">
-            <h4 class="title">
-              This text contains 100 symbols. Lorem ipsum dolor sit amet consectetur adipisicin?
-            </h4>
-            <div class="task-buttons">
-              <button class="btn secondary-btn edit-btn"></button>
-              <button class="btn secondary-btn delete-btn"></button>
-            </div>
-            <span class="task-priority medium">Medium</span>
+      <section class="user-container">
+        <div class="profile-info">
+          <div class="profile-header">
+            <h3>Hi, username!</h3>
+            <button class="btn secondary-btn close-btn"></button>
           </div>
-          <div class="task-description">
-            This description contains 280 symbols. Lorem ipsum dolor sit amet consectetur
-            adipisicing elit. Veniam voluptatum minus neque perspiciatis natus beatae magnam
-            mollitia pariatur. Libero deserunt consectetur quam voluptatibus debitis illum error
-            maiores perspicia?
-          </div>
-          <div class="task-footer">
-            <div class="task-info-container">
-              <div class="task-date-container">
-                <span class="task-time">12:00</span>
-                <span class="task-date">Feb 15</span>
+          <form class="user-form active">
+            <div class="avatar-container">
+              <div class="avatar active">
+                <img
+                  class="avatar-img"
+                  width="60px"
+                  height="60px"
+                  src="./assets/png/user-img-3.png"
+                  alt="user-img"
+                />
               </div>
-              <div class="task-info">
-                <span class="task-status">To Do</span>
-                <span class="task-privacy">Public</span>
-                <div class="task-comments hidden">
-                  <img src="./assets/svg/comment.svg" alt="comment" />
-                  <span class="task-comment-number">3</span>
-                </div>
-              </div>
+              <button class="icon-btn avatar-btn-male"></button>
+              <button class="icon-btn avatar-btn-female"></button>
+              <label class="input-file-label">
+                <input type="file" name="input-file" />
+              </label>
             </div>
-            <div class="task-assignee full">
-              <span class="assignee-name full"
-                >This name contains 100 symbols. Lorem ipsum dolor sit amet consectetur adipisicin?
-              </span>
-              <img class="assignee-img" src="./assets/png/user-img-5.png" alt="assignee image" />
+            <label for="input" class="text-input">
+              <input type="text" id="input" placeholder="&nbsp;" />
+              <span class="label">New name</span>
+              <span class="focus-bg"></span>
+            </label>
+            <label for="input" class="text-input hidden">
+              <input type="text" id="input" placeholder="&nbsp;" />
+              <span class="label">Username</span>
+              <span class="focus-bg"></span>
+            </label>
+            <label for="input" class="text-input">
+              <input type="password" id="input" placeholder="&nbsp;" />
+              <span class="label">Old password</span>
+              <span class="focus-bg"></span>
+            </label>
+            <label for="input" class="text-input">
+              <input type="password" id="input" placeholder="&nbsp;" />
+              <span class="label">New password</span>
+              <span class="focus-bg"></span>
+            </label>
+            <label for="input" class="text-input">
+              <input type="password" id="input" placeholder="&nbsp;" />
+              <span class="label">Confirm new password</span>
+              <span class="focus-bg"></span>
+            </label>
+            <div class="user-form-btns">
+              <button class="btn secondary-btn cancel-btn">CANCEL</button>
+              <button class="btn secondary-btn save-btn">SAVE</button>
             </div>
-          </div>
-        </div>
-        <div class="comments-container">
-          <h3>Comments</h3>
-          <div class="comments">
-            <ul>
-              <li>
-                <div class="comment">
-                  <p class="comment-text">
-                    This description contains 280 symbols. Lorem ipsum dolor sit amet consectetur
-                    adipisicing elit. Veniam voluptatum minus neque perspiciatis natus beatae magnam
-                    mollitia pariatur. Libero deserunt consectetur quam voluptatibus debitis illum
-                    error maiores perspicia?
-                  </p>
-                  <div class="comment-footer">
-                    <div class="comment-author">
-                      <img
-                        class="author-img"
-                        src="./assets/png/user-img-5.png"
-                        alt="author image"
-                      />
-                      <span class="author-name"
-                        >This name contains 100 symbols. Lorem ipsum dolor sit amet consectetur
-                        adipisicin?</span
-                      >
-                    </div>
-                    <div class="comment-date-container">
-                      <span class="comment-date">Feb 15</span>
-                      <span class="comment-time">12:00</span>
-                    </div>
-                  </div>
-                </div>
-              </li>
-              <li>
-                <div class="comment">
-                  <p class="comment-text">
-                    Regular comment magnam mollitia pariatur. Libero deserunt consectetur quam
-                    voluptatibus debitis illum error maiores perspicia?
-                  </p>
-                  <div class="comment-footer">
-                    <div class="comment-author">
-                      <img
-                        class="author-img"
-                        src="./assets/png/user-img-5.png"
-                        alt="author image"
-                      />
-                      <span class="author-name">Regularusername</span>
-                    </div>
-                    <div class="comment-date-container">
-                      <span class="comment-date">Feb 15</span>
-                      <span class="comment-time">12:00</span>
-                    </div>
-                  </div>
-                </div>
-              </li>
-              <li>
-                <div class="comment">
-                  <p class="comment-text">Short comment.</p>
-                  <div class="comment-footer">
-                    <div class="comment-author">
-                      <img
-                        class="author-img"
-                        src="./assets/png/user-img-5.png"
-                        alt="author image"
-                      />
-                      <span class="author-name">Tom</span>
-                    </div>
-                    <div class="comment-date-container">
-                      <span class="comment-date">Feb 15</span>
-                      <span class="comment-time">12:00</span>
-                    </div>
-                  </div>
-                </div>
-              </li>
-              <li>
-                <div class="comment">
-                  <p class="comment-text">Short comment.</p>
-                  <div class="comment-footer">
-                    <div class="comment-author">
-                      <img
-                        class="author-img"
-                        src="./assets/png/user-img-5.png"
-                        alt="author image"
-                      />
-                      <span class="author-name">Tom</span>
-                    </div>
-                    <div class="comment-date-container">
-                      <span class="comment-date">Feb 15</span>
-                      <span class="comment-time">12:00</span>
-                    </div>
-                  </div>
-                </div>
-              </li>
-            </ul>
-          </div>
-          <form class="add-comment-form">
-            <!-- <label for="comment"> -->
-            <img class="user-img" src="./assets/png/user-img-5.png" alt="author image" />
-            <textarea
-              name="comment"
-              id="new-comment"
-              class="comment-textarea"
-              maxlength="280"
-              placeholder="Add new comment..."
-            ></textarea>
-            <!-- <input type="text" name="comment" class="comment-input" /> -->
-            <!-- </label> -->
-            <button class="btn secondary-btn add-comment-btn" type="submit">ADD COMMENT</button>
           </form>
         </div>
+        <img class="profile-cover" src="./assets/png/profile-cover.png" alt="profile cover" />
       </section>
     </main>
 

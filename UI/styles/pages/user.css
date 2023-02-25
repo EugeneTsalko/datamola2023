@@ -1,0 +1,82 @@
+.user-container {
+  display: flex;
+  flex: 1 auto;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+.user-form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  /* align-self: center; */
+  width: 100%;
+}
+
+.avatar-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+}
+
+.avatar {
+  width: 64px;
+  height: 64px;
+  padding: 2px;
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+  transition: var(--transition);
+  border-radius: 50%;
+}
+
+.avatar:hover,
+.avatar.active {
+  background-color: var(--primary500);
+}
+
+.input-file-label {
+  width: 64px;
+  height: 64px;
+  background-image: url('../../assets/svg/add-circle.svg');
+  background-repeat: no-repeat;
+  background-size: 64px 64px;
+  background-position: center;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.input-file-label:hover {
+  background-image: url('../../assets/svg/add-circle-primary500.svg');
+}
+
+.avatar-container input[type='file'] {
+  display: none;
+}
+
+.profile-cover {
+  height: calc(100vh - 200px);
+}
+
+.profile-info {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  background-color: var(--gray500);
+  border: 1px solid var(--gray900);
+  border-radius: 16px;
+  padding: 32px;
+  width: 40%;
+}
+
+.profile-header {
+  display: flex;
+  justify-content: space-between;
+}
+
+.user-form-btns {
+  display: flex;
+  align-items: center;
+  align-self: flex-end;
+  gap: 32px;
+}

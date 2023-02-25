@@ -4,6 +4,7 @@
 
 @import url('./pages/main.css');
 @import url('./pages/task.css');
+@import url('./pages/user.css');
 
 @import url('./layout/header.css');
 @import url('./layout/footer.css');
@@ -16,3 +17,4 @@
 @import url('./components/filter-bar.css');
 @import url('./components/view-toggle.css');
 @import url('./components/task-card.css');
+@import url('./components/text-input.css');

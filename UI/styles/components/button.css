@@ -56,6 +56,58 @@
   background-image: url('../../assets/svg/delete-primary500.svg');
 }
 
+.close-btn {
+  background-image: url('../../assets/svg/cancel.svg');
+  background-position: center;
+  background-repeat: no-repeat;
+  border: none;
+  padding: 0;
+  width: 24px;
+  height: 24px;
+}
+
+.close-btn:hover {
+  background-image: url('../../assets/svg/cancel-primary500.svg');
+}
+
 .to-main-btn {
   width: 175px;
+}
+
+.cancel-btn {
+  color: var(--gray900);
+  min-width: 96px;
+}
+
+.save-btn {
+  min-width: 96px;
+}
+
+.icon-btn {
+  background-position: center;
+  background-repeat: no-repeat;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.avatar-btn-male {
+  background-image: url('../../assets/svg/man.svg');
+  background-size: 64px 64px;
+  width: 64px;
+  height: 64px;
+}
+
+.avatar-btn-male:hover {
+  background-image: url('../../assets/svg/man-primary500.svg');
+}
+
+.avatar-btn-female {
+  background-image: url('../../assets/svg/woman.svg');
+  background-size: 64px 64px;
+  width: 64px;
+  height: 64px;
+}
+
+.avatar-btn-female:hover {
+  background-image: url('../../assets/svg/woman-primary500.svg');
 }
