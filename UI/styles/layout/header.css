@@ -17,11 +17,6 @@
   background-repeat: no-repeat;
 }
 
-.logo {
-  display: flex;
-  align-items: center;
-}
-
 .nav {
   display: flex;
   align-items: center;
@@ -29,25 +24,15 @@
 }
 
 @media screen and (width <= 744px) {
-  .logo-img {
-    width: 179px;
-    height: 24px;
-  }
-
   .nav {
     gap: 8px;
   }
 }
 
-@media screen and (width <= 520px) {
-  .header {
-    flex-direction: column;
-    gap: 8px;
-  }
-
-  .logo-img {
-    width: 298px;
-    height: 40px;
+@media screen and (width <= 620px) {
+  .logo-link {
+    width: 98px;
+    background-image: url('../../assets/svg/logo-small.svg');
   }
 }
 
