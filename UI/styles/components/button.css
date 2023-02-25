@@ -28,6 +28,14 @@
   border-color: var(--primary500);
 }
 
+.logout-btn {
+  width: 40px;
+  height: 40px;
+  background-image: url('../../assets/svg/exit.svg');
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
 .edit-btn {
   background-image: url('../../assets/svg/edit.svg');
   background-position: center;
@@ -53,7 +61,7 @@
 }
 
 .delete-btn:hover {
-  background-image: url('../../assets/svg/delete-primary500.svg');
+  background-image: url('../../assets/svg/delete-red500.svg');
 }
 
 .close-btn {
@@ -71,7 +79,7 @@
 }
 
 .to-main-btn {
-  width: 175px;
+  /* width: 175px; */
 }
 
 .cancel-btn {
@@ -110,4 +118,11 @@
 
 .avatar-btn-female:hover {
   background-image: url('../../assets/svg/woman-primary500.svg');
+}
+
+.load-more-btn {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 16px;
 }
