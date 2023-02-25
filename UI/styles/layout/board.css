@@ -7,7 +7,7 @@
 }
 
 .column {
-  width: 30%;
+  width: 32%;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -17,6 +17,7 @@
   border-radius: 16px;
   padding: 16px 32px;
   overflow-y: auto;
+  overflow-x: hidden;
 }
 
 .task-list {
@@ -35,4 +36,23 @@
 .column::-webkit-scrollbar-track-piece:start {
   background: transparent;
   margin-top: 54px;
+}
+
+@media screen and (width <= 1280px) {
+  .column {
+    padding: 16px 8px;
+  }
+}
+
+@media screen and (width <= 520px) {
+  .board {
+    flex-direction: column;
+    height: auto;
+    gap: 16px;
+  }
+
+  .column {
+    width: 100%;
+    max-height: 90vh;
+  }
 }

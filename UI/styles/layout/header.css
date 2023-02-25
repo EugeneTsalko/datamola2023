@@ -7,10 +7,14 @@
   border-bottom: 1px solid var(--gray900);
 }
 
-.header a {
+.logo-link {
+  width: 298px;
   height: 40px;
   display: flex;
   align-items: center;
+  background-image: url('../../assets/svg/logo.svg');
+  background-position: center;
+  background-repeat: no-repeat;
 }
 
 .logo {

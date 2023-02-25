@@ -19,6 +19,10 @@
   display: grid;
   grid-template: 1fr 19px / 1fr 64px;
   gap: 8px;
+}
+
+.task-header h4 {
+  max-height: 58px;
   overflow: hidden;
 }
 
@@ -30,6 +34,8 @@
 
 .task-description {
   color: var(--gray900);
+  max-height: 136px;
+  overflow: hidden;
 }
 
 .task-footer {
@@ -90,4 +96,92 @@
 
 .high {
   color: var(--red500);
+}
+
+@media screen and (width <= 1080px) {
+  .task-card {
+    gap: 1rem;
+  }
+  .task-footer {
+    flex-direction: column-reverse;
+    gap: 4px;
+    align-items: flex-start;
+    border-top: 1px solid var(--gray900);
+    height: 52px;
+  }
+
+  .assignee-img {
+    display: none;
+  }
+
+  .task-assignee {
+    align-items: flex-start;
+    width: 100%;
+  }
+
+  .assignee-name {
+    max-width: 100%;
+  }
+
+  .task-info-container {
+    flex-direction: row;
+    gap: 8px;
+    align-items: center;
+    justify-content: flex-start;
+    height: 24px;
+    width: 100%;
+  }
+
+  .task-info {
+    align-items: center;
+  }
+
+  .task-comments {
+    display: none;
+  }
+
+  .task-time,
+  .task-date,
+  .task-status,
+  .task-privacy,
+  .task-comment-number {
+    font: var(--font-small);
+  }
+}
+
+@media screen and (width <= 834px) {
+  .task-buttons {
+    gap: 4px;
+  }
+
+  .task-footer {
+    display: none;
+  }
+
+  .task-header {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .task-buttons {
+    display: none;
+  }
+}
+
+@media screen and (width <= 520px) {
+  .task-header {
+    display: grid;
+  }
+
+  .task-buttons {
+    display: flex;
+  }
+
+  .task-footer {
+    display: flex;
+  }
+
+  .task-comments {
+    display: flex;
+  }
 }
