@@ -27,6 +27,11 @@
   background-position: center;
 }
 
+.table-btn.active {
+  background-image: url('../../assets/svg/table-primary500.svg');
+  border-color: var(--primary500);
+}
+
 @media screen and (width <= 744px) {
   .view-container {
     display: none;

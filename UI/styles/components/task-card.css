@@ -1,3 +1,5 @@
+/* kanban */
+
 .task-card {
   border: 1px solid var(--gray900);
   border-radius: 8px;
@@ -185,3 +187,80 @@
     display: flex;
   }
 }
+
+/* table */
+.table-task {
+  display: flex;
+  width: 100%;
+  border-radius: 0.5rem;
+  border: 1px solid var(--gray900);
+  background-color: var(--white);
+  /* align-items: center; */
+}
+
+.table-task-item {
+  display: flex;
+  flex-direction: column;
+  /* align-items: center; */
+  /* justify-content: center; */
+  padding: 4px 12px;
+  border-right: 1px solid var(--gray900);
+  font: var(--font-body-medium);
+  max-height: 64px;
+  overflow: hidden;
+}
+
+.table-task-item:last-child {
+  border-right: none;
+}
+
+.table-task-item-title {
+  width: 20%;
+}
+
+.table-task-item-description {
+  width: 30%;
+  flex-direction: row;
+  justify-content: space-between;
+  /* align-items: center; */
+  gap: 8px;
+}
+
+.table-task-comments {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.table-task-item-date,
+.table-task-item-assignee,
+.table-task-item-privacy,
+.table-task-item-priority {
+  width: 9%;
+  align-items: center;
+  justify-content: center;
+}
+
+.table-task-item-assignee span {
+  display: block;
+  max-width: 100%;
+}
+.table-assignee-img {
+  width: 40px;
+  height: 40px;
+}
+
+.table-task-item-status {
+  width: 14%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.table-task-buttons {
+  display: flex;
+  gap: 8px;
+}
+
+/*  */
