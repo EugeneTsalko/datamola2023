@@ -1,0 +1,24 @@
+:root {
+  --white: #ffffff;
+  --white-09: #ffffffe6;
+  --white-04: #ffffff66;
+  --black: #333333;
+  --black-02: #33333333;
+  --primary600: #0a74ff;
+  --primary500: #3990ff;
+  --primary400: #6babff;
+  --primary50: #d0e4ff;
+
+  --gray900: #7e7e7e;
+  --gray500: #f2f2f2;
+  --green900: #48a477;
+  --red500: #b3261e;
+
+  --font-btn: 600 1rem/1.5rem 'Roboto';
+  --font-small: 0.75rem/1rem 'Roboto';
+  --font-body-large: 1rem/1.5rem 'Roboto';
+  --font-body-medium: 0.875rem/1.25rem 'Roboto';
+  --font-title: 600 1.375rem/1.75rem 'Roboto';
+
+  --transition: ease-in-out 0.3s;
+}

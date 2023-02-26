@@ -1,0 +1,1327 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/x-icon" href="./assets/favicon.ico" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./styles/style.css" />
+    <title>TrelloMola by EugeneTsalko</title>
+  </head>
+  <body>
+    <div class="overlay"></div>
+    <header class="header">
+      <a href="main.html" class="logo-link"></a>
+      <nav class="nav">
+        <a href="user.html">
+          <button class="btn secondary-btn icon-btn profile-btn"></button>
+        </a>
+        <button class="btn logout-btn"></button>
+      </nav>
+    </header>
+
+    <main class="main">
+      <div class="menu">
+        <button class="btn secondary-btn add-task-btn">
+          <img src="./assets/svg/add.svg" alt="add" />
+          <span>ADD TASK</span>
+        </button>
+        <nav>
+          <div class="filter-container">
+            <button class="btn secondary-btn icon-btn filter-btn"></button>
+            <!-- Чекбоксы снизу сделаны как заглушки, будут работать с JS -->
+            <div class="filter-bar">
+              <div class="checkbox-dropdown">
+                <span>Assignee</span>
+              </div>
+              <div class="checkbox-dropdown">
+                <span>Date</span>
+              </div>
+              <div class="checkbox-dropdown">
+                <span>Privacy</span>
+              </div>
+              <div class="checkbox-dropdown">
+                <span>Priority</span>
+              </div>
+            </div>
+            <form class="search-form">
+              <input type="text" class="search" placeholder="Search..." />
+              <button type="submit" class="search-btn"></button>
+            </form>
+          </div>
+          <div class="view-container">
+            <span>View:</span>
+            <button class="btn secondary-btn kanban-btn active"></button>
+            <button class="btn secondary-btn table-btn"></button>
+          </div>
+        </nav>
+      </div>
+      <section class="board">
+        <div class="column">
+          <h3>TO DO</h3>
+          <ul class="task-list">
+            <li>
+              <div class="task-card">
+                <div class="task-header">
+                  <h4>Short task name</h4>
+                  <div class="task-buttons">
+                    <button class="btn secondary-btn edit-btn"></button>
+                    <button class="btn secondary-btn delete-btn"></button>
+                  </div>
+                  <div class="task-priority low">Low</div>
+                </div>
+                <div class="task-description">Short task description.</div>
+                <div class="task-footer">
+                  <div class="task-info-container">
+                    <div class="task-date-container">
+                      <span class="task-time">12:00</span>
+                      <span class="task-date">Feb 15</span>
+                    </div>
+                    <div class="task-info">
+                      <span class="task-status">To Do</span>
+                      <span class="task-privacy">Public</span>
+                      <div class="task-comments">
+                        <img src="./assets/svg/comment.svg" alt="comment" />
+                        <span class="task-comment-number">42</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="task-assignee">
+                    <span class="assignee-name">Tom</span>
+                    <img
+                      class="assignee-img"
+                      src="./assets/png/user-img-3.png"
+                      alt="assignee image"
+                    />
+                  </div>
+                </div>
+              </div>
+            </li>
+            <li>
+              <div class="task-card">
+                <div class="task-header">
+                  <h4>
+                    This text contains 100 symbols. Lorem ipsum dolor sit amet consectetur
+                    adipisicin?
+                  </h4>
+                  <div class="task-buttons">
+                    <button class="btn secondary-btn edit-btn"></button>
+                    <button class="btn secondary-btn delete-btn"></button>
+                  </div>
+                  <span class="task-priority medium">Medium</span>
+                </div>
+                <div class="task-description">
+                  This description contains 280 symbols. Lorem ipsum dolor sit amet consectetur
+                  adipisicing elit. Veniam voluptatum minus neque perspiciatis natus beatae magnam
+                  mollitia pariatur. Libero deserunt consectetur quam voluptatibus debitis illum
+                  error maiores perspicia?
+                </div>
+                <div class="task-footer">
+                  <div class="task-info-container">
+                    <div class="task-date-container">
+                      <span class="task-time">12:00</span>
+                      <span class="task-date">Feb 15</span>
+                    </div>
+                    <div class="task-info">
+                      <span class="task-status">To Do</span>
+                      <span class="task-privacy">Public</span>
+                      <div class="task-comments">
+                        <img src="./assets/svg/comment.svg" alt="comment" />
+                        <span class="task-comment-number">3</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="task-assignee">
+                    <span class="assignee-name">Longestname100charsontaskpage</span>
+                    <img
+                      class="assignee-img"
+                      src="./assets/png/user-img-5.png"
+                      alt="assignee image"
+                    />
+                  </div>
+                </div>
+              </div>
+            </li>
+            <li>
+              <div class="task-card">
+                <div class="task-header">
+                  <h4>Regular task title. To do somethig.</h4>
+                  <div class="task-buttons">
+                    <button class="btn secondary-btn edit-btn"></button>
+                    <button class="btn secondary-btn delete-btn"></button>
+                  </div>
+                  <div class="task-priority high">High</div>
+                </div>
+                <div class="task-description">
+                  Regular task desciption for regular task. Lorem ipsum dolor sit amet consectetur
+                  adipisicing elit.
+                </div>
+                <div class="task-footer">
+                  <div class="task-info-container">
+                    <div class="task-date-container">
+                      <span class="task-time">12:00</span>
+                      <span class="task-date">Feb 15</span>
+                    </div>
+                    <div class="task-info">
+                      <span class="task-status">To Do</span>
+                      <span class="task-privacy">Public</span>
+                      <div class="task-comments">
+                        <img src="./assets/svg/comment.svg" alt="comment" />
+                        <span class="task-comment-number">3</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="task-assignee">
+                    <span class="assignee-name">Regularname</span>
+                    <img
+                      class="assignee-img"
+                      src="./assets/png/user-img-4.png"
+                      alt="assignee image"
+                    />
+                  </div>
+                </div>
+              </div>
+            </li>
+            <li>
+              <div class="task-card">
+                <div class="task-header">
+                  <h4>Short task name</h4>
+                  <div class="task-buttons">
+                    <button class="btn secondary-btn edit-btn"></button>
+                    <button class="btn secondary-btn delete-btn"></button>
+                  </div>
+                  <div class="task-priority low">Low</div>
+                </div>
+                <div class="task-description">Short task description.</div>
+                <div class="task-footer">
+                  <div class="task-info-container">
+                    <div class="task-date-container">
+                      <span class="task-time">12:00</span>
+                      <span class="task-date">Feb 15</span>
+                    </div>
+                    <div class="task-info">
+                      <span class="task-status">To Do</span>
+                      <span class="task-privacy">Public</span>
+                      <div class="task-comments">
+                        <img src="./assets/svg/comment.svg" alt="comment" />
+                        <span class="task-comment-number">42</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="task-assignee">
+                    <span class="assignee-name">Tom</span>
+                    <img
+                      class="assignee-img"
+                      src="./assets/png/user-img-3.png"
+                      alt="assignee image"
+                    />
+                  </div>
+                </div>
+              </div>
+            </li>
+            <li>
+              <div class="task-card">
+                <div class="task-header">
+                  <h4>
+                    This text contains 100 symbols. Lorem ipsum dolor sit amet consectetur
+                    adipisicin?
+                  </h4>
+                  <div class="task-buttons">
+                    <button class="btn secondary-btn edit-btn"></button>
+                    <button class="btn secondary-btn delete-btn"></button>
+                  </div>
+                  <span class="task-priority medium">Medium</span>
+                </div>
+                <div class="task-description">
+                  This description contains 280 symbols. Lorem ipsum dolor sit amet consectetur
+                  adipisicing elit. Veniam voluptatum minus neque perspiciatis natus beatae magnam
+                  mollitia pariatur. Libero deserunt consectetur quam voluptatibus debitis illum
+                  error maiores perspicia?
+                </div>
+                <div class="task-footer">
+                  <div class="task-info-container">
+                    <div class="task-date-container">
+                      <span class="task-time">12:00</span>
+                      <span class="task-date">Feb 15</span>
+                    </div>
+                    <div class="task-info">
+                      <span class="task-status">To Do</span>
+                      <span class="task-privacy">Public</span>
+                      <div class="task-comments">
+                        <img src="./assets/svg/comment.svg" alt="comment" />
+                        <span class="task-comment-number">3</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="task-assignee">
+                    <span class="assignee-name">Longestname100charsontaskpage</span>
+                    <img
+                      class="assignee-img"
+                      src="./assets/png/user-img-5.png"
+                      alt="assignee image"
+                    />
+                  </div>
+                </div>
+              </div>
+            </li>
+            <li>
+              <div class="task-card">
+                <div class="task-header">
+                  <h4>Regular task title. To do somethig.</h4>
+                  <div class="task-buttons">
+                    <button class="btn secondary-btn edit-btn"></button>
+                    <button class="btn secondary-btn delete-btn"></button>
+                  </div>
+                  <div class="task-priority high">High</div>
+                </div>
+                <div class="task-description">
+                  Regular task desciption for regular task. Lorem ipsum dolor sit amet consectetur
+                  adipisicing elit.
+                </div>
+                <div class="task-footer">
+                  <div class="task-info-container">
+                    <div class="task-date-container">
+                      <span class="task-time">12:00</span>
+                      <span class="task-date">Feb 15</span>
+                    </div>
+                    <div class="task-info">
+                      <span class="task-status">To Do</span>
+                      <span class="task-privacy">Public</span>
+                      <div class="task-comments">
+                        <img src="./assets/svg/comment.svg" alt="comment" />
+                        <span class="task-comment-number">3</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="task-assignee">
+                    <span class="assignee-name">Regularname</span>
+                    <img
+                      class="assignee-img"
+                      src="./assets/png/user-img-4.png"
+                      alt="assignee image"
+                    />
+                  </div>
+                </div>
+              </div>
+            </li>
+            <li>
+              <div class="task-card">
+                <div class="task-header">
+                  <h4>Short task name</h4>
+                  <div class="task-buttons">
+                    <button class="btn secondary-btn edit-btn"></button>
+                    <button class="btn secondary-btn delete-btn"></button>
+                  </div>
+                  <div class="task-priority low">Low</div>
+                </div>
+                <div class="task-description">Short task description.</div>
+                <div class="task-footer">
+                  <div class="task-info-container">
+                    <div class="task-date-container">
+                      <span class="task-time">12:00</span>
+                      <span class="task-date">Feb 15</span>
+                    </div>
+                    <div class="task-info">
+                      <span class="task-status">To Do</span>
+                      <span class="task-privacy">Public</span>
+                      <div class="task-comments">
+                        <img src="./assets/svg/comment.svg" alt="comment" />
+                        <span class="task-comment-number">42</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="task-assignee">
+                    <span class="assignee-name">Tom</span>
+                    <img
+                      class="assignee-img"
+                      src="./assets/png/user-img-3.png"
+                      alt="assignee image"
+                    />
+                  </div>
+                </div>
+              </div>
+            </li>
+            <li>
+              <div class="task-card">
+                <div class="task-header">
+                  <h4>
+                    This text contains 100 symbols. Lorem ipsum dolor sit amet consectetur
+                    adipisicin?
+                  </h4>
+                  <div class="task-buttons">
+                    <button class="btn secondary-btn edit-btn"></button>
+                    <button class="btn secondary-btn delete-btn"></button>
+                  </div>
+                  <span class="task-priority medium">Medium</span>
+                </div>
+                <div class="task-description">
+                  This description contains 280 symbols. Lorem ipsum dolor sit amet consectetur
+                  adipisicing elit. Veniam voluptatum minus neque perspiciatis natus beatae magnam
+                  mollitia pariatur. Libero deserunt consectetur quam voluptatibus debitis illum
+                  error maiores perspicia?
+                </div>
+                <div class="task-footer">
+                  <div class="task-info-container">
+                    <div class="task-date-container">
+                      <span class="task-time">12:00</span>
+                      <span class="task-date">Feb 15</span>
+                    </div>
+                    <div class="task-info">
+                      <span class="task-status">To Do</span>
+                      <span class="task-privacy">Public</span>
+                      <div class="task-comments">
+                        <img src="./assets/svg/comment.svg" alt="comment" />
+                        <span class="task-comment-number">3</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="task-assignee">
+                    <span class="assignee-name">Longestname100charsontaskpage</span>
+                    <img
+                      class="assignee-img"
+                      src="./assets/png/user-img-5.png"
+                      alt="assignee image"
+                    />
+                  </div>
+                </div>
+              </div>
+            </li>
+            <li>
+              <div class="task-card">
+                <div class="task-header">
+                  <h4>Regular task title. To do somethig.</h4>
+                  <div class="task-buttons">
+                    <button class="btn secondary-btn edit-btn"></button>
+                    <button class="btn secondary-btn delete-btn"></button>
+                  </div>
+                  <div class="task-priority high">High</div>
+                </div>
+                <div class="task-description">
+                  Regular task desciption for regular task. Lorem ipsum dolor sit amet consectetur
+                  adipisicing elit.
+                </div>
+                <div class="task-footer">
+                  <div class="task-info-container">
+                    <div class="task-date-container">
+                      <span class="task-time">12:00</span>
+                      <span class="task-date">Feb 15</span>
+                    </div>
+                    <div class="task-info">
+                      <span class="task-status">To Do</span>
+                      <span class="task-privacy">Public</span>
+                      <div class="task-comments">
+                        <img src="./assets/svg/comment.svg" alt="comment" />
+                        <span class="task-comment-number">3</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="task-assignee">
+                    <span class="assignee-name">Regularname</span>
+                    <img
+                      class="assignee-img"
+                      src="./assets/png/user-img-4.png"
+                      alt="assignee image"
+                    />
+                  </div>
+                </div>
+              </div>
+            </li>
+            <li>
+              <div class="task-card">
+                <div class="task-header">
+                  <h4>Short task name</h4>
+                  <div class="task-buttons">
+                    <button class="btn secondary-btn edit-btn"></button>
+                    <button class="btn secondary-btn delete-btn"></button>
+                  </div>
+                  <div class="task-priority low">Low</div>
+                </div>
+                <div class="task-description">Short task description.</div>
+                <div class="task-footer">
+                  <div class="task-info-container">
+                    <div class="task-date-container">
+                      <span class="task-time">12:00</span>
+                      <span class="task-date">Feb 15</span>
+                    </div>
+                    <div class="task-info">
+                      <span class="task-status">To Do</span>
+                      <span class="task-privacy">Public</span>
+                      <div class="task-comments">
+                        <img src="./assets/svg/comment.svg" alt="comment" />
+                        <span class="task-comment-number">42</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="task-assignee">
+                    <span class="assignee-name">Tom</span>
+                    <img
+                      class="assignee-img"
+                      src="./assets/png/user-img-3.png"
+                      alt="assignee image"
+                    />
+                  </div>
+                </div>
+              </div>
+            </li>
+            <li>
+              <button class="btn secondary-btn load-more-btn">
+                <img src="./assets/svg/refresh.svg" alt="refresh" />
+                <span>Load more</span>
+              </button>
+            </li>
+          </ul>
+        </div>
+        <div class="column">
+          <h3>IN PROGRESS</h3>
+          <ul class="task-list">
+            <li>
+              <div class="task-card">
+                <div class="task-header">
+                  <h4>Short task name</h4>
+                  <div class="task-buttons">
+                    <button class="btn secondary-btn edit-btn"></button>
+                    <button class="btn secondary-btn delete-btn"></button>
+                  </div>
+                  <div class="task-priority low">Low</div>
+                </div>
+                <div class="task-description">Short task description.</div>
+                <div class="task-footer">
+                  <div class="task-info-container">
+                    <div class="task-date-container">
+                      <span class="task-time">12:00</span>
+                      <span class="task-date">Feb 15</span>
+                    </div>
+                    <div class="task-info">
+                      <span class="task-status">In Progress</span>
+                      <span class="task-privacy">Private</span>
+                      <div class="task-comments">
+                        <img src="./assets/svg/comment.svg" alt="comment" />
+                        <span class="task-comment-number">42</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="task-assignee">
+                    <span class="assignee-name">Tom</span>
+                    <img
+                      class="assignee-img"
+                      src="./assets/png/user-img-3.png"
+                      alt="assignee image"
+                    />
+                  </div>
+                </div>
+              </div>
+            </li>
+            <li>
+              <div class="task-card">
+                <div class="task-header">
+                  <h4>
+                    This text contains 100 symbols. Lorem ipsum dolor sit amet consectetur
+                    adipisicin?
+                  </h4>
+                  <div class="task-buttons">
+                    <button class="btn secondary-btn edit-btn"></button>
+                    <button class="btn secondary-btn delete-btn"></button>
+                  </div>
+                  <span class="task-priority medium">Medium</span>
+                </div>
+                <div class="task-description">
+                  This description contains 280 symbols. Lorem ipsum dolor sit amet consectetur
+                  adipisicing elit. Veniam voluptatum minus neque perspiciatis natus beatae magnam
+                  mollitia pariatur. Libero deserunt consectetur quam voluptatibus debitis illum
+                  error maiores perspicia?
+                </div>
+                <div class="task-footer">
+                  <div class="task-info-container">
+                    <div class="task-date-container">
+                      <span class="task-time">12:00</span>
+                      <span class="task-date">Feb 15</span>
+                    </div>
+                    <div class="task-info">
+                      <span class="task-status">In Progress</span>
+                      <span class="task-privacy">Public</span>
+                      <div class="task-comments">
+                        <img src="./assets/svg/comment.svg" alt="comment" />
+                        <span class="task-comment-number">3</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="task-assignee">
+                    <span class="assignee-name">Longestname100charsontaskpage</span>
+                    <img
+                      class="assignee-img"
+                      src="./assets/png/user-img-5.png"
+                      alt="assignee image"
+                    />
+                  </div>
+                </div>
+              </div>
+            </li>
+            <li>
+              <div class="task-card">
+                <div class="task-header">
+                  <h4>Regular task title. To do somethig.</h4>
+                  <div class="task-buttons">
+                    <button class="btn secondary-btn edit-btn"></button>
+                    <button class="btn secondary-btn delete-btn"></button>
+                  </div>
+                  <div class="task-priority high">High</div>
+                </div>
+                <div class="task-description">
+                  Regular task desciption for regular task. Lorem ipsum dolor sit amet consectetur
+                  adipisicing elit.
+                </div>
+                <div class="task-footer">
+                  <div class="task-info-container">
+                    <div class="task-date-container">
+                      <span class="task-time">12:00</span>
+                      <span class="task-date">Feb 15</span>
+                    </div>
+                    <div class="task-info">
+                      <span class="task-status">In Progress</span>
+                      <span class="task-privacy">Public</span>
+                      <div class="task-comments">
+                        <img src="./assets/svg/comment.svg" alt="comment" />
+                        <span class="task-comment-number">3</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="task-assignee">
+                    <span class="assignee-name">Regularname</span>
+                    <img
+                      class="assignee-img"
+                      src="./assets/png/user-img-4.png"
+                      alt="assignee image"
+                    />
+                  </div>
+                </div>
+              </div>
+            </li>
+            <li>
+              <div class="task-card">
+                <div class="task-header">
+                  <h4>Short task name</h4>
+                  <div class="task-buttons">
+                    <button class="btn secondary-btn edit-btn"></button>
+                    <button class="btn secondary-btn delete-btn"></button>
+                  </div>
+                  <div class="task-priority low">Low</div>
+                </div>
+                <div class="task-description">Short task description.</div>
+                <div class="task-footer">
+                  <div class="task-info-container">
+                    <div class="task-date-container">
+                      <span class="task-time">12:00</span>
+                      <span class="task-date">Feb 15</span>
+                    </div>
+                    <div class="task-info">
+                      <span class="task-status">In Progress</span>
+                      <span class="task-privacy">Public</span>
+                      <div class="task-comments">
+                        <img src="./assets/svg/comment.svg" alt="comment" />
+                        <span class="task-comment-number">42</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="task-assignee">
+                    <span class="assignee-name">Tom</span>
+                    <img
+                      class="assignee-img"
+                      src="./assets/png/user-img-3.png"
+                      alt="assignee image"
+                    />
+                  </div>
+                </div>
+              </div>
+            </li>
+            <li>
+              <div class="task-card">
+                <div class="task-header">
+                  <h4>
+                    This text contains 100 symbols. Lorem ipsum dolor sit amet consectetur
+                    adipisicin?
+                  </h4>
+                  <div class="task-buttons">
+                    <button class="btn secondary-btn edit-btn"></button>
+                    <button class="btn secondary-btn delete-btn"></button>
+                  </div>
+                  <span class="task-priority medium">Medium</span>
+                </div>
+                <div class="task-description">
+                  This description contains 280 symbols. Lorem ipsum dolor sit amet consectetur
+                  adipisicing elit. Veniam voluptatum minus neque perspiciatis natus beatae magnam
+                  mollitia pariatur. Libero deserunt consectetur quam voluptatibus debitis illum
+                  error maiores perspicia?
+                </div>
+                <div class="task-footer">
+                  <div class="task-info-container">
+                    <div class="task-date-container">
+                      <span class="task-time">12:00</span>
+                      <span class="task-date">Feb 15</span>
+                    </div>
+                    <div class="task-info">
+                      <span class="task-status">In Progress</span>
+                      <span class="task-privacy">Public</span>
+                      <div class="task-comments">
+                        <img src="./assets/svg/comment.svg" alt="comment" />
+                        <span class="task-comment-number">3</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="task-assignee">
+                    <span class="assignee-name">Longestname100charsontaskpage</span>
+                    <img
+                      class="assignee-img"
+                      src="./assets/png/user-img-5.png"
+                      alt="assignee image"
+                    />
+                  </div>
+                </div>
+              </div>
+            </li>
+            <li>
+              <div class="task-card">
+                <div class="task-header">
+                  <h4>Regular task title. To do somethig.</h4>
+                  <div class="task-buttons">
+                    <button class="btn secondary-btn edit-btn"></button>
+                    <button class="btn secondary-btn delete-btn"></button>
+                  </div>
+                  <div class="task-priority high">High</div>
+                </div>
+                <div class="task-description">
+                  Regular task desciption for regular task. Lorem ipsum dolor sit amet consectetur
+                  adipisicing elit.
+                </div>
+                <div class="task-footer">
+                  <div class="task-info-container">
+                    <div class="task-date-container">
+                      <span class="task-time">12:00</span>
+                      <span class="task-date">Feb 15</span>
+                    </div>
+                    <div class="task-info">
+                      <span class="task-status">In Progress</span>
+                      <span class="task-privacy">Public</span>
+                      <div class="task-comments">
+                        <img src="./assets/svg/comment.svg" alt="comment" />
+                        <span class="task-comment-number">3</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="task-assignee">
+                    <span class="assignee-name">Regularname</span>
+                    <img
+                      class="assignee-img"
+                      src="./assets/png/user-img-4.png"
+                      alt="assignee image"
+                    />
+                  </div>
+                </div>
+              </div>
+            </li>
+            <li>
+              <div class="task-card">
+                <div class="task-header">
+                  <h4>Short task name</h4>
+                  <div class="task-buttons">
+                    <button class="btn secondary-btn edit-btn"></button>
+                    <button class="btn secondary-btn delete-btn"></button>
+                  </div>
+                  <div class="task-priority low">Low</div>
+                </div>
+                <div class="task-description">Short task description.</div>
+                <div class="task-footer">
+                  <div class="task-info-container">
+                    <div class="task-date-container">
+                      <span class="task-time">12:00</span>
+                      <span class="task-date">Feb 15</span>
+                    </div>
+                    <div class="task-info">
+                      <span class="task-status">In Progress</span>
+                      <span class="task-privacy">Public</span>
+                      <div class="task-comments">
+                        <img src="./assets/svg/comment.svg" alt="comment" />
+                        <span class="task-comment-number">42</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="task-assignee">
+                    <span class="assignee-name">Tom</span>
+                    <img
+                      class="assignee-img"
+                      src="./assets/png/user-img-3.png"
+                      alt="assignee image"
+                    />
+                  </div>
+                </div>
+              </div>
+            </li>
+            <li>
+              <div class="task-card">
+                <div class="task-header">
+                  <h4>
+                    This text contains 100 symbols. Lorem ipsum dolor sit amet consectetur
+                    adipisicin?
+                  </h4>
+                  <div class="task-buttons">
+                    <button class="btn secondary-btn edit-btn"></button>
+                    <button class="btn secondary-btn delete-btn"></button>
+                  </div>
+                  <span class="task-priority medium">Medium</span>
+                </div>
+                <div class="task-description">
+                  This description contains 280 symbols. Lorem ipsum dolor sit amet consectetur
+                  adipisicing elit. Veniam voluptatum minus neque perspiciatis natus beatae magnam
+                  mollitia pariatur. Libero deserunt consectetur quam voluptatibus debitis illum
+                  error maiores perspicia?
+                </div>
+                <div class="task-footer">
+                  <div class="task-info-container">
+                    <div class="task-date-container">
+                      <span class="task-time">12:00</span>
+                      <span class="task-date">Feb 15</span>
+                    </div>
+                    <div class="task-info">
+                      <span class="task-status">In Progress</span>
+                      <span class="task-privacy">Public</span>
+                      <div class="task-comments">
+                        <img src="./assets/svg/comment.svg" alt="comment" />
+                        <span class="task-comment-number">3</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="task-assignee">
+                    <span class="assignee-name">Longestname100charsontaskpage</span>
+                    <img
+                      class="assignee-img"
+                      src="./assets/png/user-img-5.png"
+                      alt="assignee image"
+                    />
+                  </div>
+                </div>
+              </div>
+            </li>
+            <li>
+              <div class="task-card">
+                <div class="task-header">
+                  <h4>Regular task title. To do somethig.</h4>
+                  <div class="task-buttons">
+                    <button class="btn secondary-btn edit-btn"></button>
+                    <button class="btn secondary-btn delete-btn"></button>
+                  </div>
+                  <div class="task-priority high">High</div>
+                </div>
+                <div class="task-description">
+                  Regular task desciption for regular task. Lorem ipsum dolor sit amet consectetur
+                  adipisicing elit.
+                </div>
+                <div class="task-footer">
+                  <div class="task-info-container">
+                    <div class="task-date-container">
+                      <span class="task-time">12:00</span>
+                      <span class="task-date">Feb 15</span>
+                    </div>
+                    <div class="task-info">
+                      <span class="task-status">In Progress</span>
+                      <span class="task-privacy">Public</span>
+                      <div class="task-comments">
+                        <img src="./assets/svg/comment.svg" alt="comment" />
+                        <span class="task-comment-number">3</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="task-assignee">
+                    <span class="assignee-name">Regularname</span>
+                    <img
+                      class="assignee-img"
+                      src="./assets/png/user-img-4.png"
+                      alt="assignee image"
+                    />
+                  </div>
+                </div>
+              </div>
+            </li>
+            <li>
+              <div class="task-card">
+                <div class="task-header">
+                  <h4>Short task name</h4>
+                  <div class="task-buttons">
+                    <button class="btn secondary-btn edit-btn"></button>
+                    <button class="btn secondary-btn delete-btn"></button>
+                  </div>
+                  <div class="task-priority low">Low</div>
+                </div>
+                <div class="task-description">Short task description.</div>
+                <div class="task-footer">
+                  <div class="task-info-container">
+                    <div class="task-date-container">
+                      <span class="task-time">12:00</span>
+                      <span class="task-date">Feb 15</span>
+                    </div>
+                    <div class="task-info">
+                      <span class="task-status">In Progress</span>
+                      <span class="task-privacy">Public</span>
+                      <div class="task-comments">
+                        <img src="./assets/svg/comment.svg" alt="comment" />
+                        <span class="task-comment-number">42</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="task-assignee">
+                    <span class="assignee-name">Tom</span>
+                    <img
+                      class="assignee-img"
+                      src="./assets/png/user-img-3.png"
+                      alt="assignee image"
+                    />
+                  </div>
+                </div>
+              </div>
+            </li>
+            <li>
+              <button class="btn secondary-btn load-more-btn">
+                <img src="./assets/svg/refresh.svg" alt="refresh" />
+                <span>Load more</span>
+              </button>
+            </li>
+          </ul>
+        </div>
+        <div class="column">
+          <h3>COMPLETE</h3>
+          <ul class="task-list">
+            <li>
+              <div class="task-card">
+                <div class="task-header">
+                  <h4>Short task name</h4>
+                  <div class="task-buttons">
+                    <button class="btn secondary-btn edit-btn"></button>
+                    <button class="btn secondary-btn delete-btn"></button>
+                  </div>
+                  <div class="task-priority low">Low</div>
+                </div>
+                <div class="task-description">Short task description.</div>
+                <div class="task-footer">
+                  <div class="task-info-container">
+                    <div class="task-date-container">
+                      <span class="task-time">12:00</span>
+                      <span class="task-date">Feb 15</span>
+                    </div>
+                    <div class="task-info">
+                      <span class="task-status">Complete</span>
+                      <span class="task-privacy">Public</span>
+                      <div class="task-comments">
+                        <img src="./assets/svg/comment.svg" alt="comment" />
+                        <span class="task-comment-number">42</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="task-assignee">
+                    <span class="assignee-name">Tom</span>
+                    <img
+                      class="assignee-img"
+                      src="./assets/png/user-img-3.png"
+                      alt="assignee image"
+                    />
+                  </div>
+                </div>
+              </div>
+            </li>
+            <li>
+              <div class="task-card">
+                <div class="task-header">
+                  <h4>
+                    This text contains 100 symbols. Lorem ipsum dolor sit amet consectetur
+                    adipisicin?
+                  </h4>
+                  <div class="task-buttons">
+                    <button class="btn secondary-btn edit-btn"></button>
+                    <button class="btn secondary-btn delete-btn"></button>
+                  </div>
+                  <span class="task-priority medium">Medium</span>
+                </div>
+                <div class="task-description">
+                  This description contains 280 symbols. Lorem ipsum dolor sit amet consectetur
+                  adipisicing elit. Veniam voluptatum minus neque perspiciatis natus beatae magnam
+                  mollitia pariatur. Libero deserunt consectetur quam voluptatibus debitis illum
+                  error maiores perspicia?
+                </div>
+                <div class="task-footer">
+                  <div class="task-info-container">
+                    <div class="task-date-container">
+                      <span class="task-time">12:00</span>
+                      <span class="task-date">Feb 15</span>
+                    </div>
+                    <div class="task-info">
+                      <span class="task-status">Complete</span>
+                      <span class="task-privacy">Public</span>
+                      <div class="task-comments">
+                        <img src="./assets/svg/comment.svg" alt="comment" />
+                        <span class="task-comment-number">3</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="task-assignee">
+                    <span class="assignee-name">Longestname100charsontaskpage</span>
+                    <img
+                      class="assignee-img"
+                      src="./assets/png/user-img-5.png"
+                      alt="assignee image"
+                    />
+                  </div>
+                </div>
+              </div>
+            </li>
+            <li>
+              <div class="task-card">
+                <div class="task-header">
+                  <h4>Regular task title. To do somethig.</h4>
+                  <div class="task-buttons">
+                    <button class="btn secondary-btn edit-btn"></button>
+                    <button class="btn secondary-btn delete-btn"></button>
+                  </div>
+                  <div class="task-priority high">High</div>
+                </div>
+                <div class="task-description">
+                  Regular task desciption for regular task. Lorem ipsum dolor sit amet consectetur
+                  adipisicing elit.
+                </div>
+                <div class="task-footer">
+                  <div class="task-info-container">
+                    <div class="task-date-container">
+                      <span class="task-time">12:00</span>
+                      <span class="task-date">Feb 15</span>
+                    </div>
+                    <div class="task-info">
+                      <span class="task-status">Complete</span>
+                      <span class="task-privacy">Public</span>
+                      <div class="task-comments">
+                        <img src="./assets/svg/comment.svg" alt="comment" />
+                        <span class="task-comment-number">3</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="task-assignee">
+                    <span class="assignee-name">Regularname</span>
+                    <img
+                      class="assignee-img"
+                      src="./assets/png/user-img-4.png"
+                      alt="assignee image"
+                    />
+                  </div>
+                </div>
+              </div>
+            </li>
+            <li>
+              <div class="task-card">
+                <div class="task-header">
+                  <h4>Short task name</h4>
+                  <div class="task-buttons">
+                    <button class="btn secondary-btn edit-btn"></button>
+                    <button class="btn secondary-btn delete-btn"></button>
+                  </div>
+                  <div class="task-priority low">Low</div>
+                </div>
+                <div class="task-description">Short task description.</div>
+                <div class="task-footer">
+                  <div class="task-info-container">
+                    <div class="task-date-container">
+                      <span class="task-time">12:00</span>
+                      <span class="task-date">Feb 15</span>
+                    </div>
+                    <div class="task-info">
+                      <span class="task-status">Complete</span>
+                      <span class="task-privacy">Public</span>
+                      <div class="task-comments">
+                        <img src="./assets/svg/comment.svg" alt="comment" />
+                        <span class="task-comment-number">42</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="task-assignee">
+                    <span class="assignee-name">Tom</span>
+                    <img
+                      class="assignee-img"
+                      src="./assets/png/user-img-3.png"
+                      alt="assignee image"
+                    />
+                  </div>
+                </div>
+              </div>
+            </li>
+            <li>
+              <div class="task-card">
+                <div class="task-header">
+                  <h4>
+                    This text contains 100 symbols. Lorem ipsum dolor sit amet consectetur
+                    adipisicin?
+                  </h4>
+                  <div class="task-buttons">
+                    <button class="btn secondary-btn edit-btn"></button>
+                    <button class="btn secondary-btn delete-btn"></button>
+                  </div>
+                  <span class="task-priority medium">Medium</span>
+                </div>
+                <div class="task-description">
+                  This description contains 280 symbols. Lorem ipsum dolor sit amet consectetur
+                  adipisicing elit. Veniam voluptatum minus neque perspiciatis natus beatae magnam
+                  mollitia pariatur. Libero deserunt consectetur quam voluptatibus debitis illum
+                  error maiores perspicia?
+                </div>
+                <div class="task-footer">
+                  <div class="task-info-container">
+                    <div class="task-date-container">
+                      <span class="task-time">12:00</span>
+                      <span class="task-date">Feb 15</span>
+                    </div>
+                    <div class="task-info">
+                      <span class="task-status">Complete</span>
+                      <span class="task-privacy">Public</span>
+                      <div class="task-comments">
+                        <img src="./assets/svg/comment.svg" alt="comment" />
+                        <span class="task-comment-number">3</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="task-assignee">
+                    <span class="assignee-name">Longestname100charsontaskpage</span>
+                    <img
+                      class="assignee-img"
+                      src="./assets/png/user-img-5.png"
+                      alt="assignee image"
+                    />
+                  </div>
+                </div>
+              </div>
+            </li>
+            <li>
+              <div class="task-card">
+                <div class="task-header">
+                  <h4>Regular task title. To do somethig.</h4>
+                  <div class="task-buttons">
+                    <button class="btn secondary-btn edit-btn"></button>
+                    <button class="btn secondary-btn delete-btn"></button>
+                  </div>
+                  <div class="task-priority high">High</div>
+                </div>
+                <div class="task-description">
+                  Regular task desciption for regular task. Lorem ipsum dolor sit amet consectetur
+                  adipisicing elit.
+                </div>
+                <div class="task-footer">
+                  <div class="task-info-container">
+                    <div class="task-date-container">
+                      <span class="task-time">12:00</span>
+                      <span class="task-date">Feb 15</span>
+                    </div>
+                    <div class="task-info">
+                      <span class="task-status">Complete</span>
+                      <span class="task-privacy">Public</span>
+                      <div class="task-comments">
+                        <img src="./assets/svg/comment.svg" alt="comment" />
+                        <span class="task-comment-number">3</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="task-assignee">
+                    <span class="assignee-name">Regularname</span>
+                    <img
+                      class="assignee-img"
+                      src="./assets/png/user-img-4.png"
+                      alt="assignee image"
+                    />
+                  </div>
+                </div>
+              </div>
+            </li>
+            <li>
+              <div class="task-card">
+                <div class="task-header">
+                  <h4>Short task name</h4>
+                  <div class="task-buttons">
+                    <button class="btn secondary-btn edit-btn"></button>
+                    <button class="btn secondary-btn delete-btn"></button>
+                  </div>
+                  <div class="task-priority low">Low</div>
+                </div>
+                <div class="task-description">Short task description.</div>
+                <div class="task-footer">
+                  <div class="task-info-container">
+                    <div class="task-date-container">
+                      <span class="task-time">12:00</span>
+                      <span class="task-date">Feb 15</span>
+                    </div>
+                    <div class="task-info">
+                      <span class="task-status">Complete</span>
+                      <span class="task-privacy">Public</span>
+                      <div class="task-comments">
+                        <img src="./assets/svg/comment.svg" alt="comment" />
+                        <span class="task-comment-number">42</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="task-assignee">
+                    <span class="assignee-name">Tom</span>
+                    <img
+                      class="assignee-img"
+                      src="./assets/png/user-img-3.png"
+                      alt="assignee image"
+                    />
+                  </div>
+                </div>
+              </div>
+            </li>
+            <li>
+              <div class="task-card">
+                <div class="task-header">
+                  <h4>
+                    This text contains 100 symbols. Lorem ipsum dolor sit amet consectetur
+                    adipisicin?
+                  </h4>
+                  <div class="task-buttons">
+                    <button class="btn secondary-btn edit-btn"></button>
+                    <button class="btn secondary-btn delete-btn"></button>
+                  </div>
+                  <span class="task-priority medium">Medium</span>
+                </div>
+                <div class="task-description">
+                  This description contains 280 symbols. Lorem ipsum dolor sit amet consectetur
+                  adipisicing elit. Veniam voluptatum minus neque perspiciatis natus beatae magnam
+                  mollitia pariatur. Libero deserunt consectetur quam voluptatibus debitis illum
+                  error maiores perspicia?
+                </div>
+                <div class="task-footer">
+                  <div class="task-info-container">
+                    <div class="task-date-container">
+                      <span class="task-time">12:00</span>
+                      <span class="task-date">Feb 15</span>
+                    </div>
+                    <div class="task-info">
+                      <span class="task-status">Complete</span>
+                      <span class="task-privacy">Public</span>
+                      <div class="task-comments">
+                        <img src="./assets/svg/comment.svg" alt="comment" />
+                        <span class="task-comment-number">3</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="task-assignee">
+                    <span class="assignee-name">Longestname100charsontaskpage</span>
+                    <img
+                      class="assignee-img"
+                      src="./assets/png/user-img-5.png"
+                      alt="assignee image"
+                    />
+                  </div>
+                </div>
+              </div>
+            </li>
+            <li>
+              <div class="task-card">
+                <div class="task-header">
+                  <h4>Regular task title. To do somethig.</h4>
+                  <div class="task-buttons">
+                    <button class="btn secondary-btn edit-btn"></button>
+                    <button class="btn secondary-btn delete-btn"></button>
+                  </div>
+                  <div class="task-priority high">High</div>
+                </div>
+                <div class="task-description">
+                  Regular task desciption for regular task. Lorem ipsum dolor sit amet consectetur
+                  adipisicing elit.
+                </div>
+                <div class="task-footer">
+                  <div class="task-info-container">
+                    <div class="task-date-container">
+                      <span class="task-time">12:00</span>
+                      <span class="task-date">Feb 15</span>
+                    </div>
+                    <div class="task-info">
+                      <span class="task-status">Complete</span>
+                      <span class="task-privacy">Public</span>
+                      <div class="task-comments">
+                        <img src="./assets/svg/comment.svg" alt="comment" />
+                        <span class="task-comment-number">3</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="task-assignee">
+                    <span class="assignee-name">Regularname</span>
+                    <img
+                      class="assignee-img"
+                      src="./assets/png/user-img-4.png"
+                      alt="assignee image"
+                    />
+                  </div>
+                </div>
+              </div>
+            </li>
+            <li>
+              <div class="task-card">
+                <div class="task-header">
+                  <h4>Short task name</h4>
+                  <div class="task-buttons">
+                    <button class="btn secondary-btn edit-btn"></button>
+                    <button class="btn secondary-btn delete-btn"></button>
+                  </div>
+                  <div class="task-priority low">Low</div>
+                </div>
+                <div class="task-description">Short task description.</div>
+                <div class="task-footer">
+                  <div class="task-info-container">
+                    <div class="task-date-container">
+                      <span class="task-time">12:00</span>
+                      <span class="task-date">Feb 15</span>
+                    </div>
+                    <div class="task-info">
+                      <span class="task-status">Complete</span>
+                      <span class="task-privacy">Public</span>
+                      <div class="task-comments">
+                        <img src="./assets/svg/comment.svg" alt="comment" />
+                        <span class="task-comment-number">42</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="task-assignee">
+                    <span class="assignee-name">Tom</span>
+                    <img
+                      class="assignee-img"
+                      src="./assets/png/user-img-3.png"
+                      alt="assignee image"
+                    />
+                  </div>
+                </div>
+              </div>
+            </li>
+            <li>
+              <button class="btn secondary-btn load-more-btn">
+                <img src="./assets/svg/refresh.svg" alt="refresh" />
+                <span>Load more</span>
+              </button>
+            </li>
+          </ul>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-info">
+        <span>© TRELLOMOLA</span>
+        <span>v.1.0.0</span>
+        <span>Eugene Tsalko</span>
+        <span>tefworkmail@gmail.com</span>
+      </div>
+      <div class="select-lang">
+        <label for="lang-select"></label>
+        <select name="language" id="lang-select">
+          <option value="english">English</option>
+          <option value="russian">Русский</option>
+        </select>
+      </div>
+    </footer>
+  </body>
+</html>

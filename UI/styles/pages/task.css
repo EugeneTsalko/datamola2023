@@ -1,0 +1,7 @@
+.full-task-container {
+  flex: auto;
+  padding: 0.5rem 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}

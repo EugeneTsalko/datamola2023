@@ -1,0 +1,198 @@
+.btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+  max-height: 2.5rem;
+  padding: 0.5rem 1rem;
+  background-color: var(--primary500);
+  border-radius: 0.5rem;
+  color: var(--white);
+  font: var(--font-btn);
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.btn:hover {
+  background-color: var(--primary400);
+}
+
+.secondary-btn {
+  background-color: var(--white);
+  color: var(--primary500);
+  border: 1px solid var(--gray900);
+}
+
+.secondary-btn:hover {
+  background-color: var(--white);
+  border-color: var(--primary500);
+}
+
+.logout-btn {
+  width: 2.5rem;
+  height: 2.5rem;
+  background-image: url('../../assets/svg/exit.svg');
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.add-task-btn {
+  width: 175px;
+  max-height: 76px;
+  height: 100%;
+}
+
+.add-task-btn:hover {
+  background-color: var(--primary50);
+}
+
+.icon-btn {
+  background-position: center;
+  background-repeat: no-repeat;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.profile-btn {
+  background-image: url('../../assets/svg/user.svg');
+  width: 2.5rem;
+  height: 2.5rem;
+}
+
+.filter-btn {
+  background-image: url('../../assets/svg/filter.svg');
+  width: 2.5rem;
+  height: 2.5rem;
+  display: none;
+}
+
+.filter-btn:hover {
+  background-image: url('../../assets/svg/filter-primary500.svg');
+}
+
+.edit-btn {
+  background-image: url('../../assets/svg/edit.svg');
+  background-position: center;
+  background-repeat: no-repeat;
+  border: none;
+  width: 1.5rem;
+  height: 1.5rem;
+  padding: 0;
+}
+
+.edit-btn:hover {
+  background-image: url('../../assets/svg/edit-primary500.svg');
+}
+
+.delete-btn {
+  background-image: url('../../assets/svg/delete.svg');
+  background-position: center;
+  background-repeat: no-repeat;
+  border: none;
+  width: 1.5rem;
+  height: 1.5rem;
+  padding: 0;
+}
+
+.delete-btn:hover {
+  background-image: url('../../assets/svg/delete-red500.svg');
+}
+
+.close-btn {
+  background-image: url('../../assets/svg/cancel.svg');
+  background-position: center;
+  background-repeat: no-repeat;
+  border: none;
+  padding: 0;
+  width: 1.5rem;
+  height: 1.5rem;
+}
+
+.close-btn:hover {
+  background-image: url('../../assets/svg/cancel-primary500.svg');
+}
+
+.cancel-btn {
+  color: var(--gray900);
+  min-width: 6rem;
+}
+
+.save-btn {
+  min-width: 6rem;
+}
+
+.avatar-btn-male {
+  background-image: url('../../assets/svg/man.svg');
+  background-size: 4rem 4rem;
+  width: 4rem;
+  height: 4rem;
+}
+
+.avatar-btn-male:hover {
+  background-image: url('../../assets/svg/man-primary500.svg');
+}
+
+.avatar-btn-female {
+  background-image: url('../../assets/svg/woman.svg');
+  background-size: 4rem 4rem;
+  width: 4rem;
+  height: 4rem;
+}
+
+.avatar-btn-female:hover {
+  background-image: url('../../assets/svg/woman-primary500.svg');
+}
+
+.load-more-btn {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.add-comment-btn {
+  width: 175px;
+  max-height: 50px;
+  height: 100%;
+}
+
+@media screen and (width <= 792px) {
+  .add-task-btn {
+    width: auto;
+  }
+}
+
+@media screen and (width <= 744px) {
+  .filter-btn {
+    display: block;
+  }
+
+  .add-comment-btn span {
+    display: none;
+  }
+
+  .add-comment-btn {
+    background-image: url('../../assets/svg/add.svg');
+    background-position: center;
+    background-repeat: no-repeat;
+    width: 50px;
+  }
+}
+
+@media screen and (width <= 414px) {
+  .add-task-btn {
+    padding: 0.5rem 0.5rem;
+  }
+
+  .add-task-btn span {
+    display: none;
+  }
+
+  .to-main-btn {
+    padding: 0.5rem 0.5rem;
+  }
+
+  .to-main-btn span {
+    display: none;
+  }
+}

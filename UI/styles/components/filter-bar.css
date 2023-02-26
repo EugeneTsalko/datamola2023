@@ -1,0 +1,48 @@
+.filter-bar {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  padding: 6px 1rem;
+  border: 1px solid var(--gray900);
+  border-radius: 0.5rem;
+}
+
+.checkbox-dropdown {
+  padding: 2px 2rem 2px 0.25rem;
+  position: relative;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.checkbox-dropdown:hover {
+  color: var(--primary500);
+}
+.checkbox-dropdown:hover:after {
+  border-top-color: var(--primary500);
+}
+
+.checkbox-dropdown:after {
+  content: '';
+  height: 0;
+  position: absolute;
+  width: 0;
+  border: 6px solid transparent;
+  border-top-color: var(--black);
+  top: 50%;
+  right: 10px;
+  margin-top: -3px;
+  transition: var(--transition);
+}
+
+@media screen and (width <= 1024px) {
+  .filter-bar {
+    gap: 0.25rem;
+    padding: 6px 0.5rem;
+  }
+}
+
+@media screen and (width <= 744px) {
+  .filter-bar {
+    display: none;
+  }
+}

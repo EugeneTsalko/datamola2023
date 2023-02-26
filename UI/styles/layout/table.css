@@ -1,0 +1,75 @@
+.table {
+  flex: auto;
+  padding: 0.5rem 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.table-header-container {
+  padding: 2px 1rem 2px 0.5rem;
+  display: flex;
+  align-items: center;
+  background-color: var(--black-02);
+  border-radius: 1rem;
+}
+
+.table-row {
+  display: flex;
+  width: 100%;
+}
+
+.table-row-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0 12px;
+  border-right: 1px solid var(--gray900);
+}
+
+.table-row-item:last-child {
+  border-right: none;
+}
+
+.table-header-item-title {
+  width: 20%;
+}
+
+.table-header-item-description {
+  width: 30%;
+}
+
+.table-header-item-date,
+.table-header-item-assignee,
+.table-header-item-privacy,
+.table-header-item-priority {
+  width: 9%;
+}
+
+.table-header-item-status {
+  width: 14%;
+}
+
+.row {
+  width: 100%;
+  max-height: 240px;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  background-color: var(--black-02);
+  border: 1px solid var(--gray900);
+  border-radius: 1rem;
+  padding: 0.5rem 0.5rem;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.row::-webkit-scrollbar-track-piece:end {
+  background: transparent;
+  margin-bottom: 1rem;
+}
+
+.row::-webkit-scrollbar-track-piece:start {
+  background: transparent;
+  margin-top: 54px;
+}

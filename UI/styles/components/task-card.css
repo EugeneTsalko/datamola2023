@@ -1,0 +1,259 @@
+/* kanban */
+
+.task-card {
+  border: 1px solid var(--gray900);
+  border-radius: 0.5rem;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  background-color: var(--white);
+  transition: var(--transition);
+  cursor: pointer;
+}
+
+.task-card:hover {
+  border-color: var(--primary500);
+}
+
+.task-header {
+  display: grid;
+  grid-template: 1fr 19px / 1fr 64px;
+  gap: 0.5rem;
+}
+
+.task-header h4 {
+  max-height: 58px;
+  overflow: hidden;
+}
+
+.task-buttons {
+  display: flex;
+  justify-content: flex-end;
+  gap: 1rem;
+}
+
+.task-description {
+  color: var(--gray900);
+  max-height: 136px;
+  overflow: hidden;
+}
+
+.task-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 70px;
+}
+
+.task-info-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  height: 100%;
+}
+
+.task-info,
+.task-date-container {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.task-comments {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.task-assignee {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.25rem;
+  width: 92px;
+}
+
+.assignee-name {
+  display: inline-block;
+  max-width: 92px;
+  max-height: 20px;
+  font: var(--font-body-medium);
+  color: var(--gray900);
+  overflow: hidden;
+}
+
+.assignee-img {
+  width: 3rem;
+  height: 3rem;
+}
+
+.low {
+  color: var(--green900);
+}
+
+.medium {
+  color: var(--primary600);
+}
+
+.high {
+  color: var(--red500);
+}
+
+@media screen and (width <= 1080px) {
+  .task-card {
+    gap: 1rem;
+  }
+  .task-footer {
+    flex-direction: column-reverse;
+    gap: 0.25rem;
+    align-items: flex-start;
+    border-top: 1px solid var(--gray900);
+    height: 52px;
+  }
+
+  .assignee-img {
+    display: none;
+  }
+
+  .task-assignee {
+    align-items: flex-start;
+    width: 100%;
+  }
+
+  .assignee-name {
+    max-width: 100%;
+  }
+
+  .task-info-container {
+    flex-direction: row;
+    gap: 0.5rem;
+    align-items: center;
+    justify-content: flex-start;
+    height: 1.5rem;
+    width: 100%;
+  }
+
+  .task-info {
+    align-items: center;
+  }
+
+  .task-comments {
+    display: none;
+  }
+
+  .task-time,
+  .task-date,
+  .task-status,
+  .task-privacy,
+  .task-comment-number {
+    font: var(--font-small);
+  }
+}
+
+@media screen and (width <= 834px) {
+  .task-buttons {
+    gap: 0.25rem;
+  }
+
+  .task-footer {
+    display: none;
+  }
+
+  .task-header {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .task-buttons {
+    display: none;
+  }
+}
+
+@media screen and (width <= 520px) {
+  .task-header {
+    display: grid;
+  }
+
+  .task-buttons {
+    display: flex;
+  }
+
+  .task-footer {
+    display: flex;
+  }
+
+  .task-comments {
+    display: flex;
+  }
+}
+
+/* table */
+.table-task {
+  display: flex;
+  width: 100%;
+  border-radius: 0.5rem;
+  border: 1px solid var(--gray900);
+  background-color: var(--white);
+}
+
+.table-task-item {
+  display: flex;
+  flex-direction: column;
+  padding: 0.25rem 12px;
+  border-right: 1px solid var(--gray900);
+  font: var(--font-body-medium);
+  max-height: 64px;
+  overflow: hidden;
+}
+
+.table-task-item:last-child {
+  border-right: none;
+}
+
+.table-task-item-title {
+  width: 20%;
+}
+
+.table-task-item-description {
+  width: 30%;
+  flex-direction: row;
+  justify-content: space-between;
+  gap: 0.5rem;
+}
+
+.table-task-comments {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.table-task-item-date,
+.table-task-item-assignee,
+.table-task-item-privacy,
+.table-task-item-priority {
+  width: 9%;
+  align-items: center;
+  justify-content: center;
+}
+
+.table-task-item-assignee span {
+  display: block;
+  max-width: 100%;
+}
+.table-assignee-img {
+  width: 40px;
+  height: 40px;
+}
+
+.table-task-item-status {
+  width: 14%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.table-task-buttons {
+  display: flex;
+  gap: 0.5rem;
+}

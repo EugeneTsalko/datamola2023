@@ -1,0 +1,39 @@
+.view-container {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.kanban-btn {
+  width: 28px;
+  height: 28px;
+  padding: 0;
+  background-image: url('../../assets/svg/kanban.svg');
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.kanban-btn.active {
+  background-image: url('../../assets/svg/kanban-primary500.svg');
+  border-color: var(--primary500);
+}
+
+.table-btn {
+  width: 28px;
+  height: 28px;
+  padding: 0;
+  background-image: url('../../assets/svg/table.svg');
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.table-btn.active {
+  background-image: url('../../assets/svg/table-primary500.svg');
+  border-color: var(--primary500);
+}
+
+@media screen and (width <= 744px) {
+  .view-container {
+    display: none;
+  }
+}
