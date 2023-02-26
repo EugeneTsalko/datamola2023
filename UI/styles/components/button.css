@@ -154,6 +154,12 @@
   gap: 16px;
 }
 
+.add-comment-btn {
+  width: 175px;
+  max-height: 50px;
+  height: 100%;
+}
+
 @media screen and (width <= 792px) {
   .add-task-btn {
     width: auto;
@@ -163,6 +169,17 @@
 @media screen and (width <= 744px) {
   .filter-btn {
     display: block;
+  }
+
+  .add-comment-btn span {
+    display: none;
+  }
+
+  .add-comment-btn {
+    background-image: url('../../assets/svg/add.svg');
+    background-position: center;
+    background-repeat: no-repeat;
+    width: 50px;
   }
 }
 

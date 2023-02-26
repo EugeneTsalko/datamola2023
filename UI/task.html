@@ -1311,43 +1311,57 @@
       </section>
 
       <section class="full-task-container">
-        <div class="task-card">
-          <div class="task-header full">
-            <h4 class="title">
+        <div class="full-task-card">
+          <div class="full-task-header">
+            <h2 class="title">
               This text contains 100 symbols. Lorem ipsum dolor sit amet consectetur adipisicin?
-            </h4>
-            <div class="task-buttons">
+            </h2>
+            <div class="full-task-buttons">
               <button class="btn secondary-btn edit-btn"></button>
               <button class="btn secondary-btn delete-btn"></button>
             </div>
-            <span class="task-priority medium">Medium</span>
+            <span class="full-task-priority medium"
+              ><span class="full-task-info-title">priority:</span>Medium</span
+            >
           </div>
-          <div class="task-description">
-            This description contains 280 symbols. Lorem ipsum dolor sit amet consectetur
-            adipisicing elit. Veniam voluptatum minus neque perspiciatis natus beatae magnam
-            mollitia pariatur. Libero deserunt consectetur quam voluptatibus debitis illum error
-            maiores perspicia?
+          <div class="full-task-description">
+            <h3>Description</h3>
+            <p>
+              This description contains 280 symbols. Lorem ipsum dolor sit amet consectetur
+              adipisicing elit. Veniam voluptatum minus neque perspiciatis natus beatae magnam
+              mollitia pariatur. Libero deserunt consectetur quam voluptatibus debitis illum error
+              maiores perspicia?
+            </p>
           </div>
-          <div class="task-footer">
-            <div class="task-info-container">
-              <div class="task-date-container">
-                <span class="task-time">12:00</span>
-                <span class="task-date">Feb 15</span>
-              </div>
-              <div class="task-info">
-                <span class="task-status">To Do</span>
-                <span class="task-privacy">Public</span>
-                <div class="task-comments hidden">
-                  <img src="./assets/svg/comment.svg" alt="comment" />
-                  <span class="task-comment-number">3</span>
-                </div>
+          <div class="full-task-footer">
+            <div class="full-task-info">
+              <span class="full-task-info-title">date</span>
+              <div class="full-task-date">
+                <span>12:00</span>
+                <span>Feb 15</span>
               </div>
             </div>
-            <div class="task-assignee full">
-              <span class="assignee-name full"
-                >This name contains 100 symbols. Lorem ipsum dolor sit amet consectetur adipisicin?
-              </span>
-              <img class="assignee-img" src="./assets/png/user-img-5.png" alt="assignee image" />
+
+            <div class="full-task-info">
+              <span class="full-task-info-title">status</span>
+              <span>To Do</span>
+            </div>
+
+            <div class="full-task-info">
+              <span class="full-task-info-title">privacy</span>
+              <span>Private</span>
+            </div>
+
+            <div class="full-task-info">
+              <span class="full-task-info-title">assignee</span>
+              <div class="full-task-assignee">
+                <span class="full-assignee-name">Regularname </span>
+                <img
+                  class="full-task-assignee-img"
+                  src="./assets/png/user-img-5.png"
+                  alt="assignee image"
+                />
+              </div>
             </div>
           </div>
         </div>
@@ -1445,7 +1459,6 @@
             </ul>
           </div>
           <form class="add-comment-form">
-            <!-- <label for="comment"> -->
             <img class="user-img" src="./assets/png/user-img-5.png" alt="author image" />
             <textarea
               name="comment"
@@ -1454,9 +1467,9 @@
               maxlength="280"
               placeholder="Add new comment..."
             ></textarea>
-            <!-- <input type="text" name="comment" class="comment-input" /> -->
-            <!-- </label> -->
-            <button class="btn secondary-btn add-comment-btn" type="submit">ADD COMMENT</button>
+            <button class="btn secondary-btn add-comment-btn" type="submit">
+              <span>ADD COMMENT</span>
+            </button>
           </form>
         </div>
       </section>

@@ -9,8 +9,7 @@
   padding: 16px;
   border: 1px solid var(--gray900);
   border-radius: 8px;
-  /* max-height: 384px; */
-  max-height: calc(100vh - 492px);
+  max-height: 300px;
   overflow: auto;
 }
 
@@ -18,7 +17,6 @@
   display: flex;
   flex-direction: column;
   gap: 8px;
-  /* max-height: calc(100vh - 800px); */
 }
 
 .comments-container h3 {
@@ -43,6 +41,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  gap: 8px;
 }
 
 .comment-author {
@@ -59,6 +58,8 @@
 .author-name {
   color: var(--gray900);
   font: var(--font-body-medium);
+  max-height: 40px;
+  overflow: hidden;
 }
 
 .comment-date-container {
@@ -71,7 +72,6 @@
 .add-comment-form {
   display: flex;
   align-items: center;
-  /* flex-direction: column; */
   gap: 8px;
 }
 
@@ -80,20 +80,7 @@
   height: 50px;
 }
 
-.add-comment-form .add-comment-btn {
-  width: 175px;
-  max-height: 50px;
-  height: 100%;
-}
-
-/* .add-comment-container label {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-} */
-
 .comment-textarea {
-  /* background-color: var(--gray900); */
   font: var(--font-body-medium);
   border: 1px solid var(--gray900);
   border-radius: 8px;
@@ -112,4 +99,18 @@
 .comments::-webkit-scrollbar-track-piece:start {
   background: transparent;
   margin-top: 16px;
+}
+
+@media screen and (width <= 430px) {
+  .comment-footer {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+
+@media screen and (width <= 360px) {
+  .comment-footer {
+    flex-direction: column;
+    align-items: flex-start;
+  }
 }

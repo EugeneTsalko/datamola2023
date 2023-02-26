@@ -1,20 +1,74 @@
-.comments-container {
-  /* border: 1px solid red; */
-}
-
 .title {
   font: var(--font-title);
 }
 
-.task-assignee.full {
-  width: auto;
-  align-items: flex-end;
+.full-task-card {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  border-bottom: 1px solid var(--gray900);
+  padding: 16px 0;
 }
 
-.assignee-name.full {
-  max-width: 100%;
+.full-task-header {
+  display: grid;
+  grid-template: 1fr 19px / 1fr 64px;
+  gap: 8px;
 }
 
-.task-assignee.full .assignee-img {
-  margin-right: 16px;
+.full-task-buttons {
+  display: flex;
+  gap: 16px;
+}
+
+.full-task-priority span {
+  padding-right: 8px;
+}
+
+.full-task-description {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 16px;
+  border-radius: 16px;
+  background-color: var(--gray500);
+}
+
+.full-task-description p {
+  color: var(--gray900);
+}
+
+.full-task-footer {
+  display: flex;
+  justify-content: space-between;
+}
+
+.full-task-info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+.full-task-info-title {
+  color: var(--gray900);
+}
+
+.full-task-date {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.full-task-assignee {
+  display: flex;
+  flex-direction: column;
+  /* align-items: flex-end; */
+  align-items: center;
+  gap: 4px;
+}
+
+.full-task-assignee-img {
+  width: 48px;
+  height: 48px;
 }
