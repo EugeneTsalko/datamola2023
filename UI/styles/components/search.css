@@ -8,10 +8,10 @@
   border-right: none;
   border-top-right-radius: 0;
   border-bottom-right-radius: 0;
-  border-top-left-radius: 8px;
-  border-bottom-left-radius: 8px;
+  border-top-left-radius: 0.5rem;
+  border-bottom-left-radius: 0.5rem;
   font: var(--font-body-large);
-  padding: 4px 16px;
+  padding: 0.25rem 1rem;
   transition: var(--transition);
 }
 
@@ -21,8 +21,8 @@
 }
 
 .search-btn {
-  width: 40px;
-  height: 40px;
+  width: 2.5rem;
+  height: 2.5rem;
   background-image: url('../../assets/svg/search.svg');
   border: 1px solid var(--gray900);
   border-left: none;
@@ -30,8 +30,8 @@
   background-position: center;
   border-top-left-radius: 0;
   border-bottom-left-radius: 0;
-  border-top-right-radius: 8px;
-  border-bottom-right-radius: 8px;
+  border-top-right-radius: 0.5rem;
+  border-bottom-right-radius: 0.5rem;
   background-color: var(--white);
   transition: var(--transition);
   cursor: pointer;

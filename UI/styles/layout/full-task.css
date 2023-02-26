@@ -5,32 +5,32 @@
 .full-task-card {
   display: flex;
   flex-direction: column;
-  gap: 32px;
+  gap: 2rem;
   border-bottom: 1px solid var(--gray900);
-  padding: 16px 0;
+  padding: 1rem 0;
 }
 
 .full-task-header {
   display: grid;
   grid-template: 1fr 19px / 1fr 64px;
-  gap: 8px;
+  gap: 0.5rem;
 }
 
 .full-task-buttons {
   display: flex;
-  gap: 16px;
+  gap: 1rem;
 }
 
 .full-task-priority span {
-  padding-right: 8px;
+  padding-right: 0.5rem;
 }
 
 .full-task-description {
   display: flex;
   flex-direction: column;
-  gap: 8px;
-  padding: 16px;
-  border-radius: 16px;
+  gap: 0.5rem;
+  padding: 1rem;
+  border-radius: 1rem;
   background-color: var(--gray500);
 }
 
@@ -47,7 +47,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 8px;
+  gap: 0.5rem;
 }
 
 .full-task-info-title {
@@ -57,18 +57,17 @@
 .full-task-date {
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 0.5rem;
 }
 
 .full-task-assignee {
   display: flex;
   flex-direction: column;
-  /* align-items: flex-end; */
   align-items: center;
-  gap: 4px;
+  gap: 0.25rem;
 }
 
 .full-task-assignee-img {
-  width: 48px;
-  height: 48px;
+  width: 3rem;
+  height: 3rem;
 }

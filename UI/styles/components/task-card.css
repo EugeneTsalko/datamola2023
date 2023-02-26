@@ -2,12 +2,11 @@
 
 .task-card {
   border: 1px solid var(--gray900);
-  border-radius: 8px;
-  padding: 16px;
+  border-radius: 0.5rem;
+  padding: 1rem;
   display: flex;
   flex-direction: column;
-  gap: 24px;
-  /* width: 100%; */
+  gap: 1.5rem;
   background-color: var(--white);
   transition: var(--transition);
   cursor: pointer;
@@ -20,7 +19,7 @@
 .task-header {
   display: grid;
   grid-template: 1fr 19px / 1fr 64px;
-  gap: 8px;
+  gap: 0.5rem;
 }
 
 .task-header h4 {
@@ -31,7 +30,7 @@
 .task-buttons {
   display: flex;
   justify-content: flex-end;
-  gap: 16px;
+  gap: 1rem;
 }
 
 .task-description {
@@ -57,20 +56,20 @@
 .task-info,
 .task-date-container {
   display: flex;
-  gap: 8px;
+  gap: 0.5rem;
 }
 
 .task-comments {
   display: flex;
   align-items: center;
-  gap: 4px;
+  gap: 0.25rem;
 }
 
 .task-assignee {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 4px;
+  gap: 0.25rem;
   width: 92px;
 }
 
@@ -84,8 +83,8 @@
 }
 
 .assignee-img {
-  width: 48px;
-  height: 48px;
+  width: 3rem;
+  height: 3rem;
 }
 
 .low {
@@ -106,7 +105,7 @@
   }
   .task-footer {
     flex-direction: column-reverse;
-    gap: 4px;
+    gap: 0.25rem;
     align-items: flex-start;
     border-top: 1px solid var(--gray900);
     height: 52px;
@@ -127,10 +126,10 @@
 
   .task-info-container {
     flex-direction: row;
-    gap: 8px;
+    gap: 0.5rem;
     align-items: center;
     justify-content: flex-start;
-    height: 24px;
+    height: 1.5rem;
     width: 100%;
   }
 
@@ -153,7 +152,7 @@
 
 @media screen and (width <= 834px) {
   .task-buttons {
-    gap: 4px;
+    gap: 0.25rem;
   }
 
   .task-footer {
@@ -195,15 +194,12 @@
   border-radius: 0.5rem;
   border: 1px solid var(--gray900);
   background-color: var(--white);
-  /* align-items: center; */
 }
 
 .table-task-item {
   display: flex;
   flex-direction: column;
-  /* align-items: center; */
-  /* justify-content: center; */
-  padding: 4px 12px;
+  padding: 0.25rem 12px;
   border-right: 1px solid var(--gray900);
   font: var(--font-body-medium);
   max-height: 64px;
@@ -222,14 +218,13 @@
   width: 30%;
   flex-direction: row;
   justify-content: space-between;
-  /* align-items: center; */
-  gap: 8px;
+  gap: 0.5rem;
 }
 
 .table-task-comments {
   display: flex;
   align-items: center;
-  gap: 4px;
+  gap: 0.25rem;
 }
 
 .table-task-item-date,
@@ -260,7 +255,5 @@
 
 .table-task-buttons {
   display: flex;
-  gap: 8px;
+  gap: 0.5rem;
 }
-
-/*  */

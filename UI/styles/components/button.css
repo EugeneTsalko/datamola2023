@@ -2,15 +2,15 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 8px;
+  gap: 0.5rem;
+  max-height: 2.5rem;
+  padding: 0.5rem 1rem;
   background-color: var(--primary500);
-  border-radius: 8px;
-  padding: 8px 16px;
+  border-radius: 0.5rem;
   color: var(--white);
   font: var(--font-btn);
   cursor: pointer;
   transition: var(--transition);
-  max-height: 40px;
 }
 
 .btn:hover {
@@ -29,8 +29,8 @@
 }
 
 .logout-btn {
-  width: 40px;
-  height: 40px;
+  width: 2.5rem;
+  height: 2.5rem;
   background-image: url('../../assets/svg/exit.svg');
   background-repeat: no-repeat;
   background-position: center;
@@ -55,14 +55,14 @@
 
 .profile-btn {
   background-image: url('../../assets/svg/user.svg');
-  width: 40px;
-  height: 40px;
+  width: 2.5rem;
+  height: 2.5rem;
 }
 
 .filter-btn {
   background-image: url('../../assets/svg/filter.svg');
-  width: 40px;
-  height: 40px;
+  width: 2.5rem;
+  height: 2.5rem;
   display: none;
 }
 
@@ -75,8 +75,8 @@
   background-position: center;
   background-repeat: no-repeat;
   border: none;
-  width: 24px;
-  height: 24px;
+  width: 1.5rem;
+  height: 1.5rem;
   padding: 0;
 }
 
@@ -89,8 +89,8 @@
   background-position: center;
   background-repeat: no-repeat;
   border: none;
-  width: 24px;
-  height: 24px;
+  width: 1.5rem;
+  height: 1.5rem;
   padding: 0;
 }
 
@@ -104,32 +104,28 @@
   background-repeat: no-repeat;
   border: none;
   padding: 0;
-  width: 24px;
-  height: 24px;
+  width: 1.5rem;
+  height: 1.5rem;
 }
 
 .close-btn:hover {
   background-image: url('../../assets/svg/cancel-primary500.svg');
 }
 
-.to-main-btn {
-  /* width: 175px; */
-}
-
 .cancel-btn {
   color: var(--gray900);
-  min-width: 96px;
+  min-width: 6rem;
 }
 
 .save-btn {
-  min-width: 96px;
+  min-width: 6rem;
 }
 
 .avatar-btn-male {
   background-image: url('../../assets/svg/man.svg');
-  background-size: 64px 64px;
-  width: 64px;
-  height: 64px;
+  background-size: 4rem 4rem;
+  width: 4rem;
+  height: 4rem;
 }
 
 .avatar-btn-male:hover {
@@ -138,9 +134,9 @@
 
 .avatar-btn-female {
   background-image: url('../../assets/svg/woman.svg');
-  background-size: 64px 64px;
-  width: 64px;
-  height: 64px;
+  background-size: 4rem 4rem;
+  width: 4rem;
+  height: 4rem;
 }
 
 .avatar-btn-female:hover {
@@ -151,7 +147,7 @@
   width: 100%;
   display: flex;
   align-items: center;
-  gap: 16px;
+  gap: 1rem;
 }
 
 .add-comment-btn {
@@ -185,7 +181,7 @@
 
 @media screen and (width <= 414px) {
   .add-task-btn {
-    padding: 8px 8px;
+    padding: 0.5rem 0.5rem;
   }
 
   .add-task-btn span {
@@ -193,7 +189,7 @@
   }
 
   .to-main-btn {
-    padding: 8px 8px;
+    padding: 0.5rem 0.5rem;
   }
 
   .to-main-btn span {

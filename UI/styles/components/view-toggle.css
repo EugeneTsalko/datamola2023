@@ -1,7 +1,7 @@
 .view-container {
   display: flex;
   align-items: center;
-  gap: 16px;
+  gap: 1rem;
 }
 
 .kanban-btn {

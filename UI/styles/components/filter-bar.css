@@ -1,14 +1,14 @@
 .filter-bar {
   display: flex;
   align-items: center;
-  gap: 32px;
-  padding: 6px 16px;
+  gap: 2rem;
+  padding: 6px 1rem;
   border: 1px solid var(--gray900);
-  border-radius: 8px;
+  border-radius: 0.5rem;
 }
 
 .checkbox-dropdown {
-  padding: 2px 32px 2px 4px;
+  padding: 2px 2rem 2px 0.25rem;
   position: relative;
   cursor: pointer;
   transition: var(--transition);
@@ -36,8 +36,8 @@
 
 @media screen and (width <= 1024px) {
   .filter-bar {
-    gap: 4px;
-    padding: 6px 8px;
+    gap: 0.25rem;
+    padding: 6px 0.5rem;
   }
 }
 
