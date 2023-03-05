@@ -1,108 +1,104 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="icon" type="image/x-icon" href="./assets/favicon.ico" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap"
-      rel="stylesheet"
-    />
-    <link rel="stylesheet" href="./styles/style.css" />
-    <title>TrelloMola by EugeneTsalko</title>
-  </head>
-  <body>
-    <div class="overlay"></div>
-    <header class="header">
-      <a href="main.html" class="logo-link"></a>
-      <nav class="nav">
-        <a href="main.html">
-          <button class="btn secondary-btn to-main-btn">
-            <img src="./assets/svg/back.svg" alt="return" />
-            <span>TO MAIN</span>
-          </button>
-        </a>
-        <a href="user.html">
-          <button class="btn secondary-btn icon-btn profile-btn"></button>
-        </a>
-        <button class="btn logout-btn"></button>
-      </nav>
-    </header>
 
-    <main class="main">
-      <!-- Здесь будет <div class="menu hidden">...</div> -->
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/x-icon" href="./assets/favicon.ico">
+  <link rel="stylesheet" href="./styles/style.css">
+  <title>TrelloMola by EugeneTsalko</title>
+</head>
 
-      <!-- Здесь будет <section class="board hidden">...</section> -->
+<body>
+  <div class="overlay"></div>
+  <header class="header">
+    <a href="main.html" class="logo-link"></a>
+    <nav class="nav">
+      <a href="main.html" class="btn secondary-btn to-main-btn">
+        <!-- <button class="btn secondary-btn to-main-btn"> -->
+        <img src="./assets/svg/back.svg" alt="return">
+        <span>TO MAIN</span>
+        <!-- </button> -->
+      </a>
+      <a href="user.html" class="btn secondary-btn icon-btn profile-btn">
+      </a>
+      <button class="btn logout-btn"></button>
+    </nav>
+  </header>
 
-      <section class="user-container">
-        <div class="profile-info">
-          <div class="profile-header">
-            <h3>Hi, username!</h3>
-            <button class="btn secondary-btn close-btn"></button>
-          </div>
-          <form class="user-form active">
-            <div class="avatar-container">
-              <div class="avatar active">
-                <img class="avatar-img" src="./assets/png/user-img-3.png" alt="user-img" />
-              </div>
-              <button class="icon-btn avatar-btn-male"></button>
-              <button class="icon-btn avatar-btn-female"></button>
-              <label class="input-file-label">
-                <input type="file" name="input-file" />
-              </label>
-            </div>
-            <label for="input" class="text-input">
-              <input type="text" id="input" placeholder="&nbsp;" />
-              <span class="label">New name</span>
-              <span class="focus-bg"></span>
-            </label>
-            <label for="input" class="text-input hidden">
-              <input type="text" id="input" placeholder="&nbsp;" />
-              <span class="label">Username</span>
-              <span class="focus-bg"></span>
-            </label>
-            <label for="input" class="text-input">
-              <input type="password" id="input" placeholder="&nbsp;" />
-              <span class="label">Old password</span>
-              <span class="focus-bg"></span>
-            </label>
-            <label for="input" class="text-input">
-              <input type="password" id="input" placeholder="&nbsp;" />
-              <span class="label">New password</span>
-              <span class="focus-bg"></span>
-            </label>
-            <label for="input" class="text-input">
-              <input type="password" id="input" placeholder="&nbsp;" />
-              <span class="label">Confirm new password</span>
-              <span class="focus-bg"></span>
-            </label>
-            <div class="user-form-btns">
-              <button class="btn secondary-btn cancel-btn">CANCEL</button>
-              <button class="btn secondary-btn save-btn">SAVE</button>
-            </div>
-          </form>
+  <main class="main">
+    <!-- Здесь будет <div class="menu hidden">...</div> -->
+
+    <!-- Здесь будет <section class="board hidden">...</section> -->
+
+    <section class="user-container">
+      <div class="profile-info">
+        <div class="profile-header">
+          <h3>Hi, username!</h3>
+          <button class="btn secondary-btn close-btn"></button>
         </div>
-        <img class="profile-cover" src="./assets/png/profile-cover.png" alt="profile cover" />
-      </section>
-    </main>
+        <form class="user-form active">
+          <div class="avatar-container">
+            <div class="avatar active">
+              <img class="avatar-img" src="./assets/png/user-img-3.png" alt="user-img">
+            </div>
+            <button class="icon-btn avatar-btn-male"></button>
+            <button class="icon-btn avatar-btn-female"></button>
+            <label class="input-file-label">
+              <input type="file" name="input-file">
+            </label>
+          </div>
+          <label for="name" class="text-input">
+            <input type="text" id="name" placeholder="&nbsp;">
+            <span class="label">New name</span>
+            <span class="focus-bg"></span>
+          </label>
+          <label for="login" class="text-input hidden">
+            <input type="text" id="login" placeholder="&nbsp;">
+            <span class="label">Username</span>
+            <span class="focus-bg"></span>
+          </label>
+          <label for="old-password" class="text-input">
+            <input type="password" id="old-password" placeholder="&nbsp;">
+            <span class="label">Old password</span>
+            <span class="focus-bg"></span>
+          </label>
+          <label for="new-password" class="text-input">
+            <input type="password" id="new-password" placeholder="&nbsp;">
+            <span class="label">New password</span>
+            <span class="focus-bg"></span>
+          </label>
+          <label for="confirm-password" class="text-input">
+            <input type="password" id="confirm-password" placeholder="&nbsp;">
+            <span class="label">Confirm new password</span>
+            <span class="focus-bg"></span>
+          </label>
+          <div class="user-form-btns">
+            <button class="btn secondary-btn cancel-btn">CANCEL</button>
+            <button class="btn secondary-btn save-btn">SAVE</button>
+          </div>
+        </form>
+      </div>
+      <img class="profile-cover" src="./assets/png/profile-cover.png" alt="profile cover">
+    </section>
+  </main>
 
-    <footer class="footer">
-      <div class="footer-info">
-        <span>© TRELLOMOLA</span>
-        <span>v.1.0.0</span>
-        <span>Eugene Tsalko</span>
-        <span>tefworkmail@gmail.com</span>
-      </div>
-      <div class="select-lang">
-        <img src="./assets/svg/language.svg" alt="globe" />
-        <select name="language" id="lang-select">
-          <option value="english">English</option>
-          <option value="russian">Русский</option>
-        </select>
-      </div>
-    </footer>
-  </body>
+  <footer class="footer">
+    <div class="footer-info">
+      <span>© TRELLOMOLA</span>
+      <span>v.1.0.0</span>
+      <span>Eugene Tsalko</span>
+      <span>tefworkmail@gmail.com</span>
+    </div>
+    <div class="select-lang">
+      <img src="./assets/svg/language.svg" alt="globe">
+      <select name="language" id="lang-select">
+        <option value="english">English</option>
+        <option value="russian">Русский</option>
+      </select>
+    </div>
+  </footer>
+</body>
+
 </html>

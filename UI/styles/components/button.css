@@ -4,7 +4,7 @@
   align-items: center;
   gap: 0.5rem;
   max-height: 2.5rem;
-  padding: 0.5rem 1rem;
+  padding: var(--padding-s);
   background-color: var(--primary500);
   border-radius: 0.5rem;
   color: var(--white);
@@ -20,7 +20,7 @@
 .secondary-btn {
   background-color: var(--white);
   color: var(--primary500);
-  border: 1px solid var(--gray900);
+  border: var(--border-main);
 }
 
 .secondary-btn:hover {
@@ -37,8 +37,8 @@
 }
 
 .add-task-btn {
-  width: 175px;
-  max-height: 76px;
+  width: 11rem;
+  max-height: 4.75rem;
   height: 100%;
 }
 
@@ -47,8 +47,7 @@
 }
 
 .icon-btn {
-  background-position: center;
-  background-repeat: no-repeat;
+  background: center no-repeat;
   cursor: pointer;
   transition: var(--transition);
 }
@@ -71,9 +70,7 @@
 }
 
 .edit-btn {
-  background-image: url('../../assets/svg/edit.svg');
-  background-position: center;
-  background-repeat: no-repeat;
+  background: url('../../assets/svg/edit.svg') center no-repeat;
   border: none;
   width: 1.5rem;
   height: 1.5rem;
@@ -85,9 +82,7 @@
 }
 
 .delete-btn {
-  background-image: url('../../assets/svg/delete.svg');
-  background-position: center;
-  background-repeat: no-repeat;
+  background: url('../../assets/svg/delete.svg') center no-repeat;
   border: none;
   width: 1.5rem;
   height: 1.5rem;
@@ -99,9 +94,7 @@
 }
 
 .close-btn {
-  background-image: url('../../assets/svg/cancel.svg');
-  background-position: center;
-  background-repeat: no-repeat;
+  background: url('../../assets/svg/cancel.svg') center no-repeat;
   border: none;
   padding: 0;
   width: 1.5rem;
@@ -147,12 +140,12 @@
   width: 100%;
   display: flex;
   align-items: center;
-  gap: 1rem;
+  gap: var(--gap);
 }
 
 .add-comment-btn {
-  width: 175px;
-  max-height: 50px;
+  width: 11rem;
+  max-height: 3.125rem;
   height: 100%;
 }
 
@@ -172,16 +165,14 @@
   }
 
   .add-comment-btn {
-    background-image: url('../../assets/svg/add.svg');
-    background-position: center;
-    background-repeat: no-repeat;
-    width: 50px;
+    background: url('../../assets/svg/add.svg') center no-repeat;
+    width: 3.125rem;
   }
 }
 
 @media screen and (width <= 414px) {
   .add-task-btn {
-    padding: 0.5rem 0.5rem;
+    padding: var(--padding-s);
   }
 
   .add-task-btn span {
@@ -189,7 +180,7 @@
   }
 
   .to-main-btn {
-    padding: 0.5rem 0.5rem;
+    padding: var(--padding-s);
   }
 
   .to-main-btn span {

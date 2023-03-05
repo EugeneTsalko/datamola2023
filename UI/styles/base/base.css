@@ -17,6 +17,7 @@ select:focus {
 
 html {
   height: 100%;
+  background: radial-gradient(100% 100% at 50% 0%, #f4e9fe 0%, #e1f0ff 35%);
 }
 
 body {
@@ -26,6 +27,7 @@ body {
   margin: 0 auto;
   font-family: 'Roboto', sans-serif;
   font-size: 1rem;
+  color: var(--black);
 }
 
 .main {
@@ -33,7 +35,7 @@ body {
 }
 
 .footer {
-  border-top: 1px solid var(--gray900);
+  border-top: var(--border-main);
 }
 
 .overlay {
@@ -55,6 +57,10 @@ body {
   display: none !important;
 }
 
+.title {
+  font: var(--font-title);
+}
+
 ::-webkit-scrollbar {
   width: 0.5rem;
   display: block;
@@ -66,10 +72,10 @@ body {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: var(--gray900);
-  border-radius: 2px;
+  background: var(--gray600);
+  border-radius: var(--border-radius-xs);
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: var(--primary500);
+  background: var(--gray900);
 }

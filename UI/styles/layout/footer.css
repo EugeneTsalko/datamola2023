@@ -2,35 +2,33 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 0.5rem 20px;
+  padding: 0.5rem 1.25rem;
+  background-color: var(--white-04);
 }
 
 .footer-info {
   display: grid;
   grid-template: auto auto / auto auto;
-  gap: 4px;
+  gap: var(--gap-xs);
   font: var(--font-small);
 }
 
 .select-lang {
   display: flex;
   align-items: center;
-  gap: 0.5rem;
+  gap: var(--gap-s);
   transition: var(--transition);
 }
 
 .select-lang label {
   width: 1.5rem;
   height: 1.5rem;
-  background-image: url('../../assets/svg/language.svg');
-  background-position: center;
-  background-repeat: no-repeat;
+  background: url('../../assets/svg/language.svg') center no-repeat;
   cursor: pointer;
 }
 
 .select-lang select {
-  font-family: 'Roboto', sans-serif;
-  font-size: 1rem;
+  font: var(--font-body-large);
   user-select: none;
   background-color: transparent;
 }
@@ -38,7 +36,7 @@
 @media screen and (width <= 414px) {
   .footer {
     flex-direction: column-reverse;
-    gap: 1rem;
+    gap: var(--gap);
     padding: 1rem 0.5rem;
   }
 
