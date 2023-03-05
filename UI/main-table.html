@@ -1,1198 +1,1160 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="icon" type="image/x-icon" href="./assets/favicon.ico" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap"
-      rel="stylesheet"
-    />
-    <link rel="stylesheet" href="./styles/style.css" />
-    <title>TrelloMola by EugeneTsalko</title>
-  </head>
-  <body>
-    <div class="overlay"></div>
-    <header class="header">
-      <a href="main.html" class="logo-link"></a>
-      <nav class="nav">
-        <a href="user.html">
-          <button class="btn secondary-btn icon-btn profile-btn"></button>
-        </a>
-        <button class="btn logout-btn"></button>
-      </nav>
-    </header>
 
-    <main class="main">
-      <div class="menu">
-        <button class="btn secondary-btn add-task-btn">
-          <img src="./assets/svg/add.svg" alt="add" />
-          <span>ADD TASK</span>
-        </button>
-        <nav>
-          <div class="filter-container">
-            <button class="btn secondary-btn icon-btn filter-btn"></button>
-            <!-- Чекбоксы снизу сделаны как заглушки, будут работать с JS -->
-            <div class="filter-bar">
-              <div class="checkbox-dropdown">
-                <span>Assignee</span>
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/x-icon" href="./assets/favicon.ico">
+  <link rel="stylesheet" href="./styles/style.css">
+  <title>TrelloMola by EugeneTsalko</title>
+</head>
+
+<body>
+  <div class="overlay"></div>
+  <header class="header table-sticky-header">
+    <a href="main.html" class="logo-link"></a>
+    <nav class="nav">
+      <span>Hi, username!</span>
+      <a href="user.html" class="btn secondary-btn icon-btn profile-btn"></a>
+      <button class="btn logout-btn"></button>
+    </nav>
+  </header>
+
+  <main class="main">
+    <div class="menu table-sticky-menu">
+      <button class="btn secondary-btn add-task-btn">
+        <img src="./assets/svg/add.svg" alt="add">
+        <span>ADD TASK</span>
+      </button>
+      <nav>
+        <div class="filter-container">
+          <button class="btn secondary-btn icon-btn filter-btn"></button>
+          <!-- Чекбоксы снизу сделаны как заглушки, будут работать с JS -->
+          <div class="filter-bar">
+            <div class="checkbox-dropdown">
+              <span>Assignee</span>
+            </div>
+            <div class="checkbox-dropdown">
+              <span>Date</span>
+            </div>
+            <div class="checkbox-dropdown">
+              <span>Privacy</span>
+            </div>
+            <div class="checkbox-dropdown">
+              <span>Priority</span>
+            </div>
+          </div>
+          <form class="search-form">
+            <input type="text" class="search" placeholder="Search...">
+            <button type="submit" class="search-btn"></button>
+          </form>
+        </div>
+        <div class="view-container">
+          <span>View:</span>
+          <button class="btn secondary-btn kanban-btn"></button>
+          <button class="btn secondary-btn table-btn active"></button>
+        </div>
+      </nav>
+    </div>
+    <section class="table">
+      <div class="table-header-container">
+        <div class="table-row">
+          <div class="table-row-item table-header-item-title">TITLE</div>
+          <div class="table-row-item table-header-item-description">DESCRIPTION</div>
+          <div class="table-row-item table-header-item-date">DATE</div>
+          <div class="table-row-item table-header-item-assignee">ASSIGNEE</div>
+          <div class="table-row-item table-header-item-privacy">PRIVACY</div>
+          <div class="table-row-item table-header-item-priority">PRIORITY</div>
+          <div class="table-row-item table-header-item-status">STATUS</div>
+        </div>
+      </div>
+
+      <div class="row">
+        <h3>TO DO</h3>
+        <ul class="task-list">
+          <li>
+            <div class="table-task">
+              <div class="table-task-item table-task-item-title">
+                <span>
+                  This text contains 100 symbols. Lorem ipsum dolor sit amet consectetur
+                  adipisicin?
+                </span>
               </div>
-              <div class="checkbox-dropdown">
-                <span>Date</span>
+              <div class="table-task-item table-task-item-description">
+                <span>
+                  This description contains 280 symbols. Lorem ipsum dolor sit amet consectetur
+                  adipisicing elit. Veniam voluptatum minus neque perspiciatis natus beatae magnam
+                  mollitia pariatur. Libero deserunt consectetur quam voluptatibus debitis illum
+                  error maiores perspicia?
+                </span>
+                <div class="table-task-comments">
+                  <img src="./assets/svg/comment.svg" alt="comment">
+                  <span>3</span>
+                </div>
               </div>
-              <div class="checkbox-dropdown">
-                <span>Privacy</span>
+              <div class="table-task-item table-task-item-date">
+                <span>12:00</span>
+                <span>Feb 15</span>
               </div>
-              <div class="checkbox-dropdown">
-                <span>Priority</span>
+              <div class="table-task-item table-task-item-assignee">
+                <span>Regularname</span>
+                <img class="table-assignee-img" src="./assets/png/user-img-5.png" alt="assignee image">
+              </div>
+              <div class="table-task-item table-task-item-privacy">Private</div>
+              <div class="table-task-item table-task-item-priority">
+                <div class="task-priority">
+                  <div class="task-priority medium">Medium</div>
+                </div>
+              </div>
+              <div class="table-task-item table-task-item-status">
+                <span>To Do</span>
+                <div class="table-task-buttons">
+                  <button class="btn secondary-btn edit-btn"></button>
+                  <button class="btn secondary-btn delete-btn"></button>
+                </div>
               </div>
             </div>
-            <form class="search-form">
-              <input type="text" class="search" placeholder="Search..." />
-              <button type="submit" class="search-btn"></button>
-            </form>
-          </div>
-          <div class="view-container">
-            <span>View:</span>
-            <button class="btn secondary-btn kanban-btn"></button>
-            <button class="btn secondary-btn table-btn active"></button>
-          </div>
-        </nav>
+          </li>
+          <li>
+            <div class="table-task">
+              <div class="table-task-item table-task-item-title">
+                <span>Short task name.</span>
+              </div>
+              <div class="table-task-item table-task-item-description">
+                <span> Short description. </span>
+                <div class="table-task-comments">
+                  <img src="./assets/svg/comment.svg" alt="comment">
+                  <span>3</span>
+                </div>
+              </div>
+              <div class="table-task-item table-task-item-date">
+                <span>12:00</span>
+                <span>Feb 15</span>
+              </div>
+              <div class="table-task-item table-task-item-assignee">
+                <span>Jess</span>
+                <img class="table-assignee-img" src="./assets/png/user-img-5.png" alt="assignee image">
+              </div>
+              <div class="table-task-item table-task-item-privacy">Private</div>
+              <div class="table-task-item table-task-item-priority">
+                <div class="task-priority">
+                  <div class="task-priority high">High</div>
+                </div>
+              </div>
+              <div class="table-task-item table-task-item-status">
+                <span>To Do</span>
+                <div class="table-task-buttons">
+                  <button class="btn secondary-btn edit-btn"></button>
+                  <button class="btn secondary-btn delete-btn"></button>
+                </div>
+              </div>
+            </div>
+          </li>
+          <li>
+            <div class="table-task">
+              <div class="table-task-item table-task-item-title">
+                <span>Regular name of the task. To do something cool.</span>
+              </div>
+              <div class="table-task-item table-task-item-description">
+                <span> Regular description of the task. To do something cool. </span>
+                <div class="table-task-comments">
+                  <img src="./assets/svg/comment.svg" alt="comment">
+                  <span>3</span>
+                </div>
+              </div>
+              <div class="table-task-item table-task-item-date">
+                <span>12:00</span>
+                <span>Feb 15</span>
+              </div>
+              <div class="table-task-item table-task-item-assignee">
+                <span>Username</span>
+                <img class="table-assignee-img" src="./assets/png/user-img-5.png" alt="assignee image">
+              </div>
+              <div class="table-task-item table-task-item-privacy">Public</div>
+              <div class="table-task-item table-task-item-priority">
+                <div class="task-priority">
+                  <div class="task-priority low">Low</div>
+                </div>
+              </div>
+              <div class="table-task-item table-task-item-status">
+                <span>To Do</span>
+                <div class="table-task-buttons">
+                  <button class="btn secondary-btn edit-btn"></button>
+                  <button class="btn secondary-btn delete-btn"></button>
+                </div>
+              </div>
+            </div>
+          </li>
+          <li>
+            <div class="table-task">
+              <div class="table-task-item table-task-item-title">
+                <span>This text contains 100 symbols. Lorem ipsum dolor sit amet consectetur
+                  adipisicin?</span>
+              </div>
+              <div class="table-task-item table-task-item-description">
+                <span>
+                  This description contains 280 symbols. Lorem ipsum dolor sit amet consectetur
+                  adipisicing elit. Veniam voluptatum minus neque perspiciatis natus beatae magnam
+                  mollitia pariatur. Libero deserunt consectetur quam voluptatibus debitis illum
+                  error maiores perspicia?
+                </span>
+                <div class="table-task-comments">
+                  <img src="./assets/svg/comment.svg" alt="comment">
+                  <span>3</span>
+                </div>
+              </div>
+              <div class="table-task-item table-task-item-date">
+                <span>12:00</span>
+                <span>Feb 15</span>
+              </div>
+              <div class="table-task-item table-task-item-assignee">
+                <span>Regularname</span>
+                <img class="table-assignee-img" src="./assets/png/user-img-5.png" alt="assignee image">
+              </div>
+              <div class="table-task-item table-task-item-privacy">Private</div>
+              <div class="table-task-item table-task-item-priority">
+                <div class="task-priority medium">Medium</div>
+              </div>
+              <div class="table-task-item table-task-item-status">
+                <span>To Do</span>
+                <div class="table-task-buttons">
+                  <button class="btn secondary-btn edit-btn"></button>
+                  <button class="btn secondary-btn delete-btn"></button>
+                </div>
+              </div>
+            </div>
+          </li>
+          <li>
+            <div class="table-task">
+              <div class="table-task-item table-task-item-title">
+                <span>Short task name.</span>
+              </div>
+              <div class="table-task-item table-task-item-description">
+                <span> Short description. </span>
+                <div class="table-task-comments">
+                  <img src="./assets/svg/comment.svg" alt="comment">
+                  <span>3</span>
+                </div>
+              </div>
+              <div class="table-task-item table-task-item-date">
+                <span>12:00</span>
+                <span>Feb 15</span>
+              </div>
+              <div class="table-task-item table-task-item-assignee">
+                <span>Jess</span>
+                <img class="table-assignee-img" src="./assets/png/user-img-5.png" alt="assignee image">
+              </div>
+              <div class="table-task-item table-task-item-privacy">Private</div>
+              <div class="table-task-item table-task-item-priority">
+                <div class="task-priority high">High</div>
+              </div>
+              <div class="table-task-item table-task-item-status">
+                <span>To Do</span>
+                <div class="table-task-buttons">
+                  <button class="btn secondary-btn edit-btn"></button>
+                  <button class="btn secondary-btn delete-btn"></button>
+                </div>
+              </div>
+            </div>
+          </li>
+          <li>
+            <div class="table-task">
+              <div class="table-task-item table-task-item-title">
+                <span>Regular name of the task. To do something cool.</span>
+              </div>
+              <div class="table-task-item table-task-item-description">
+                <span> Regular description of the task. To do something cool. </span>
+                <div class="table-task-comments">
+                  <img src="./assets/svg/comment.svg" alt="comment">
+                  <span>3</span>
+                </div>
+              </div>
+              <div class="table-task-item table-task-item-date">
+                <span>12:00</span>
+                <span>Feb 15</span>
+              </div>
+              <div class="table-task-item table-task-item-assignee">
+                <span>Username</span>
+                <img class="table-assignee-img" src="./assets/png/user-img-5.png" alt="assignee image">
+              </div>
+              <div class="table-task-item table-task-item-privacy">Public</div>
+              <div class="table-task-item table-task-item-priority">
+                <div class="task-priority low">Low</div>
+              </div>
+              <div class="table-task-item table-task-item-status">
+                <span>To Do</span>
+                <div class="table-task-buttons">
+                  <button class="btn secondary-btn edit-btn"></button>
+                  <button class="btn secondary-btn delete-btn"></button>
+                </div>
+              </div>
+            </div>
+          </li>
+          <li>
+            <div class="table-task">
+              <div class="table-task-item table-task-item-title">
+                <span>Regular name of the task. To do something cool.</span>
+              </div>
+              <div class="table-task-item table-task-item-description">
+                <span> Regular description of the task. To do something cool. </span>
+                <div class="table-task-comments">
+                  <img src="./assets/svg/comment.svg" alt="comment">
+                  <span>3</span>
+                </div>
+              </div>
+              <div class="table-task-item table-task-item-date">
+                <span>12:00</span>
+                <span>Feb 15</span>
+              </div>
+              <div class="table-task-item table-task-item-assignee">
+                <span>Username</span>
+                <img class="table-assignee-img" src="./assets/png/user-img-5.png" alt="assignee image">
+              </div>
+              <div class="table-task-item table-task-item-privacy">Public</div>
+              <div class="table-task-item table-task-item-priority">
+                <div class="task-priority low">Low</div>
+              </div>
+              <div class="table-task-item table-task-item-status">
+                <span>To Do</span>
+                <div class="table-task-buttons">
+                  <button class="btn secondary-btn edit-btn"></button>
+                  <button class="btn secondary-btn delete-btn"></button>
+                </div>
+              </div>
+            </div>
+          </li>
+          <li>
+            <div class="table-task">
+              <div class="table-task-item table-task-item-title">
+                <span>Regular name of the task. To do something cool.</span>
+              </div>
+              <div class="table-task-item table-task-item-description">
+                <span> Regular description of the task. To do something cool. </span>
+                <div class="table-task-comments">
+                  <img src="./assets/svg/comment.svg" alt="comment">
+                  <span>3</span>
+                </div>
+              </div>
+              <div class="table-task-item table-task-item-date">
+                <span>12:00</span>
+                <span>Feb 15</span>
+              </div>
+              <div class="table-task-item table-task-item-assignee">
+                <span>Username</span>
+                <img class="table-assignee-img" src="./assets/png/user-img-5.png" alt="assignee image">
+              </div>
+              <div class="table-task-item table-task-item-privacy">Public</div>
+              <div class="table-task-item table-task-item-priority">
+                <div class="task-priority low">Low</div>
+              </div>
+              <div class="table-task-item table-task-item-status">
+                <span>To Do</span>
+                <div class="table-task-buttons">
+                  <button class="btn secondary-btn edit-btn"></button>
+                  <button class="btn secondary-btn delete-btn"></button>
+                </div>
+              </div>
+            </div>
+          </li>
+          <li>
+            <div class="table-task">
+              <div class="table-task-item table-task-item-title">
+                <span>Regular name of the task. To do something cool.</span>
+              </div>
+              <div class="table-task-item table-task-item-description">
+                <span> Regular description of the task. To do something cool. </span>
+                <div class="table-task-comments">
+                  <img src="./assets/svg/comment.svg" alt="comment">
+                  <span>3</span>
+                </div>
+              </div>
+              <div class="table-task-item table-task-item-date">
+                <span>12:00</span>
+                <span>Feb 15</span>
+              </div>
+              <div class="table-task-item table-task-item-assignee">
+                <span>Username</span>
+                <img class="table-assignee-img" src="./assets/png/user-img-5.png" alt="assignee image">
+              </div>
+              <div class="table-task-item table-task-item-privacy">Public</div>
+              <div class="table-task-item table-task-item-priority">
+                <div class="task-priority low">Low</div>
+              </div>
+              <div class="table-task-item table-task-item-status">
+                <span>To Do</span>
+                <div class="table-task-buttons">
+                  <button class="btn secondary-btn edit-btn"></button>
+                  <button class="btn secondary-btn delete-btn"></button>
+                </div>
+              </div>
+            </div>
+          </li>
+          <li>
+            <div class="table-task">
+              <div class="table-task-item table-task-item-title">
+                <span>Regular name of the task. To do something cool.</span>
+              </div>
+              <div class="table-task-item table-task-item-description">
+                <span> Regular description of the task. To do something cool. </span>
+                <div class="table-task-comments">
+                  <img src="./assets/svg/comment.svg" alt="comment">
+                  <span>3</span>
+                </div>
+              </div>
+              <div class="table-task-item table-task-item-date">
+                <span>12:00</span>
+                <span>Feb 15</span>
+              </div>
+              <div class="table-task-item table-task-item-assignee">
+                <span>Username</span>
+                <img class="table-assignee-img" src="./assets/png/user-img-5.png" alt="assignee image">
+              </div>
+              <div class="table-task-item table-task-item-privacy">Public</div>
+              <div class="table-task-item table-task-item-priority">
+                <div class="task-priority low">Low</div>
+              </div>
+              <div class="table-task-item table-task-item-status">
+                <span>To Do</span>
+                <div class="table-task-buttons">
+                  <button class="btn secondary-btn edit-btn"></button>
+                  <button class="btn secondary-btn delete-btn"></button>
+                </div>
+              </div>
+            </div>
+          </li>
+          <li>
+            <button class="btn secondary-btn load-more-btn">
+              <img src="./assets/svg/refresh.svg" alt="refresh">
+              <span>Load more</span>
+            </button>
+          </li>
+        </ul>
       </div>
-      <section class="table">
-        <div class="table-header-container">
-          <div class="table-row">
-            <div class="table-row-item table-header-item-title">TITLE</div>
-            <div class="table-row-item table-header-item-description">DESCRIPTION</div>
-            <div class="table-row-item table-header-item-date">DATE</div>
-            <div class="table-row-item table-header-item-assignee">ASSIGNEE</div>
-            <div class="table-row-item table-header-item-privacy">PRIVACY</div>
-            <div class="table-row-item table-header-item-priority">PRIORITY</div>
-            <div class="table-row-item table-header-item-status">STATUS</div>
-          </div>
-        </div>
+      <div class="row">
+        <h3>IN PROGRESS</h3>
+        <ul class="task-list">
+          <li>
+            <div class="table-task">
+              <div class="table-task-item table-task-item-title">
+                <span>This text contains 100 symbols. Lorem ipsum dolor sit amet consectetur
+                  adipisicin?</span>
+              </div>
+              <div class="table-task-item table-task-item-description">
+                <span>
+                  This description contains 280 symbols. Lorem ipsum dolor sit amet consectetur
+                  adipisicing elit. Veniam voluptatum minus neque perspiciatis natus beatae magnam
+                  mollitia pariatur. Libero deserunt consectetur quam voluptatibus debitis illum
+                  error maiores perspicia?
+                </span>
+                <div class="table-task-comments">
+                  <img src="./assets/svg/comment.svg" alt="comment">
+                  <span>3</span>
+                </div>
+              </div>
+              <div class="table-task-item table-task-item-date">
+                <span>12:00</span>
+                <span>Feb 15</span>
+              </div>
+              <div class="table-task-item table-task-item-assignee">
+                <span>Regularname</span>
+                <img class="table-assignee-img" src="./assets/png/user-img-5.png" alt="assignee image">
+              </div>
+              <div class="table-task-item table-task-item-privacy">Private</div>
+              <div class="table-task-item table-task-item-priority">
+                <div class="task-priority medium">Medium</div>
+              </div>
+              <div class="table-task-item table-task-item-status">
+                <span>To Do</span>
+                <div class="table-task-buttons">
+                  <button class="btn secondary-btn edit-btn"></button>
+                  <button class="btn secondary-btn delete-btn"></button>
+                </div>
+              </div>
+            </div>
+          </li>
+          <li>
+            <div class="table-task">
+              <div class="table-task-item table-task-item-title">
+                <span>Short task name.</span>
+              </div>
+              <div class="table-task-item table-task-item-description">
+                <span> Short description. </span>
+                <div class="table-task-comments">
+                  <img src="./assets/svg/comment.svg" alt="comment">
+                  <span>3</span>
+                </div>
+              </div>
+              <div class="table-task-item table-task-item-date">
+                <span>12:00</span>
+                <span>Feb 15</span>
+              </div>
+              <div class="table-task-item table-task-item-assignee">
+                <span>Jess</span>
+                <img class="table-assignee-img" src="./assets/png/user-img-5.png" alt="assignee image">
+              </div>
+              <div class="table-task-item table-task-item-privacy">Private</div>
+              <div class="table-task-item table-task-item-priority">
+                <div class="task-priority high">High</div>
+              </div>
+              <div class="table-task-item table-task-item-status">
+                <span>To Do</span>
+                <div class="table-task-buttons">
+                  <button class="btn secondary-btn edit-btn"></button>
+                  <button class="btn secondary-btn delete-btn"></button>
+                </div>
+              </div>
+            </div>
+          </li>
+          <li>
+            <div class="table-task">
+              <div class="table-task-item table-task-item-title">
+                <span>Regular name of the task. To do something cool.</span>
+              </div>
+              <div class="table-task-item table-task-item-description">
+                <span> Regular description of the task. To do something cool. </span>
+                <div class="table-task-comments">
+                  <img src="./assets/svg/comment.svg" alt="comment">
+                  <span>3</span>
+                </div>
+              </div>
+              <div class="table-task-item table-task-item-date">
+                <span>12:00</span>
+                <span>Feb 15</span>
+              </div>
+              <div class="table-task-item table-task-item-assignee">
+                <span>Username</span>
+                <img class="table-assignee-img" src="./assets/png/user-img-5.png" alt="assignee image">
+              </div>
+              <div class="table-task-item table-task-item-privacy">Public</div>
+              <div class="table-task-item table-task-item-priority">
+                <div class="task-priority low">Low</div>
+              </div>
+              <div class="table-task-item table-task-item-status">
+                <span>To Do</span>
+                <div class="table-task-buttons">
+                  <button class="btn secondary-btn edit-btn"></button>
+                  <button class="btn secondary-btn delete-btn"></button>
+                </div>
+              </div>
+            </div>
+          </li>
+          <li>
+            <div class="table-task">
+              <div class="table-task-item table-task-item-title">
+                <span>This text contains 100 symbols. Lorem ipsum dolor sit amet consectetur
+                  adipisicin?</span>
+              </div>
+              <div class="table-task-item table-task-item-description">
+                <span>
+                  This description contains 280 symbols. Lorem ipsum dolor sit amet consectetur
+                  adipisicing elit. Veniam voluptatum minus neque perspiciatis natus beatae magnam
+                  mollitia pariatur. Libero deserunt consectetur quam voluptatibus debitis illum
+                  error maiores perspicia?
+                </span>
+                <div class="table-task-comments">
+                  <img src="./assets/svg/comment.svg" alt="comment">
+                  <span>3</span>
+                </div>
+              </div>
+              <div class="table-task-item table-task-item-date">
+                <span>12:00</span>
+                <span>Feb 15</span>
+              </div>
+              <div class="table-task-item table-task-item-assignee">
+                <span>Regularname</span>
+                <img class="table-assignee-img" src="./assets/png/user-img-5.png" alt="assignee image">
+              </div>
+              <div class="table-task-item table-task-item-privacy">Private</div>
+              <div class="table-task-item table-task-item-priority">
+                <div class="task-priority medium">Medium</div>
+              </div>
+              <div class="table-task-item table-task-item-status">
+                <span>To Do</span>
+                <div class="table-task-buttons">
+                  <button class="btn secondary-btn edit-btn"></button>
+                  <button class="btn secondary-btn delete-btn"></button>
+                </div>
+              </div>
+            </div>
+          </li>
+          <li>
+            <div class="table-task">
+              <div class="table-task-item table-task-item-title">
+                <span>Short task name.</span>
+              </div>
+              <div class="table-task-item table-task-item-description">
+                <span> Short description. </span>
+                <div class="table-task-comments">
+                  <img src="./assets/svg/comment.svg" alt="comment">
+                  <span>3</span>
+                </div>
+              </div>
+              <div class="table-task-item table-task-item-date">
+                <span>12:00</span>
+                <span>Feb 15</span>
+              </div>
+              <div class="table-task-item table-task-item-assignee">
+                <span>Jess</span>
+                <img class="table-assignee-img" src="./assets/png/user-img-5.png" alt="assignee image">
+              </div>
+              <div class="table-task-item table-task-item-privacy">Private</div>
+              <div class="table-task-item table-task-item-priority">
+                <div class="task-priority high">High</div>
+              </div>
+              <div class="table-task-item table-task-item-status">
+                <span>To Do</span>
+                <div class="table-task-buttons">
+                  <button class="btn secondary-btn edit-btn"></button>
+                  <button class="btn secondary-btn delete-btn"></button>
+                </div>
+              </div>
+            </div>
+          </li>
+          <li>
+            <div class="table-task">
+              <div class="table-task-item table-task-item-title">
+                <span>Regular name of the task. To do something cool.</span>
+              </div>
+              <div class="table-task-item table-task-item-description">
+                <span> Regular description of the task. To do something cool. </span>
+                <div class="table-task-comments">
+                  <img src="./assets/svg/comment.svg" alt="comment">
+                  <span>3</span>
+                </div>
+              </div>
+              <div class="table-task-item table-task-item-date">
+                <span>12:00</span>
+                <span>Feb 15</span>
+              </div>
+              <div class="table-task-item table-task-item-assignee">
+                <span>Username</span>
+                <img class="table-assignee-img" src="./assets/png/user-img-5.png" alt="assignee image">
+              </div>
+              <div class="table-task-item table-task-item-privacy">Public</div>
+              <div class="table-task-item table-task-item-priority">
+                <div class="task-priority low">Low</div>
+              </div>
+              <div class="table-task-item table-task-item-status">
+                <span>To Do</span>
+                <div class="table-task-buttons">
+                  <button class="btn secondary-btn edit-btn"></button>
+                  <button class="btn secondary-btn delete-btn"></button>
+                </div>
+              </div>
+            </div>
+          </li>
+          <li>
+            <div class="table-task">
+              <div class="table-task-item table-task-item-title">
+                <span>Regular name of the task. To do something cool.</span>
+              </div>
+              <div class="table-task-item table-task-item-description">
+                <span> Regular description of the task. To do something cool. </span>
+                <div class="table-task-comments">
+                  <img src="./assets/svg/comment.svg" alt="comment">
+                  <span>3</span>
+                </div>
+              </div>
+              <div class="table-task-item table-task-item-date">
+                <span>12:00</span>
+                <span>Feb 15</span>
+              </div>
+              <div class="table-task-item table-task-item-assignee">
+                <span>Username</span>
+                <img class="table-assignee-img" src="./assets/png/user-img-5.png" alt="assignee image">
+              </div>
+              <div class="table-task-item table-task-item-privacy">Public</div>
+              <div class="table-task-item table-task-item-priority">
+                <div class="task-priority low">Low</div>
+              </div>
+              <div class="table-task-item table-task-item-status">
+                <span>To Do</span>
+                <div class="table-task-buttons">
+                  <button class="btn secondary-btn edit-btn"></button>
+                  <button class="btn secondary-btn delete-btn"></button>
+                </div>
+              </div>
+            </div>
+          </li>
+          <li>
+            <div class="table-task">
+              <div class="table-task-item table-task-item-title">
+                <span>Regular name of the task. To do something cool.</span>
+              </div>
+              <div class="table-task-item table-task-item-description">
+                <span> Regular description of the task. To do something cool. </span>
+                <div class="table-task-comments">
+                  <img src="./assets/svg/comment.svg" alt="comment">
+                  <span>3</span>
+                </div>
+              </div>
+              <div class="table-task-item table-task-item-date">
+                <span>12:00</span>
+                <span>Feb 15</span>
+              </div>
+              <div class="table-task-item table-task-item-assignee">
+                <span>Username</span>
+                <img class="table-assignee-img" src="./assets/png/user-img-5.png" alt="assignee image">
+              </div>
+              <div class="table-task-item table-task-item-privacy">Public</div>
+              <div class="table-task-item table-task-item-priority">
+                <div class="task-priority low">Low</div>
+              </div>
+              <div class="table-task-item table-task-item-status">
+                <span>To Do</span>
+                <div class="table-task-buttons">
+                  <button class="btn secondary-btn edit-btn"></button>
+                  <button class="btn secondary-btn delete-btn"></button>
+                </div>
+              </div>
+            </div>
+          </li>
+          <li>
+            <div class="table-task">
+              <div class="table-task-item table-task-item-title">
+                <span>Regular name of the task. To do something cool.</span>
+              </div>
+              <div class="table-task-item table-task-item-description">
+                <span> Regular description of the task. To do something cool. </span>
+                <div class="table-task-comments">
+                  <img src="./assets/svg/comment.svg" alt="comment">
+                  <span>3</span>
+                </div>
+              </div>
+              <div class="table-task-item table-task-item-date">
+                <span>12:00</span>
+                <span>Feb 15</span>
+              </div>
+              <div class="table-task-item table-task-item-assignee">
+                <span>Username</span>
+                <img class="table-assignee-img" src="./assets/png/user-img-5.png" alt="assignee image">
+              </div>
+              <div class="table-task-item table-task-item-privacy">Public</div>
+              <div class="table-task-item table-task-item-priority">
+                <div class="task-priority low">Low</div>
+              </div>
+              <div class="table-task-item table-task-item-status">
+                <span>To Do</span>
+                <div class="table-task-buttons">
+                  <button class="btn secondary-btn edit-btn"></button>
+                  <button class="btn secondary-btn delete-btn"></button>
+                </div>
+              </div>
+            </div>
+          </li>
+          <li>
+            <div class="table-task">
+              <div class="table-task-item table-task-item-title">
+                <span>Regular name of the task. To do something cool.</span>
+              </div>
+              <div class="table-task-item table-task-item-description">
+                <span> Regular description of the task. To do something cool. </span>
+                <div class="table-task-comments">
+                  <img src="./assets/svg/comment.svg" alt="comment">
+                  <span>3</span>
+                </div>
+              </div>
+              <div class="table-task-item table-task-item-date">
+                <span>12:00</span>
+                <span>Feb 15</span>
+              </div>
+              <div class="table-task-item table-task-item-assignee">
+                <span>Username</span>
+                <img class="table-assignee-img" src="./assets/png/user-img-5.png" alt="assignee image">
+              </div>
+              <div class="table-task-item table-task-item-privacy">Public</div>
+              <div class="table-task-item table-task-item-priority">
+                <div class="task-priority low">Low</div>
+              </div>
+              <div class="table-task-item table-task-item-status">
+                <span>To Do</span>
+                <div class="table-task-buttons">
+                  <button class="btn secondary-btn edit-btn"></button>
+                  <button class="btn secondary-btn delete-btn"></button>
+                </div>
+              </div>
+            </div>
+          </li>
+          <li>
+            <button class="btn secondary-btn load-more-btn">
+              <img src="./assets/svg/refresh.svg" alt="refresh">
+              <span>Load more</span>
+            </button>
+          </li>
+        </ul>
+      </div>
+      <div class="row">
+        <h3>COMPLETE</h3>
+        <ul class="task-list">
+          <li>
+            <div class="table-task">
+              <div class="table-task-item table-task-item-title">
+                <span>This text contains 100 symbols. Lorem ipsum dolor sit amet consectetur
+                  adipisicin?</span>
+              </div>
+              <div class="table-task-item table-task-item-description">
+                <span>
+                  This description contains 280 symbols. Lorem ipsum dolor sit amet consectetur
+                  adipisicing elit. Veniam voluptatum minus neque perspiciatis natus beatae magnam
+                  mollitia pariatur. Libero deserunt consectetur quam voluptatibus debitis illum
+                  error maiores perspicia?
+                </span>
+                <div class="table-task-comments">
+                  <img src="./assets/svg/comment.svg" alt="comment">
+                  <span>3</span>
+                </div>
+              </div>
+              <div class="table-task-item table-task-item-date">
+                <span>12:00</span>
+                <span>Feb 15</span>
+              </div>
+              <div class="table-task-item table-task-item-assignee">
+                <span>Regularname</span>
+                <img class="table-assignee-img" src="./assets/png/user-img-5.png" alt="assignee image">
+              </div>
+              <div class="table-task-item table-task-item-privacy">Private</div>
+              <div class="table-task-item table-task-item-priority">
+                <div class="task-priority medium">Medium</div>
+              </div>
+              <div class="table-task-item table-task-item-status">
+                <span>To Do</span>
+                <div class="table-task-buttons">
+                  <button class="btn secondary-btn edit-btn"></button>
+                  <button class="btn secondary-btn delete-btn"></button>
+                </div>
+              </div>
+            </div>
+          </li>
+          <li>
+            <div class="table-task">
+              <div class="table-task-item table-task-item-title">
+                <span>Short task name.</span>
+              </div>
+              <div class="table-task-item table-task-item-description">
+                <span> Short description. </span>
+                <div class="table-task-comments">
+                  <img src="./assets/svg/comment.svg" alt="comment">
+                  <span>3</span>
+                </div>
+              </div>
+              <div class="table-task-item table-task-item-date">
+                <span>12:00</span>
+                <span>Feb 15</span>
+              </div>
+              <div class="table-task-item table-task-item-assignee">
+                <span>Jess</span>
+                <img class="table-assignee-img" src="./assets/png/user-img-5.png" alt="assignee image">
+              </div>
+              <div class="table-task-item table-task-item-privacy">Private</div>
+              <div class="table-task-item table-task-item-priority">
+                <div class="task-priority high">High</div>
+              </div>
+              <div class="table-task-item table-task-item-status">
+                <span>To Do</span>
+                <div class="table-task-buttons">
+                  <button class="btn secondary-btn edit-btn"></button>
+                  <button class="btn secondary-btn delete-btn"></button>
+                </div>
+              </div>
+            </div>
+          </li>
+          <li>
+            <div class="table-task">
+              <div class="table-task-item table-task-item-title">
+                <span>Regular name of the task. To do something cool.</span>
+              </div>
+              <div class="table-task-item table-task-item-description">
+                <span> Regular description of the task. To do something cool. </span>
+                <div class="table-task-comments">
+                  <img src="./assets/svg/comment.svg" alt="comment">
+                  <span>3</span>
+                </div>
+              </div>
+              <div class="table-task-item table-task-item-date">
+                <span>12:00</span>
+                <span>Feb 15</span>
+              </div>
+              <div class="table-task-item table-task-item-assignee">
+                <span>Username</span>
+                <img class="table-assignee-img" src="./assets/png/user-img-5.png" alt="assignee image">
+              </div>
+              <div class="table-task-item table-task-item-privacy">Public</div>
+              <div class="table-task-item table-task-item-priority">
+                <div class="task-priority low">Low</div>
+              </div>
+              <div class="table-task-item table-task-item-status">
+                <span>To Do</span>
+                <div class="table-task-buttons">
+                  <button class="btn secondary-btn edit-btn"></button>
+                  <button class="btn secondary-btn delete-btn"></button>
+                </div>
+              </div>
+            </div>
+          </li>
+          <li>
+            <div class="table-task">
+              <div class="table-task-item table-task-item-title">
+                <span>This text contains 100 symbols. Lorem ipsum dolor sit amet consectetur
+                  adipisicin?</span>
+              </div>
+              <div class="table-task-item table-task-item-description">
+                <span>
+                  This description contains 280 symbols. Lorem ipsum dolor sit amet consectetur
+                  adipisicing elit. Veniam voluptatum minus neque perspiciatis natus beatae magnam
+                  mollitia pariatur. Libero deserunt consectetur quam voluptatibus debitis illum
+                  error maiores perspicia?
+                </span>
+                <div class="table-task-comments">
+                  <img src="./assets/svg/comment.svg" alt="comment">
+                  <span>3</span>
+                </div>
+              </div>
+              <div class="table-task-item table-task-item-date">
+                <span>12:00</span>
+                <span>Feb 15</span>
+              </div>
+              <div class="table-task-item table-task-item-assignee">
+                <span>Regularname</span>
+                <img class="table-assignee-img" src="./assets/png/user-img-5.png" alt="assignee image">
+              </div>
+              <div class="table-task-item table-task-item-privacy">Private</div>
+              <div class="table-task-item table-task-item-priority">
+                <div class="task-priority medium">Medium</div>
+              </div>
+              <div class="table-task-item table-task-item-status">
+                <span>To Do</span>
+                <div class="table-task-buttons">
+                  <button class="btn secondary-btn edit-btn"></button>
+                  <button class="btn secondary-btn delete-btn"></button>
+                </div>
+              </div>
+            </div>
+          </li>
+          <li>
+            <div class="table-task">
+              <div class="table-task-item table-task-item-title">
+                <span>Short task name.</span>
+              </div>
+              <div class="table-task-item table-task-item-description">
+                <span> Short description. </span>
+                <div class="table-task-comments">
+                  <img src="./assets/svg/comment.svg" alt="comment">
+                  <span>3</span>
+                </div>
+              </div>
+              <div class="table-task-item table-task-item-date">
+                <span>12:00</span>
+                <span>Feb 15</span>
+              </div>
+              <div class="table-task-item table-task-item-assignee">
+                <span>Jess</span>
+                <img class="table-assignee-img" src="./assets/png/user-img-5.png" alt="assignee image">
+              </div>
+              <div class="table-task-item table-task-item-privacy">Private</div>
+              <div class="table-task-item table-task-item-priority">
+                <div class="task-priority high">High</div>
+              </div>
+              <div class="table-task-item table-task-item-status">
+                <span>To Do</span>
+                <div class="table-task-buttons">
+                  <button class="btn secondary-btn edit-btn"></button>
+                  <button class="btn secondary-btn delete-btn"></button>
+                </div>
+              </div>
+            </div>
+          </li>
+          <li>
+            <div class="table-task">
+              <div class="table-task-item table-task-item-title">
+                <span>Regular name of the task. To do something cool.</span>
+              </div>
+              <div class="table-task-item table-task-item-description">
+                <span> Regular description of the task. To do something cool. </span>
+                <div class="table-task-comments">
+                  <img src="./assets/svg/comment.svg" alt="comment">
+                  <span>3</span>
+                </div>
+              </div>
+              <div class="table-task-item table-task-item-date">
+                <span>12:00</span>
+                <span>Feb 15</span>
+              </div>
+              <div class="table-task-item table-task-item-assignee">
+                <span>Username</span>
+                <img class="table-assignee-img" src="./assets/png/user-img-5.png" alt="assignee image">
+              </div>
+              <div class="table-task-item table-task-item-privacy">Public</div>
+              <div class="table-task-item table-task-item-priority">
+                <div class="task-priority low">Low</div>
+              </div>
+              <div class="table-task-item table-task-item-status">
+                <span>To Do</span>
+                <div class="table-task-buttons">
+                  <button class="btn secondary-btn edit-btn"></button>
+                  <button class="btn secondary-btn delete-btn"></button>
+                </div>
+              </div>
+            </div>
+          </li>
+          <li>
+            <div class="table-task">
+              <div class="table-task-item table-task-item-title">
+                <span>Regular name of the task. To do something cool.</span>
+              </div>
+              <div class="table-task-item table-task-item-description">
+                <span> Regular description of the task. To do something cool. </span>
+                <div class="table-task-comments">
+                  <img src="./assets/svg/comment.svg" alt="comment">
+                  <span>3</span>
+                </div>
+              </div>
+              <div class="table-task-item table-task-item-date">
+                <span>12:00</span>
+                <span>Feb 15</span>
+              </div>
+              <div class="table-task-item table-task-item-assignee">
+                <span>Username</span>
+                <img class="table-assignee-img" src="./assets/png/user-img-5.png" alt="assignee image">
+              </div>
+              <div class="table-task-item table-task-item-privacy">Public</div>
+              <div class="table-task-item table-task-item-priority">
+                <div class="task-priority low">Low</div>
+              </div>
+              <div class="table-task-item table-task-item-status">
+                <span>To Do</span>
+                <div class="table-task-buttons">
+                  <button class="btn secondary-btn edit-btn"></button>
+                  <button class="btn secondary-btn delete-btn"></button>
+                </div>
+              </div>
+            </div>
+          </li>
+          <li>
+            <div class="table-task">
+              <div class="table-task-item table-task-item-title">
+                <span>Regular name of the task. To do something cool.</span>
+              </div>
+              <div class="table-task-item table-task-item-description">
+                <span> Regular description of the task. To do something cool. </span>
+                <div class="table-task-comments">
+                  <img src="./assets/svg/comment.svg" alt="comment">
+                  <span>3</span>
+                </div>
+              </div>
+              <div class="table-task-item table-task-item-date">
+                <span>12:00</span>
+                <span>Feb 15</span>
+              </div>
+              <div class="table-task-item table-task-item-assignee">
+                <span>Username</span>
+                <img class="table-assignee-img" src="./assets/png/user-img-5.png" alt="assignee image">
+              </div>
+              <div class="table-task-item table-task-item-privacy">Public</div>
+              <div class="table-task-item table-task-item-priority">
+                <div class="task-priority low">Low</div>
+              </div>
+              <div class="table-task-item table-task-item-status">
+                <span>To Do</span>
+                <div class="table-task-buttons">
+                  <button class="btn secondary-btn edit-btn"></button>
+                  <button class="btn secondary-btn delete-btn"></button>
+                </div>
+              </div>
+            </div>
+          </li>
+          <li>
+            <div class="table-task">
+              <div class="table-task-item table-task-item-title">
+                <span>Regular name of the task. To do something cool.</span>
+              </div>
+              <div class="table-task-item table-task-item-description">
+                <span> Regular description of the task. To do something cool. </span>
+                <div class="table-task-comments">
+                  <img src="./assets/svg/comment.svg" alt="comment">
+                  <span>3</span>
+                </div>
+              </div>
+              <div class="table-task-item table-task-item-date">
+                <span>12:00</span>
+                <span>Feb 15</span>
+              </div>
+              <div class="table-task-item table-task-item-assignee">
+                <span>Username</span>
+                <img class="table-assignee-img" src="./assets/png/user-img-5.png" alt="assignee image">
+              </div>
+              <div class="table-task-item table-task-item-privacy">Public</div>
+              <div class="table-task-item table-task-item-priority">
+                <div class="task-priority low">Low</div>
+              </div>
+              <div class="table-task-item table-task-item-status">
+                <span>To Do</span>
+                <div class="table-task-buttons">
+                  <button class="btn secondary-btn edit-btn"></button>
+                  <button class="btn secondary-btn delete-btn"></button>
+                </div>
+              </div>
+            </div>
+          </li>
+          <li>
+            <div class="table-task">
+              <div class="table-task-item table-task-item-title">
+                <span>Regular name of the task. To do something cool.</span>
+              </div>
+              <div class="table-task-item table-task-item-description">
+                <span> Regular description of the task. To do something cool. </span>
+                <div class="table-task-comments">
+                  <img src="./assets/svg/comment.svg" alt="comment">
+                  <span>3</span>
+                </div>
+              </div>
+              <div class="table-task-item table-task-item-date">
+                <span>12:00</span>
+                <span>Feb 15</span>
+              </div>
+              <div class="table-task-item table-task-item-assignee">
+                <span>Username</span>
+                <img class="table-assignee-img" src="./assets/png/user-img-5.png" alt="assignee image">
+              </div>
+              <div class="table-task-item table-task-item-privacy">Public</div>
+              <div class="table-task-item table-task-item-priority">
+                <div class="task-priority low">Low</div>
+              </div>
+              <div class="table-task-item table-task-item-status">
+                <span>To Do</span>
+                <div class="table-task-buttons">
+                  <button class="btn secondary-btn edit-btn"></button>
+                  <button class="btn secondary-btn delete-btn"></button>
+                </div>
+              </div>
+            </div>
+          </li>
+          <li>
+            <button class="btn secondary-btn load-more-btn">
+              <img src="./assets/svg/refresh.svg" alt="refresh">
+              <span>Load more</span>
+            </button>
+          </li>
+        </ul>
+      </div>
+    </section>
+  </main>
 
-        <div class="row">
-          <h3>TO DO</h3>
-          <ul class="task-list">
-            <li>
-              <div class="table-task">
-                <div class="table-task-item table-task-item-title">
-                  This text contains 100 symbols. Lorem ipsum dolor sit amet consectetur adipisicin?
-                </div>
-                <div class="table-task-item table-task-item-description">
-                  <span>
-                    This description contains 280 symbols. Lorem ipsum dolor sit amet consectetur
-                    adipisicing elit. Veniam voluptatum minus neque perspiciatis natus beatae magnam
-                    mollitia pariatur. Libero deserunt consectetur quam voluptatibus debitis illum
-                    error maiores perspicia?
-                  </span>
-                  <div class="table-task-comments">
-                    <img src="./assets/svg/comment.svg" alt="comment" />
-                    <span>3</span>
-                  </div>
-                </div>
-                <div class="table-task-item table-task-item-date">
-                  <span>12:00</span>
-                  <span>Feb 15</span>
-                </div>
-                <div class="table-task-item table-task-item-assignee">
-                  <span>Regularname</span>
-                  <img
-                    class="table-assignee-img"
-                    src="./assets/png/user-img-5.png"
-                    alt="assignee image"
-                  />
-                </div>
-                <div class="table-task-item table-task-item-privacy">Private</div>
-                <div class="table-task-item table-task-item-priority medium">Medium</div>
-                <div class="table-task-item table-task-item-status">
-                  <span>To Do</span>
-                  <div class="table-task-buttons">
-                    <button class="btn secondary-btn edit-btn"></button>
-                    <button class="btn secondary-btn delete-btn"></button>
-                  </div>
-                </div>
-              </div>
-            </li>
-            <li>
-              <div class="table-task">
-                <div class="table-task-item table-task-item-title">Short task name.</div>
-                <div class="table-task-item table-task-item-description">
-                  <span> Short description. </span>
-                  <div class="table-task-comments">
-                    <img src="./assets/svg/comment.svg" alt="comment" />
-                    <span>3</span>
-                  </div>
-                </div>
-                <div class="table-task-item table-task-item-date">
-                  <span>12:00</span>
-                  <span>Feb 15</span>
-                </div>
-                <div class="table-task-item table-task-item-assignee">
-                  <span>Jess</span>
-                  <img
-                    class="table-assignee-img"
-                    src="./assets/png/user-img-5.png"
-                    alt="assignee image"
-                  />
-                </div>
-                <div class="table-task-item table-task-item-privacy">Private</div>
-                <div class="table-task-item table-task-item-priority high">High</div>
-                <div class="table-task-item table-task-item-status">
-                  <span>To Do</span>
-                  <div class="table-task-buttons">
-                    <button class="btn secondary-btn edit-btn"></button>
-                    <button class="btn secondary-btn delete-btn"></button>
-                  </div>
-                </div>
-              </div>
-            </li>
-            <li>
-              <div class="table-task">
-                <div class="table-task-item table-task-item-title">
-                  Regular name of the task. To do something cool.
-                </div>
-                <div class="table-task-item table-task-item-description">
-                  <span> Regular description of the task. To do something cool. </span>
-                  <div class="table-task-comments">
-                    <img src="./assets/svg/comment.svg" alt="comment" />
-                    <span>3</span>
-                  </div>
-                </div>
-                <div class="table-task-item table-task-item-date">
-                  <span>12:00</span>
-                  <span>Feb 15</span>
-                </div>
-                <div class="table-task-item table-task-item-assignee">
-                  <span>Username</span>
-                  <img
-                    class="table-assignee-img"
-                    src="./assets/png/user-img-5.png"
-                    alt="assignee image"
-                  />
-                </div>
-                <div class="table-task-item table-task-item-privacy">Public</div>
-                <div class="table-task-item table-task-item-priority low">Low</div>
-                <div class="table-task-item table-task-item-status">
-                  <span>To Do</span>
-                  <div class="table-task-buttons">
-                    <button class="btn secondary-btn edit-btn"></button>
-                    <button class="btn secondary-btn delete-btn"></button>
-                  </div>
-                </div>
-              </div>
-            </li>
-            <li>
-              <div class="table-task">
-                <div class="table-task-item table-task-item-title">
-                  This text contains 100 symbols. Lorem ipsum dolor sit amet consectetur adipisicin?
-                </div>
-                <div class="table-task-item table-task-item-description">
-                  <span>
-                    This description contains 280 symbols. Lorem ipsum dolor sit amet consectetur
-                    adipisicing elit. Veniam voluptatum minus neque perspiciatis natus beatae magnam
-                    mollitia pariatur. Libero deserunt consectetur quam voluptatibus debitis illum
-                    error maiores perspicia?
-                  </span>
-                  <div class="table-task-comments">
-                    <img src="./assets/svg/comment.svg" alt="comment" />
-                    <span>3</span>
-                  </div>
-                </div>
-                <div class="table-task-item table-task-item-date">
-                  <span>12:00</span>
-                  <span>Feb 15</span>
-                </div>
-                <div class="table-task-item table-task-item-assignee">
-                  <span>Regularname</span>
-                  <img
-                    class="table-assignee-img"
-                    src="./assets/png/user-img-5.png"
-                    alt="assignee image"
-                  />
-                </div>
-                <div class="table-task-item table-task-item-privacy">Private</div>
-                <div class="table-task-item table-task-item-priority medium">Medium</div>
-                <div class="table-task-item table-task-item-status">
-                  <span>To Do</span>
-                  <div class="table-task-buttons">
-                    <button class="btn secondary-btn edit-btn"></button>
-                    <button class="btn secondary-btn delete-btn"></button>
-                  </div>
-                </div>
-              </div>
-            </li>
-            <li>
-              <div class="table-task">
-                <div class="table-task-item table-task-item-title">Short task name.</div>
-                <div class="table-task-item table-task-item-description">
-                  <span> Short description. </span>
-                  <div class="table-task-comments">
-                    <img src="./assets/svg/comment.svg" alt="comment" />
-                    <span>3</span>
-                  </div>
-                </div>
-                <div class="table-task-item table-task-item-date">
-                  <span>12:00</span>
-                  <span>Feb 15</span>
-                </div>
-                <div class="table-task-item table-task-item-assignee">
-                  <span>Jess</span>
-                  <img
-                    class="table-assignee-img"
-                    src="./assets/png/user-img-5.png"
-                    alt="assignee image"
-                  />
-                </div>
-                <div class="table-task-item table-task-item-privacy">Private</div>
-                <div class="table-task-item table-task-item-priority high">High</div>
-                <div class="table-task-item table-task-item-status">
-                  <span>To Do</span>
-                  <div class="table-task-buttons">
-                    <button class="btn secondary-btn edit-btn"></button>
-                    <button class="btn secondary-btn delete-btn"></button>
-                  </div>
-                </div>
-              </div>
-            </li>
-            <li>
-              <div class="table-task">
-                <div class="table-task-item table-task-item-title">
-                  Regular name of the task. To do something cool.
-                </div>
-                <div class="table-task-item table-task-item-description">
-                  <span> Regular description of the task. To do something cool. </span>
-                  <div class="table-task-comments">
-                    <img src="./assets/svg/comment.svg" alt="comment" />
-                    <span>3</span>
-                  </div>
-                </div>
-                <div class="table-task-item table-task-item-date">
-                  <span>12:00</span>
-                  <span>Feb 15</span>
-                </div>
-                <div class="table-task-item table-task-item-assignee">
-                  <span>Username</span>
-                  <img
-                    class="table-assignee-img"
-                    src="./assets/png/user-img-5.png"
-                    alt="assignee image"
-                  />
-                </div>
-                <div class="table-task-item table-task-item-privacy">Public</div>
-                <div class="table-task-item table-task-item-priority low">Low</div>
-                <div class="table-task-item table-task-item-status">
-                  <span>To Do</span>
-                  <div class="table-task-buttons">
-                    <button class="btn secondary-btn edit-btn"></button>
-                    <button class="btn secondary-btn delete-btn"></button>
-                  </div>
-                </div>
-              </div>
-            </li>
-            <li>
-              <div class="table-task">
-                <div class="table-task-item table-task-item-title">
-                  Regular name of the task. To do something cool.
-                </div>
-                <div class="table-task-item table-task-item-description">
-                  <span> Regular description of the task. To do something cool. </span>
-                  <div class="table-task-comments">
-                    <img src="./assets/svg/comment.svg" alt="comment" />
-                    <span>3</span>
-                  </div>
-                </div>
-                <div class="table-task-item table-task-item-date">
-                  <span>12:00</span>
-                  <span>Feb 15</span>
-                </div>
-                <div class="table-task-item table-task-item-assignee">
-                  <span>Username</span>
-                  <img
-                    class="table-assignee-img"
-                    src="./assets/png/user-img-5.png"
-                    alt="assignee image"
-                  />
-                </div>
-                <div class="table-task-item table-task-item-privacy">Public</div>
-                <div class="table-task-item table-task-item-priority low">Low</div>
-                <div class="table-task-item table-task-item-status">
-                  <span>To Do</span>
-                  <div class="table-task-buttons">
-                    <button class="btn secondary-btn edit-btn"></button>
-                    <button class="btn secondary-btn delete-btn"></button>
-                  </div>
-                </div>
-              </div>
-            </li>
-            <li>
-              <div class="table-task">
-                <div class="table-task-item table-task-item-title">
-                  Regular name of the task. To do something cool.
-                </div>
-                <div class="table-task-item table-task-item-description">
-                  <span> Regular description of the task. To do something cool. </span>
-                  <div class="table-task-comments">
-                    <img src="./assets/svg/comment.svg" alt="comment" />
-                    <span>3</span>
-                  </div>
-                </div>
-                <div class="table-task-item table-task-item-date">
-                  <span>12:00</span>
-                  <span>Feb 15</span>
-                </div>
-                <div class="table-task-item table-task-item-assignee">
-                  <span>Username</span>
-                  <img
-                    class="table-assignee-img"
-                    src="./assets/png/user-img-5.png"
-                    alt="assignee image"
-                  />
-                </div>
-                <div class="table-task-item table-task-item-privacy">Public</div>
-                <div class="table-task-item table-task-item-priority low">Low</div>
-                <div class="table-task-item table-task-item-status">
-                  <span>To Do</span>
-                  <div class="table-task-buttons">
-                    <button class="btn secondary-btn edit-btn"></button>
-                    <button class="btn secondary-btn delete-btn"></button>
-                  </div>
-                </div>
-              </div>
-            </li>
-            <li>
-              <div class="table-task">
-                <div class="table-task-item table-task-item-title">
-                  Regular name of the task. To do something cool.
-                </div>
-                <div class="table-task-item table-task-item-description">
-                  <span> Regular description of the task. To do something cool. </span>
-                  <div class="table-task-comments">
-                    <img src="./assets/svg/comment.svg" alt="comment" />
-                    <span>3</span>
-                  </div>
-                </div>
-                <div class="table-task-item table-task-item-date">
-                  <span>12:00</span>
-                  <span>Feb 15</span>
-                </div>
-                <div class="table-task-item table-task-item-assignee">
-                  <span>Username</span>
-                  <img
-                    class="table-assignee-img"
-                    src="./assets/png/user-img-5.png"
-                    alt="assignee image"
-                  />
-                </div>
-                <div class="table-task-item table-task-item-privacy">Public</div>
-                <div class="table-task-item table-task-item-priority low">Low</div>
-                <div class="table-task-item table-task-item-status">
-                  <span>To Do</span>
-                  <div class="table-task-buttons">
-                    <button class="btn secondary-btn edit-btn"></button>
-                    <button class="btn secondary-btn delete-btn"></button>
-                  </div>
-                </div>
-              </div>
-            </li>
-            <li>
-              <div class="table-task">
-                <div class="table-task-item table-task-item-title">
-                  Regular name of the task. To do something cool.
-                </div>
-                <div class="table-task-item table-task-item-description">
-                  <span> Regular description of the task. To do something cool. </span>
-                  <div class="table-task-comments">
-                    <img src="./assets/svg/comment.svg" alt="comment" />
-                    <span>3</span>
-                  </div>
-                </div>
-                <div class="table-task-item table-task-item-date">
-                  <span>12:00</span>
-                  <span>Feb 15</span>
-                </div>
-                <div class="table-task-item table-task-item-assignee">
-                  <span>Username</span>
-                  <img
-                    class="table-assignee-img"
-                    src="./assets/png/user-img-5.png"
-                    alt="assignee image"
-                  />
-                </div>
-                <div class="table-task-item table-task-item-privacy">Public</div>
-                <div class="table-task-item table-task-item-priority low">Low</div>
-                <div class="table-task-item table-task-item-status">
-                  <span>To Do</span>
-                  <div class="table-task-buttons">
-                    <button class="btn secondary-btn edit-btn"></button>
-                    <button class="btn secondary-btn delete-btn"></button>
-                  </div>
-                </div>
-              </div>
-            </li>
-            <li>
-              <button class="btn secondary-btn load-more-btn">
-                <img src="./assets/svg/refresh.svg" alt="refresh" />
-                <span>Load more</span>
-              </button>
-            </li>
-          </ul>
-        </div>
-        <div class="row">
-          <h3>IN PROGRESS</h3>
-          <ul class="task-list">
-            <li>
-              <div class="table-task">
-                <div class="table-task-item table-task-item-title">
-                  This text contains 100 symbols. Lorem ipsum dolor sit amet consectetur adipisicin?
-                </div>
-                <div class="table-task-item table-task-item-description">
-                  <span>
-                    This description contains 280 symbols. Lorem ipsum dolor sit amet consectetur
-                    adipisicing elit. Veniam voluptatum minus neque perspiciatis natus beatae magnam
-                    mollitia pariatur. Libero deserunt consectetur quam voluptatibus debitis illum
-                    error maiores perspicia?
-                  </span>
-                  <div class="table-task-comments">
-                    <img src="./assets/svg/comment.svg" alt="comment" />
-                    <span>3</span>
-                  </div>
-                </div>
-                <div class="table-task-item table-task-item-date">
-                  <span>12:00</span>
-                  <span>Feb 15</span>
-                </div>
-                <div class="table-task-item table-task-item-assignee">
-                  <span>Regularname</span>
-                  <img
-                    class="table-assignee-img"
-                    src="./assets/png/user-img-5.png"
-                    alt="assignee image"
-                  />
-                </div>
-                <div class="table-task-item table-task-item-privacy">Private</div>
-                <div class="table-task-item table-task-item-priority medium">Medium</div>
-                <div class="table-task-item table-task-item-status">
-                  <span>To Do</span>
-                  <div class="table-task-buttons">
-                    <button class="btn secondary-btn edit-btn"></button>
-                    <button class="btn secondary-btn delete-btn"></button>
-                  </div>
-                </div>
-              </div>
-            </li>
-            <li>
-              <div class="table-task">
-                <div class="table-task-item table-task-item-title">Short task name.</div>
-                <div class="table-task-item table-task-item-description">
-                  <span> Short description. </span>
-                  <div class="table-task-comments">
-                    <img src="./assets/svg/comment.svg" alt="comment" />
-                    <span>3</span>
-                  </div>
-                </div>
-                <div class="table-task-item table-task-item-date">
-                  <span>12:00</span>
-                  <span>Feb 15</span>
-                </div>
-                <div class="table-task-item table-task-item-assignee">
-                  <span>Jess</span>
-                  <img
-                    class="table-assignee-img"
-                    src="./assets/png/user-img-5.png"
-                    alt="assignee image"
-                  />
-                </div>
-                <div class="table-task-item table-task-item-privacy">Private</div>
-                <div class="table-task-item table-task-item-priority high">High</div>
-                <div class="table-task-item table-task-item-status">
-                  <span>To Do</span>
-                  <div class="table-task-buttons">
-                    <button class="btn secondary-btn edit-btn"></button>
-                    <button class="btn secondary-btn delete-btn"></button>
-                  </div>
-                </div>
-              </div>
-            </li>
-            <li>
-              <div class="table-task">
-                <div class="table-task-item table-task-item-title">
-                  Regular name of the task. To do something cool.
-                </div>
-                <div class="table-task-item table-task-item-description">
-                  <span> Regular description of the task. To do something cool. </span>
-                  <div class="table-task-comments">
-                    <img src="./assets/svg/comment.svg" alt="comment" />
-                    <span>3</span>
-                  </div>
-                </div>
-                <div class="table-task-item table-task-item-date">
-                  <span>12:00</span>
-                  <span>Feb 15</span>
-                </div>
-                <div class="table-task-item table-task-item-assignee">
-                  <span>Username</span>
-                  <img
-                    class="table-assignee-img"
-                    src="./assets/png/user-img-5.png"
-                    alt="assignee image"
-                  />
-                </div>
-                <div class="table-task-item table-task-item-privacy">Public</div>
-                <div class="table-task-item table-task-item-priority low">Low</div>
-                <div class="table-task-item table-task-item-status">
-                  <span>To Do</span>
-                  <div class="table-task-buttons">
-                    <button class="btn secondary-btn edit-btn"></button>
-                    <button class="btn secondary-btn delete-btn"></button>
-                  </div>
-                </div>
-              </div>
-            </li>
-            <li>
-              <div class="table-task">
-                <div class="table-task-item table-task-item-title">
-                  This text contains 100 symbols. Lorem ipsum dolor sit amet consectetur adipisicin?
-                </div>
-                <div class="table-task-item table-task-item-description">
-                  <span>
-                    This description contains 280 symbols. Lorem ipsum dolor sit amet consectetur
-                    adipisicing elit. Veniam voluptatum minus neque perspiciatis natus beatae magnam
-                    mollitia pariatur. Libero deserunt consectetur quam voluptatibus debitis illum
-                    error maiores perspicia?
-                  </span>
-                  <div class="table-task-comments">
-                    <img src="./assets/svg/comment.svg" alt="comment" />
-                    <span>3</span>
-                  </div>
-                </div>
-                <div class="table-task-item table-task-item-date">
-                  <span>12:00</span>
-                  <span>Feb 15</span>
-                </div>
-                <div class="table-task-item table-task-item-assignee">
-                  <span>Regularname</span>
-                  <img
-                    class="table-assignee-img"
-                    src="./assets/png/user-img-5.png"
-                    alt="assignee image"
-                  />
-                </div>
-                <div class="table-task-item table-task-item-privacy">Private</div>
-                <div class="table-task-item table-task-item-priority medium">Medium</div>
-                <div class="table-task-item table-task-item-status">
-                  <span>To Do</span>
-                  <div class="table-task-buttons">
-                    <button class="btn secondary-btn edit-btn"></button>
-                    <button class="btn secondary-btn delete-btn"></button>
-                  </div>
-                </div>
-              </div>
-            </li>
-            <li>
-              <div class="table-task">
-                <div class="table-task-item table-task-item-title">Short task name.</div>
-                <div class="table-task-item table-task-item-description">
-                  <span> Short description. </span>
-                  <div class="table-task-comments">
-                    <img src="./assets/svg/comment.svg" alt="comment" />
-                    <span>3</span>
-                  </div>
-                </div>
-                <div class="table-task-item table-task-item-date">
-                  <span>12:00</span>
-                  <span>Feb 15</span>
-                </div>
-                <div class="table-task-item table-task-item-assignee">
-                  <span>Jess</span>
-                  <img
-                    class="table-assignee-img"
-                    src="./assets/png/user-img-5.png"
-                    alt="assignee image"
-                  />
-                </div>
-                <div class="table-task-item table-task-item-privacy">Private</div>
-                <div class="table-task-item table-task-item-priority high">High</div>
-                <div class="table-task-item table-task-item-status">
-                  <span>To Do</span>
-                  <div class="table-task-buttons">
-                    <button class="btn secondary-btn edit-btn"></button>
-                    <button class="btn secondary-btn delete-btn"></button>
-                  </div>
-                </div>
-              </div>
-            </li>
-            <li>
-              <div class="table-task">
-                <div class="table-task-item table-task-item-title">
-                  Regular name of the task. To do something cool.
-                </div>
-                <div class="table-task-item table-task-item-description">
-                  <span> Regular description of the task. To do something cool. </span>
-                  <div class="table-task-comments">
-                    <img src="./assets/svg/comment.svg" alt="comment" />
-                    <span>3</span>
-                  </div>
-                </div>
-                <div class="table-task-item table-task-item-date">
-                  <span>12:00</span>
-                  <span>Feb 15</span>
-                </div>
-                <div class="table-task-item table-task-item-assignee">
-                  <span>Username</span>
-                  <img
-                    class="table-assignee-img"
-                    src="./assets/png/user-img-5.png"
-                    alt="assignee image"
-                  />
-                </div>
-                <div class="table-task-item table-task-item-privacy">Public</div>
-                <div class="table-task-item table-task-item-priority low">Low</div>
-                <div class="table-task-item table-task-item-status">
-                  <span>To Do</span>
-                  <div class="table-task-buttons">
-                    <button class="btn secondary-btn edit-btn"></button>
-                    <button class="btn secondary-btn delete-btn"></button>
-                  </div>
-                </div>
-              </div>
-            </li>
-            <li>
-              <div class="table-task">
-                <div class="table-task-item table-task-item-title">
-                  Regular name of the task. To do something cool.
-                </div>
-                <div class="table-task-item table-task-item-description">
-                  <span> Regular description of the task. To do something cool. </span>
-                  <div class="table-task-comments">
-                    <img src="./assets/svg/comment.svg" alt="comment" />
-                    <span>3</span>
-                  </div>
-                </div>
-                <div class="table-task-item table-task-item-date">
-                  <span>12:00</span>
-                  <span>Feb 15</span>
-                </div>
-                <div class="table-task-item table-task-item-assignee">
-                  <span>Username</span>
-                  <img
-                    class="table-assignee-img"
-                    src="./assets/png/user-img-5.png"
-                    alt="assignee image"
-                  />
-                </div>
-                <div class="table-task-item table-task-item-privacy">Public</div>
-                <div class="table-task-item table-task-item-priority low">Low</div>
-                <div class="table-task-item table-task-item-status">
-                  <span>To Do</span>
-                  <div class="table-task-buttons">
-                    <button class="btn secondary-btn edit-btn"></button>
-                    <button class="btn secondary-btn delete-btn"></button>
-                  </div>
-                </div>
-              </div>
-            </li>
-            <li>
-              <div class="table-task">
-                <div class="table-task-item table-task-item-title">
-                  Regular name of the task. To do something cool.
-                </div>
-                <div class="table-task-item table-task-item-description">
-                  <span> Regular description of the task. To do something cool. </span>
-                  <div class="table-task-comments">
-                    <img src="./assets/svg/comment.svg" alt="comment" />
-                    <span>3</span>
-                  </div>
-                </div>
-                <div class="table-task-item table-task-item-date">
-                  <span>12:00</span>
-                  <span>Feb 15</span>
-                </div>
-                <div class="table-task-item table-task-item-assignee">
-                  <span>Username</span>
-                  <img
-                    class="table-assignee-img"
-                    src="./assets/png/user-img-5.png"
-                    alt="assignee image"
-                  />
-                </div>
-                <div class="table-task-item table-task-item-privacy">Public</div>
-                <div class="table-task-item table-task-item-priority low">Low</div>
-                <div class="table-task-item table-task-item-status">
-                  <span>To Do</span>
-                  <div class="table-task-buttons">
-                    <button class="btn secondary-btn edit-btn"></button>
-                    <button class="btn secondary-btn delete-btn"></button>
-                  </div>
-                </div>
-              </div>
-            </li>
-            <li>
-              <div class="table-task">
-                <div class="table-task-item table-task-item-title">
-                  Regular name of the task. To do something cool.
-                </div>
-                <div class="table-task-item table-task-item-description">
-                  <span> Regular description of the task. To do something cool. </span>
-                  <div class="table-task-comments">
-                    <img src="./assets/svg/comment.svg" alt="comment" />
-                    <span>3</span>
-                  </div>
-                </div>
-                <div class="table-task-item table-task-item-date">
-                  <span>12:00</span>
-                  <span>Feb 15</span>
-                </div>
-                <div class="table-task-item table-task-item-assignee">
-                  <span>Username</span>
-                  <img
-                    class="table-assignee-img"
-                    src="./assets/png/user-img-5.png"
-                    alt="assignee image"
-                  />
-                </div>
-                <div class="table-task-item table-task-item-privacy">Public</div>
-                <div class="table-task-item table-task-item-priority low">Low</div>
-                <div class="table-task-item table-task-item-status">
-                  <span>To Do</span>
-                  <div class="table-task-buttons">
-                    <button class="btn secondary-btn edit-btn"></button>
-                    <button class="btn secondary-btn delete-btn"></button>
-                  </div>
-                </div>
-              </div>
-            </li>
-            <li>
-              <div class="table-task">
-                <div class="table-task-item table-task-item-title">
-                  Regular name of the task. To do something cool.
-                </div>
-                <div class="table-task-item table-task-item-description">
-                  <span> Regular description of the task. To do something cool. </span>
-                  <div class="table-task-comments">
-                    <img src="./assets/svg/comment.svg" alt="comment" />
-                    <span>3</span>
-                  </div>
-                </div>
-                <div class="table-task-item table-task-item-date">
-                  <span>12:00</span>
-                  <span>Feb 15</span>
-                </div>
-                <div class="table-task-item table-task-item-assignee">
-                  <span>Username</span>
-                  <img
-                    class="table-assignee-img"
-                    src="./assets/png/user-img-5.png"
-                    alt="assignee image"
-                  />
-                </div>
-                <div class="table-task-item table-task-item-privacy">Public</div>
-                <div class="table-task-item table-task-item-priority low">Low</div>
-                <div class="table-task-item table-task-item-status">
-                  <span>To Do</span>
-                  <div class="table-task-buttons">
-                    <button class="btn secondary-btn edit-btn"></button>
-                    <button class="btn secondary-btn delete-btn"></button>
-                  </div>
-                </div>
-              </div>
-            </li>
-            <li>
-              <button class="btn secondary-btn load-more-btn">
-                <img src="./assets/svg/refresh.svg" alt="refresh" />
-                <span>Load more</span>
-              </button>
-            </li>
-          </ul>
-        </div>
-        <div class="row">
-          <h3>COMPLETE</h3>
-          <ul class="task-list">
-            <li>
-              <div class="table-task">
-                <div class="table-task-item table-task-item-title">
-                  This text contains 100 symbols. Lorem ipsum dolor sit amet consectetur adipisicin?
-                </div>
-                <div class="table-task-item table-task-item-description">
-                  <span>
-                    This description contains 280 symbols. Lorem ipsum dolor sit amet consectetur
-                    adipisicing elit. Veniam voluptatum minus neque perspiciatis natus beatae magnam
-                    mollitia pariatur. Libero deserunt consectetur quam voluptatibus debitis illum
-                    error maiores perspicia?
-                  </span>
-                  <div class="table-task-comments">
-                    <img src="./assets/svg/comment.svg" alt="comment" />
-                    <span>3</span>
-                  </div>
-                </div>
-                <div class="table-task-item table-task-item-date">
-                  <span>12:00</span>
-                  <span>Feb 15</span>
-                </div>
-                <div class="table-task-item table-task-item-assignee">
-                  <span>Regularname</span>
-                  <img
-                    class="table-assignee-img"
-                    src="./assets/png/user-img-5.png"
-                    alt="assignee image"
-                  />
-                </div>
-                <div class="table-task-item table-task-item-privacy">Private</div>
-                <div class="table-task-item table-task-item-priority medium">Medium</div>
-                <div class="table-task-item table-task-item-status">
-                  <span>To Do</span>
-                  <div class="table-task-buttons">
-                    <button class="btn secondary-btn edit-btn"></button>
-                    <button class="btn secondary-btn delete-btn"></button>
-                  </div>
-                </div>
-              </div>
-            </li>
-            <li>
-              <div class="table-task">
-                <div class="table-task-item table-task-item-title">Short task name.</div>
-                <div class="table-task-item table-task-item-description">
-                  <span> Short description. </span>
-                  <div class="table-task-comments">
-                    <img src="./assets/svg/comment.svg" alt="comment" />
-                    <span>3</span>
-                  </div>
-                </div>
-                <div class="table-task-item table-task-item-date">
-                  <span>12:00</span>
-                  <span>Feb 15</span>
-                </div>
-                <div class="table-task-item table-task-item-assignee">
-                  <span>Jess</span>
-                  <img
-                    class="table-assignee-img"
-                    src="./assets/png/user-img-5.png"
-                    alt="assignee image"
-                  />
-                </div>
-                <div class="table-task-item table-task-item-privacy">Private</div>
-                <div class="table-task-item table-task-item-priority high">High</div>
-                <div class="table-task-item table-task-item-status">
-                  <span>To Do</span>
-                  <div class="table-task-buttons">
-                    <button class="btn secondary-btn edit-btn"></button>
-                    <button class="btn secondary-btn delete-btn"></button>
-                  </div>
-                </div>
-              </div>
-            </li>
-            <li>
-              <div class="table-task">
-                <div class="table-task-item table-task-item-title">
-                  Regular name of the task. To do something cool.
-                </div>
-                <div class="table-task-item table-task-item-description">
-                  <span> Regular description of the task. To do something cool. </span>
-                  <div class="table-task-comments">
-                    <img src="./assets/svg/comment.svg" alt="comment" />
-                    <span>3</span>
-                  </div>
-                </div>
-                <div class="table-task-item table-task-item-date">
-                  <span>12:00</span>
-                  <span>Feb 15</span>
-                </div>
-                <div class="table-task-item table-task-item-assignee">
-                  <span>Username</span>
-                  <img
-                    class="table-assignee-img"
-                    src="./assets/png/user-img-5.png"
-                    alt="assignee image"
-                  />
-                </div>
-                <div class="table-task-item table-task-item-privacy">Public</div>
-                <div class="table-task-item table-task-item-priority low">Low</div>
-                <div class="table-task-item table-task-item-status">
-                  <span>To Do</span>
-                  <div class="table-task-buttons">
-                    <button class="btn secondary-btn edit-btn"></button>
-                    <button class="btn secondary-btn delete-btn"></button>
-                  </div>
-                </div>
-              </div>
-            </li>
-            <li>
-              <div class="table-task">
-                <div class="table-task-item table-task-item-title">
-                  This text contains 100 symbols. Lorem ipsum dolor sit amet consectetur adipisicin?
-                </div>
-                <div class="table-task-item table-task-item-description">
-                  <span>
-                    This description contains 280 symbols. Lorem ipsum dolor sit amet consectetur
-                    adipisicing elit. Veniam voluptatum minus neque perspiciatis natus beatae magnam
-                    mollitia pariatur. Libero deserunt consectetur quam voluptatibus debitis illum
-                    error maiores perspicia?
-                  </span>
-                  <div class="table-task-comments">
-                    <img src="./assets/svg/comment.svg" alt="comment" />
-                    <span>3</span>
-                  </div>
-                </div>
-                <div class="table-task-item table-task-item-date">
-                  <span>12:00</span>
-                  <span>Feb 15</span>
-                </div>
-                <div class="table-task-item table-task-item-assignee">
-                  <span>Regularname</span>
-                  <img
-                    class="table-assignee-img"
-                    src="./assets/png/user-img-5.png"
-                    alt="assignee image"
-                  />
-                </div>
-                <div class="table-task-item table-task-item-privacy">Private</div>
-                <div class="table-task-item table-task-item-priority medium">Medium</div>
-                <div class="table-task-item table-task-item-status">
-                  <span>To Do</span>
-                  <div class="table-task-buttons">
-                    <button class="btn secondary-btn edit-btn"></button>
-                    <button class="btn secondary-btn delete-btn"></button>
-                  </div>
-                </div>
-              </div>
-            </li>
-            <li>
-              <div class="table-task">
-                <div class="table-task-item table-task-item-title">Short task name.</div>
-                <div class="table-task-item table-task-item-description">
-                  <span> Short description. </span>
-                  <div class="table-task-comments">
-                    <img src="./assets/svg/comment.svg" alt="comment" />
-                    <span>3</span>
-                  </div>
-                </div>
-                <div class="table-task-item table-task-item-date">
-                  <span>12:00</span>
-                  <span>Feb 15</span>
-                </div>
-                <div class="table-task-item table-task-item-assignee">
-                  <span>Jess</span>
-                  <img
-                    class="table-assignee-img"
-                    src="./assets/png/user-img-5.png"
-                    alt="assignee image"
-                  />
-                </div>
-                <div class="table-task-item table-task-item-privacy">Private</div>
-                <div class="table-task-item table-task-item-priority high">High</div>
-                <div class="table-task-item table-task-item-status">
-                  <span>To Do</span>
-                  <div class="table-task-buttons">
-                    <button class="btn secondary-btn edit-btn"></button>
-                    <button class="btn secondary-btn delete-btn"></button>
-                  </div>
-                </div>
-              </div>
-            </li>
-            <li>
-              <div class="table-task">
-                <div class="table-task-item table-task-item-title">
-                  Regular name of the task. To do something cool.
-                </div>
-                <div class="table-task-item table-task-item-description">
-                  <span> Regular description of the task. To do something cool. </span>
-                  <div class="table-task-comments">
-                    <img src="./assets/svg/comment.svg" alt="comment" />
-                    <span>3</span>
-                  </div>
-                </div>
-                <div class="table-task-item table-task-item-date">
-                  <span>12:00</span>
-                  <span>Feb 15</span>
-                </div>
-                <div class="table-task-item table-task-item-assignee">
-                  <span>Username</span>
-                  <img
-                    class="table-assignee-img"
-                    src="./assets/png/user-img-5.png"
-                    alt="assignee image"
-                  />
-                </div>
-                <div class="table-task-item table-task-item-privacy">Public</div>
-                <div class="table-task-item table-task-item-priority low">Low</div>
-                <div class="table-task-item table-task-item-status">
-                  <span>To Do</span>
-                  <div class="table-task-buttons">
-                    <button class="btn secondary-btn edit-btn"></button>
-                    <button class="btn secondary-btn delete-btn"></button>
-                  </div>
-                </div>
-              </div>
-            </li>
-            <li>
-              <div class="table-task">
-                <div class="table-task-item table-task-item-title">
-                  Regular name of the task. To do something cool.
-                </div>
-                <div class="table-task-item table-task-item-description">
-                  <span> Regular description of the task. To do something cool. </span>
-                  <div class="table-task-comments">
-                    <img src="./assets/svg/comment.svg" alt="comment" />
-                    <span>3</span>
-                  </div>
-                </div>
-                <div class="table-task-item table-task-item-date">
-                  <span>12:00</span>
-                  <span>Feb 15</span>
-                </div>
-                <div class="table-task-item table-task-item-assignee">
-                  <span>Username</span>
-                  <img
-                    class="table-assignee-img"
-                    src="./assets/png/user-img-5.png"
-                    alt="assignee image"
-                  />
-                </div>
-                <div class="table-task-item table-task-item-privacy">Public</div>
-                <div class="table-task-item table-task-item-priority low">Low</div>
-                <div class="table-task-item table-task-item-status">
-                  <span>To Do</span>
-                  <div class="table-task-buttons">
-                    <button class="btn secondary-btn edit-btn"></button>
-                    <button class="btn secondary-btn delete-btn"></button>
-                  </div>
-                </div>
-              </div>
-            </li>
-            <li>
-              <div class="table-task">
-                <div class="table-task-item table-task-item-title">
-                  Regular name of the task. To do something cool.
-                </div>
-                <div class="table-task-item table-task-item-description">
-                  <span> Regular description of the task. To do something cool. </span>
-                  <div class="table-task-comments">
-                    <img src="./assets/svg/comment.svg" alt="comment" />
-                    <span>3</span>
-                  </div>
-                </div>
-                <div class="table-task-item table-task-item-date">
-                  <span>12:00</span>
-                  <span>Feb 15</span>
-                </div>
-                <div class="table-task-item table-task-item-assignee">
-                  <span>Username</span>
-                  <img
-                    class="table-assignee-img"
-                    src="./assets/png/user-img-5.png"
-                    alt="assignee image"
-                  />
-                </div>
-                <div class="table-task-item table-task-item-privacy">Public</div>
-                <div class="table-task-item table-task-item-priority low">Low</div>
-                <div class="table-task-item table-task-item-status">
-                  <span>To Do</span>
-                  <div class="table-task-buttons">
-                    <button class="btn secondary-btn edit-btn"></button>
-                    <button class="btn secondary-btn delete-btn"></button>
-                  </div>
-                </div>
-              </div>
-            </li>
-            <li>
-              <div class="table-task">
-                <div class="table-task-item table-task-item-title">
-                  Regular name of the task. To do something cool.
-                </div>
-                <div class="table-task-item table-task-item-description">
-                  <span> Regular description of the task. To do something cool. </span>
-                  <div class="table-task-comments">
-                    <img src="./assets/svg/comment.svg" alt="comment" />
-                    <span>3</span>
-                  </div>
-                </div>
-                <div class="table-task-item table-task-item-date">
-                  <span>12:00</span>
-                  <span>Feb 15</span>
-                </div>
-                <div class="table-task-item table-task-item-assignee">
-                  <span>Username</span>
-                  <img
-                    class="table-assignee-img"
-                    src="./assets/png/user-img-5.png"
-                    alt="assignee image"
-                  />
-                </div>
-                <div class="table-task-item table-task-item-privacy">Public</div>
-                <div class="table-task-item table-task-item-priority low">Low</div>
-                <div class="table-task-item table-task-item-status">
-                  <span>To Do</span>
-                  <div class="table-task-buttons">
-                    <button class="btn secondary-btn edit-btn"></button>
-                    <button class="btn secondary-btn delete-btn"></button>
-                  </div>
-                </div>
-              </div>
-            </li>
-            <li>
-              <div class="table-task">
-                <div class="table-task-item table-task-item-title">
-                  Regular name of the task. To do something cool.
-                </div>
-                <div class="table-task-item table-task-item-description">
-                  <span> Regular description of the task. To do something cool. </span>
-                  <div class="table-task-comments">
-                    <img src="./assets/svg/comment.svg" alt="comment" />
-                    <span>3</span>
-                  </div>
-                </div>
-                <div class="table-task-item table-task-item-date">
-                  <span>12:00</span>
-                  <span>Feb 15</span>
-                </div>
-                <div class="table-task-item table-task-item-assignee">
-                  <span>Username</span>
-                  <img
-                    class="table-assignee-img"
-                    src="./assets/png/user-img-5.png"
-                    alt="assignee image"
-                  />
-                </div>
-                <div class="table-task-item table-task-item-privacy">Public</div>
-                <div class="table-task-item table-task-item-priority low">Low</div>
-                <div class="table-task-item table-task-item-status">
-                  <span>To Do</span>
-                  <div class="table-task-buttons">
-                    <button class="btn secondary-btn edit-btn"></button>
-                    <button class="btn secondary-btn delete-btn"></button>
-                  </div>
-                </div>
-              </div>
-            </li>
-            <li>
-              <button class="btn secondary-btn load-more-btn">
-                <img src="./assets/svg/refresh.svg" alt="refresh" />
-                <span>Load more</span>
-              </button>
-            </li>
-          </ul>
-        </div>
-      </section>
-    </main>
+  <footer class="footer">
+    <div class="footer-info">
+      <span>© TRELLOMOLA</span>
+      <span>v.1.0.0</span>
+      <span>Eugene Tsalko</span>
+      <span>tefworkmail@gmail.com</span>
+    </div>
+    <div class="select-lang">
+      <label for="lang-select"></label>
+      <select name="language" id="lang-select">
+        <option value="english">English</option>
+        <option value="russian">Русский</option>
+      </select>
+    </div>
+  </footer>
+</body>
 
-    <footer class="footer">
-      <div class="footer-info">
-        <span>© TRELLOMOLA</span>
-        <span>v.1.0.0</span>
-        <span>Eugene Tsalko</span>
-        <span>tefworkmail@gmail.com</span>
-      </div>
-      <div class="select-lang">
-        <label for="lang-select"></label>
-        <select name="language" id="lang-select">
-          <option value="english">English</option>
-          <option value="russian">Русский</option>
-        </select>
-      </div>
-    </footer>
-  </body>
 </html>

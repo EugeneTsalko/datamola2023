@@ -1,6 +1,6 @@
 .board {
   flex: auto;
-  padding: 0.5rem 20px;
+  padding: 0.5rem 1.25rem;
   display: flex;
   justify-content: space-between;
   height: calc(100vh - 230px);
@@ -11,20 +11,33 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 1rem;
-  background-color: var(--black-02);
-  border: 1px solid var(--gray900);
-  border-radius: 1rem;
-  padding: 1rem 2rem;
+  gap: var(--gap);
+  background-color: var(--white-04);
+  border: var(--border-main);
+  border-radius: var(--border-radius);
+  padding: 0 2rem 1rem 2rem;
   overflow-y: auto;
   overflow-x: hidden;
+}
+
+.column h3 {
+  display: block;
+  margin-top: 1rem;
+  width: 100%;
+  text-align: center;
+  background-color: var(--primary50);
+  border: var(--border-main);
+  border-radius: var(--border-radius-s);
+  font: var(--font-title);
+  position: sticky;
+  top: 0;
 }
 
 .task-list {
   display: flex;
   flex-direction: column;
   width: 100%;
-  gap: 0.5rem;
+  gap: var(--border-radius-s);
 }
 
 .column::-webkit-scrollbar-track-piece:end {
@@ -39,15 +52,16 @@
 
 @media screen and (width <= 1280px) {
   .column {
-    padding: 1rem 0.5rem;
+    padding: 0 0.5rem;
   }
 }
 
 @media screen and (width <= 520px) {
   .board {
+    margin-top: 73px;
     flex-direction: column;
     height: auto;
-    gap: 1rem;
+    gap: var(--gap);
   }
 
   .column {

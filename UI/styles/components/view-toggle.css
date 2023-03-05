@@ -1,16 +1,19 @@
 .view-container {
   display: flex;
   align-items: center;
-  gap: 1rem;
+  gap: var(--gap);
+}
+
+.view-container span {
+  color: var(--gray900);
+  font: var(--font-btn);
 }
 
 .kanban-btn {
-  width: 28px;
-  height: 28px;
+  width: 1.75rem;
+  height: 1.75rem;
   padding: 0;
-  background-image: url('../../assets/svg/kanban.svg');
-  background-repeat: no-repeat;
-  background-position: center;
+  background: url('../../assets/svg/kanban.svg') center no-repeat;
 }
 
 .kanban-btn.active {
@@ -19,12 +22,10 @@
 }
 
 .table-btn {
-  width: 28px;
-  height: 28px;
+  width: 1.75rem;
+  height: 1.75rem;
   padding: 0;
-  background-image: url('../../assets/svg/table.svg');
-  background-repeat: no-repeat;
-  background-position: center;
+  background: url('../../assets/svg/table.svg') center no-repeat;
 }
 
 .table-btn.active {
