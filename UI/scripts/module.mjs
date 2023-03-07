@@ -1,11 +1,27 @@
 import { tasks } from './mockTasks.mjs';
 
 const tasksModule = (function () {
-  let user = 'EugeneTsalko';
+  let user = 'IvanovIvan';
 
-  // function getName() {
-  //   console.log(user);
-  // }
+  const checkId = (id, funcName) => {
+    let result = true;
+
+    if (typeof id !== 'string') {
+      console.log(`Fail in ${funcName}. Parameter "id" is required and should be a string.`);
+      result = false;
+
+      return result;
+    }
+
+    const isIdExists = !!tasks.find((el) => el.id === id);
+
+    if (!isIdExists) {
+      console.log(`Fail in ${funcName}. Task object with "id": ${id} doesn't exist in the array.`);
+      result = false;
+    }
+
+    return result;
+  };
 
   // function getTasks(skip?, top?, filterConfig?) {
   //   // console.log(user);
@@ -13,19 +29,13 @@ const tasksModule = (function () {
   // }
 
   function getTask(id) {
-    if (typeof id !== 'string') {
-      console.log('Fail in getTask. Parameter "id" is required and should be a string.');
-      return null;
+    let result = null;
+    const isId = checkId(id, 'getTask');
+
+    if (isId) {
+      result = tasks.find((el) => el.id === id);
+      console.log(`Task found! Result:`, result);
     }
-
-    const result = tasks.find((el) => el.id === id);
-
-    if (!result) {
-      console.log(`Task not found. Task object with "id": ${id} doesn't exist in the array.`);
-      return null;
-    }
-
-    console.log(`Task found! Result:`, result);
 
     return result;
   }
@@ -42,9 +52,27 @@ const tasksModule = (function () {
   //   return boolean;
   // }
 
-  // function removeTask(id) {
-  //   return boolean;
-  // }
+  function removeTask(id) {
+    let result = false;
+    const isId = checkId(id, 'removeTask');
+
+    if (isId) {
+      const index = tasks.findIndex((el) => el.id === id);
+      console.log(index);
+
+      if (user === tasks[index].assignee) {
+        tasks.splice(index, 1);
+        result = true;
+        console.log(`Task with "id": ${id} was successfully removed!`);
+      } else {
+        console.log(
+          `Fail in removeTask. User ${user} have no rights to remove task with id: ${id}.`,
+        );
+      }
+    }
+
+    return result;
+  }
 
   // function validateComment(com) {
   //   return boolean;
@@ -71,7 +99,7 @@ const tasksModule = (function () {
     // validateTask,
     // addTask,
     // editTask,
-    // removeTask,
+    removeTask,
     // validateComment,
     // addComment,
     changeUser,
