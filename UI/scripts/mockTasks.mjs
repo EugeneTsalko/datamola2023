@@ -1,4 +1,4 @@
-const tasks = [
+export const tasks = [
   {
     id: '1',
     name: 'Создать логотип приложения',
