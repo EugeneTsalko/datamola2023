@@ -43,6 +43,9 @@ const tasksModule = (function () {
   function changeUser(usr) {
     if (usr.match(/^[a-zA-Z]+$/)) {
       user = usr;
+      console.log(`Success! New user is ${user}.`);
+    } else {
+      console.log('Fail. Invalid user login (latin letters only).');
     }
   }
 
