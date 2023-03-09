@@ -65,7 +65,8 @@ const tasksModule = (function () {
     }
   }
 
-  function addTask(name, description, assignee, status, priority, isPrivate) {
+  function addTask(name, description, assignee, status, priority, isPrivate = false) {
+    //если assignee не может быть отличным от user, почему в ТЗ это обязательный параметр?
     try {
       if (assignee !== user) {
         throw new Error(
@@ -108,9 +109,63 @@ const tasksModule = (function () {
     }
   }
 
-  // function editTask(id, name?, description?, assignee?, status?, priority?, isPrivate = false) {
-  //   return boolean;
-  // }
+  function editTask(id, name, description, assignee, status, priority, isPrivate) {
+    // TODO если передан только ид то выдать сообщение.
+    try {
+      if (!checkStr(id)) {
+        throw new Error(
+          `Error in addTask. Parameter "id" is required and should be a non-empty string.`,
+        );
+      }
+
+      const task = findTaskById(id, tasks);
+
+      if (!task) {
+        throw new Error(`Error in getTask. Task with id: "${id}" is not found".`);
+      }
+
+      const index = tasks.findIndex((el) => el.id === id);
+
+      if (user !== tasks[index].assignee) {
+        throw new Error(
+          `Error in editTask. User ${user} have no rights to edit ${tasks[index].assignee}'s task with id: "${id}".`,
+        );
+      }
+
+      const editedTask = {
+        id: task.id,
+        name: name || task.name,
+        description: description || task.description,
+        createdAt: task.createdAt,
+        assignee: assignee || task.assignee,
+        status: status || task.status,
+        priority: priority || task.priority,
+        isPrivate: isPrivate || task.isPrivate,
+        comments: task.comments,
+      };
+
+      const errorMessages = Object.keys(taskSchema)
+        .filter((key) => !taskSchema[key](task[key]))
+        .map((key) => `Error in editTask. Property "${key}" in task is not valid.`);
+
+      if (errorMessages.length > 0) {
+        const error = new Error();
+        for (const message of errorMessages) {
+          error.message += `${message} \n`;
+        }
+        throw error;
+      }
+
+      tasks[index] = editedTask;
+      console.log(`Task with id: "${id} has been edited!"`);
+
+      return true;
+    } catch (err) {
+      console.error(err.message);
+
+      return false;
+    }
+  }
 
   function removeTask(id) {
     try {
@@ -175,7 +230,7 @@ const tasksModule = (function () {
     getTask,
     validateTask,
     addTask,
-    // editTask,
+    editTask,
     removeTask,
     // validateComment,
     // addComment,
@@ -185,8 +240,11 @@ const tasksModule = (function () {
 
 //
 
-console.log(tasksModule.getTask('1'));
+// console.log(tasksModule.getTask('1'));
 
-console.log(tasks[tasks.length - 1]);
-tasksModule.addTask('title', 'descr LOREM2', 'IvanovIvan', 'To Do', 'High', true);
-console.log(tasks[tasks.length - 1]);
+console.log(findTaskById('1', tasks));
+tasksModule.editTask('1', 'newtitle');
+// console.log(tasks[tasks.length - 1]);
+console.log(findTaskById('1', tasks));
+
+// console.log(tasksModule.editTask('1'));
