@@ -1,7 +1,7 @@
 import { tasks } from './mockData/mockTasks.mjs';
 import { taskSchema } from './utils/taskSchema.mjs';
 import { commentSchema } from './utils/commentSchema.mjs';
-import { checkStr, checkIsIdInArr, checkIsLoginValid, generateId } from './utils/utils.mjs';
+import { checkStr, findTaskById, checkIsLoginValid, generateId } from './utils/utils.mjs';
 
 const tasksModule = (function () {
   let user = 'IvanovIvan';
@@ -19,12 +19,13 @@ const tasksModule = (function () {
         );
       }
 
-      if (!checkIsIdInArr(id, tasks)) {
+      const task = findTaskById(id, tasks);
+
+      if (!task) {
         throw new Error(`Error in getTask. Task with id: "${id}" is not found".`);
       }
 
-      const task = tasks.find((el) => el.id === id);
-      console.log(`Task found! Result:`, result);
+      console.log(`Task with id: "${id}" found!`);
 
       return task;
     } catch (err) {
@@ -107,7 +108,7 @@ const tasksModule = (function () {
     }
   }
 
-  // function editTask(name, description?,assignee?,status?,priority?, isPrivate = false) {
+  // function editTask(id, name?, description?,assignee?,status?,priority?, isPrivate = false) {
   //   return boolean;
   // }
 
@@ -119,7 +120,7 @@ const tasksModule = (function () {
         );
       }
 
-      if (!checkIsIdInArr(id, tasks)) {
+      if (!findTaskById(id, tasks)) {
         throw new Error(`Error in removeTask. Task with id: "${id}" is not found".`);
       }
 
@@ -183,6 +184,8 @@ const tasksModule = (function () {
 })();
 
 //
+
+console.log(tasksModule.getTask('1'));
 
 // console.log(tasks[tasks.length - 1]);
 // tasksModule.addTask('title', 'descr LOREM2', 'IvanovIvan', 'To Do', 'High', true);
