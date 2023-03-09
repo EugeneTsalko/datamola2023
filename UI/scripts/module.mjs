@@ -1,4 +1,6 @@
 import { tasks } from './mockTasks.mjs';
+import { taskSchema } from './taskSchema.mjs';
+import { commentSchema } from './commentSchema.mjs';
 
 const tasksModule = (function () {
   let user = 'IvanovIvan';
@@ -6,7 +8,7 @@ const tasksModule = (function () {
   const checkId = (id, funcName) => {
     let result = true;
 
-    if (typeof id !== 'string') {
+    if (!taskSchema.id(id)) {
       console.log(`Fail in ${funcName}. Parameter "id" is required and should be a string.`);
       result = false;
 
@@ -40,9 +42,29 @@ const tasksModule = (function () {
     return result;
   }
 
-  // function validateTask(task) {
-  //   return boolean;
-  // }
+  function validateTask(task) {
+    let result = true;
+    if (typeof task !== 'object' || Array.isArray(task) || task === null) {
+      console.log(`Fail in validateTask. Parameter "task" is required and should be an object.`);
+      result = false;
+
+      return result;
+    }
+
+    const errors = Object.keys(taskSchema)
+      .filter((key) => !taskSchema[key](task[key]))
+      .map((key) => new Error(`Fail in validateTask. Property "${key}" in task is not valid.`));
+
+    if (errors.length > 0) {
+      for (const { message } of errors) {
+        console.log(message);
+        result = false;
+      }
+    }
+    console.log('validateTask result:', result);
+
+    return result;
+  }
 
   // function addTask(name, description,assignee,status,priority, isPrivate) {
   //   return boolean;
@@ -96,7 +118,7 @@ const tasksModule = (function () {
   return {
     // getTasks,
     getTask,
-    // validateTask,
+    validateTask,
     // addTask,
     // editTask,
     removeTask,
