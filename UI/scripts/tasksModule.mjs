@@ -97,7 +97,7 @@ const tasksModule = (function () {
         throw error;
       }
 
-      tasks.push(structuredClone(task));
+      tasks.push(task);
       console.log(`Task has been added with id: "${task.id}"!`);
 
       return true;
@@ -108,7 +108,7 @@ const tasksModule = (function () {
     }
   }
 
-  // function editTask(id, name?, description?,assignee?,status?,priority?, isPrivate = false) {
+  // function editTask(id, name?, description?, assignee?, status?, priority?, isPrivate = false) {
   //   return boolean;
   // }
 
@@ -187,6 +187,6 @@ const tasksModule = (function () {
 
 console.log(tasksModule.getTask('1'));
 
-// console.log(tasks[tasks.length - 1]);
-// tasksModule.addTask('title', 'descr LOREM2', 'IvanovIvan', 'To Do', 'High', true);
-// console.log(tasks[tasks.length - 1]);
+console.log(tasks[tasks.length - 1]);
+tasksModule.addTask('title', 'descr LOREM2', 'IvanovIvan', 'To Do', 'High', true);
+console.log(tasks[tasks.length - 1]);
