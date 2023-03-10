@@ -4,9 +4,11 @@ import { commentSchema } from './utils/commentSchema.mjs';
 import {
   checkStr,
   findTaskById,
+  checkIsObj,
   checkIsLoginValid,
   generateId,
   getCustomError,
+  validateObjBySchema,
 } from './utils/utils.mjs';
 
 const tasksModule = (function () {
@@ -41,21 +43,13 @@ const tasksModule = (function () {
 
   function validateTask(task) {
     try {
-      if (typeof task !== 'object' || Array.isArray(task) || task === null) {
-        throw new Error(
-          `Error in validateTask. Parameter "task" is required and should be an object.`,
-        );
+      if (!checkIsObj(task)) {
+        throw new Error(getCustomError.invalidTaskObj('validateTask'));
       }
 
-      const errorMessages = Object.keys(taskSchema)
-        .filter((key) => !taskSchema[key](task[key]))
-        .map((key) => `Error in validateTask. Property "${key}" in task is not valid.`);
+      const error = validateObjBySchema(task, taskSchema);
 
-      if (errorMessages.length > 0) {
-        const error = new Error();
-        for (const message of errorMessages) {
-          error.message += `${message} \n`;
-        }
+      if (error) {
         throw error;
       }
 
@@ -316,3 +310,32 @@ const tasksModule = (function () {
 // console.log(tasksModule.getTask(1));
 // console.log(tasksModule.getTask('nonExistingId'));
 // console.log(tasksModule.getTask('1'));
+
+// validateTask:
+// console.log(tasksModule.validateTask());
+// console.log(tasksModule.validateTask([]));
+// console.log(tasksModule.validateTask(null));
+// const invalidTask = {
+//   id: 1,
+//   name: { invalidName: true },
+//   description: ['invalid description'],
+//   createdAt: new Date().toLocaleTimeString(),
+//   assignee: 'invalidName with spaces and integers 42',
+//   status: 'invalid status',
+//   priority: 'invalid priority',
+//   isPrivate: 'true',
+//   comments: {},
+// };
+// console.log(tasksModule.validateTask(invalidTask));
+// const validTask = {
+//   id: '1',
+//   name: 'Task name.',
+//   description: 'Task description',
+//   createdAt: new Date(),
+//   assignee: 'validName',
+//   status: 'To Do',
+//   priority: 'High',
+//   isPrivate: true,
+//   comments: [],
+// };
+// console.log(tasksModule.validateTask(validTask));
