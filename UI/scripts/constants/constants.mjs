@@ -1,5 +1,3 @@
-// export const MIN_STRING_LENGTH = 1;
-
 export const TASK_MAX_LENGTH = {
   name: 100,
   description: 280,

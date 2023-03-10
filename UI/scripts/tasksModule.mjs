@@ -198,9 +198,35 @@ const tasksModule = (function () {
     }
   }
 
-  // function validateComment(com) {
-  //   return boolean;
-  // }
+  function validateComment(com) {
+    try {
+      if (typeof com !== 'object' || Array.isArray(com) || com === null) {
+        throw new Error(
+          `Error in validateComment. Parameter "comment" is required and should be an object.`,
+        );
+      }
+
+      const errorMessages = Object.keys(commentSchema)
+        .filter((key) => !commentSchema[key](com[key]))
+        .map((key) => `Error in validateComment. Property "${key}" in comment is not valid.`);
+
+      if (errorMessages.length > 0) {
+        const error = new Error();
+        for (const message of errorMessages) {
+          error.message += `${message} \n`;
+        }
+        throw error;
+      }
+
+      console.log('Comment is valid!');
+
+      return true;
+    } catch (err) {
+      console.error(err.message);
+
+      return false;
+    }
+  }
 
   // function addComment(id, text) {
   //   return boolean;
@@ -232,19 +258,10 @@ const tasksModule = (function () {
     addTask,
     editTask,
     removeTask,
-    // validateComment,
+    validateComment,
     // addComment,
     changeUser,
   };
 })();
 
 //
-
-// console.log(tasksModule.getTask('1'));
-
-console.log(findTaskById('1', tasks));
-tasksModule.editTask('1', 'newtitle');
-// console.log(tasks[tasks.length - 1]);
-console.log(findTaskById('1', tasks));
-
-// console.log(tasksModule.editTask('1'));
