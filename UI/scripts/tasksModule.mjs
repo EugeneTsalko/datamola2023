@@ -228,9 +228,48 @@ const tasksModule = (function () {
     }
   }
 
-  // function addComment(id, text) {
-  //   return boolean;
-  // }
+  function addComment(id, text) {
+    try {
+      if (!checkStr(id)) {
+        throw new Error(
+          `Error in addComment. Parameter "id" is required and should be a non-empty string.`,
+        );
+      }
+
+      if (!findTaskById(id, tasks)) {
+        throw new Error(`Error in addComment. Task with id: "${id}" is not found".`);
+      }
+
+      const newComment = {
+        id: generateId(),
+        text,
+        createdAt: new Date(),
+        author: user,
+      };
+
+      const errorMessages = Object.keys(commentSchema)
+        .filter((key) => !commentSchema[key](newComment[key]))
+        .map((key) => `Error in addComment. Property "${key}" in comment is not valid.`);
+
+      if (errorMessages.length > 0) {
+        const error = new Error();
+        for (const message of errorMessages) {
+          error.message += `${message} \n`;
+        }
+        throw error;
+      }
+
+      const index = tasks.findIndex((el) => el.id === id);
+      tasks[index].comments.push(newComment);
+      console.log(`New comment has been added to task with id: "${id}"!`);
+
+      return true;
+    } catch (err) {
+      console.error(err.message);
+
+      return false;
+    }
+  }
 
   function changeUser(newUser) {
     try {
@@ -259,7 +298,7 @@ const tasksModule = (function () {
     editTask,
     removeTask,
     validateComment,
-    // addComment,
+    addComment,
     changeUser,
   };
 })();
