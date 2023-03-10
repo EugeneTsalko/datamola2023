@@ -6,11 +6,11 @@ export const findTaskById = (id, arr) => arr.find((el) => el.id === id);
 
 export const checkIsObj = (obj) => typeof obj === 'object' && !Array.isArray(obj) && obj !== null;
 
-export const validateObjBySchema = (obj, schema) => {
+export const validateObjBySchema = (obj, schema, funcName) => {
   let error = null;
   const errorMessages = Object.keys(schema)
     .filter((key) => !schema[key](obj[key]))
-    .map((key) => `Property "${key}" is not valid.`);
+    .map((key) => `Error in ${funcName}. Property "${key}" is not valid.`);
 
   if (errorMessages.length) {
     error = new Error();
@@ -32,4 +32,6 @@ export const getCustomError = {
   taskNotFound: (id, funcName) => `Error in ${funcName}. Task with id: "${id}" was not found".`,
   invalidTaskObj: (funcName) =>
     `Error in ${funcName}. Parameter "task" is required and should be an object.`,
+  notEnoughRightsToAddTask: (user, assignee) =>
+    `Error in addTask. User ${user} have no rights to add task with parameter assignee: "${assignee}".`,
 };

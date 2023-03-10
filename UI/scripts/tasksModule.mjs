@@ -47,7 +47,7 @@ const tasksModule = (function () {
         throw new Error(getCustomError.invalidTaskObj('validateTask'));
       }
 
-      const error = validateObjBySchema(task, taskSchema);
+      const error = validateObjBySchema(task, taskSchema, 'validateTask');
 
       if (error) {
         throw error;
@@ -64,14 +64,8 @@ const tasksModule = (function () {
   }
 
   function addTask(name, description, assignee, status, priority, isPrivate = false) {
-    //если assignee не может быть отличным от user, почему в ТЗ это обязательный параметр?
+    // если мы не можем создать таск с assignee отличным от user, то почему в ТЗ assignee: string, а не assignee: string = user?
     try {
-      if (assignee !== user) {
-        throw new Error(
-          `Error in addTask. User ${user} have no rights to add task with parameter assignee: "${assignee}".`,
-        );
-      }
-
       const task = {
         id: generateId(),
         name,
@@ -84,16 +78,14 @@ const tasksModule = (function () {
         comments: [],
       };
 
-      const errorMessages = Object.keys(taskSchema)
-        .filter((key) => !taskSchema[key](task[key]))
-        .map((key) => `Error in addTask. Property "${key}" in task is not valid.`);
+      const error = validateObjBySchema(task, taskSchema, 'addTask');
 
-      if (errorMessages.length > 0) {
-        const error = new Error();
-        for (const message of errorMessages) {
-          error.message += `${message} \n`;
-        }
+      if (error) {
         throw error;
+      }
+
+      if (assignee !== user) {
+        throw new Error(getCustomError.notEnoughRightsToAddTask(user, assignee));
       }
 
       tasks.push(task);
@@ -320,7 +312,7 @@ const tasksModule = (function () {
 //   name: { invalidName: true },
 //   description: ['invalid description'],
 //   createdAt: new Date().toLocaleTimeString(),
-//   assignee: 'invalidName with spaces and integers 42',
+//   assignee: 'invalidLogin with spaces and integers 42',
 //   status: 'invalid status',
 //   priority: 'invalid priority',
 //   isPrivate: 'true',
@@ -332,10 +324,40 @@ const tasksModule = (function () {
 //   name: 'Task name.',
 //   description: 'Task description',
 //   createdAt: new Date(),
-//   assignee: 'validName',
+//   assignee: 'validLogin',
 //   status: 'To Do',
 //   priority: 'High',
 //   isPrivate: true,
 //   comments: [],
 // };
 // console.log(tasksModule.validateTask(validTask));
+
+// addTask:
+// console.log(tasksModule.addTask());
+// const invalidTaskToAdd = {
+//   name: { invalidName: true },
+//   description: ['invalid description'],
+//   assignee: 'invalidLogin with spaces and integers 42',
+//   status: 'invalid status',
+//   priority: 'invalid priority',
+//   isPrivate: 'true',
+// };
+// console.log(tasksModule.addTask(...Object.values(invalidTaskToAdd)));
+// const noRightsToAddTask = {
+//   name: 'Task name.',
+//   description: 'Task description',
+//   assignee: 'validLogin',
+//   status: 'To Do',
+//   priority: 'High',
+//   isPrivate: true,
+// };
+// console.log(tasksModule.addTask(...Object.values(noRightsToAddTask)));
+// const validTaskToAdd = {
+//   name: 'Task name.',
+//   description: 'Task description',
+//   assignee: 'IvanovIvan',
+//   status: 'To Do',
+//   priority: 'High',
+//   isPrivate: true,
+// };
+// console.log(tasksModule.addTask(...Object.values(validTaskToAdd)));
