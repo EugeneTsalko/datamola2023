@@ -1,7 +1,13 @@
 import { tasks } from './mockData/mockTasks.mjs';
 import { taskSchema } from './utils/taskSchema.mjs';
 import { commentSchema } from './utils/commentSchema.mjs';
-import { checkStr, findTaskById, checkIsLoginValid, generateId } from './utils/utils.mjs';
+import {
+  checkStr,
+  findTaskById,
+  checkIsLoginValid,
+  generateId,
+  getCustomError,
+} from './utils/utils.mjs';
 
 const tasksModule = (function () {
   let user = 'IvanovIvan';
@@ -14,18 +20,16 @@ const tasksModule = (function () {
   function getTask(id) {
     try {
       if (!checkStr(id)) {
-        throw new Error(
-          `Error in getTask. Parameter "id" is required and should be a non-empty string.`,
-        );
+        throw new Error(getCustomError.invalidId('getTask'));
       }
 
       const task = findTaskById(id, tasks);
 
       if (!task) {
-        throw new Error(`Error in getTask. Task with id: "${id}" is not found".`);
+        throw new Error(getCustomError.taskNotFound(id, 'getTask'));
       }
 
-      console.log(`Task with id: "${id}" found!`);
+      console.log(`Task with id: "${id}" was found!`);
 
       return task;
     } catch (err) {
@@ -303,4 +307,12 @@ const tasksModule = (function () {
   };
 })();
 
-//
+// ниже различные тест-кейсы для методов:
+
+// getTask:
+// console.log(tasksModule.getTask());
+// console.log(tasksModule.getTask(''));
+// console.log(tasksModule.getTask(' '));
+// console.log(tasksModule.getTask(1));
+// console.log(tasksModule.getTask('nonExistingId'));
+// console.log(tasksModule.getTask('1'));
