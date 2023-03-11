@@ -45,7 +45,7 @@ const tasksModule = (function () {
   function validateTask(task) {
     try {
       if (!checkIsObj(task)) {
-        throw new Error(getCustomError.invalidTaskObj('validateTask'));
+        throw new Error(getCustomError.invalidObjParam('validateTask'));
       }
 
       const error = validateObjBySchema(task, taskSchema, 'validateTask');
@@ -180,21 +180,13 @@ const tasksModule = (function () {
 
   function validateComment(com) {
     try {
-      if (typeof com !== 'object' || Array.isArray(com) || com === null) {
-        throw new Error(
-          `Error in validateComment. Parameter "comment" is required and should be an object.`,
-        );
+      if (!checkIsObj(com)) {
+        throw new Error(getCustomError.invalidObjParam('validateComment'));
       }
 
-      const errorMessages = Object.keys(commentSchema)
-        .filter((key) => !commentSchema[key](com[key]))
-        .map((key) => `Error in validateComment. Property "${key}" in comment is not valid.`);
+      const error = validateObjBySchema(com, commentSchema, 'validateComment');
 
-      if (errorMessages.length > 0) {
-        const error = new Error();
-        for (const message of errorMessages) {
-          error.message += `${message} \n`;
-        }
+      if (error) {
         throw error;
       }
 
@@ -386,3 +378,14 @@ const tasksModule = (function () {
 // console.log(tasks.length, tasks[0]);
 // console.log(tasksModule.removeTask('1'));
 // console.log(tasks.length, tasks[0]);
+
+//validateComment
+// console.log(tasksModule.validateComment());
+// console.log(tasksModule.validateComment({}));
+// const validComment = {
+//   id: generateId(),
+//   text: 'Awesome comment.',
+//   createdAt: new Date(),
+//   author: 'validLogin',
+// };
+// console.log(tasksModule.validateComment(validComment));
