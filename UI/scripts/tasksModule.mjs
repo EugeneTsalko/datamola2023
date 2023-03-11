@@ -86,7 +86,7 @@ const tasksModule = (function () {
       }
 
       if (assignee !== user) {
-        throw new Error(getCustomError.notEnoughRightsToAddTask(user, assignee));
+        throw new Error(getCustomError.notEnoughRights(user, assignee, 'addTask'));
       }
 
       tasks.push(task);
@@ -113,7 +113,7 @@ const tasksModule = (function () {
       }
 
       if (user !== task.assignee) {
-        throw new Error(getCustomError.notEnoughRightsToEditTask(user, task.assignee));
+        throw new Error(getCustomError.notEnoughRights(user, task.assignee, 'editTask'));
       }
 
       if (arguments.length === 1) {
@@ -154,21 +154,17 @@ const tasksModule = (function () {
   function removeTask(id) {
     try {
       if (!checkStr(id)) {
-        throw new Error(
-          `Error in removeTask. Parameter "id" is required and should be a non-empty string.`,
-        );
+        throw new Error(getCustomError.invalidId('removeTask'));
       }
 
       if (!findTaskById(id, tasks)) {
-        throw new Error(`Error in removeTask. Task with id: "${id}" is not found".`);
+        throw new Error(getCustomError.taskNotFound(id, 'removeTask'));
       }
 
       const index = tasks.findIndex((el) => el.id === id);
 
       if (user !== tasks[index].assignee) {
-        throw new Error(
-          `Error in removeTask. User ${user} have no rights to remove ${tasks[index].assignee}'s task with id: "${id}".`,
-        );
+        throw new Error(getCustomError.notEnoughRights(user, tasks[index].assignee, 'removeTask'));
       }
 
       tasks.splice(index, 1);
@@ -370,15 +366,23 @@ const tasksModule = (function () {
 //   isPrivate: 'true',
 // };
 // console.log(tasksModule.editTask(...Object.values(invalidTaskToEdit)));
-const validTaskToEdit = {
-  id: '1',
-  name: 'New Task name.',
-  description: 'New Task description',
-  assignee: 'NewAssignee',
-  status: 'To Do',
-  priority: 'High',
-  isPrivate: true,
-};
-console.log('old task', findTaskById('1', tasks));
-console.log(tasksModule.editTask(...Object.values(validTaskToEdit)));
-console.log('edited task', findTaskById('1', tasks));
+// const validTaskToEdit = {
+//   id: '1',
+//   name: 'New Task name.',
+//   description: 'New Task description',
+//   assignee: 'NewAssignee',
+//   status: 'To Do',
+//   priority: 'High',
+//   isPrivate: true,
+// };
+// console.log('old task', findTaskById('1', tasks));
+// console.log(tasksModule.editTask(...Object.values(validTaskToEdit)));
+// console.log('edited task', findTaskById('1', tasks));
+
+// removeTask
+// console.log(tasksModule.removeTask());
+// console.log(tasksModule.removeTask('111'));
+// console.log(tasksModule.removeTask('3'));
+// console.log(tasks.length, tasks[0]);
+// console.log(tasksModule.removeTask('1'));
+// console.log(tasks.length, tasks[0]);

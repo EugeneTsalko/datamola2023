@@ -34,9 +34,7 @@ export const getCustomError = {
   taskNotFound: (id, funcName) => `Error in ${funcName}. Task with id: "${id}" was not found".`,
   invalidTaskObj: (funcName) =>
     `Error in ${funcName}. Parameter "task" is required and should be an object.`,
-  notEnoughRightsToAddTask: (user, assignee) =>
-    `Error in addTask. User ${user} have no rights to add task with parameter assignee: "${assignee}".`,
-  notEnoughRightsToEditTask: (user, assignee) =>
-    `Error in editTask. User ${user} have no rights to edit ${assignee}'s task.`,
+  notEnoughRights: (user, assignee, funcName) =>
+    `Error in ${funcName}. User ${user} have no rights to add/edit/remove task with parameter assignee: "${assignee}".`,
   notEnoughParams: (funcName) => `Erorr in ${funcName}. You need to pass more than one parameter.`,
 };
