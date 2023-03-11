@@ -4,6 +4,7 @@ import { commentSchema } from './utils/commentSchema.mjs';
 import {
   checkStr,
   findTaskById,
+  findTaskIndexById,
   checkIsObj,
   checkIsLoginValid,
   generateId,
@@ -100,30 +101,27 @@ const tasksModule = (function () {
   }
 
   function editTask(id, name, description, assignee, status, priority, isPrivate) {
-    // TODO если передан только ид то выдать сообщение.
     try {
       if (!checkStr(id)) {
-        throw new Error(
-          `Error in addTask. Parameter "id" is required and should be a non-empty string.`,
-        );
+        throw new Error(getCustomError.invalidId('editTask'));
       }
 
       const task = findTaskById(id, tasks);
 
       if (!task) {
-        throw new Error(`Error in getTask. Task with id: "${id}" is not found".`);
+        throw new Error(getCustomError.invalidId('editTask'));
       }
 
-      const index = tasks.findIndex((el) => el.id === id);
+      if (user !== task.assignee) {
+        throw new Error(getCustomError.notEnoughRightsToEditTask(user, task.assignee));
+      }
 
-      if (user !== tasks[index].assignee) {
-        throw new Error(
-          `Error in editTask. User ${user} have no rights to edit ${tasks[index].assignee}'s task with id: "${id}".`,
-        );
+      if (arguments.length === 1) {
+        throw new Error(getCustomError.notEnoughParams('editTask'));
       }
 
       const editedTask = {
-        id: task.id,
+        id,
         name: name || task.name,
         description: description || task.description,
         createdAt: task.createdAt,
@@ -134,19 +132,15 @@ const tasksModule = (function () {
         comments: task.comments,
       };
 
-      const errorMessages = Object.keys(taskSchema)
-        .filter((key) => !taskSchema[key](task[key]))
-        .map((key) => `Error in editTask. Property "${key}" in task is not valid.`);
+      const error = validateObjBySchema(editedTask, taskSchema, 'editTask');
 
-      if (errorMessages.length > 0) {
-        const error = new Error();
-        for (const message of errorMessages) {
-          error.message += `${message} \n`;
-        }
+      if (error) {
         throw error;
       }
 
+      const index = findTaskIndexById(id, tasks);
       tasks[index] = editedTask;
+
       console.log(`Task with id: "${id} has been edited!"`);
 
       return true;
@@ -361,3 +355,30 @@ const tasksModule = (function () {
 //   isPrivate: true,
 // };
 // console.log(tasksModule.addTask(...Object.values(validTaskToAdd)));
+
+// editTask:
+// console.log(tasksModule.editTask());
+// console.log(tasksModule.editTask('1'));
+// console.log(tasksModule.editTask('3', 'New Task Title'));
+// const invalidTaskToEdit = {
+//   id: '1',
+//   name: { invalidName: true },
+//   description: ['invalid description'],
+//   assignee: 'invalidLogin with spaces and integers 42',
+//   status: 'invalid status',
+//   priority: 'invalid priority',
+//   isPrivate: 'true',
+// };
+// console.log(tasksModule.editTask(...Object.values(invalidTaskToEdit)));
+const validTaskToEdit = {
+  id: '1',
+  name: 'New Task name.',
+  description: 'New Task description',
+  assignee: 'NewAssignee',
+  status: 'To Do',
+  priority: 'High',
+  isPrivate: true,
+};
+console.log('old task', findTaskById('1', tasks));
+console.log(tasksModule.editTask(...Object.values(validTaskToEdit)));
+console.log('edited task', findTaskById('1', tasks));

@@ -4,6 +4,8 @@ export const checkStr = (str, maxLength = Number.POSITIVE_INFINITY) => {
 
 export const findTaskById = (id, arr) => arr.find((el) => el.id === id);
 
+export const findTaskIndexById = (id, arr) => arr.findIndex((el) => el.id === id);
+
 export const checkIsObj = (obj) => typeof obj === 'object' && !Array.isArray(obj) && obj !== null;
 
 export const validateObjBySchema = (obj, schema, funcName) => {
@@ -34,4 +36,7 @@ export const getCustomError = {
     `Error in ${funcName}. Parameter "task" is required and should be an object.`,
   notEnoughRightsToAddTask: (user, assignee) =>
     `Error in addTask. User ${user} have no rights to add task with parameter assignee: "${assignee}".`,
+  notEnoughRightsToEditTask: (user, assignee) =>
+    `Error in editTask. User ${user} have no rights to edit ${assignee}'s task.`,
+  notEnoughParams: (funcName) => `Erorr in ${funcName}. You need to pass more than one parameter.`,
 };
