@@ -203,13 +203,11 @@ const tasksModule = (function () {
   function addComment(id, text) {
     try {
       if (!checkStr(id)) {
-        throw new Error(
-          `Error in addComment. Parameter "id" is required and should be a non-empty string.`,
-        );
+        throw new Error(getCustomError.invalidId('addComment'));
       }
 
       if (!findTaskById(id, tasks)) {
-        throw new Error(`Error in addComment. Task with id: "${id}" is not found".`);
+        throw new Error(getCustomError.taskNotFound(id, 'addComment'));
       }
 
       const newComment = {
@@ -219,19 +217,13 @@ const tasksModule = (function () {
         author: user,
       };
 
-      const errorMessages = Object.keys(commentSchema)
-        .filter((key) => !commentSchema[key](newComment[key]))
-        .map((key) => `Error in addComment. Property "${key}" in comment is not valid.`);
+      const error = validateObjBySchema(newComment, commentSchema, 'addComment');
 
-      if (errorMessages.length > 0) {
-        const error = new Error();
-        for (const message of errorMessages) {
-          error.message += `${message} \n`;
-        }
+      if (error) {
         throw error;
       }
 
-      const index = tasks.findIndex((el) => el.id === id);
+      const index = findTaskIndexById(id, tasks);
       tasks[index].comments.push(newComment);
       console.log(`New comment has been added to task with id: "${id}"!`);
 
@@ -379,7 +371,7 @@ const tasksModule = (function () {
 // console.log(tasksModule.removeTask('1'));
 // console.log(tasks.length, tasks[0]);
 
-//validateComment
+// validateComment
 // console.log(tasksModule.validateComment());
 // console.log(tasksModule.validateComment({}));
 // const validComment = {
@@ -389,3 +381,10 @@ const tasksModule = (function () {
 //   author: 'validLogin',
 // };
 // console.log(tasksModule.validateComment(validComment));
+
+// addComment
+// console.log(tasksModule.addComment());
+// console.log(tasksModule.addComment('111'));
+// console.log(tasksModule.addComment('1'));
+// console.log(tasksModule.addComment('1', 'New Comment text'));
+// console.log(tasks[0]);
