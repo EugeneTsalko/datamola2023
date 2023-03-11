@@ -238,19 +238,13 @@ const tasksModule = (function () {
   function changeUser(newUser) {
     try {
       if (!checkIsLoginValid(newUser)) {
-        throw new Error(
-          'Error in changeUser. Parameter "user login" is required and should contain latin letters only.',
-        );
+        throw new Error(getCustomError.invalidLogin('changeUser'));
       }
 
       user = newUser;
       console.log(`User was changed! New user is ${user}.`);
-
-      return true;
     } catch (err) {
       console.error(err.message);
-
-      return false;
     }
   }
 
@@ -388,3 +382,11 @@ const tasksModule = (function () {
 // console.log(tasksModule.addComment('1'));
 // console.log(tasksModule.addComment('1', 'New Comment text'));
 // console.log(tasks[0]);
+
+// changeUser
+// console.log(tasksModule.changeUser());
+// console.log(tasksModule.changeUser(''));
+// console.log(tasksModule.changeUser(' '));
+// console.log(tasksModule.changeUser('invalidLogin3000'));
+// console.log(tasksModule.changeUser('Invalid Login'));
+// console.log(tasksModule.changeUser('ValidLogin'));
