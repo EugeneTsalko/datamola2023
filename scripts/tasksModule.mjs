@@ -310,7 +310,8 @@ const tasksModule = (function () {
 
 // ниже различные тест-кейсы для методов:
 
-// getTask:
+// // getTask:
+
 // console.log(tasksModule.getTask());
 // console.log(tasksModule.getTask(''));
 // console.log(tasksModule.getTask(' '));
@@ -318,7 +319,8 @@ const tasksModule = (function () {
 // console.log(tasksModule.getTask('nonExistingId'));
 // console.log(tasksModule.getTask('1'));
 
-// validateTask:
+// // validateTask:
+
 // console.log(tasksModule.validateTask());
 // console.log(tasksModule.validateTask([]));
 // console.log(tasksModule.validateTask(null));
@@ -347,7 +349,8 @@ const tasksModule = (function () {
 // };
 // console.log(tasksModule.validateTask(validTask));
 
-// addTask:
+// // addTask:
+
 // console.log(tasksModule.addTask());
 // const invalidTaskToAdd = {
 //   name: { invalidName: true },
@@ -377,7 +380,8 @@ const tasksModule = (function () {
 // };
 // console.log(tasksModule.addTask(...Object.values(validTaskToAdd)));
 
-// editTask:
+// // editTask:
+
 // console.log(tasksModule.editTask());
 // console.log(tasksModule.editTask('1'));
 // console.log(tasksModule.editTask('3', 'New Task Title'));
@@ -404,7 +408,8 @@ const tasksModule = (function () {
 // console.log(tasksModule.editTask(...Object.values(validTaskToEdit)));
 // console.log('edited task', findTaskById('1', tasks));
 
-// removeTask
+// // removeTask:
+
 // console.log(tasksModule.removeTask());
 // console.log(tasksModule.removeTask('111'));
 // console.log(tasksModule.removeTask('3'));
@@ -412,7 +417,8 @@ const tasksModule = (function () {
 // console.log(tasksModule.removeTask('1'));
 // console.log(tasks.length, tasks[0]);
 
-// validateComment
+// // validateComment:
+
 // console.log(tasksModule.validateComment());
 // console.log(tasksModule.validateComment({}));
 // const validComment = {
@@ -423,14 +429,16 @@ const tasksModule = (function () {
 // };
 // console.log(tasksModule.validateComment(validComment));
 
-// addComment
+// // addComment:
+
 // console.log(tasksModule.addComment());
 // console.log(tasksModule.addComment('111'));
 // console.log(tasksModule.addComment('1'));
 // console.log(tasksModule.addComment('1', 'New Comment text'));
 // console.log(tasks[0]);
 
-// changeUser
+// // changeUser:
+
 // console.log(tasksModule.changeUser());
 // console.log(tasksModule.changeUser(''));
 // console.log(tasksModule.changeUser(' '));
@@ -438,7 +446,8 @@ const tasksModule = (function () {
 // console.log(tasksModule.changeUser('Invalid Login'));
 // console.log(tasksModule.changeUser('ValidLogin'));
 
-// getTasks
+// // getTasks:
+
 // console.log(tasksModule.getTasks());
 // console.log(tasksModule.getTasks('10', '10'));
 // console.log(tasksModule.getTasks(0, 10, 'sarahgreen'));
