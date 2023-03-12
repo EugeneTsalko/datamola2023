@@ -15,10 +15,64 @@ import {
 const tasksModule = (function () {
   let user = 'IvanovIvan';
 
-  // function getTasks(skip?, top?, filterConfig?) {
-  //   // console.log(user);
-  //   return arr;
-  // }
+  function getTasks(skip = 0, top = 10, filterConfig) {
+    try {
+      if (skip < 0 || top < 0 || !Number.isInteger(skip) || !Number.isInteger(top)) {
+        throw new Error('Error in getTasks. Parameters skip and top should be integer numbers.');
+      }
+
+      if (filterConfig && !checkIsObj(filterConfig) && filterConfig.length) {
+        throw new Error('Error in getTasks. Parameter filterConfig should be an object.');
+      }
+
+      let result = structuredClone(tasks).sort(
+        (a, b) => Date.parse(b.createdAt) - Date.parse(a.createdAt),
+      );
+
+      if (filterConfig) {
+        for (const key in filterConfig) {
+          result = result.filter((task) => {
+            if (key === 'assignee') {
+              return task[key] === filterConfig[key];
+            }
+            if (key === 'dateFrom') {
+              return Date.parse(task.createdAt) >= Date.parse(filterConfig[key]);
+            }
+            if (key === 'dateTo') {
+              return Date.parse(task.createdAt) <= Date.parse(filterConfig[key]);
+            }
+            if (key === 'status') {
+              return task[key] === filterConfig[key];
+            }
+            if (key === 'priority') {
+              return task[key] === filterConfig[key];
+            }
+            if (key === 'isPrivate') {
+              return task[key] === filterConfig[key];
+            }
+            if (key === 'description') {
+              return (
+                task[key].toLowerCase().includes(filterConfig[key].toLowerCase()) ||
+                task.name.toLowerCase().includes(filterConfig[key].toLowerCase())
+              );
+            }
+          });
+        }
+      }
+
+      result = result.slice(skip, skip + top);
+
+      if (!result.length) {
+        console.log('Nothing was found for your request.');
+      }
+
+      return result;
+    } catch (err) {
+      console.error(err.message);
+
+      return null;
+    }
+  }
 
   function getTask(id) {
     try {
@@ -249,7 +303,7 @@ const tasksModule = (function () {
   }
 
   return {
-    // getTasks,
+    getTasks,
     getTask,
     validateTask,
     addTask,
@@ -390,3 +444,21 @@ const tasksModule = (function () {
 // console.log(tasksModule.changeUser('invalidLogin3000'));
 // console.log(tasksModule.changeUser('Invalid Login'));
 // console.log(tasksModule.changeUser('ValidLogin'));
+
+// getTasks
+// console.log(tasksModule.getTasks());
+// console.log(tasksModule.getTasks('10', '10'));
+// console.log(tasksModule.getTasks(0, 10, 'SarahGreen'));
+// console.log(tasksModule.getTasks(0, 10, { dateTo: '1999-01-01' }));
+// console.log(tasksModule.getTasks(0, 10, { assignee: 'SarahGreen' }));
+// console.log(tasksModule.getTasks(0, 20, { status: 'To Do', priority: 'High' }));
+// const filter = {
+//   assignee: 'SarahGreen',
+//   dateFrom: new Date(2023, 1, 21),
+//   dateTo: '2023-03-02',
+//   status: 'To Do',
+//   priority: 'Low',
+//   isPrivate: false,
+//   description: 'офис',
+// };
+// console.log(tasksModule.getTasks(0, 10, filter));
