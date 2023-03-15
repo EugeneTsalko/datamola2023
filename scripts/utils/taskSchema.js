@@ -1,5 +1,5 @@
-import { checkStr, checkIsLoginValid } from './utils.mjs';
-import { TASK_MAX_LENGTH, TASK_PRIORITY, TASK_STATUS } from '../constants/constants.mjs';
+import { checkStr, checkIsLoginValid } from './utils.js';
+import { TASK_MAX_LENGTH, TASK_PRIORITY, TASK_STATUS } from '../constants/constants.js';
 
 export const taskSchema = {
   id: (value) => checkStr(value),

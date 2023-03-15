@@ -1,8 +1,8 @@
 'use strict';
 
-import { tasks } from './mockData/mockTasks.mjs';
-import { taskSchema } from './utils/taskSchema.mjs';
-import { commentSchema } from './utils/commentSchema.mjs';
+import { tasks } from './mockData/mockTasks.js';
+import { taskSchema } from './utils/taskSchema.js';
+import { commentSchema } from './utils/commentSchema.js';
 import {
   checkStr,
   findTaskById,
@@ -12,7 +12,7 @@ import {
   generateId,
   getCustomError,
   validateObjBySchema,
-} from './utils/utils.mjs';
+} from './utils/utils.js';
 
 const tasksModule = (function () {
   let user = 'IvanovIvan';

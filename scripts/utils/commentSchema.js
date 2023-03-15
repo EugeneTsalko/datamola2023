@@ -1,5 +1,5 @@
-import { checkStr, checkIsLoginValid } from './utils.mjs';
-import { TASK_MAX_LENGTH } from '../constants/constants.mjs';
+import { checkStr, checkIsLoginValid } from './utils.js';
+import { TASK_MAX_LENGTH } from '../constants/constants.js';
 
 export const commentSchema = {
   id: (value) => checkStr(value),
