@@ -1,3 +1,5 @@
+'use strict';
+
 import { tasks } from './mockData/mockTasks.mjs';
 import { taskSchema } from './utils/taskSchema.mjs';
 import { commentSchema } from './utils/commentSchema.mjs';
@@ -155,7 +157,7 @@ const tasksModule = (function () {
         throw new Error(getCustomError.taskNotFound(id, 'removeTask'));
       }
 
-      const index = tasks.findIndex((el) => el.id === id);
+      const index = tasks.findIndex((task) => task.id === id);
 
       if (user !== tasks[index].assignee) {
         throw new Error(getCustomError.notEnoughRights(user, tasks[index].assignee, 'removeTask'));
@@ -172,13 +174,13 @@ const tasksModule = (function () {
     }
   }
 
-  function validateComment(com) {
+  function validateComment(comment) {
     try {
-      if (!checkIsObj(com)) {
+      if (!checkIsObj(comment)) {
         throw new Error(getCustomError.invalidObjParam('comment', 'validateComment'));
       }
 
-      const error = validateObjBySchema(com, commentSchema, 'validateComment');
+      const error = validateObjBySchema(comment, commentSchema, 'validateComment');
 
       if (error) {
         throw error;
