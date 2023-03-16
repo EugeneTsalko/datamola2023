@@ -1,5 +1,5 @@
-'use strict';
-
 class TaskCollection {
-  constructor() {}
+  constructor() {
+    this.tasks = [];
+  }
 }

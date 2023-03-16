@@ -1,8 +1,6 @@
-'use strict';
-
-import { tasks } from './mockData/mockTasks.js';
-import { taskSchema } from './utils/taskSchema.js';
-import { commentSchema } from './utils/commentSchema.js';
+import tasks from './mockData/mockTasks.js';
+import taskSchema from './utils/taskSchema.js';
+import commentSchema from './utils/commentSchema.js';
 import {
   checkStr,
   findTaskById,

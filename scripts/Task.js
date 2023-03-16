@@ -1,5 +1,5 @@
-'use strict';
-
 class Task {
-  constructor() {}
+  constructor(name) {
+    this.name = name;
+  }
 }
