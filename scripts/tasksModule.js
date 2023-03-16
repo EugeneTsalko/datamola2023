@@ -1,6 +1,8 @@
-import { tasks } from './mockData/mockTasks.mjs';
-import { taskSchema } from './utils/taskSchema.mjs';
-import { commentSchema } from './utils/commentSchema.mjs';
+'use strict';
+
+import { tasks } from './mockData/mockTasks.js';
+import { taskSchema } from './utils/taskSchema.js';
+import { commentSchema } from './utils/commentSchema.js';
 import {
   checkStr,
   findTaskById,
@@ -10,7 +12,8 @@ import {
   generateId,
   getCustomError,
   validateObjBySchema,
-} from './utils/utils.mjs';
+  getComments,
+} from './utils/utils.js';
 
 const tasksModule = (function () {
   let user = 'IvanovIvan';
@@ -62,7 +65,7 @@ const tasksModule = (function () {
   function addTask(name, description, assignee, status, priority, isPrivate = false) {
     try {
       const task = {
-        id: generateId(),
+        id: generateId(tasks),
         name,
         description,
         createdAt: new Date(),
@@ -155,7 +158,7 @@ const tasksModule = (function () {
         throw new Error(getCustomError.taskNotFound(id, 'removeTask'));
       }
 
-      const index = tasks.findIndex((el) => el.id === id);
+      const index = tasks.findIndex((task) => task.id === id);
 
       if (user !== tasks[index].assignee) {
         throw new Error(getCustomError.notEnoughRights(user, tasks[index].assignee, 'removeTask'));
@@ -172,13 +175,13 @@ const tasksModule = (function () {
     }
   }
 
-  function validateComment(com) {
+  function validateComment(comment) {
     try {
-      if (!checkIsObj(com)) {
+      if (!checkIsObj(comment)) {
         throw new Error(getCustomError.invalidObjParam('comment', 'validateComment'));
       }
 
-      const error = validateObjBySchema(com, commentSchema, 'validateComment');
+      const error = validateObjBySchema(comment, commentSchema, 'validateComment');
 
       if (error) {
         throw error;
@@ -204,8 +207,10 @@ const tasksModule = (function () {
         throw new Error(getCustomError.taskNotFound(id, 'addComment'));
       }
 
+      const comments = getComments(tasks);
+
       const newComment = {
-        id: generateId(),
+        id: generateId(comments),
         text,
         createdAt: new Date(),
         author: user,
@@ -422,7 +427,7 @@ const tasksModule = (function () {
 // console.log(tasksModule.validateComment());
 // console.log(tasksModule.validateComment({}));
 // const validComment = {
-//   id: generateId(),
+//   id: '123',
 //   text: 'Awesome comment.',
 //   createdAt: new Date(),
 //   author: 'validLogin',
