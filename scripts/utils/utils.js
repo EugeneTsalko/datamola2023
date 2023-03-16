@@ -26,7 +26,32 @@ export const validateObjBySchema = (obj, schema, funcName) => {
 
 export const checkIsLoginValid = (login) => !!login && /^[a-zA-Z]+$/.test(login);
 
-export const generateId = () => Math.floor(Date.now() + Math.random() * 1000).toString();
+export const generateId = (arr) => {
+  let newId = 0;
+
+  if (arr.length) {
+    const lastId = arr
+      .map((el) => el.id)
+      .sort((a, b) => Number(a) - Number(b))
+      .at(-1);
+
+    newId = Number(lastId) + 1;
+  }
+
+  return newId.toString();
+};
+
+export const getComments = (arr) => {
+  const comments = [];
+
+  arr.forEach((el) => {
+    if (el.comments.length) {
+      comments.push(...el.comments);
+    }
+  });
+
+  return comments;
+};
 
 export const getCustomError = {
   invalidId: (funcName) =>

@@ -12,6 +12,7 @@ import {
   generateId,
   getCustomError,
   validateObjBySchema,
+  getComments,
 } from './utils/utils.js';
 
 const tasksModule = (function () {
@@ -64,7 +65,7 @@ const tasksModule = (function () {
   function addTask(name, description, assignee, status, priority, isPrivate = false) {
     try {
       const task = {
-        id: generateId(),
+        id: generateId(tasks),
         name,
         description,
         createdAt: new Date(),
@@ -206,8 +207,10 @@ const tasksModule = (function () {
         throw new Error(getCustomError.taskNotFound(id, 'addComment'));
       }
 
+      const comments = getComments(tasks);
+
       const newComment = {
-        id: generateId(),
+        id: generateId(comments),
         text,
         createdAt: new Date(),
         author: user,
@@ -424,7 +427,7 @@ const tasksModule = (function () {
 // console.log(tasksModule.validateComment());
 // console.log(tasksModule.validateComment({}));
 // const validComment = {
-//   id: generateId(),
+//   id: '123',
 //   text: 'Awesome comment.',
 //   createdAt: new Date(),
 //   author: 'validLogin',
