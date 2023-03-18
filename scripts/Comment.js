@@ -9,10 +9,10 @@ import tasks from './mockData/mockTasks.js';
 import commentSchema from './utils/commentSchema.js';
 
 class Comment {
-  constructor(text, author) {
-    this._id = generateId(getComments(tasks));
+  constructor(id, text, createdAt, author) {
+    this._id = id;
     this.text = text;
-    this._createdAt = new Date();
+    this._createdAt = createdAt;
     this.author = author;
   }
 
@@ -20,14 +20,24 @@ class Comment {
     return this._id;
   }
 
+  set id(value) {
+    console.error(`Property "id" is protected. You can't change "${this._id}" to "${value}"`);
+  }
+
   get createdAt() {
     return this._createdAt;
   }
 
+  set createdAt(value) {
+    console.error(
+      `Property "createdAt" is protected. You can't change "${this._createdAt}" to "${value}"`,
+    );
+  }
+
   static validate(comment) {
     try {
-      if (!checkIsObj(comment)) {
-        throw new Error(getCustomError.invalidObjParam('comment', 'validateComment'));
+      if (!(comment instanceof Comment)) {
+        throw new Error('Parameter should be an instance of Comment class.');
       }
 
       const error = validateObjBySchema(comment, commentSchema, 'validateComment');
@@ -36,7 +46,7 @@ class Comment {
         throw error;
       }
 
-      console.log('Comment is valid!');
+      console.log(`Comment with id: "${comment.id}" is valid!`);
 
       return true;
     } catch (err) {
@@ -47,12 +57,11 @@ class Comment {
   }
 }
 
-// const comment = new Comment();
+// // test-cases
 
-// console.log(comment);
+// const emptyComment = new Comment();
+// console.log('Comment.validate not Comment instance: ', Comment.validate({}));
+// console.log('Comment.validate empty comment: ', Comment.validate(emptyComment));
 
-// console.log(Comment.validate(comment));
-
-// comment.id = 1;
-// console.log(comment.id);
-// console.log(comment._id);
+// const validComment = new Comment('42', 'text', new Date(), 'login');
+// console.log('Comment.validate valid comment: ', Comment.validate(validComment));
