@@ -1,7 +1,6 @@
 import tasks from './mockData/mockTasks.js';
 import Task from './Task.js';
-// import taskSchema from './utils/taskSchema.js';
-// import commentSchema from './utils/commentSchema.js';
+import Comment from './Comment.js';
 import {
   checkStr,
   findTaskById,
@@ -10,8 +9,7 @@ import {
   checkIsLoginValid,
   generateId,
   getCustomError,
-  // validateObjBySchema,
-  // getComments,
+  getComments,
 } from './utils/utils.js';
 
 class TaskCollection {
@@ -256,10 +254,38 @@ class TaskCollection {
     }
   }
 
-  // addComment(id, text) {}
-
   clear() {
     this._tasks = [];
+  }
+
+  addComment(id, text) {
+    try {
+      if (!checkStr(id)) {
+        throw new Error(getCustomError.invalidId('addComment'));
+      }
+
+      if (!findTaskById(id, this.tasks)) {
+        throw new Error(getCustomError.taskNotFound(id, 'addComment'));
+      }
+
+      const comments = getComments(this.tasks);
+      const newComment = new Comment(generateId(comments), text, new Date(), this.user);
+      const isNewCommentValid = Comment.validate(newComment);
+
+      if (!isNewCommentValid) {
+        throw new Error("Can't add invalid comment.");
+      }
+
+      const index = findTaskIndexById(id, this.tasks);
+      this._tasks[index].comments.push(newComment);
+      console.log(`New comment has been added to task with id: "${id}"!`);
+
+      return true;
+    } catch (err) {
+      console.error(err.message);
+
+      return false;
+    }
   }
 }
 
@@ -310,7 +336,7 @@ test.user = 'IvanovIvan';
 // console.log('edit valid id invalid parameter: ', test.edit('1', ['invalidParameter']));
 // console.log('edit no rights: ', test.edit('3'));
 // console.log('edit title: ', test.edit('1', 'editedTitle', 'editedDescr', 'newAssignee'));
-// console.log(findTaskById('1', tasks));
+// console.log(test.get('1'));
 
 // // remove
 
@@ -318,7 +344,7 @@ test.user = 'IvanovIvan';
 // console.log('remove not found id: ', test.remove('111'));
 // console.log('remove no rights: ', test.remove('3'));
 // console.log('remove valid: ', test.remove('1'));
-// console.log(tasks[0]);
+// console.log(test.tasks[0]);
 
 // // getPage
 
@@ -342,3 +368,11 @@ test.user = 'IvanovIvan';
 
 // console.log('before clear: ', test.tasks);
 // console.log('clear test collection: ', test.clear());
+
+// // addComment
+
+// console.log('addComment no parameters: ', test.addComment());
+// console.log('addComment not found: ', test.addComment('111'));
+// console.log('addComment no text: ', test.addComment('1'));
+// console.log('addComment no text: ', test.addComment('1', 'new comment text!'));
+// console.log(test.get('1'));

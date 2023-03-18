@@ -1,11 +1,4 @@
-import {
-  generateId,
-  getComments,
-  checkIsObj,
-  getCustomError,
-  validateObjBySchema,
-} from './utils/utils.js';
-import tasks from './mockData/mockTasks.js';
+import { validateObjBySchema } from './utils/utils.js';
 import commentSchema from './utils/commentSchema.js';
 
 class Comment {
@@ -56,6 +49,8 @@ class Comment {
     }
   }
 }
+
+export default Comment;
 
 // // test-cases
 
