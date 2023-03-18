@@ -58,7 +58,7 @@ const tasks = [
     description: 'Минимальная ширина - 320 пикселей',
     createdAt: new Date('2023-03-08T23:00:00'),
     assignee: 'SarahGreen',
-    status: 'Commplete',
+    status: 'Complete',
     priority: 'High',
     isPrivate: false,
     comments: [

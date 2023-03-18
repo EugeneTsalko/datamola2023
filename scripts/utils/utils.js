@@ -9,7 +9,7 @@ export const checkIsObj = (obj) => typeof obj === 'object' && !Array.isArray(obj
 export const validateObjBySchema = (obj, schema, funcName) => {
   let error = null;
   const errorMessages = Object.keys(schema)
-    .filter((key) => !schema[key](obj[key]))
+    .filter((key) => !schema[key](obj[key.replace('_', '')]))
     .map((key) => `Error in ${funcName}. Property "${key}" is not valid.`);
 
   if (errorMessages.length) {

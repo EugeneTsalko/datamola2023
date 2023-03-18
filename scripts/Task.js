@@ -1,15 +1,12 @@
-import tasks from './mockData/mockTasks.js';
 import taskSchema from './utils/taskSchema.js';
-import {
-  checkIsObj, generateId, getCustomError, validateObjBySchema,
-} from './utils/utils.js';
+import { validateObjBySchema } from './utils/utils.js';
 
 class Task {
-  constructor(name, description, assignee, status, priority, isPrivate, comments) {
-    this._id = generateId(tasks);
+  constructor(id, name, description, createdAt, assignee, status, priority, isPrivate, comments) {
+    this._id = id;
     this.name = name;
     this.description = description;
-    this._createdAt = new Date();
+    this._createdAt = createdAt;
     this.assignee = assignee;
     this.status = status;
     this.priority = priority;
@@ -21,14 +18,24 @@ class Task {
     return this._id;
   }
 
+  set id(value) {
+    console.error(`Property "id" is protected. You can't change "${this._id}" to "${value}"`);
+  }
+
   get createdAt() {
     return this._createdAt;
   }
 
+  set createdAt(value) {
+    console.error(
+      `Property "createdAt" is protected. You can't change "${this._createdAt}" to "${value}"`,
+    );
+  }
+
   static validate(task) {
     try {
-      if (!checkIsObj(task)) {
-        throw new Error(getCustomError.invalidObjParam('task', 'validateTask'));
+      if (!(task instanceof Task)) {
+        throw new Error('Parameter should be an instance of Task class.');
       }
 
       const error = validateObjBySchema(task, taskSchema, 'validateTask');
@@ -37,7 +44,7 @@ class Task {
         throw error;
       }
 
-      console.log('Task is valid!');
+      console.log(`Task with id: "${task.id}" is valid!`);
 
       return true;
     } catch (err) {
@@ -48,12 +55,13 @@ class Task {
   }
 }
 
-// const task = new Task();
+export default Task;
 
-// console.log(task);
+// // test-cases
 
-// console.log(Task.validate(task));
+// const emptyTask = new Task();
+// console.log('Task.validate not Task instance: ', Task.validate({}));
+// console.log('Task.validate empty task: ', Task.validate(emptyTask));
 
-// // task.id = 1;
-// console.log(task.id);
-// console.log(task._id);
+// const validTask = new Task('42', 'title', 'descr', new Date(), 'login', 'To Do', 'Low', true);
+// console.log('Task.validate valid task: ', Task.validate(validTask));
