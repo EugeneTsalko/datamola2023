@@ -243,8 +243,8 @@ class TaskCollection {
             }
             if (key === 'description') {
               return (
-                task.description.toLowerCase().includes(filterConfig[key].toLowerCase()) ||
-                task.name.toLowerCase().includes(filterConfig[key].toLowerCase())
+                task.description.toLowerCase().includes(filterConfig[key].toLowerCase())
+                || task.name.toLowerCase().includes(filterConfig[key].toLowerCase())
               );
             }
             return task[key].toLowerCase() === filterConfig[key].toLowerCase();
