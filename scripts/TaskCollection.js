@@ -268,6 +268,7 @@ class TaskCollection {
 
   clear() {
     this._tasks = [];
+    console.log('Task collection was cleared.');
   }
 
   addComment(id, text) {
