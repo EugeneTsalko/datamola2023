@@ -15,7 +15,7 @@ import {
 class TaskCollection {
   constructor(tasksArr) {
     this._user = '';
-    this._tasks = tasksArr || [];
+    this._tasks = Array.isArray(tasksArr) ? tasksArr : [];
   }
 
   get user() {
@@ -39,16 +39,20 @@ class TaskCollection {
     return this._tasks;
   }
 
+  set tasks(value) {
+    console.error(getCustomError.protectedProp('tasks', this.tasks, value));
+  }
+
   get(id) {
     try {
       if (!checkStr(id)) {
-        throw new Error(getCustomError.invalidId('getTask'));
+        throw new Error(getCustomError.invalidId('TaskCollection.get'));
       }
 
       const task = findTaskById(id, this.tasks);
 
       if (!task) {
-        throw new Error(getCustomError.taskNotFound(id, 'getTask'));
+        throw new Error(getCustomError.taskNotFound(id, 'TaskCollection.get'));
       }
 
       console.log(`Task with id: "${id}" was found!`);
@@ -81,7 +85,7 @@ class TaskCollection {
       }
 
       if (assignee !== this.user) {
-        throw new Error(getCustomError.notEnoughRights(this.user, assignee, 'addTask'));
+        throw new Error(getCustomError.notEnoughRights(this.user, assignee, 'TaskCollection.add'));
       }
 
       this._tasks.push(task);
@@ -125,21 +129,23 @@ class TaskCollection {
   edit(id, name, description, assignee, status, priority, isPrivate) {
     try {
       if (!checkStr(id)) {
-        throw new Error(getCustomError.invalidId('editTask'));
+        throw new Error(getCustomError.invalidId('TaskCollection.edit'));
       }
 
       const task = findTaskById(id, this.tasks);
 
       if (!task) {
-        throw new Error(getCustomError.invalidId('editTask'));
+        throw new Error(getCustomError.invalidId('TaskCollection.edit'));
       }
 
       if (this.user !== task.assignee) {
-        throw new Error(getCustomError.notEnoughRights(this.user, task.assignee, 'editTask'));
+        throw new Error(
+          getCustomError.notEnoughRights(this.user, task.assignee, 'TaskCollection.edit'),
+        );
       }
 
       if (arguments.length === 1) {
-        throw new Error(getCustomError.notEnoughParams('editTask'));
+        throw new Error(getCustomError.notEnoughParams('TaskCollection.edit'));
       }
 
       const editedTask = new Task(
@@ -176,18 +182,22 @@ class TaskCollection {
   remove(id) {
     try {
       if (!checkStr(id)) {
-        throw new Error(getCustomError.invalidId('removeTask'));
+        throw new Error(getCustomError.invalidId('TaskCollection.remove'));
       }
 
       if (!findTaskById(id, this.tasks)) {
-        throw new Error(getCustomError.taskNotFound(id, 'removeTask'));
+        throw new Error(getCustomError.taskNotFound(id, 'TaskCollection.remove'));
       }
 
       const index = this.tasks.findIndex((task) => task.id === id);
 
       if (this.user !== this.tasks[index].assignee) {
         throw new Error(
-          getCustomError.notEnoughRights(this.user, this.tasks[index].assignee, 'removeTask'),
+          getCustomError.notEnoughRights(
+            this.user,
+            this.tasks[index].assignee,
+            'TaskCollection.remove',
+          ),
         );
       }
 
@@ -205,11 +215,13 @@ class TaskCollection {
   getPage(skip = 0, top = 10, filterConfig = null) {
     try {
       if (skip < 0 || top < 0 || !Number.isInteger(skip) || !Number.isInteger(top)) {
-        throw new Error(getCustomError.invalidIntegerParam('skip and top', 'getTasks'));
+        throw new Error(
+          getCustomError.invalidIntegerParam('skip and top', 'TaskCollection.getPage'),
+        );
       }
 
       if (filterConfig && !checkIsObj(filterConfig)) {
-        throw new Error(getCustomError.invalidObjParam('filterConfig', 'getTasks'));
+        throw new Error(getCustomError.invalidObjParam('filterConfig', 'TaskCollection.getPage'));
       }
 
       let result = structuredClone(this.tasks).sort(
@@ -231,8 +243,8 @@ class TaskCollection {
             }
             if (key === 'description') {
               return (
-                task.description.toLowerCase().includes(filterConfig[key].toLowerCase())
-                || task.name.toLowerCase().includes(filterConfig[key].toLowerCase())
+                task.description.toLowerCase().includes(filterConfig[key].toLowerCase()) ||
+                task.name.toLowerCase().includes(filterConfig[key].toLowerCase())
               );
             }
             return task[key].toLowerCase() === filterConfig[key].toLowerCase();
@@ -261,11 +273,11 @@ class TaskCollection {
   addComment(id, text) {
     try {
       if (!checkStr(id)) {
-        throw new Error(getCustomError.invalidId('addComment'));
+        throw new Error(getCustomError.invalidId('TaskCollection.addComment'));
       }
 
       if (!findTaskById(id, this.tasks)) {
-        throw new Error(getCustomError.taskNotFound(id, 'addComment'));
+        throw new Error(getCustomError.taskNotFound(id, 'TaskCollection.addComment'));
       }
 
       const comments = getComments(this.tasks);
@@ -288,6 +300,8 @@ class TaskCollection {
     }
   }
 }
+
+export default TaskCollection;
 
 // // ниже различные тест-кейсы для методов:
 
