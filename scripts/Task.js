@@ -1,5 +1,5 @@
 import taskSchema from './utils/taskSchema.js';
-import { validateObjBySchema } from './utils/utils.js';
+import { validateObjBySchema, getCustomError } from './utils/utils.js';
 
 class Task {
   constructor(id, name, description, createdAt, assignee, status, priority, isPrivate, comments) {
@@ -19,7 +19,7 @@ class Task {
   }
 
   set id(value) {
-    console.error(`Property "id" is protected. You can't change "${this._id}" to "${value}"`);
+    console.error(getCustomError.protectedProp('id', this.id, value));
   }
 
   get createdAt() {
@@ -27,18 +27,16 @@ class Task {
   }
 
   set createdAt(value) {
-    console.error(
-      `Property "createdAt" is protected. You can't change "${this._createdAt}" to "${value}"`,
-    );
+    console.error(getCustomError.protectedProp('createdAt', this.createdAt, value));
   }
 
   static validate(task) {
     try {
       if (!(task instanceof Task)) {
-        throw new Error('Parameter should be an instance of Task class.');
+        throw new Error(getCustomError.notClassInstance('Task'));
       }
 
-      const error = validateObjBySchema(task, taskSchema, 'validateTask');
+      const error = validateObjBySchema(task, taskSchema, 'Task.validate');
 
       if (error) {
         throw error;
