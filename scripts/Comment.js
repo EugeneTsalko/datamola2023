@@ -1,4 +1,4 @@
-import { validateObjBySchema } from './utils/utils.js';
+import { validateObjBySchema, getCustomError } from './utils/utils.js';
 import commentSchema from './utils/commentSchema.js';
 
 class Comment {
@@ -6,7 +6,7 @@ class Comment {
     this._id = id;
     this.text = text;
     this._createdAt = createdAt;
-    this.author = author;
+    this._author = author;
   }
 
   get id() {
@@ -14,7 +14,7 @@ class Comment {
   }
 
   set id(value) {
-    console.error(`Property "id" is protected. You can't change "${this._id}" to "${value}"`);
+    console.error(getCustomError.protectedProp('id', this.id, value));
   }
 
   get createdAt() {
@@ -22,18 +22,24 @@ class Comment {
   }
 
   set createdAt(value) {
-    console.error(
-      `Property "createdAt" is protected. You can't change "${this._createdAt}" to "${value}"`,
-    );
+    console.error(getCustomError.protectedProp('createdAt', this.createdAt, value));
+  }
+
+  get author() {
+    return this._author;
+  }
+
+  set author(value) {
+    console.error(getCustomError.protectedProp('author', this.author, value));
   }
 
   static validate(comment) {
     try {
       if (!(comment instanceof Comment)) {
-        throw new Error('Parameter should be an instance of Comment class.');
+        throw new Error(getCustomError.notClassInstance('Comment'));
       }
 
-      const error = validateObjBySchema(comment, commentSchema, 'validateComment');
+      const error = validateObjBySchema(comment, commentSchema, 'Comment.validate');
 
       if (error) {
         throw error;
