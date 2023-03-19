@@ -14,8 +14,8 @@ import {
 
 class TaskCollection {
   constructor(tasksArr) {
-    this._user = '';
-    this._tasks = Array.isArray(tasksArr) ? tasksArr : [];
+    this._user = null;
+    this._tasks = tasksArr || [];
   }
 
   get user() {
@@ -305,14 +305,10 @@ export default TaskCollection;
 
 // // ниже различные тест-кейсы для методов:
 
-const test = new TaskCollection(tasks);
-// console.log(test);
-
-// // user
-
-// console.log('before user change: ', test.user);
+const testTasks = tasks.map((task) => new Task(...Object.values(task)));
+const test = new TaskCollection(testTasks);
 test.user = 'IvanovIvan';
-// console.log('after user change: ', test.user);
+// console.log(test);
 
 // // get
 
