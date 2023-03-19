@@ -13,10 +13,12 @@ class List {
   get size() {
     let count = 0;
     let node = this.root;
+
     while (node) {
       count++;
       node = node.next;
     }
+
     return count;
   }
 
@@ -69,10 +71,12 @@ class List {
   print() {
     let node = this.root;
     const result = [];
+
     while (node != null) {
       result.push(node.value);
       node = node.next;
     }
+
     console.log(result.join(', '));
   }
 }
