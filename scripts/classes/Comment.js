@@ -1,5 +1,5 @@
-import { validateObjBySchema, getCustomError } from './utils/utils.js';
-import commentSchema from './utils/commentSchema.js';
+import { validateObjBySchema, getCustomError } from '../utils/utils.js';
+import commentSchema from '../utils/commentSchema.js';
 
 class Comment {
   constructor(id, text, createdAt, author) {

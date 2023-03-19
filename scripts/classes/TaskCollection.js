@@ -1,4 +1,4 @@
-import tasks from './mockData/mockTasks.js';
+import tasks from '../mockData/mockTasks.js';
 import Task from './Task.js';
 import Comment from './Comment.js';
 import {
@@ -10,7 +10,7 @@ import {
   generateId,
   getCustomError,
   getComments,
-} from './utils/utils.js';
+} from '../utils/utils.js';
 
 class TaskCollection {
   constructor(tasksArr) {

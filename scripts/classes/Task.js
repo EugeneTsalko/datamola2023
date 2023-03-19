@@ -1,5 +1,5 @@
-import taskSchema from './utils/taskSchema.js';
-import { validateObjBySchema, getCustomError } from './utils/utils.js';
+import taskSchema from '../utils/taskSchema.js';
+import { validateObjBySchema, getCustomError } from '../utils/utils.js';
 
 class Task {
   constructor(id, name, description, createdAt, assignee, status, priority, isPrivate, comments) {
