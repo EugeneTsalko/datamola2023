@@ -65,27 +65,21 @@ class TaskCollection {
     }
   }
 
-  add(name, description, assignee, status, priority, isPrivate) {
+  add(name, description, status, priority, isPrivate) {
     try {
       const task = new Task(
         generateId(this.tasks),
         name,
         description,
         new Date(),
-        assignee,
+        this.user,
         status,
         priority,
         isPrivate,
       );
 
-      const isTaskValid = Task.validate(task);
-
-      if (!isTaskValid) {
+      if (!Task.validate(task)) {
         throw new Error("Can't add invalid task.");
-      }
-
-      if (assignee !== this.user) {
-        throw new Error(getCustomError.notEnoughRights(this.user, assignee, 'TaskCollection.add'));
       }
 
       this._tasks.push(task);
@@ -319,11 +313,7 @@ test.user = 'IvanovIvan';
 // // add
 
 // console.log('add invalid task: ', test.add());
-// console.log(
-//   'add task without rights: ',
-//   test.add('title', 'description', 'validAssignee', 'To Do', 'High'),
-// );
-// console.log('add valid task: ', test.add('title', 'description', 'IvanovIvan', 'To Do', 'High'));
+// console.log('add valid task: ', test.add('title', 'description', 'To Do', 'High'));
 // console.log(test.tasks);
 
 // // addAll
