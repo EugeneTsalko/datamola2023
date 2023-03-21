@@ -153,9 +153,7 @@ class TaskCollection {
         task.comments,
       );
 
-      const isEditedTaskValid = Task.validate(editedTask);
-
-      if (!isEditedTaskValid) {
+      if (!Task.validate(editedTask)) {
         throw new Error('Edited task is not valid');
       }
 
@@ -276,9 +274,8 @@ class TaskCollection {
 
       const comments = getComments(this.tasks);
       const newComment = new Comment(generateId(comments), text, new Date(), this.user);
-      const isNewCommentValid = Comment.validate(newComment);
 
-      if (!isNewCommentValid) {
+      if (!Comment.validate(newComment)) {
         throw new Error("Can't add invalid comment.");
       }
 
