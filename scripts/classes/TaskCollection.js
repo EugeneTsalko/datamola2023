@@ -104,8 +104,7 @@ class TaskCollection {
       const inValidTasks = [];
 
       tasksArr.forEach((task) => {
-        const isTaskValid = Task.validate(task) && task.assignee === this.user;
-        if (isTaskValid) {
+        if (Task.validate(task)) {
           this._tasks.push(task);
         } else {
           inValidTasks.push(task);
@@ -324,7 +323,7 @@ test.user = 'IvanovIvan';
 // console.log(
 //   'addAll mixed valid/invalid: ',
 //   test.addAll([
-//     new Task(generateId(test.tasks), 'title', 'descr', new Date(), 'noRights', 'To Do', 'High'),
+//     new Task(generateId(test.tasks), 'title', 'descr', new Date(), 'bad login', 'To Do', 'High'),
 //     new Task(generateId(test.tasks), 'title', 'desc', new Date(), 'IvanovIvan', 'To Do', 'High'),
 //   ]),
 // );
