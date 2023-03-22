@@ -1,28 +1,13 @@
-function add(arg1, arg2) {
-  const result = arguments.length === 2 ? arg1 + arg2 : (value) => value + arg1;
-  return result;
-}
+const add = (arg1, arg2) => (arg2 !== undefined ? arg1 + arg2 : (value) => value + arg1);
 
-function sub(arg1, arg2) {
-  const result = arguments.length === 2 ? arg1 - arg2 : (value) => value - arg1;
-  return result;
-}
+const sub = (arg1, arg2) => (arg2 !== undefined ? arg1 - arg2 : (value) => value - arg1);
 
-function mul(arg1, arg2) {
-  const result = arguments.length === 2 ? arg1 * arg2 : (value) => value * arg1;
-  return result;
-}
+const mul = (arg1, arg2) => (arg2 !== undefined ? arg1 * arg2 : (value) => value * arg1);
 
-function div(arg1, arg2) {
-  const result = arguments.length === 2 ? arg1 / arg2 : (value) => value / arg1;
-  return result;
-}
+const div = (arg1, arg2) => (arg2 !== undefined ? arg1 / arg2 : (value) => value / arg1);
 
 function pipe(...args) {
-  return function (value) {
-    const result = args.reduce((acc, curr) => curr(acc), value);
-    return result;
-  };
+  return (value) => args.reduce((acc, curr) => curr(acc), value);
 }
 
 // // test-cases
@@ -54,7 +39,7 @@ function pipe(...args) {
 // const curryedMul = mul3(7);
 // console.log('curryed mul: ', curryedMul);
 
-// div
+// div;
 
 // const simpleDiv = div(44, 2);
 // console.log('simple div: ', simpleDiv);
