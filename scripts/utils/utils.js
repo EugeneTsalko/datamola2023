@@ -1,12 +1,12 @@
-export const checkStr = (str, maxLength = Number.POSITIVE_INFINITY) => typeof str === 'string' && !!str.trim() && str.trim().length <= maxLength;
+const checkStr = (str, maxLength = Number.POSITIVE_INFINITY) => typeof str === 'string' && !!str.trim() && str.trim().length <= maxLength;
 
-export const findTaskById = (id, arr) => arr.find((el) => el.id === id);
+const findTaskById = (id, arr) => arr.find((el) => el.id === id);
 
-export const findTaskIndexById = (id, arr) => arr.findIndex((el) => el.id === id);
+const findTaskIndexById = (id, arr) => arr.findIndex((el) => el.id === id);
 
-export const checkIsObj = (obj) => typeof obj === 'object' && !Array.isArray(obj) && obj !== null;
+const checkIsObj = (obj) => typeof obj === 'object' && !Array.isArray(obj) && obj !== null;
 
-export const validateObjBySchema = (obj, schema, funcName) => {
+const validateObjBySchema = (obj, schema, funcName) => {
   let error = null;
   const errorMessages = Object.keys(schema)
     .filter((key) => !schema[key](obj[key.replace('_', '')]))
@@ -22,9 +22,9 @@ export const validateObjBySchema = (obj, schema, funcName) => {
   return error;
 };
 
-export const checkIsLoginValid = (login) => !!login && /^[a-zA-Z]+$/.test(login);
+const checkIsLoginValid = (login) => !!login && /^[a-zA-Z]+$/.test(login);
 
-export const generateId = (arr) => {
+const generateId = (arr) => {
   let newId = 0;
 
   if (arr.length) {
@@ -39,7 +39,7 @@ export const generateId = (arr) => {
   return newId.toString();
 };
 
-export const getComments = (arr) => {
+const getComments = (arr) => {
   const comments = [];
 
   arr.forEach((el) => {
@@ -51,7 +51,7 @@ export const getComments = (arr) => {
   return comments;
 };
 
-export const getCustomError = {
+const getCustomError = {
   invalidId: (funcName) => `Error in ${funcName}. Parameter "id" is required and should be a non-empty string.`,
   taskNotFound: (id, funcName) => `Error in ${funcName}. Task with id: "${id}" was not found".`,
   invalidObjParam: (param, funcName) => `Error in ${funcName}. Parameter ${param} should be an object.`,

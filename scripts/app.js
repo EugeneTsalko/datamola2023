@@ -1,6 +1,3 @@
-import TaskCollection from './model/TaskCollection.js';
-import tasks from './mockData/mockTasks.js';
+const taskCollection = new TaskCollection(tasks);
 
-const mockTasks = new TaskCollection(tasks);
-
-console.log(mockTasks);
+console.log(taskCollection);

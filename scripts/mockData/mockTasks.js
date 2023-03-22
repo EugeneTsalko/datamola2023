@@ -405,5 +405,3 @@ const tasks = [
     comments: [],
   },
 ];
-
-export default tasks;

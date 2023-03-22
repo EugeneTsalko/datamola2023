@@ -1,6 +1,3 @@
-import taskSchema from '../utils/taskSchema.js';
-import { validateObjBySchema, getCustomError } from '../utils/utils.js';
-
 class Task {
   constructor(id, name, description, createdAt, assignee, status, priority, isPrivate, comments) {
     this._id = id;
@@ -53,7 +50,7 @@ class Task {
   }
 }
 
-export default Task;
+// export default Task;
 
 // // test-cases
 

@@ -1,17 +1,3 @@
-import tasks from '../mockData/mockTasks.js';
-import Task from './Task.js';
-import Comment from './Comment.js';
-import {
-  checkStr,
-  findTaskById,
-  findTaskIndexById,
-  checkIsObj,
-  checkIsLoginValid,
-  generateId,
-  getCustomError,
-  getComments,
-} from '../utils/utils.js';
-
 class TaskCollection {
   constructor(tasksArr) {
     this._user = null;
@@ -292,7 +278,7 @@ class TaskCollection {
   }
 }
 
-export default TaskCollection;
+// export default TaskCollection;
 
 // // ниже различные тест-кейсы для методов:
 
