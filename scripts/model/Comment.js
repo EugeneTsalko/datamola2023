@@ -60,9 +60,9 @@ export default Comment;
 
 // // test-cases
 
-// const emptyComment = new Comment();
+const emptyComment = new Comment();
 // console.log('Comment.validate not Comment instance: ', Comment.validate({}));
-// console.log('Comment.validate empty comment: ', Comment.validate(emptyComment));
+console.log('Comment.validate empty comment: ', Comment.validate(emptyComment));
 
 // const validComment = new Comment('42', 'text', new Date(), 'login');
 // console.log('Comment.validate valid comment: ', Comment.validate(validComment));
