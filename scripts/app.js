@@ -8,6 +8,9 @@ headerView.display({ user: 'IvanovIvan' });
 const main = DomHelper.createNode('main', ['main'], { id: 'main' });
 document.body.append(main);
 
+const footerView = new FooterView('root');
+footerView.display();
+
 const filterView = new FilterView('main');
 filterView.display();
 
