@@ -16,3 +16,6 @@ filterView.display();
 
 const taskFeed = new TaskFeedView('main');
 taskFeed.display();
+
+// const taskPage = new TaskView('main', taskCollection.get('1'));
+// taskPage.display();
