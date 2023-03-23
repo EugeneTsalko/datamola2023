@@ -1,3 +1,6 @@
-const taskCollection = new TaskCollection(tasks);
+const testTasks = tasks.map((task) => new Task(...Object.values(task)));
+const taskCollection = new TaskCollection(testTasks);
+taskCollection.user = 'IvanovIvan';
 
-console.log(taskCollection);
+const headerView = new HeaderView('root', taskCollection.user);
+headerView.display();

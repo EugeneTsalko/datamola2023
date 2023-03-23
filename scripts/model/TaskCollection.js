@@ -282,9 +282,9 @@ class TaskCollection {
 
 // // ниже различные тест-кейсы для методов:
 
-const testTasks = tasks.map((task) => new Task(...Object.values(task)));
-const test = new TaskCollection(testTasks);
-test.user = 'IvanovIvan';
+// const testTasks = tasks.map((task) => new Task(...Object.values(task)));
+// const test = new TaskCollection(testTasks);
+// test.user = 'IvanovIvan';
 // console.log(test);
 
 // // get
