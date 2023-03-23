@@ -1,8 +1,8 @@
-class FilterView extends Component {
+class FilterView {
   constructor(parentId) {
-    super(parentId, 'div', ['menu']);
-
-    const filterContent = `
+    this.root = document.getElementById(parentId);
+    this.node = DomHelper.createNode('div', ['menu'], { id: 'menu' });
+    this.node.innerHTML = `
     <button class="btn secondary-btn add-task-btn">
       <img src="./assets/svg/add.svg" alt="add">
       <span>ADD TASK</span>
@@ -35,7 +35,13 @@ class FilterView extends Component {
         <button class="btn secondary-btn table-btn"></button>
       </div>
     </nav>`;
+  }
 
-    this.node.innerHTML = filterContent;
+  display() {
+    try {
+      this.root.append(this.node);
+    } catch (err) {
+      console.err(err.message);
+    }
   }
 }

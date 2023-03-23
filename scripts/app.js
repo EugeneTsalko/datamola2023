@@ -3,10 +3,10 @@ const taskCollection = new TaskCollection(testTasks);
 taskCollection.user = 'IvanovIvan';
 
 const headerView = new HeaderView('root');
-headerView.display();
+headerView.display({ user: 'IvanovIvan' });
 
 const main = DomHelper.createNode('main', ['main'], { id: 'main' });
 document.body.append(main);
 
-// const filterView = new FilterView('main');
-// filterView.display();
+const filterView = new FilterView('main');
+filterView.display();

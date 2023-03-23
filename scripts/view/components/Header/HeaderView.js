@@ -17,6 +17,7 @@ class HeaderView {
         const { user, isProfilePage } = params;
         if (user) {
           this.node.innerHTML = `
+            <a href="main.html" class="logo-link"></a>
             <nav class="nav">
               <span>Hi, ${user}!</span>
               <button class="btn secondary-btn icon-btn profile-btn"></button>
