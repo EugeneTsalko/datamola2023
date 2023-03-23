@@ -17,5 +17,8 @@ filterView.display();
 const taskFeed = new TaskFeedView('main');
 taskFeed.display();
 
+const task = new TaskCardView('todo-list', taskCollection.get('1'));
+task.display();
+
 // const taskPage = new TaskView('main', taskCollection.get('1'));
 // taskPage.display();
