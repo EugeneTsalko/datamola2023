@@ -6,8 +6,8 @@ class DomHelper {
       node.classList.add(...classNames);
     }
 
-    if (attributes.length) {
-      Object.keys(attributes).forEach((key) => this.node.setAttribute(key, attributes[key]));
+    if (Object.keys(attributes).length) {
+      Object.keys(attributes).forEach((key) => node.setAttribute(key, attributes[key]));
     }
 
     if (textContent) {
@@ -16,8 +16,4 @@ class DomHelper {
 
     return node;
   }
-
-  // static insertChilds(element: HTMLElement, childs: HTMLElement[]): void {
-  //   childs.forEach((item) => element.appendChild(item));
-  // }
 }

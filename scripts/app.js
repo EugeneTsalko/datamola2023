@@ -4,3 +4,9 @@ taskCollection.user = 'IvanovIvan';
 
 const headerView = new HeaderView('root', taskCollection.user);
 headerView.display();
+
+const main = DomHelper.createNode('main', ['main'], { id: 'main' });
+document.body.append(main);
+
+const filterView = new FilterView('main');
+filterView.display();
