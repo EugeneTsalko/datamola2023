@@ -10,3 +10,6 @@ document.body.append(main);
 
 const filterView = new FilterView('main');
 filterView.display();
+
+const taskFeed = new TaskFeedView('main');
+taskFeed.display();
