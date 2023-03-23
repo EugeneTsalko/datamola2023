@@ -1,20 +1,47 @@
-class HeaderView extends Component {
-  constructor(parentId, user = null) {
-    super(parentId, 'header', ['header'], { id: 'header' });
-    this.user = user;
-    this.logo = DomHelper.createNode('a', ['logo-link'], { href: 'index.html' });
-    this.nav = DomHelper.createNode('nav', ['nav']);
+class HeaderView {
+  constructor(parentId) {
+    this.root = document.getElementById(parentId);
+    this.node = DomHelper.createNode('header', ['header'], { id: 'header' });
+    this.node.innerHTML = `
+      <a href="main.html" class="logo-link"></a>
+      <nav class="nav">
+        <button class="btn secondary-btn">SIGN UP</button>
+        <button class="btn">SIGN IN</button>
+      </nav>
+    `;
+  }
 
-    this.greeting = DomHelper.createNode('span');
-    this.greeting.textContent = `Hi, ${this.user}!`;
-    this.profileBtn = DomHelper.createNode('a', [
-      'btn',
-      'secondary-btn',
-      'icon-btn',
-      'profile-btn',
-    ]);
-    this.logoutBtn = DomHelper.createNode('button', ['btn', 'logout-btn']);
-    this.nav.append(this.greeting, this.profileBtn, this.logoutBtn);
-    this.node.append(this.logo, this.nav);
+  display(params) {
+    try {
+      if (checkIsObj(params)) {
+        const { user, isProfilePage } = params;
+        if (user) {
+          this.node.innerHTML = `
+            <nav class="nav">
+              <span>Hi, ${user}!</span>
+              <button class="btn secondary-btn icon-btn profile-btn"></button>
+              <button class="btn logout-btn"></button>
+            </nav>`;
+        }
+
+        if (isProfilePage) {
+          this.node.innerHTML = `
+          <a href="main.html" class="logo-link"></a>
+          <nav class="nav">
+            <a href="index.html" class="btn secondary-btn to-main-btn">
+              <img src="./assets/svg/back.svg" alt="return">
+              <span>TO MAIN</span>
+            </a>
+            <button class="btn secondary-btn icon-btn profile-btn"></button>
+            <button class="btn logout-btn"></button>
+          </nav>
+          `;
+        }
+      }
+
+      this.root.prepend(this.node);
+    } catch (err) {
+      console.error(err.message);
+    }
   }
 }
