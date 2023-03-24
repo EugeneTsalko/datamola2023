@@ -211,7 +211,7 @@ class TaskCollection {
       }
 
       let result = structuredClone(this.tasks).sort(
-        (a, b) => Date.parse(b.createdAt) - Date.parse(a.createdAt),
+        (a, b) => Date.parse(b._createdAt) - Date.parse(a._createdAt),
       );
 
       if (filterConfig) {

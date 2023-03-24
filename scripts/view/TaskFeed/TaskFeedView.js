@@ -9,6 +9,7 @@ class TaskFeedView {
         const { isAuth, tasks } = params;
 
         if (tasks) {
+          this.root.innerHTML = '';
           tasks.forEach((task) => this.root.append(DomHelper.createTaskCard(task, isAuth)));
 
           if (tasks.length > 10) {

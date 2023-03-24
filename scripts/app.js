@@ -52,4 +52,49 @@ function setCurrentUser(user) {
     console.error(err.message);
   }
 }
+
+function addTask(task) {
+  try {
+    if (!tasks.add(...Object.values(task))) {
+      throw new Error('Task was not added');
+    }
+
+    switch (task.status) {
+      case 'To Do':
+        toDoTaskFeed.display({
+          isAuth: true,
+          tasks: tasks.getPage(0, tasks.tasks.length, { status: 'To Do' }),
+        });
+        break;
+      case 'inProgress':
+        inProgressTaskFeed.display({
+          isAuth: true,
+          tasks: tasks.getPage(0, tasks.tasks.length, { status: 'In progress' }),
+        });
+        break;
+
+      case 'Complete':
+        completeTaskFeed.display({
+          isAuth: true,
+          tasks: tasks.getPage(0, tasks.tasks.length, { status: 'Complete' }),
+        });
+        break;
+
+      default:
+        break;
+    }
+  } catch (err) {
+    console.error(err.message);
+  }
+}
+
+// test
+
 setCurrentUser('JEKA');
+
+addTask({
+  name: 'test addtask',
+  description: 'addtask descr',
+  status: 'Complete',
+  priority: 'Low',
+});

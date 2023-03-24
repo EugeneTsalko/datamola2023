@@ -37,7 +37,7 @@ class DomHelper {
       <div class="task-footer">
         <div class="task-info-container">
           <div class="task-date-container">
-            <span class="task-time">${_createdAt.getUTCHours()}:${_createdAt.getUTCMinutes()}</span>
+            <span class="task-time">${_createdAt.getHours()}:${_createdAt.getMinutes()}</span>
             <span class="task-date">Feb 15</span>
           </div>
           <div class="task-info">
@@ -85,7 +85,7 @@ class DomHelper {
       </div>
       <div class="comment-date-container">
         <span class="comment-date">Feb 15</span>
-        <span class="comment-time">${_createdAt.getUTCHours()}:${_createdAt.getUTCMinutes()}</span>
+        <span class="comment-time">${_createdAt.getHours()}:${_createdAt.getMinutes()}</span>
       </div>
     </div>
   </div>`;
@@ -143,7 +143,7 @@ class DomHelper {
         <div class="full-task-info">
           <span class="full-task-info-title">date</span>
           <div class="full-task-date">
-            <span>${_createdAt.getUTCHours()}:${_createdAt.getUTCMinutes()}</span>
+            <span>${_createdAt.getHours()}:${_createdAt.getMinutes()}</span>
             <span>Feb 15!</span>
           </div>
         </div>
