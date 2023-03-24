@@ -16,34 +16,35 @@ class HeaderView {
         const {
           user, isProfilePage, isTaskPage, isErrorPage,
         } = params;
+
         if (user) {
           this.user = user;
           navContent = `
             <span>Hi, ${this.user}!</span>
             <button class="btn secondary-btn icon-btn profile-btn"></button>
             <button class="btn logout-btn"></button>
-            `;
+          `;
         }
 
         if (isTaskPage) {
           navContent = `
-          <span>Hi, ${this.user}!</span>
-          <a href="index.html" class="btn secondary-btn to-main-btn">
-            <img src="./assets/svg/back.svg" alt="return">
-            <span>TO MAIN</span>
-          </a>
-          <button class="btn secondary-btn icon-btn profile-btn"></button>
-          <button class="btn logout-btn"></button>
+            <span>Hi, ${this.user}!</span>
+            <a href="index.html" class="btn secondary-btn to-main-btn">
+              <img src="./assets/svg/back.svg" alt="return">
+              <span>TO MAIN</span>
+            </a>
+            <button class="btn secondary-btn icon-btn profile-btn"></button>
+            <button class="btn logout-btn"></button>
           `;
         }
 
         if (isProfilePage) {
           navContent = `
-          <a href="index.html" class="btn secondary-btn to-main-btn">
-            <img src="./assets/svg/back.svg" alt="return">
-            <span>TO MAIN</span>
-          </a>
-          <button class="btn logout-btn"></button>
+            <a href="index.html" class="btn secondary-btn to-main-btn">
+              <img src="./assets/svg/back.svg" alt="return">
+              <span>TO MAIN</span>
+            </a>
+            <button class="btn logout-btn"></button>
           `;
         }
 
@@ -53,10 +54,10 @@ class HeaderView {
       }
 
       this.node.innerHTML = `
-      <a href="main.html" class="logo-link"></a>
-      <nav class="nav" id="header-nav">
-        ${navContent}
-      </nav>
+        <a href="main.html" class="logo-link"></a>
+        <nav class="nav" id="header-nav">
+          ${navContent}
+        </nav>
       `;
 
       this.root.prepend(this.node);
