@@ -58,6 +58,10 @@ body {
   visibility: hidden !important;
 }
 
+.undisplayed {
+  display: none !important;
+}
+
 .title {
   font: var(--font-title);
 }

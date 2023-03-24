@@ -18,11 +18,12 @@ class DomHelper {
   }
 
   static createTaskCard(task, isAuth) {
-    const li = document.createElement('li');
-    const { _id, name, description, _createdAt, assignee, status, priority, isPrivate, comments } =
-      task;
+    const container = document.createElement('li');
+    const {
+      _id, name, description, _createdAt, assignee, status, priority, isPrivate, comments,
+    } = task;
 
-    li.innerHTML = `
+    container.innerHTML = `
     <div class="task-card" id="task-${_id}">
       <div class="task-header">
         <h4>${name}</h4>
@@ -56,7 +57,7 @@ class DomHelper {
     </div>
   `;
 
-    return li;
+    return container;
   }
 
   static createAddMoreBtn() {
@@ -64,5 +65,111 @@ class DomHelper {
     btn.innerHTML = '<img src="./assets/svg/refresh.svg" alt="refresh"><span>Load more</span>';
 
     return btn;
+  }
+
+  static createComment(comment) {
+    const container = document.createElement('li');
+    const {
+      id, text, createdAt, author,
+    } = comment;
+
+    container.innerHTML = `            
+    <div class="comment" id="comment-${id}">
+    <p class="comment-text">
+      ${text}
+    </p>
+    <div class="comment-footer">
+      <div class="comment-author">
+        <img class="author-img" src="./assets/png/user-img-5.png" alt="author image">
+        <span class="author-name">${author}</span>
+      </div>
+      <div class="comment-date-container">
+        <span class="comment-date">Feb 15</span>
+        <span class="comment-time">${createdAt.getUTCHours()}:${createdAt.getUTCMinutes()}</span>
+      </div>
+    </div>
+  </div>`;
+
+    return container;
+  }
+
+  static createCommentsSection(comments, user) {
+    const container = DomHelper.createNode('div', ['comments-container']);
+    const h3 = DomHelper.createNode('h3', [], {}, 'Comments');
+    const commentsContainer = DomHelper.createNode('div', ['comments']);
+    const commentsList = DomHelper.createNode('ul');
+
+    comments.forEach((comment) => commentsList.append(DomHelper.createComment(comment)));
+    commentsContainer.append(commentsList);
+
+    const addCommentForm = DomHelper.createNode('form', ['add-comment-form']);
+    addCommentForm.innerHTML = `
+      <img class="user-img" src="./assets/png/user-img-5.png" alt="author image">
+      <textarea name="comment" id="new-comment" class="comment-textarea" maxlength="280" placeholder="Add new comment..."></textarea>
+      <button class="btn secondary-btn add-comment-btn" type="submit">
+        <span>ADD COMMENT</span>
+      </button>`;
+
+    container.append(h3, commentsContainer, addCommentForm);
+
+    return container;
+  }
+
+  static createFullTask(task) {
+    const {
+      _id, name, description, _createdAt, assignee, status, priority, isPrivate, comments,
+    } = task;
+    const container = DomHelper.createNode('section', ['full-task-container']);
+
+    const fullTask = DomHelper.createNode('div', ['full-task-card'], { id: `task-${_id}` });
+
+    fullTask.innerHTML = `
+      <div class="full-task-header">
+        <h2 class="title">${name}</h2>
+        <div class="full-task-buttons">
+          <button class="btn secondary-btn edit-btn"></button>
+          <button class="btn secondary-btn delete-btn"></button>
+        </div>
+        <div class="task-priority ${priority.toLowerCase()}">${priority}</div>
+      </div>
+
+      <div class="full-task-description">
+        <h3>Description</h3>
+        <p>${description}</p>
+      </div>
+
+      <div class="full-task-footer">
+
+        <div class="full-task-info">
+          <span class="full-task-info-title">date</span>
+          <div class="full-task-date">
+            <span>${_createdAt.getUTCHours()}:${_createdAt.getUTCMinutes()}</span>
+            <span>Feb 15!</span>
+          </div>
+        </div>
+
+        <div class="full-task-info">
+          <span class="full-task-info-title">status</span>
+          <span>${status}</span>
+        </div>
+
+        <div class="full-task-info">
+          <span class="full-task-info-title">privacy</span>
+          <span>${isPrivate ? 'Private' : 'Public'}</span>
+        </div>
+
+        <div class="full-task-info">
+          <span class="full-task-info-title">assignee</span>
+          <div class="full-task-assignee">
+            <span class="full-assignee-name">${assignee}</span>
+            <img class="full-task-assignee-img" src="./assets/png/user-img-5.png" alt="assignee image">
+          </div>
+        </div>
+
+      </div>`;
+
+    container.append(fullTask, DomHelper.createCommentsSection(comments));
+
+    return container;
   }
 }

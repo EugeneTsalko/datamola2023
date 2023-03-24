@@ -35,5 +35,5 @@ completeTaskFeed.display({
 // const task = new TaskCardView('toDoList', taskCollection.get('1'));
 // task.display();
 
-// const taskPage = new TaskView('main', taskCollection.get('1'));
-// taskPage.display();
+const taskPage = new TaskView('main');
+taskPage.display(taskCollection.get('3'));
