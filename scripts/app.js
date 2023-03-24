@@ -32,8 +32,9 @@ completeTaskFeed.display({
   tasks: taskCollection.getPage(0, taskCollection.tasks.length, { status: 'Complete' }),
 });
 
-// const task = new TaskCardView('toDoList', taskCollection.get('1'));
-// task.display();
+// const taskPage = new TaskView('main');
+// taskPage.display(taskCollection.get('3'));
 
-const taskPage = new TaskView('main');
-taskPage.display(taskCollection.get('3'));
+//
+
+setCurrentUser('JEKA', taskCollection, headerView);
