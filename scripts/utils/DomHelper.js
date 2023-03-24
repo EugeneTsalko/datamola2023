@@ -70,11 +70,11 @@ class DomHelper {
   static createComment(comment) {
     const container = document.createElement('li');
     const {
-      id, text, createdAt, author,
+      _id, text, _createdAt, author,
     } = comment;
 
     container.innerHTML = `            
-    <div class="comment" id="comment-${id}">
+    <div class="comment" id="comment-${_id}">
     <p class="comment-text">
       ${text}
     </p>
@@ -85,7 +85,7 @@ class DomHelper {
       </div>
       <div class="comment-date-container">
         <span class="comment-date">Feb 15</span>
-        <span class="comment-time">${createdAt.getUTCHours()}:${createdAt.getUTCMinutes()}</span>
+        <span class="comment-time">${_createdAt.getUTCHours()}:${_createdAt.getUTCMinutes()}</span>
       </div>
     </div>
   </div>`;
