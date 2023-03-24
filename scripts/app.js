@@ -1,3 +1,5 @@
+// init
+
 const testTasks = tasks.map((task) => new Task(...Object.values(task)));
 const taskCollection = new TaskCollection(testTasks);
 taskCollection.user = 'IvanovIvan';
@@ -35,6 +37,19 @@ completeTaskFeed.display({
 // const taskPage = new TaskView('main');
 // taskPage.display(taskCollection.get('3'));
 
-//
+// funcs
 
-setCurrentUser('JEKA', taskCollection, headerView);
+function setCurrentUser(user) {
+  try {
+    if (!checkIsLoginValid(user)) {
+      throw new Error(getCustomError.invalidLogin('setCurrentUser'));
+    }
+
+    // имхо taskCollection и headerView правильнее передавать параметрами, но в ТЗ так
+    taskCollection.user = user;
+    headerView.display({ user });
+  } catch (err) {
+    console.error(err.message);
+  }
+}
+setCurrentUser('JEKA');
