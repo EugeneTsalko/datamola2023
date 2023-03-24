@@ -2,7 +2,7 @@ const testTasks = tasks.map((task) => new Task(...Object.values(task)));
 const taskCollection = new TaskCollection(testTasks);
 taskCollection.user = 'IvanovIvan';
 
-const headerView = new HeaderView('root');
+const headerView = new HeaderView('header-nav');
 headerView.display({ user: 'IvanovIvan' });
 
 const main = DomHelper.createNode('main', ['main'], { id: 'main' });
@@ -12,7 +12,7 @@ const footerView = new FooterView('root');
 footerView.display();
 
 const filterView = new FilterView('main');
-filterView.display();
+filterView.display({ isAuth: true });
 
 const taskFeed = new TaskFeedView('main');
 taskFeed.display();

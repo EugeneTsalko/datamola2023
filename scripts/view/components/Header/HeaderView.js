@@ -1,7 +1,6 @@
 class HeaderView {
   constructor(parentId) {
     this.root = document.getElementById(parentId);
-    this.node = DomHelper.createNode('header', ['header'], { id: 'header' });
     this.user = null;
   }
 
@@ -53,14 +52,7 @@ class HeaderView {
         }
       }
 
-      this.node.innerHTML = `
-        <a href="main.html" class="logo-link"></a>
-        <nav class="nav" id="header-nav">
-          ${navContent}
-        </nav>
-      `;
-
-      this.root.prepend(this.node);
+      this.root.innerHTML = navContent;
     } catch (err) {
       console.error(err.message);
     }

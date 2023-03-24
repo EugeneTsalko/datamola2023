@@ -54,7 +54,8 @@ body {
 }
 
 .hidden {
-  display: none !important;
+  /* display: none !important; */
+  visibility: hidden !important;
 }
 
 .title {
