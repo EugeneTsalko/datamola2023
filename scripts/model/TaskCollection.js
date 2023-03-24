@@ -1,7 +1,16 @@
 class TaskCollection {
   constructor(tasksArr) {
     this._user = null;
-    this._tasks = tasksArr.map((task) => new Task(...Object.values(task))) || [];
+    this._tasks = tasksArr.map((task) => {
+      const collectionTask = new Task(...Object.values(structuredClone(task)));
+      if (collectionTask.comments.length) {
+        collectionTask.comments = collectionTask.comments.map(
+          (comment) => new Comment(...Object.values(comment)),
+        );
+      }
+
+      return collectionTask;
+    }) || [];
   }
 
   get user() {
