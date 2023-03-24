@@ -1,8 +1,9 @@
 class TaskCardView {
   constructor(parentId, task) {
     console.log(task);
-    const { _id, name, description, _createdAt, assignee, status, priority, isPrivate, comments } =
-      task;
+    const {
+      _id, name, description, _createdAt, assignee, status, priority, isPrivate, comments,
+    } = task;
     this.root = document.getElementById(parentId);
     this.node = DomHelper.createNode('li');
 
