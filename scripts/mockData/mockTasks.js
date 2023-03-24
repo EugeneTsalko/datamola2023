@@ -1,4 +1,4 @@
-const tasks = [
+const mockTasks = [
   {
     id: '1',
     name: 'Создать логотип приложения',

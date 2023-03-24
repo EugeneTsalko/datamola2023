@@ -1,7 +1,7 @@
 class TaskCollection {
   constructor(tasksArr) {
     this._user = null;
-    this._tasks = tasksArr || [];
+    this._tasks = tasksArr.map((task) => new Task(...Object.values(task))) || [];
   }
 
   get user() {
@@ -282,8 +282,7 @@ class TaskCollection {
 
 // // ниже различные тест-кейсы для методов:
 
-// const testTasks = tasks.map((task) => new Task(...Object.values(task)));
-// const test = new TaskCollection(testTasks);
+// const test = new TaskCollection(mockTasks);
 // test.user = 'IvanovIvan';
 // console.log(test);
 
@@ -327,7 +326,7 @@ class TaskCollection {
 // console.log('remove not found id: ', test.remove('111'));
 // console.log('remove no rights: ', test.remove('3'));
 // console.log('remove valid: ', test.remove('1'));
-// console.log(test.tasks[0]);
+// console.log(test.mockTasks[0]);
 
 // // getPage
 
