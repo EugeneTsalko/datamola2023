@@ -119,7 +119,7 @@ class DomHelper {
     const {
       _id, name, description, _createdAt, assignee, status, priority, isPrivate, comments,
     } = task;
-    const container = DomHelper.createNode('section', ['full-task-container']);
+    const container = DomHelper.createNode('section', ['full-task-container'], { id: 'fullTask' });
 
     const fullTask = DomHelper.createNode('div', ['full-task-card'], { id: `task-${_id}` });
 

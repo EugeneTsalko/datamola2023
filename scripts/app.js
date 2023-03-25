@@ -6,9 +6,6 @@ tasks.user = 'SarahGreen';
 const headerView = new HeaderView('header-nav');
 headerView.display({ user: 'SarahGreen' });
 
-const main = DomHelper.createNode('main', ['main'], { id: 'main' });
-document.body.append(main);
-
 const footerView = new FooterView('root');
 footerView.display();
 
@@ -33,8 +30,7 @@ completeTaskFeed.display({
   tasks: tasks.getPage(0, tasks.tasks.length, { status: 'Complete' }),
 });
 
-// const taskPage = new TaskView('main');
-// taskPage.display(taskCollection.get('3'));
+const taskPage = new TaskView('main');
 
 // test
 
@@ -64,3 +60,6 @@ editTask('23', {
   priority: 'High',
   isPrivate: true,
 });
+
+// showTask('3');
+// closeTask();

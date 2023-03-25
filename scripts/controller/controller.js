@@ -4,7 +4,8 @@ function setCurrentUser(user) {
       throw new Error(getCustomError.invalidLogin('setCurrentUser'));
     }
 
-    // имхо taskCollection и headerView правильнее передавать параметрами, но в ТЗ так
+    // имхо tasks и headerView правильнее передавать параметрами во все ф-ции, но в ТЗ так
+    // придумать как переделать на единый источник истины
     tasks.user = user;
     headerView.display({ user });
   } catch (err) {
@@ -86,6 +87,34 @@ function removeTask(id) {
     }
 
     reRenderTaskColumn(task.status);
+  } catch (err) {
+    console.error(err.message);
+  }
+}
+
+function showTask(id) {
+  try {
+    const task = tasks.get(id);
+
+    if (!task || !tasks.user) {
+      throw new Error('Task page can`t be shown.');
+    }
+
+    document.getElementById('fullTask')?.remove();
+    document.getElementById('menu').classList.add('undisplayed');
+    document.getElementById('board').classList.add('undisplayed');
+
+    taskPage.display(task);
+  } catch (err) {
+    console.error(err.message);
+  }
+}
+
+function closeTask() {
+  try {
+    document.getElementById('fullTask')?.remove();
+    document.getElementById('menu').classList.remove('undisplayed');
+    document.getElementById('board').classList.remove('undisplayed');
   } catch (err) {
     console.error(err.message);
   }
