@@ -14,31 +14,27 @@ function setCurrentUser(user) {
 }
 
 function reRenderTaskColumn(status) {
-  // это можно улучшить через выбор коллекции по статусу. и filterConfig {status: status}
+  let taskFeed = null;
   switch (status) {
     case 'To Do':
-      toDoTaskFeed.display({
-        isAuth: true,
-        tasks: tasks.getPage(0, tasks.tasks.length, { status: 'To Do' }),
-      });
+      taskFeed = toDoTaskFeed;
       break;
     case 'In progress':
-      inProgressTaskFeed.display({
-        isAuth: true,
-        tasks: tasks.getPage(0, tasks.tasks.length, { status: 'In progress' }),
-      });
+      taskFeed = inProgressTaskFeed;
       break;
 
     case 'Complete':
-      completeTaskFeed.display({
-        isAuth: true,
-        tasks: tasks.getPage(0, tasks.tasks.length, { status: 'Complete' }),
-      });
+      taskFeed = completeTaskFeed;
       break;
 
     default:
       break;
   }
+
+  taskFeed.display({
+    isAuth: true,
+    tasks: tasks.getPage(0, tasks.tasks.length, { status }),
+  });
 }
 
 function addTask(task) {
