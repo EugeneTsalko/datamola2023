@@ -10,6 +10,8 @@ class TaskView {
       }
 
       this.root.append(DomHelper.createFullTask(task));
+
+      console.log('Render full Task!');
     } catch (err) {
       console.error(err.message);
     }

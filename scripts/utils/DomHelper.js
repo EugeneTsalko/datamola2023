@@ -17,7 +17,7 @@ class DomHelper {
     return node;
   }
 
-  static createTaskCard(task, isAuth) {
+  static createTaskCard(task, user) {
     const container = document.createElement('li');
     const {
       _id, name, description, _createdAt, assignee, status, priority, isPrivate, comments,
@@ -27,9 +27,9 @@ class DomHelper {
     <div class="task-card" id="task-${_id}">
       <div class="task-header">
         <h4>${name}</h4>
-        <div class="task-buttons">
-          <button class="btn secondary-btn edit-btn ${isAuth ? '' : 'hidden'}"></button>
-          <button class="btn secondary-btn delete-btn ${isAuth ? '' : 'hidden'}"></button>
+        <div class="task-buttons ${user ? '' : 'hidden'}">
+          <button class="btn secondary-btn edit-btn"></button>
+          <button class="btn secondary-btn delete-btn"></button>
         </div>
         <div class="task-priority ${priority.toLowerCase()}">${priority}</div>
       </div>

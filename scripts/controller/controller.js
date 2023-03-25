@@ -1,19 +1,4 @@
-function setCurrentUser(user) {
-  try {
-    if (!checkIsLoginValid(user)) {
-      throw new Error(getCustomError.invalidLogin('setCurrentUser'));
-    }
-
-    // имхо tasks и headerView правильнее передавать параметрами во все ф-ции, но в ТЗ так
-    // придумать как переделать на единый источник истины
-    tasks.user = user;
-    headerView.display({ user });
-  } catch (err) {
-    console.error(err.message);
-  }
-}
-
-function reRenderTaskColumn(status) {
+function reRenderTaskColumn(status, user = null) {
   let taskFeed = null;
   switch (status) {
     case 'To Do':
@@ -32,9 +17,50 @@ function reRenderTaskColumn(status) {
   }
 
   taskFeed.display({
-    isAuth: true,
+    user,
     tasks: tasks.getPage(0, tasks.tasks.length, { status }),
   });
+
+  console.log(`Render column ${status}`);
+}
+
+function setCurrentUser(user) {
+  try {
+    if (!checkIsLoginValid(user)) {
+      throw new Error(getCustomError.invalidLogin('setCurrentUser'));
+    }
+
+    // имхо tasks и headerView правильнее передавать параметрами во все ф-ции, но в ТЗ так
+    // придумать как переделать на единый источник истины
+    tasks.user = user;
+    headerView.display({ user });
+    filterView.display({ user });
+
+    reRenderTaskColumn('To Do', user);
+    reRenderTaskColumn('In progress', user);
+    reRenderTaskColumn('Complete', user);
+  } catch (err) {
+    console.error(err.message);
+  }
+}
+
+function logOutUser() {
+  try {
+    if (!tasks.user) {
+      throw new Error('Before log out you need to Sign In.');
+    }
+
+    tasks.logOut();
+
+    headerView.display();
+    filterView.display();
+
+    reRenderTaskColumn('To Do');
+    reRenderTaskColumn('In progress');
+    reRenderTaskColumn('Complete');
+  } catch (err) {
+    console.error(err.message);
+  }
 }
 
 function addTask(task) {

@@ -53,6 +53,7 @@ class HeaderView {
       }
 
       this.root.innerHTML = navContent;
+      console.log('Render Header');
     } catch (err) {
       console.error(err.message);
     }

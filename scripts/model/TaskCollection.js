@@ -30,6 +30,10 @@ class TaskCollection {
     }
   }
 
+  logOut() {
+    this._user = null;
+  }
+
   get tasks() {
     return this._tasks;
   }

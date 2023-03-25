@@ -6,11 +6,11 @@ class TaskFeedView {
   display(params) {
     try {
       if (checkIsObj(params)) {
-        const { isAuth, tasks } = params;
+        const { user, tasks } = params;
 
         if (tasks) {
           this.root.innerHTML = '';
-          tasks.forEach((task) => this.root.append(DomHelper.createTaskCard(task, isAuth)));
+          tasks.forEach((task) => this.root.append(DomHelper.createTaskCard(task, user)));
 
           if (tasks.length > 10) {
             this.root.append(DomHelper.createAddMoreBtn());
