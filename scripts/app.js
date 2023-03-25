@@ -6,31 +6,31 @@ const headerView = new HeaderView('header-nav');
 headerView.display();
 
 const filterView = new FilterView('menu');
-filterView.display();
+// filterView.display();
 
 const toDoTaskFeed = new TaskFeedView('toDoList');
-toDoTaskFeed.display({
-  user: tasks.user,
-  tasks: tasks.getPage(0, tasks.tasks.length, { status: 'To Do' }),
-});
+// toDoTaskFeed.display({
+//   user: tasks.user,
+//   tasks: tasks.getPage(0, tasks.tasks.length, { status: 'To Do' }),
+// });
 
 const inProgressTaskFeed = new TaskFeedView('inProgressList');
-inProgressTaskFeed.display({
-  user: tasks.user,
-  tasks: tasks.getPage(0, tasks.tasks.length, { status: 'In progress' }),
-});
+// inProgressTaskFeed.display({
+//   user: tasks.user,
+//   tasks: tasks.getPage(0, tasks.tasks.length, { status: 'In progress' }),
+// });
 
 const completeTaskFeed = new TaskFeedView('completeList');
-completeTaskFeed.display({
-  user: tasks.user,
-  tasks: tasks.getPage(0, tasks.tasks.length, { status: 'Complete' }),
-});
+// completeTaskFeed.display({
+//   user: tasks.user,
+//   tasks: tasks.getPage(0, tasks.tasks.length, { status: 'Complete' }),
+// });
 
 const taskPage = new TaskView('main');
 
 // test
 
-setCurrentUser('IvanovIvan');
+// setCurrentUser('IvanovIvan');
 
 // addTask({
 //   name: 'test addtask',

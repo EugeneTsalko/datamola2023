@@ -10,7 +10,10 @@ class TaskFeedView {
 
         if (tasks) {
           this.root.innerHTML = '';
-          tasks.forEach((task) => this.root.append(DomHelper.createTaskCard(task, user)));
+          // TODO убрать этот слайс, сделать что-то поумнее
+          tasks
+            .slice(0, 10)
+            .forEach((task) => this.root.append(DomHelper.createTaskCard(task, user)));
 
           if (tasks.length > 10) {
             this.root.append(DomHelper.createAddMoreBtn());

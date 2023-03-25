@@ -125,6 +125,7 @@ class TaskCollection {
       }
 
       const task = findTaskById(id, this.tasks);
+      console.log(task);
 
       if (!task) {
         throw new Error(getCustomError.invalidId('TaskCollection.edit'));
@@ -144,7 +145,7 @@ class TaskCollection {
         id,
         name || task.name,
         description || task.description,
-        task.createdAt,
+        task._createdAt,
         assignee || task.assignee,
         status || task.status,
         priority || task.priority,
@@ -223,13 +224,13 @@ class TaskCollection {
         keys.forEach((key) => {
           result = result.filter((task) => {
             if (key === 'dateFrom') {
-              return Date.parse(task.createdAt) >= Date.parse(filterConfig[key]);
+              return Date.parse(task._createdAt) >= Date.parse(filterConfig[key]);
             }
             if (key === 'dateTo') {
-              return Date.parse(task.createdAt) <= Date.parse(filterConfig[key]);
+              return Date.parse(task._createdAt) <= Date.parse(filterConfig[key]);
             }
             if (key === 'isPrivate') {
-              return task.isPrivate === filterConfig[key];
+              return filterConfig[key].some((value) => value === task.isPrivate);
             }
             if (key === 'description') {
               return (
@@ -237,7 +238,7 @@ class TaskCollection {
                 || task.name.toLowerCase().includes(filterConfig[key].toLowerCase())
               );
             }
-            return task[key].toLowerCase() === filterConfig[key].toLowerCase();
+            return filterConfig[key].some((value) => value === task[key]);
           });
         });
       }
@@ -347,15 +348,18 @@ class TaskCollection {
 // console.log('getPage skip/top should be nums: ', test.getPage('10', '10'));
 // console.log('getPage invalid filterCondig: ', test.getPage(0, 10, 'sarahgreen'));
 // console.log('getPage nothing found: ', test.getPage(0, 10, { dateTo: '1999-01-01' }));
-// console.log('getPage smth found: ', test.getPage(0, 20, { status: 'To Do', priority: 'High' }));
+// console.log(
+//   'getPage smth found: ',
+//   test.getPage(0, 20, { status: ['To Do', 'Complete'], priority: ['High', 'Medium'] }),
+// );
 // const filter = {
-//   assignee: 'SarahGreen',
-//   dateFrom: new Date(2023, 1, 21),
-//   dateTo: '2023-03-02',
-//   status: 'To Do',
-//   priority: 'Low',
-//   isPrivate: false,
-//   description: 'офис',
+//   assignee: ['IvanovIvan', 'StevenKing'],
+//   dateFrom: new Date('01 01 2023'),
+//   dateTo: new Date('04 09 2023'),
+//   status: ['To Do', 'In progress'],
+//   priority: ['Low', 'High'],
+//   isPrivate: [false, true],
+//   description: 'localStorage',
 // };
 // console.log('getPage smth found with full filterConfig: ', test.getPage(0, 10, filter));
 

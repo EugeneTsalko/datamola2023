@@ -1,7 +1,7 @@
 const mockTasks = [
   {
     id: '1',
-    name: 'Создать логотип приложения',
+    name: 'Создать логотип приложения localStorage',
     description: 'Формат изображения – svg, размеры - 100х100px',
     createdAt: new Date('2023-03-09T23:00:00'),
     assignee: 'IvanovIvan',

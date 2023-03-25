@@ -10,9 +10,9 @@ function setCurrentUser(user) {
     headerView.display({ user });
     filterView.display({ user });
 
-    DomHelper.reRenderTaskColumn('To Do', user);
-    DomHelper.reRenderTaskColumn('In progress', user);
-    DomHelper.reRenderTaskColumn('Complete', user);
+    // DomHelper.reRenderTaskColumn('To Do', user);
+    // DomHelper.reRenderTaskColumn('In progress', user);
+    // DomHelper.reRenderTaskColumn('Complete', user);
   } catch (err) {
     console.error(err.message);
   }
@@ -32,9 +32,9 @@ function logOutUser() {
     headerView.display();
     filterView.display();
 
-    DomHelper.reRenderTaskColumn('To Do');
-    DomHelper.reRenderTaskColumn('In progress');
-    DomHelper.reRenderTaskColumn('Complete');
+    // DomHelper.reRenderTaskColumn('To Do');
+    // DomHelper.reRenderTaskColumn('In progress');
+    // DomHelper.reRenderTaskColumn('Complete');
   } catch (err) {
     console.error(err.message);
   }
@@ -121,6 +121,25 @@ function closeTask() {
     document.getElementById('board').classList.remove('undisplayed');
 
     headerView.display({ user: tasks.user });
+  } catch (err) {
+    console.error(err.message);
+  }
+}
+
+function getFeed(skip = 0, top = 10, filterConfig = null) {
+  try {
+    toDoTaskFeed.display({
+      user: tasks.user,
+      tasks: tasks.getPage(skip, top, { ...filterConfig, status: TASK_STATUS.toDo }),
+    });
+    inProgressTaskFeed.display({
+      user: tasks.user,
+      tasks: tasks.getPage(skip, top, { ...filterConfig, status: TASK_STATUS.inProgress }),
+    });
+    completeTaskFeed.display({
+      user: tasks.user,
+      tasks: tasks.getPage(skip, top, { ...filterConfig, status: TASK_STATUS.complete }),
+    });
   } catch (err) {
     console.error(err.message);
   }
