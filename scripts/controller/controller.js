@@ -1,29 +1,3 @@
-function reRenderTaskColumn(status, user = null) {
-  let taskFeed = null;
-  switch (status) {
-    case 'To Do':
-      taskFeed = toDoTaskFeed;
-      break;
-    case 'In progress':
-      taskFeed = inProgressTaskFeed;
-      break;
-
-    case 'Complete':
-      taskFeed = completeTaskFeed;
-      break;
-
-    default:
-      break;
-  }
-
-  taskFeed.display({
-    user,
-    tasks: tasks.getPage(0, tasks.tasks.length, { status }),
-  });
-
-  console.log(`Render column ${status}`);
-}
-
 function setCurrentUser(user) {
   try {
     if (!checkIsLoginValid(user)) {
@@ -36,9 +10,9 @@ function setCurrentUser(user) {
     headerView.display({ user });
     filterView.display({ user });
 
-    reRenderTaskColumn('To Do', user);
-    reRenderTaskColumn('In progress', user);
-    reRenderTaskColumn('Complete', user);
+    DomHelper.reRenderTaskColumn('To Do', user);
+    DomHelper.reRenderTaskColumn('In progress', user);
+    DomHelper.reRenderTaskColumn('Complete', user);
   } catch (err) {
     console.error(err.message);
   }
@@ -50,14 +24,17 @@ function logOutUser() {
       throw new Error('Before log out you need to Sign In.');
     }
 
-    tasks.logOut();
+    document.getElementById('fullTask')?.remove();
+    document.getElementById('menu').classList.remove('undisplayed');
+    document.getElementById('board').classList.remove('undisplayed');
 
+    tasks.logOut();
     headerView.display();
     filterView.display();
 
-    reRenderTaskColumn('To Do');
-    reRenderTaskColumn('In progress');
-    reRenderTaskColumn('Complete');
+    DomHelper.reRenderTaskColumn('To Do');
+    DomHelper.reRenderTaskColumn('In progress');
+    DomHelper.reRenderTaskColumn('Complete');
   } catch (err) {
     console.error(err.message);
   }
@@ -72,7 +49,7 @@ function addTask(task) {
       throw new Error('Task wasn`t added.');
     }
 
-    reRenderTaskColumn(task.status);
+    DomHelper.reRenderTaskColumn(task.status);
   } catch (err) {
     console.error(err.message);
   }
@@ -90,10 +67,10 @@ function editTask(id, task) {
     }
 
     if (oldTask.status === status) {
-      reRenderTaskColumn(status);
+      DomHelper.reRenderTaskColumn(status);
     } else {
-      reRenderTaskColumn(oldTask.status);
-      reRenderTaskColumn(status);
+      DomHelper.reRenderTaskColumn(oldTask.status);
+      DomHelper.reRenderTaskColumn(status);
     }
   } catch (err) {
     console.error(err.message);
@@ -108,7 +85,7 @@ function removeTask(id) {
       throw new Error('Task wasn`t removed.');
     }
 
-    reRenderTaskColumn(task.status);
+    DomHelper.reRenderTaskColumn(task.status);
   } catch (err) {
     console.error(err.message);
   }
@@ -126,6 +103,7 @@ function showTask(id) {
     document.getElementById('menu').classList.add('undisplayed');
     document.getElementById('board').classList.add('undisplayed');
 
+    headerView.display({ user: tasks.user, isTaskPage: true });
     taskPage.display(task);
   } catch (err) {
     console.error(err.message);
@@ -134,9 +112,15 @@ function showTask(id) {
 
 function closeTask() {
   try {
+    if (!tasks.user) {
+      throw new Error('You need to be authorized for this.');
+    }
+
     document.getElementById('fullTask')?.remove();
     document.getElementById('menu').classList.remove('undisplayed');
     document.getElementById('board').classList.remove('undisplayed');
+
+    headerView.display({ user: tasks.user });
   } catch (err) {
     console.error(err.message);
   }
