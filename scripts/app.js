@@ -5,9 +5,6 @@ const tasks = new TaskCollection(mockTasks);
 const headerView = new HeaderView('header-nav');
 headerView.display();
 
-const footerView = new FooterView('root');
-footerView.display();
-
 const filterView = new FilterView('menu');
 filterView.display();
 
@@ -33,7 +30,7 @@ const taskPage = new TaskView('main');
 
 // test
 
-// setCurrentUser('IvanovIvan');
+setCurrentUser('IvanovIvan');
 
 // addTask({
 //   name: 'test addtask',
