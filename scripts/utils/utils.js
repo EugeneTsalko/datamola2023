@@ -51,6 +51,18 @@ const getComments = (arr) => {
   return comments;
 };
 
+const getHumanTime = (date) => {
+  let humanMinutes = date.getMinutes();
+
+  if (humanMinutes < 10) {
+    humanMinutes = `0${humanMinutes}`;
+  }
+
+  return `${date.getHours()}:${humanMinutes}`;
+};
+
+const getHumanDate = (date) => date.toDateString().split(' ').slice(1, 3).join(' ');
+
 const getCustomError = {
   invalidId: (funcName) => `Error in ${funcName}. Parameter "id" is required and should be a non-empty string.`,
   taskNotFound: (id, funcName) => `Error in ${funcName}. Task with id: "${id}" was not found".`,
