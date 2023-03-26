@@ -5,6 +5,7 @@ class FilterView {
 
   display(params) {
     try {
+      document.getElementById('assigneesList')?.remove();
       const addTaskBtn = document.getElementById('addTaskBtn');
 
       if (checkIsObj(params)) {
@@ -15,8 +16,9 @@ class FilterView {
         }
 
         if (assignees) {
-          const ul = DomHelper.createNode('ul', ['checkbox-dropdown-list', 'undisplayed']);
-
+          const ul = DomHelper.createNode('ul', ['checkbox-dropdown-list', 'undisplayed'], {
+            id: 'assigneesList',
+          });
           assignees.forEach((assignee) => ul.append(DomHelper.createAssigneeFilter(assignee)));
 
           this.root.append(ul);
