@@ -24,20 +24,7 @@ const validateObjBySchema = (obj, schema, funcName) => {
 
 const checkIsLoginValid = (login) => !!login && /^[a-zA-Z]+$/.test(login);
 
-const generateId = (arr) => {
-  let newId = 0;
-
-  if (arr.length) {
-    const lastId = arr
-      .map((el) => el.id)
-      .sort((a, b) => Number(a) - Number(b))
-      .at(-1);
-
-    newId = Number(lastId) + 1;
-  }
-
-  return newId.toString();
-};
+const generateId = (arr) => (arr.length ? String(Number(arr.at(-1)?.id) + 1) : '0');
 
 const getComments = (arr) => {
   const comments = [];
