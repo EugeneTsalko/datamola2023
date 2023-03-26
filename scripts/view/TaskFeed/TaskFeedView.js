@@ -5,16 +5,18 @@ class TaskFeedView {
 
   display(params) {
     try {
-      if (checkIsObj(params)) {
-        const { user, tasks } = params;
+      if (!checkIsObj(params)) {
+        throw new Error('Params should be an object {user?: string, tasks: Task[]}.');
+      }
 
-        if (tasks) {
-          this.root.innerHTML = '';
-          tasks.forEach((task) => this.root.append(DomHelper.createTaskCard(task, user)));
+      const { user, tasks } = params;
 
-          if (tasks.length >= 10) {
-            this.root.append(DomHelper.createAddMoreBtn());
-          }
+      if (tasks) {
+        this.root.innerHTML = '';
+        tasks.forEach((task) => this.root.append(DomHelper.createTaskCard(task, user)));
+
+        if (tasks.length >= 10) {
+          this.root.append(DomHelper.createAddMoreBtn());
         }
       }
     } catch (err) {
