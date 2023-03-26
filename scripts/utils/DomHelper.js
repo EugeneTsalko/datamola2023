@@ -24,38 +24,37 @@ class DomHelper {
     } = task;
 
     container.innerHTML = `
-    <div class="task-card" id="task-${_id}">
-      <div class="task-header">
-        <h4>${name}</h4>
-        <div class="task-buttons ${user ? '' : 'hidden'}">
-          <button class="btn secondary-btn edit-btn"></button>
-          <button class="btn secondary-btn delete-btn"></button>
-        </div>
-        <div class="task-priority ${priority.toLowerCase()}">${priority}</div>
-      </div>
-      <div class="task-description">${description}</div>
-      <div class="task-footer">
-        <div class="task-info-container">
-          <div class="task-date-container">
-            <span class="task-time">${getHumanTime(_createdAt)}</span>
-            <span class="task-date">${getHumanDate(_createdAt)}</span>
+      <div class="task-card" id="task-${_id}">
+        <div class="task-header">
+          <h4>${name}</h4>
+          <div class="task-buttons ${user ? '' : 'hidden'}">
+            <button class="btn secondary-btn edit-btn"></button>
+            <button class="btn secondary-btn delete-btn"></button>
           </div>
-          <div class="task-info">
-            <span class="task-status">${status}</span>
-            <span class="task-privacy">${isPrivate ? 'Private' : 'Public'}</span>
-            <div class="task-comments">
-              <img src="./assets/svg/comment.svg" alt="comment">
-              <span class="task-comment-number">${comments.length}</span>
+          <div class="task-priority ${priority.toLowerCase()}">${priority}</div>
+        </div>
+        <div class="task-description">${description}</div>
+        <div class="task-footer">
+          <div class="task-info-container">
+            <div class="task-date-container">
+              <span class="task-time">${getHumanTime(_createdAt)}</span>
+              <span class="task-date">${getHumanDate(_createdAt)}</span>
+            </div>
+            <div class="task-info">
+              <span class="task-status">${status}</span>
+              <span class="task-privacy">${isPrivate ? 'Private' : 'Public'}</span>
+              <div class="task-comments">
+                <img src="./assets/svg/comment.svg" alt="comment">
+                <span class="task-comment-number">${comments.length}</span>
+              </div>
             </div>
           </div>
+          <div class="task-assignee">
+            <span class="assignee-name">${assignee}</span>
+            <img class="assignee-img" src="${getUser(assignee, mockUsers)?.img}" alt="assignee img">
+          </div>
         </div>
-        <div class="task-assignee">
-          <span class="assignee-name">${assignee}</span>
-          <img class="assignee-img" src="${getUser(assignee, mockUsers)?.img}" alt="assignee image">
-        </div>
-      </div>
-    </div>
-  `;
+      </div>`;
 
     return container;
   }
@@ -71,10 +70,10 @@ class DomHelper {
     const container = document.createElement('li');
 
     container.innerHTML = `
-    <label>
-      <input type="checkbox" value="${assignee}" name="assignee" />
-      ${assignee}
-    </label>`;
+      <label>
+        <input type="checkbox" value="${assignee}" name="assignee" />
+        ${assignee}
+      </label>`;
 
     return container;
   }
@@ -85,22 +84,22 @@ class DomHelper {
       _id, text, _createdAt, author,
     } = comment;
 
-    container.innerHTML = `            
-    <div class="comment" id="comment-${_id}">
-    <p class="comment-text">
-      ${text}
-    </p>
-    <div class="comment-footer">
-      <div class="comment-author">
-        <img class="author-img" src="${getUser(author, mockUsers)?.img}" alt="author image">
-        <span class="author-name">${author}</span>
-      </div>
-      <div class="comment-date-container">
-        <span class="comment-date">${getHumanDate(_createdAt)}</span>
-        <span class="comment-time">${getHumanTime(_createdAt)}</span>
-      </div>
-    </div>
-  </div>`;
+    container.innerHTML = `
+      <div class="comment" id="comment-${_id}">
+        <p class="comment-text">
+          ${text}
+        </p>
+        <div class="comment-footer">
+          <div class="comment-author">
+            <img class="author-img" src="${getUser(author, mockUsers)?.img}" alt="author image">
+            <span class="author-name">${author}</span>
+          </div>
+          <div class="comment-date-container">
+            <span class="comment-date">${getHumanDate(_createdAt)}</span>
+            <span class="comment-time">${getHumanTime(_createdAt)}</span>
+          </div>
+        </div>
+      </div>`;
 
     return container;
   }
@@ -174,12 +173,10 @@ class DomHelper {
           <span class="full-task-info-title">assignee</span>
           <div class="full-task-assignee">
             <span class="full-assignee-name">${assignee}</span>
-            <img class="full-task-assignee-img" src="${
-  getUser(assignee, mockUsers)?.img
-}" alt="assignee image">
+            <img class="full-task-assignee-img" 
+            src="${getUser(assignee, mockUsers)?.img}" alt="assignee image">
           </div>
         </div>
-
       </div>`;
 
     container.append(fullTask, DomHelper.createCommentsSection(comments, tasks.user));
