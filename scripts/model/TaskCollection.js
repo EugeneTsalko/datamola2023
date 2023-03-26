@@ -230,7 +230,7 @@ class TaskCollection {
               return Date.parse(task._createdAt) <= Date.parse(filterConfig[key]);
             }
             if (key === 'isPrivate') {
-              return filterConfig[key].some((value) => value === task.isPrivate);
+              return filterConfig[key].includes(task.isPrivate);
             }
             if (key === 'description') {
               return (
@@ -238,7 +238,7 @@ class TaskCollection {
                 || task.name.toLowerCase().includes(filterConfig[key].toLowerCase())
               );
             }
-            return filterConfig[key].some((value) => value === task[key]);
+            return filterConfig[key].includes(task[key]);
           });
         });
       }
@@ -296,8 +296,8 @@ class TaskCollection {
 
 // // ниже различные тест-кейсы для методов:
 
-// const test = new TaskCollection(mockTasks);
-// test.user = 'IvanovIvan';
+const test = new TaskCollection(mockTasks);
+test.user = 'IvanovIvan';
 // console.log(test);
 
 // // get
@@ -352,16 +352,16 @@ class TaskCollection {
 //   'getPage smth found: ',
 //   test.getPage(0, 20, { status: ['To Do', 'Complete'], priority: ['High', 'Medium'] }),
 // );
-// const filter = {
-//   assignee: ['IvanovIvan', 'StevenKing'],
-//   dateFrom: new Date('01 01 2023'),
-//   dateTo: new Date('04 09 2023'),
-//   status: ['To Do', 'In progress'],
-//   priority: ['Low', 'High'],
-//   isPrivate: [false, true],
-//   description: 'localStorage',
-// };
-// console.log('getPage smth found with full filterConfig: ', test.getPage(0, 10, filter));
+const filter = {
+  assignee: ['IvanovIvan', 'StevenKing'],
+  dateFrom: new Date('01 01 2023'),
+  dateTo: new Date('04 09 2023'),
+  status: ['To Do', 'In progress'],
+  priority: ['Low', 'High'],
+  isPrivate: [false, true],
+  description: 'localStorage',
+};
+console.log('getPage smth found with full filterConfig: ', test.getPage(0, 10, filter));
 
 // // clear
 
