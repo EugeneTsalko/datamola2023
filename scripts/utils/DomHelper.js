@@ -51,7 +51,7 @@ class DomHelper {
         </div>
         <div class="task-assignee">
           <span class="assignee-name">${assignee}</span>
-          <img class="assignee-img" src="./assets/png/user-img-4.png" alt="assignee image">
+          <img class="assignee-img" src="${getUser(assignee, mockUsers)?.img}" alt="assignee image">
         </div>
       </div>
     </div>
@@ -92,7 +92,7 @@ class DomHelper {
     </p>
     <div class="comment-footer">
       <div class="comment-author">
-        <img class="author-img" src="./assets/png/user-img-5.png" alt="author image">
+        <img class="author-img" src="${getUser(author, mockUsers)?.img}" alt="author image">
         <span class="author-name">${author}</span>
       </div>
       <div class="comment-date-container">
@@ -116,7 +116,7 @@ class DomHelper {
 
     const addCommentForm = DomHelper.createNode('form', ['add-comment-form']);
     addCommentForm.innerHTML = `
-      <img class="user-img" src="./assets/png/user-img-5.png" alt="author image">
+      <img class="user-img" src="${getUser(user, mockUsers)?.img}" alt="author image">
       <textarea name="comment" id="new-comment" class="comment-textarea" maxlength="280" placeholder="Add new comment..."></textarea>
       <button class="btn secondary-btn add-comment-btn" type="submit">
         <span>ADD COMMENT</span>
@@ -174,13 +174,15 @@ class DomHelper {
           <span class="full-task-info-title">assignee</span>
           <div class="full-task-assignee">
             <span class="full-assignee-name">${assignee}</span>
-            <img class="full-task-assignee-img" src="./assets/png/user-img-5.png" alt="assignee image">
+            <img class="full-task-assignee-img" src="${
+  getUser(assignee, mockUsers)?.img
+}" alt="assignee image">
           </div>
         </div>
 
       </div>`;
 
-    container.append(fullTask, DomHelper.createCommentsSection(comments));
+    container.append(fullTask, DomHelper.createCommentsSection(comments, tasks.user));
 
     return container;
   }

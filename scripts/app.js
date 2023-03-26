@@ -18,7 +18,7 @@ const taskPage = new TaskView('main');
 
 // test
 
-// setCurrentUser('IvanovIvan');
+setCurrentUser('IvanovIvan');
 
 // addTask({
 //   name: 'test addtask',
@@ -45,7 +45,7 @@ const taskPage = new TaskView('main');
 //   isPrivate: true,
 // });
 
-// showTask('3');
+showTask('3');
 // closeTask();
 
 // getFeed(10, 20);

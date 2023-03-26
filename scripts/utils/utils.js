@@ -51,6 +51,8 @@ const getComments = (arr) => {
   return comments;
 };
 
+const getUser = (login, arr) => arr.find((user) => user.login === login);
+
 const getHumanTime = (date) => {
   let humanMinutes = date.getMinutes();
 

@@ -10,8 +10,6 @@ class FilterView {
       if (checkIsObj(params)) {
         const { user, assignees } = params;
 
-        console.log(params);
-
         if (user) {
           addTaskBtn.classList.remove('hidden');
         }
