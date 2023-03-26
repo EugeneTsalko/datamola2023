@@ -54,6 +54,10 @@ class TaskCollection {
     return this.tasks.filter((task) => task.status === TASK_STATUS.complete);
   }
 
+  get assignees() {
+    return Array.from(new Set(this.tasks.map((task) => task.assignee)));
+  }
+
   get(id) {
     try {
       if (!checkStr(id)) {
