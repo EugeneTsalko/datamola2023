@@ -1,12 +1,13 @@
 // думаю, что для независимой работы пагинации
 // внутри колумнов будет использоваться что-то типа ф-ций ниже
-// позже придумаю как это переписать по DRY
+// TODO придумать как это переписать по DRY при использовании с ивентами
 
 function getToDoFeed(skip = 0, top = 10, filterConfig = null) {
   toDoTaskFeed.display({
     user: tasks.user,
     tasks: tasks.getPage(skip, top, filterConfig, TASK_STATUS.toDo),
   });
+  console.log(`Render column ${TASK_STATUS.toDo}`);
 }
 
 function getInProgressTaskFeed(skip = 0, top = 10, filterConfig = null) {
@@ -14,6 +15,7 @@ function getInProgressTaskFeed(skip = 0, top = 10, filterConfig = null) {
     user: tasks.user,
     tasks: tasks.getPage(skip, top, filterConfig, TASK_STATUS.inProgress),
   });
+  console.log(`Render column ${TASK_STATUS.inProgress}`);
 }
 
 function getCompleteTaskFeed(skip = 0, top = 10, filterConfig = null) {
@@ -21,6 +23,7 @@ function getCompleteTaskFeed(skip = 0, top = 10, filterConfig = null) {
     user: tasks.user,
     tasks: tasks.getPage(skip, top, filterConfig, TASK_STATUS.complete),
   });
+  console.log(`Render column ${TASK_STATUS.complete}`);
 }
 
 // этот метод требует доработки, т.к. не могу придумать как нормально юзать TaskCollection.getPage,
@@ -44,7 +47,7 @@ function setCurrentUser(user) {
     }
 
     // имхо tasks и headerView правильнее передавать параметрами во все ф-ции, но в ТЗ так
-    // придумать как переделать на единый источник истины по поводу user
+    // TODO придумать как переделать на единый источник истины по поводу user (мб localStorage)
 
     tasks.user = user;
     headerView.display({ user });
@@ -79,9 +82,14 @@ function logOutUser() {
 
 function addTask(task) {
   try {
+    if (!checkIsObj(task)) {
+      throw new Error(getCustomError.invalidObjParam('task', 'addTask'));
+    }
+
     const {
       name, description, status, priority, isPrivate,
     } = task;
+
     if (!tasks.add(name, description, status, priority, isPrivate)) {
       throw new Error('Task wasn`t added.');
     }
@@ -94,6 +102,14 @@ function addTask(task) {
 
 function editTask(id, task) {
   try {
+    if (!checkStr(id)) {
+      throw new Error(getCustomError.invalidId('editTask'));
+    }
+
+    if (!checkIsObj(task)) {
+      throw new Error(getCustomError.invalidObjParam('task', 'addTask'));
+    }
+
     const {
       name, description, assignee, status, priority, isPrivate,
     } = task;

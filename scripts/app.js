@@ -17,7 +17,7 @@ const taskPage = new TaskView('main');
 
 // test
 
-setCurrentUser('IvanovIvan');
+// setCurrentUser('IvanovIvan');
 
 // addTask({
 //   name: 'test addtask',
