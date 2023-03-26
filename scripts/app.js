@@ -6,25 +6,12 @@ const headerView = new HeaderView('header-nav');
 headerView.display();
 
 const filterView = new FilterView('menu');
-// filterView.display();
 
 const toDoTaskFeed = new TaskFeedView('toDoList');
-// toDoTaskFeed.display({
-//   user: tasks.user,
-//   tasks: tasks.getPage(0, tasks.tasks.length, { status: 'To Do' }),
-// });
 
 const inProgressTaskFeed = new TaskFeedView('inProgressList');
-// inProgressTaskFeed.display({
-//   user: tasks.user,
-//   tasks: tasks.getPage(0, tasks.tasks.length, { status: 'In progress' }),
-// });
 
 const completeTaskFeed = new TaskFeedView('completeList');
-// completeTaskFeed.display({
-//   user: tasks.user,
-//   tasks: tasks.getPage(0, tasks.tasks.length, { status: 'Complete' }),
-// });
 
 const taskPage = new TaskView('main');
 
@@ -59,3 +46,5 @@ const taskPage = new TaskView('main');
 
 // showTask('3');
 // closeTask();
+
+// getFeed(10, 20);

@@ -1,3 +1,42 @@
+// думаю, что для независимой работы пагинации
+// внутри колумнов будет использоваться что-то типа ф-ций ниже
+// позже придумаю как это переписать по DRY
+
+function getToDoFeed(skip = 0, top = 10, filterConfig = null) {
+  toDoTaskFeed.display({
+    user: tasks.user,
+    tasks: tasks.getPage(skip, top, filterConfig, TASK_STATUS.toDo),
+  });
+}
+
+function getInProgressTaskFeed(skip = 0, top = 10, filterConfig = null) {
+  inProgressTaskFeed.display({
+    user: tasks.user,
+    tasks: tasks.getPage(skip, top, filterConfig, TASK_STATUS.inProgress),
+  });
+}
+
+function getCompleteTaskFeed(skip = 0, top = 10, filterConfig = null) {
+  completeTaskFeed.display({
+    user: tasks.user,
+    tasks: tasks.getPage(skip, top, filterConfig, TASK_STATUS.complete),
+  });
+}
+
+// этот метод требует доработки, т.к. не могу придумать как нормально юзать TaskCollection.getPage,
+// чтобы пагинация работала независимо в колонках.
+// Вообще можно обойтись без него, написал потому что требуется в ДЗ
+
+function getFeed(skip = 0, top = 10, filterConfig = null) {
+  try {
+    getToDoFeed(skip, top, filterConfig);
+    getInProgressTaskFeed(skip, top, filterConfig);
+    getCompleteTaskFeed(skip, top, filterConfig);
+  } catch (err) {
+    console.error(err.message);
+  }
+}
+
 function setCurrentUser(user) {
   try {
     if (!checkIsLoginValid(user)) {
@@ -5,14 +44,13 @@ function setCurrentUser(user) {
     }
 
     // имхо tasks и headerView правильнее передавать параметрами во все ф-ции, но в ТЗ так
-    // придумать как переделать на единый источник истины
+    // придумать как переделать на единый источник истины по поводу user
+
     tasks.user = user;
     headerView.display({ user });
     filterView.display({ user });
 
-    // DomHelper.reRenderTaskColumn('To Do', user);
-    // DomHelper.reRenderTaskColumn('In progress', user);
-    // DomHelper.reRenderTaskColumn('Complete', user);
+    getFeed();
   } catch (err) {
     console.error(err.message);
   }
@@ -29,12 +67,11 @@ function logOutUser() {
     document.getElementById('board').classList.remove('undisplayed');
 
     tasks.logOut();
+
     headerView.display();
     filterView.display();
 
-    // DomHelper.reRenderTaskColumn('To Do');
-    // DomHelper.reRenderTaskColumn('In progress');
-    // DomHelper.reRenderTaskColumn('Complete');
+    getFeed();
   } catch (err) {
     console.error(err.message);
   }
@@ -49,7 +86,7 @@ function addTask(task) {
       throw new Error('Task wasn`t added.');
     }
 
-    DomHelper.reRenderTaskColumn(task.status);
+    DomHelper.reRenderTaskColumn(status);
   } catch (err) {
     console.error(err.message);
   }
@@ -121,25 +158,6 @@ function closeTask() {
     document.getElementById('board').classList.remove('undisplayed');
 
     headerView.display({ user: tasks.user });
-  } catch (err) {
-    console.error(err.message);
-  }
-}
-
-function getFeed(skip = 0, top = 10, filterConfig = null) {
-  try {
-    toDoTaskFeed.display({
-      user: tasks.user,
-      tasks: tasks.getPage(skip, top, { ...filterConfig, status: TASK_STATUS.toDo }),
-    });
-    inProgressTaskFeed.display({
-      user: tasks.user,
-      tasks: tasks.getPage(skip, top, { ...filterConfig, status: TASK_STATUS.inProgress }),
-    });
-    completeTaskFeed.display({
-      user: tasks.user,
-      tasks: tasks.getPage(skip, top, { ...filterConfig, status: TASK_STATUS.complete }),
-    });
   } catch (err) {
     console.error(err.message);
   }

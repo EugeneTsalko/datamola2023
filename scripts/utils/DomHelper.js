@@ -173,28 +173,51 @@ class DomHelper {
     return container;
   }
 
+  // static reRenderTaskColumn(status, user = null) {
+  //   let taskFeed = null;
+  //   switch (status) {
+  //     case 'To Do':
+  //       taskFeed = toDoTaskFeed;
+  //       break;
+  //     case 'In progress':
+  //       taskFeed = inProgressTaskFeed;
+  //       break;
+
+  //     case 'Complete':
+  //       taskFeed = completeTaskFeed;
+  //       break;
+
+  //     default:
+  //       break;
+  //   }
+
+  //   taskFeed.display({
+  //     user,
+  //     tasks: tasks.getPage(0, tasks.tasks.length, { status }),
+  //   });
+
+  //   console.log(`Render column ${status}`);
+  // }
+
   static reRenderTaskColumn(status, user = null) {
     let taskFeed = null;
     switch (status) {
       case 'To Do':
-        taskFeed = toDoTaskFeed;
+        taskFeed = getToDoFeed;
         break;
       case 'In progress':
-        taskFeed = inProgressTaskFeed;
+        taskFeed = getInProgressTaskFeed;
         break;
 
       case 'Complete':
-        taskFeed = completeTaskFeed;
+        taskFeed = getCompleteTaskFeed;
         break;
 
       default:
         break;
     }
 
-    taskFeed.display({
-      user,
-      tasks: tasks.getPage(0, tasks.tasks.length, { status }),
-    });
+    taskFeed();
 
     console.log(`Render column ${status}`);
   }

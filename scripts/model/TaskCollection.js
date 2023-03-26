@@ -42,6 +42,18 @@ class TaskCollection {
     console.error(getCustomError.protectedProp('tasks', this.tasks, value));
   }
 
+  get toDoTasks() {
+    return this.tasks.filter((task) => task.status === TASK_STATUS.toDo);
+  }
+
+  get inProgressTasks() {
+    return this.tasks.filter((task) => task.status === TASK_STATUS.inProgress);
+  }
+
+  get completeTasks() {
+    return this.tasks.filter((task) => task.status === TASK_STATUS.complete);
+  }
+
   get(id) {
     try {
       if (!checkStr(id)) {
@@ -203,7 +215,7 @@ class TaskCollection {
     }
   }
 
-  getPage(skip = 0, top = 10, filterConfig = null) {
+  getPage(skip = 0, top = 10, filterConfig = null, type = null) {
     try {
       if (skip < 0 || top < 0 || !Number.isInteger(skip) || !Number.isInteger(top)) {
         throw new Error(
@@ -215,9 +227,27 @@ class TaskCollection {
         throw new Error(getCustomError.invalidObjParam('filterConfig', 'TaskCollection.getPage'));
       }
 
-      let result = structuredClone(this.tasks).sort(
-        (a, b) => Date.parse(b._createdAt) - Date.parse(a._createdAt),
-      );
+      let result = structuredClone(this.tasks);
+
+      if (type) {
+        switch (type) {
+          case 'To Do':
+            result = structuredClone(this.toDoTasks);
+            break;
+          case 'In progress':
+            result = structuredClone(this.inProgressTasks);
+            break;
+
+          case 'Complete':
+            result = structuredClone(this.completeTasks);
+            break;
+
+          default:
+            break;
+        }
+      }
+
+      result.sort((a, b) => Date.parse(b._createdAt) - Date.parse(a._createdAt));
 
       if (filterConfig) {
         const keys = Object.keys(filterConfig);
@@ -296,8 +326,8 @@ class TaskCollection {
 
 // // ниже различные тест-кейсы для методов:
 
-const test = new TaskCollection(mockTasks);
-test.user = 'IvanovIvan';
+// const test = new TaskCollection(mockTasks);
+// test.user = 'IvanovIvan';
 // console.log(test);
 
 // // get
@@ -352,16 +382,16 @@ test.user = 'IvanovIvan';
 //   'getPage smth found: ',
 //   test.getPage(0, 20, { status: ['To Do', 'Complete'], priority: ['High', 'Medium'] }),
 // );
-const filter = {
-  assignee: ['IvanovIvan', 'StevenKing'],
-  dateFrom: new Date('01 01 2023'),
-  dateTo: new Date('04 09 2023'),
-  status: ['To Do', 'In progress'],
-  priority: ['Low', 'High'],
-  isPrivate: [false, true],
-  description: 'localStorage',
-};
-console.log('getPage smth found with full filterConfig: ', test.getPage(0, 10, filter));
+// const filter = {
+//   assignee: ['IvanovIvan', 'StevenKing'],
+//   dateFrom: new Date('01 01 2023'),
+//   dateTo: new Date('04 09 2023'),
+//   status: ['To Do', 'In progress'],
+//   priority: ['Low', 'High'],
+//   isPrivate: [false, true],
+//   description: 'localStorage',
+// };
+// console.log('getPage smth found with full filterConfig: ', test.getPage(0, 10, filter));
 
 // // clear
 
