@@ -1,7 +1,7 @@
-const tasks = [
+const mockTasks = [
   {
     id: '1',
-    name: 'Создать логотип приложения',
+    name: 'Создать логотип приложения localStorage',
     description: 'Формат изображения – svg, размеры - 100х100px',
     createdAt: new Date('2023-03-09T23:00:00'),
     assignee: 'IvanovIvan',
@@ -14,7 +14,7 @@ const tasks = [
     id: '2',
     name: 'Переименовать константу DELAY_TIME',
     description: 'Необходимо переименовать константу с DELAY_TIME на DELAY_API_TIME',
-    createdAt: new Date('2023-03-08T23:00:00'),
+    createdAt: new Date('2023-03-01T23:00:00'),
     assignee: 'IvanovIvan',
     status: 'To Do',
     priority: 'Medium',
@@ -405,5 +405,3 @@ const tasks = [
     comments: [],
   },
 ];
-
-export default tasks;

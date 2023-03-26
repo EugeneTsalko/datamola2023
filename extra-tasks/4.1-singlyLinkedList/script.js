@@ -6,8 +6,8 @@ class Node {
 }
 
 class List {
-  constructor(root) {
-    this.root = root;
+  constructor(value) {
+    this.root = new Node(value);
   }
 
   get size() {
@@ -23,7 +23,7 @@ class List {
   }
 
   addNode(value, i = this.size - 1) {
-    if (i > this.size - 1 || i < 0) {
+    if (!value || i > this.size - 1 || i < 0) {
       return false;
     }
 
@@ -83,9 +83,9 @@ class List {
 
 // // test-cases
 
-// const rootNode = new Node('root node value');
-// const list = new List(rootNode);
+// const list = new List('root node value');
 
+// console.log(list.addNode());
 // console.log(list.addNode('will be after root', 0));
 // console.log(list.addNode('invalid index', 2));
 // console.log(list.addNode('invalid index', -1));

@@ -1,6 +1,3 @@
-import { validateObjBySchema, getCustomError } from '../utils/utils.js';
-import commentSchema from '../utils/commentSchema.js';
-
 class Comment {
   constructor(id, text, createdAt, author) {
     this._id = id;
@@ -55,8 +52,6 @@ class Comment {
     }
   }
 }
-
-export default Comment;
 
 // // test-cases
 

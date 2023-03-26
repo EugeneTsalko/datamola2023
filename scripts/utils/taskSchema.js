@@ -1,6 +1,3 @@
-import { checkStr, checkIsLoginValid } from './utils.js';
-import { TASK_MAX_LENGTH, TASK_PRIORITY, TASK_STATUS } from '../constants/constants.js';
-
 const taskSchema = {
   id: (value) => checkStr(value),
   name: (value) => checkStr(value, TASK_MAX_LENGTH.name),
@@ -12,5 +9,3 @@ const taskSchema = {
   isPrivate: (value) => typeof value === 'boolean',
   comments: (value) => Array.isArray(value),
 };
-
-export default taskSchema;

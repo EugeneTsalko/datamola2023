@@ -4,7 +4,7 @@
   gap: var(--gap-l);
   border: var(--border-main);
   border-radius: var(--border-radius-s);
-  padding: var(--padiing-s);
+  padding: var(--padding-s);
   background-color: var(--white);
 }
 

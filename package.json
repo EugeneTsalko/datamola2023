@@ -8,6 +8,5 @@
   "scripts": {
     "lint": "eslint **/*.js",
     "lint-fix": "eslint **/*.js --fix"
-  },
-  "type": "module"
+  }
 }

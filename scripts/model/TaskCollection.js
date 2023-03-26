@@ -1,21 +1,16 @@
-import tasks from '../mockData/mockTasks.js';
-import Task from './Task.js';
-import Comment from './Comment.js';
-import {
-  checkStr,
-  findTaskById,
-  findTaskIndexById,
-  checkIsObj,
-  checkIsLoginValid,
-  generateId,
-  getCustomError,
-  getComments,
-} from '../utils/utils.js';
-
 class TaskCollection {
   constructor(tasksArr) {
     this._user = null;
-    this._tasks = tasksArr || [];
+    this._tasks = tasksArr.map((task) => {
+      const collectionTask = new Task(...Object.values(structuredClone(task)));
+      if (collectionTask.comments.length) {
+        collectionTask.comments = collectionTask.comments.map(
+          (comment) => new Comment(...Object.values(comment)),
+        );
+      }
+
+      return collectionTask;
+    }) || [];
   }
 
   get user() {
@@ -35,12 +30,32 @@ class TaskCollection {
     }
   }
 
+  logOut() {
+    this._user = null;
+  }
+
   get tasks() {
     return this._tasks;
   }
 
   set tasks(value) {
     console.error(getCustomError.protectedProp('tasks', this.tasks, value));
+  }
+
+  get toDoTasks() {
+    return this.tasks.filter((task) => task.status === TASK_STATUS.toDo);
+  }
+
+  get inProgressTasks() {
+    return this.tasks.filter((task) => task.status === TASK_STATUS.inProgress);
+  }
+
+  get completeTasks() {
+    return this.tasks.filter((task) => task.status === TASK_STATUS.complete);
+  }
+
+  get assignees() {
+    return Array.from(new Set(this.tasks.map((task) => task.assignee)));
   }
 
   get(id) {
@@ -65,27 +80,21 @@ class TaskCollection {
     }
   }
 
-  add(name, description, assignee, status, priority, isPrivate) {
+  add(name, description, status, priority, isPrivate) {
     try {
       const task = new Task(
         generateId(this.tasks),
         name,
         description,
         new Date(),
-        assignee,
+        this.user,
         status,
         priority,
         isPrivate,
       );
 
-      const isTaskValid = Task.validate(task);
-
-      if (!isTaskValid) {
+      if (!Task.validate(task)) {
         throw new Error("Can't add invalid task.");
-      }
-
-      if (assignee !== this.user) {
-        throw new Error(getCustomError.notEnoughRights(this.user, assignee, 'TaskCollection.add'));
       }
 
       this._tasks.push(task);
@@ -110,8 +119,7 @@ class TaskCollection {
       const inValidTasks = [];
 
       tasksArr.forEach((task) => {
-        const isTaskValid = Task.validate(task) && task.assignee === this.user;
-        if (isTaskValid) {
+        if (Task.validate(task)) {
           this._tasks.push(task);
         } else {
           inValidTasks.push(task);
@@ -133,6 +141,7 @@ class TaskCollection {
       }
 
       const task = findTaskById(id, this.tasks);
+      console.log(task);
 
       if (!task) {
         throw new Error(getCustomError.invalidId('TaskCollection.edit'));
@@ -152,7 +161,7 @@ class TaskCollection {
         id,
         name || task.name,
         description || task.description,
-        task.createdAt,
+        task._createdAt,
         assignee || task.assignee,
         status || task.status,
         priority || task.priority,
@@ -160,9 +169,7 @@ class TaskCollection {
         task.comments,
       );
 
-      const isEditedTaskValid = Task.validate(editedTask);
-
-      if (!isEditedTaskValid) {
+      if (!Task.validate(editedTask)) {
         throw new Error('Edited task is not valid');
       }
 
@@ -212,7 +219,7 @@ class TaskCollection {
     }
   }
 
-  getPage(skip = 0, top = 10, filterConfig = null) {
+  getPage(skip = 0, top = 10, filterConfig = null, type = null) {
     try {
       if (skip < 0 || top < 0 || !Number.isInteger(skip) || !Number.isInteger(top)) {
         throw new Error(
@@ -224,22 +231,40 @@ class TaskCollection {
         throw new Error(getCustomError.invalidObjParam('filterConfig', 'TaskCollection.getPage'));
       }
 
-      let result = structuredClone(this.tasks).sort(
-        (a, b) => Date.parse(b.createdAt) - Date.parse(a.createdAt),
-      );
+      let result = structuredClone(this.tasks);
+
+      if (type) {
+        switch (type) {
+          case TASK_STATUS.toDo:
+            result = structuredClone(this.toDoTasks);
+            break;
+          case TASK_STATUS.inProgress:
+            result = structuredClone(this.inProgressTasks);
+            break;
+
+          case TASK_STATUS.complete:
+            result = structuredClone(this.completeTasks);
+            break;
+
+          default:
+            break;
+        }
+      }
+
+      result.sort((a, b) => Date.parse(b._createdAt) - Date.parse(a._createdAt));
 
       if (filterConfig) {
         const keys = Object.keys(filterConfig);
         keys.forEach((key) => {
           result = result.filter((task) => {
             if (key === 'dateFrom') {
-              return Date.parse(task.createdAt) >= Date.parse(filterConfig[key]);
+              return Date.parse(task._createdAt) >= Date.parse(filterConfig[key]);
             }
             if (key === 'dateTo') {
-              return Date.parse(task.createdAt) <= Date.parse(filterConfig[key]);
+              return Date.parse(task._createdAt) <= Date.parse(filterConfig[key]);
             }
             if (key === 'isPrivate') {
-              return task.isPrivate === filterConfig[key];
+              return filterConfig[key].includes(task.isPrivate);
             }
             if (key === 'description') {
               return (
@@ -247,7 +272,7 @@ class TaskCollection {
                 || task.name.toLowerCase().includes(filterConfig[key].toLowerCase())
               );
             }
-            return task[key].toLowerCase() === filterConfig[key].toLowerCase();
+            return filterConfig[key].includes(task[key]);
           });
         });
       }
@@ -283,9 +308,8 @@ class TaskCollection {
 
       const comments = getComments(this.tasks);
       const newComment = new Comment(generateId(comments), text, new Date(), this.user);
-      const isNewCommentValid = Comment.validate(newComment);
 
-      if (!isNewCommentValid) {
+      if (!Comment.validate(newComment)) {
         throw new Error("Can't add invalid comment.");
       }
 
@@ -302,13 +326,12 @@ class TaskCollection {
   }
 }
 
-export default TaskCollection;
+// export default TaskCollection;
 
 // // ниже различные тест-кейсы для методов:
 
-const testTasks = tasks.map((task) => new Task(...Object.values(task)));
-const test = new TaskCollection(testTasks);
-test.user = 'IvanovIvan';
+// const test = new TaskCollection(mockTasks);
+// test.user = 'IvanovIvan';
 // console.log(test);
 
 // // get
@@ -319,11 +342,7 @@ test.user = 'IvanovIvan';
 // // add
 
 // console.log('add invalid task: ', test.add());
-// console.log(
-//   'add task without rights: ',
-//   test.add('title', 'description', 'validAssignee', 'To Do', 'High'),
-// );
-// console.log('add valid task: ', test.add('title', 'description', 'IvanovIvan', 'To Do', 'High'));
+// console.log('add valid task: ', test.add('title', 'description', 'To Do', 'High'));
 // console.log(test.tasks);
 
 // // addAll
@@ -334,7 +353,7 @@ test.user = 'IvanovIvan';
 // console.log(
 //   'addAll mixed valid/invalid: ',
 //   test.addAll([
-//     new Task(generateId(test.tasks), 'title', 'descr', new Date(), 'noRights', 'To Do', 'High'),
+//     new Task(generateId(test.tasks), 'title', 'descr', new Date(), 'bad login', 'To Do', 'High'),
 //     new Task(generateId(test.tasks), 'title', 'desc', new Date(), 'IvanovIvan', 'To Do', 'High'),
 //   ]),
 // );
@@ -355,7 +374,7 @@ test.user = 'IvanovIvan';
 // console.log('remove not found id: ', test.remove('111'));
 // console.log('remove no rights: ', test.remove('3'));
 // console.log('remove valid: ', test.remove('1'));
-// console.log(test.tasks[0]);
+// console.log(test.mockTasks[0]);
 
 // // getPage
 
@@ -363,15 +382,18 @@ test.user = 'IvanovIvan';
 // console.log('getPage skip/top should be nums: ', test.getPage('10', '10'));
 // console.log('getPage invalid filterCondig: ', test.getPage(0, 10, 'sarahgreen'));
 // console.log('getPage nothing found: ', test.getPage(0, 10, { dateTo: '1999-01-01' }));
-// console.log('getPage smth found: ', test.getPage(0, 20, { status: 'To Do', priority: 'High' }));
+// console.log(
+//   'getPage smth found: ',
+//   test.getPage(0, 20, { status: ['To Do', 'Complete'], priority: ['High', 'Medium'] }),
+// );
 // const filter = {
-//   assignee: 'SarahGreen',
-//   dateFrom: new Date(2023, 1, 21),
-//   dateTo: '2023-03-02',
-//   status: 'To Do',
-//   priority: 'Low',
-//   isPrivate: false,
-//   description: 'офис',
+//   assignee: ['IvanovIvan', 'StevenKing'],
+//   dateFrom: new Date('01 01 2023'),
+//   dateTo: new Date('04 09 2023'),
+//   status: ['To Do', 'In progress'],
+//   priority: ['Low', 'High'],
+//   isPrivate: [false, true],
+//   description: 'localStorage',
 // };
 // console.log('getPage smth found with full filterConfig: ', test.getPage(0, 10, filter));
 
