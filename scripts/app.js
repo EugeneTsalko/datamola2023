@@ -5,7 +5,8 @@ const tasks = new TaskCollection(mockTasks);
 const headerView = new HeaderView('header-nav');
 headerView.display();
 
-const filterView = new FilterView('menu');
+const filterView = new FilterView('filter-assignee');
+filterView.display({ assignees: tasks.assignees });
 
 const toDoTaskFeed = new TaskFeedView('toDoList');
 

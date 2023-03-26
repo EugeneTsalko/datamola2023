@@ -10,13 +10,18 @@ class FilterView {
       if (checkIsObj(params)) {
         const { user, assignees } = params;
 
+        console.log(params);
+
         if (user) {
           addTaskBtn.classList.remove('hidden');
         }
 
         if (assignees) {
-          // TODO сделать прием ассайни из массива тасок
-          this.root.append();
+          const ul = DomHelper.createNode('ul', ['checkbox-dropdown-list', 'undisplayed']);
+
+          assignees.forEach((assignee) => ul.append(DomHelper.createAssigneeFilter(assignee)));
+
+          this.root.append(ul);
         }
       }
 

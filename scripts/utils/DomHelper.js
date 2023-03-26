@@ -67,6 +67,18 @@ class DomHelper {
     return btn;
   }
 
+  static createAssigneeFilter(assignee) {
+    const container = document.createElement('li');
+
+    container.innerHTML = `
+    <label>
+      <input type="checkbox" value="${assignee}" name="assignee" />
+      ${assignee}
+    </label>`;
+
+    return container;
+  }
+
   static createComment(comment) {
     const container = document.createElement('li');
     const {

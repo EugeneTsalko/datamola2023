@@ -48,7 +48,7 @@ function setCurrentUser(user) {
 
     tasks.user = user;
     headerView.display({ user });
-    filterView.display({ user });
+    filterView.display({ user, assignees: tasks.assignees });
 
     getFeed();
   } catch (err) {
@@ -69,7 +69,7 @@ function logOutUser() {
     tasks.logOut();
 
     headerView.display();
-    filterView.display();
+    filterView.display({ assignees: tasks.assignees });
 
     getFeed();
   } catch (err) {
