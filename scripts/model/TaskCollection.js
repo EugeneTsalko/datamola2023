@@ -235,14 +235,14 @@ class TaskCollection {
 
       if (type) {
         switch (type) {
-          case 'To Do':
+          case TASK_STATUS.toDo:
             result = structuredClone(this.toDoTasks);
             break;
-          case 'In progress':
+          case TASK_STATUS.inProgress:
             result = structuredClone(this.inProgressTasks);
             break;
 
-          case 'Complete':
+          case TASK_STATUS.complete:
             result = structuredClone(this.completeTasks);
             break;
 
