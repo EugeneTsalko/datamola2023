@@ -1,6 +1,7 @@
 class UserCollection {
   constructor(usersArr) {
-    this._collection = usersArr.map((user) => new User(...Object.values(user)));
+    // this._collection = usersArr.map((user) => new User(...Object.values(user)));
+    this.restore();
   }
 
   get collection() {
@@ -22,11 +23,22 @@ class UserCollection {
       this._collection.push(newUser);
       console.log(`User "${newUser.login}" has been added!`);
 
+      this.save();
       return true;
     } catch (err) {
       console.error(err.message);
 
       return false;
     }
+  }
+
+  save() {
+    localStorage.setItem('users', JSON.stringify(this.collection));
+  }
+
+  restore() {
+    this._collection = JSON.parse(localStorage.getItem('users')).map(
+      (user) => new User(...Object.values(user)),
+    );
   }
 }

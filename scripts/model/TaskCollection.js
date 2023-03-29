@@ -1,12 +1,26 @@
 class TaskCollection {
-  constructor(tasksArr) {
+  constructor() {
     this._user = null;
-    this._collection = tasksArr.map((task) => {
+    this.restore();
+  }
+
+  save() {
+    localStorage.setItem('tasks', JSON.stringify(this.collection));
+  }
+
+  restore() {
+    const storageTasks = JSON.parse(localStorage.getItem('tasks'));
+
+    this._collection = storageTasks.map((task) => {
       const collectionTask = new Task(...Object.values(structuredClone(task)));
+      collectionTask._createdAt = new Date(collectionTask._createdAt);
       if (collectionTask.comments.length) {
-        collectionTask.comments = collectionTask.comments.map(
-          (comment) => new Comment(...Object.values(comment)),
-        );
+        collectionTask.comments = collectionTask.comments.map((comment) => {
+          const collectionComment = new Comment(...Object.values(comment));
+          collectionComment._createdAt = new Date(collectionComment._createdAt);
+
+          return collectionComment;
+        });
       }
 
       return collectionTask;
@@ -100,6 +114,7 @@ class TaskCollection {
       this._collection.push(task);
       console.log(`Task has been added with id: "${task.id}"!`);
 
+      this.save();
       return true;
     } catch (err) {
       console.error(err.message);
@@ -126,6 +141,7 @@ class TaskCollection {
         }
       });
 
+      this.save();
       return inValidTasks;
     } catch (err) {
       console.error(err.message);
@@ -178,6 +194,7 @@ class TaskCollection {
 
       console.log(`Task with id: "${id} has been edited!"`);
 
+      this.save();
       return true;
     } catch (err) {
       console.error(err.message);
@@ -211,6 +228,7 @@ class TaskCollection {
       this._collection.splice(index, 1);
       console.log(`Task with "id": ${id} was successfully removed!`);
 
+      this.save();
       return true;
     } catch (err) {
       console.error(err.message);
@@ -293,6 +311,7 @@ class TaskCollection {
 
   clear() {
     this._collection = [];
+    this.save();
     console.log('Task collection was cleared.');
   }
 
@@ -317,6 +336,7 @@ class TaskCollection {
       this._collection[index].comments.push(newComment);
       console.log(`New comment has been added to task with id: "${id}"!`);
 
+      this.save();
       return true;
     } catch (err) {
       console.error(err.message);

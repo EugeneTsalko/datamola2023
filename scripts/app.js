@@ -14,8 +14,26 @@
 // const completeTaskFeed = new TaskFeedView('completeList');
 
 // const taskPage = new TaskView('main');
+
+function initStorage() {
+  const tasks = localStorage.getItem('tasks');
+  const users = localStorage.getItem('users');
+
+  if (!tasks) {
+    localStorage.setItem('tasks', JSON.stringify(mockTasks));
+  }
+
+  if (!users) {
+    localStorage.setItem('users', JSON.stringify(mockUsers));
+  }
+}
+
+initStorage();
+
+//
+
 const appParams = {
-  tasksArr: mockTasks,
+  // tasksArr: mockTasks,
   usersArr: mockUsers,
   headerRoot: 'header-nav',
   filterRoot: 'filter-assignee',

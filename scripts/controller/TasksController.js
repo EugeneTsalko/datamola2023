@@ -1,7 +1,7 @@
 class TasksController {
   constructor(params) {
     const {
-      tasksArr,
+      // tasksArr,
       usersArr,
       headerRoot,
       filterRoot,
@@ -10,7 +10,7 @@ class TasksController {
       completeRoot,
       fullTaskRoot,
     } = params;
-    this.tasks = new TaskCollection(tasksArr);
+    this.tasks = new TaskCollection();
     this.users = new UserCollection(usersArr);
     this.header = new HeaderView(headerRoot);
     this.filter = new FilterView(filterRoot);
