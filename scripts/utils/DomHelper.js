@@ -27,7 +27,7 @@ class DomHelper {
       <div class="task-card" id="task-${_id}">
         <div class="task-header">
           <h4>${name}</h4>
-          <div class="task-buttons ${user ? '' : 'hidden'}">
+          <div class="task-buttons ${assignee === user ? '' : 'hidden'}">
             <button class="btn secondary-btn edit-btn"></button>
             <button class="btn secondary-btn delete-btn"></button>
           </div>
@@ -137,7 +137,7 @@ class DomHelper {
     fullTask.innerHTML = `
       <div class="full-task-header">
         <h2 class="title">${name}</h2>
-        <div class="full-task-buttons">
+        <div class="full-task-buttons ${assignee === tasks.user ? '' : 'hidden'}">
           <button class="btn secondary-btn edit-btn"></button>
           <button class="btn secondary-btn delete-btn"></button>
         </div>

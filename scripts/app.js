@@ -35,14 +35,14 @@ addTask({
 
 // removeTask('24');
 
-editTask('23', {
-  name: 'Edited test Addtask',
-  description: 'Edited addtask descr',
-  assignee: 'EditedAssignee',
-  status: 'In progress',
-  priority: 'High',
-  isPrivate: true,
-});
+// editTask('23', {
+//   name: 'Edited test Addtask',
+//   description: 'Edited addtask descr',
+//   assignee: 'EditedAssignee',
+//   status: 'In progress',
+//   priority: 'High',
+//   isPrivate: true,
+// });
 
 // showTask('3');
 // closeTask();

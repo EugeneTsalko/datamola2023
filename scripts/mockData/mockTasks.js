@@ -7,7 +7,7 @@ const mockTasks = [
     assignee: 'IvanovIvan',
     status: 'To Do',
     priority: 'High',
-    isPrivate: false,
+    isPrivate: true,
     comments: [],
   },
   {
