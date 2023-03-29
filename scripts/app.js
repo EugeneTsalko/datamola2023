@@ -1,30 +1,41 @@
 // init
 
-const tasks = new TaskCollection(mockTasks);
+// const tasks = new TaskCollection(mockTasks);
 
-const headerView = new HeaderView('header-nav');
-headerView.display();
+// const headerView = new HeaderView('header-nav');
+// headerView.display();
 
-const filterView = new FilterView('filter-assignee');
+// const filterView = new FilterView('filter-assignee');
 
-const toDoTaskFeed = new TaskFeedView('toDoList');
+// const toDoTaskFeed = new TaskFeedView('toDoList');
 
-const inProgressTaskFeed = new TaskFeedView('inProgressList');
+// const inProgressTaskFeed = new TaskFeedView('inProgressList');
 
-const completeTaskFeed = new TaskFeedView('completeList');
+// const completeTaskFeed = new TaskFeedView('completeList');
 
-const taskPage = new TaskView('main');
+// const taskPage = new TaskView('main');
+const appParams = {
+  tasksArr: mockTasks,
+  headerRoot: 'header-nav',
+  filterRoot: 'filter-assignee',
+  toDoRoot: 'toDoList',
+  inProgressRoot: 'inProgressList',
+  completeRoot: 'completeList',
+  fullTaskRoot: 'main',
+};
+
+const app = new TasksController(appParams);
 
 // test
 
-setCurrentUser('IvanovIvan');
+// setCurrentUser('IvanovIvan');
 
-addTask({
-  name: 'test addtask',
-  description: 'addtask descr',
-  status: 'Complete',
-  priority: 'Low',
-});
+// addTask({
+//   name: 'test addtask',
+//   description: 'addtask descr',
+//   status: 'Complete',
+//   priority: 'Low',
+// });
 
 // addTask({
 //   name: 'THIS TASK WILL BE REMOVED',
