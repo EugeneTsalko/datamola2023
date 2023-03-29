@@ -2,7 +2,7 @@ class TasksController {
   constructor(params) {
     const {
       // tasksArr,
-      usersArr,
+      // usersArr,
       headerRoot,
       filterRoot,
       toDoRoot,
@@ -11,7 +11,7 @@ class TasksController {
       fullTaskRoot,
     } = params;
     this.tasks = new TaskCollection();
-    this.users = new UserCollection(usersArr);
+    this.users = new UserCollection();
     this.header = new HeaderView(headerRoot);
     this.filter = new FilterView(filterRoot);
     this.toDoFeed = new TaskFeedView(toDoRoot);
@@ -94,4 +94,103 @@ class TasksController {
   }
 
   //
+
+  addTask(task) {
+    try {
+      if (!checkIsObj(task)) {
+        throw new Error(getCustomError.invalidObjParam('task', 'TasksController.addTask'));
+      }
+
+      const {
+        name, description, status, priority, isPrivate,
+      } = task;
+
+      if (!this.tasks.add(name, description, status, priority, isPrivate)) {
+        throw new Error('Task wasn`t added.');
+      }
+
+      DomHelper.reRenderTaskColumn(status);
+    } catch (err) {
+      console.error(err.message);
+    }
+  }
+
+  editTask(id, task) {
+    try {
+      if (!checkStr(id)) {
+        throw new Error(getCustomError.invalidId('TasksController.editTask'));
+      }
+
+      if (!checkIsObj(task)) {
+        throw new Error(getCustomError.invalidObjParam('task', 'TasksController.editTask'));
+      }
+
+      const {
+        name, description, assignee, status, priority, isPrivate,
+      } = task;
+      const oldTask = this.tasks.get(id);
+
+      if (!this.tasks.edit(id, name, description, assignee, status, priority, isPrivate)) {
+        throw new Error('Task wasn`t edited.');
+      }
+
+      if (oldTask.status === status) {
+        DomHelper.reRenderTaskColumn(status);
+      } else {
+        DomHelper.reRenderTaskColumn(oldTask.status);
+        DomHelper.reRenderTaskColumn(status);
+      }
+    } catch (err) {
+      console.error(err.message);
+    }
+  }
+
+  removeTask(id) {
+    try {
+      const task = this.tasks.get(id);
+
+      if (!this.tasks.remove(id)) {
+        throw new Error('Task wasn`t removed.');
+      }
+
+      DomHelper.reRenderTaskColumn(task.status);
+    } catch (err) {
+      console.error(err.message);
+    }
+  }
+
+  showTask(id) {
+    try {
+      const task = this.tasks.get(id);
+
+      if (!task || !this.tasks.user) {
+        throw new Error('Task page can`t be shown.');
+      }
+
+      document.getElementById('fullTask')?.remove();
+      document.getElementById('menu').classList.add('undisplayed');
+      document.getElementById('board').classList.add('undisplayed');
+
+      this.header.display({ user: this.tasks.user, isTaskPage: true });
+      this.fullTask.display(task);
+    } catch (err) {
+      console.error(err.message);
+    }
+  }
+
+  closeTask() {
+    try {
+      if (!this.tasks.user) {
+        throw new Error('You need to be authorized for this.');
+      }
+
+      document.getElementById('fullTask')?.remove();
+      document.getElementById('menu').classList.remove('undisplayed');
+      document.getElementById('board').classList.remove('undisplayed');
+
+      this.header.display({ user: this.tasks.user });
+    } catch (err) {
+      console.error(err.message);
+    }
+  }
 }
