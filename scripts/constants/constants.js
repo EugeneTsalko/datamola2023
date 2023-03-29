@@ -15,3 +15,5 @@ const TASK_PRIORITY = {
   medium: 'Medium',
   high: 'High',
 };
+
+USERNAME_MAX_LENGTH = 100;

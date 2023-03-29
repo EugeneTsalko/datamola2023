@@ -16,6 +16,7 @@
 // const taskPage = new TaskView('main');
 const appParams = {
   tasksArr: mockTasks,
+  usersArr: mockUsers,
   headerRoot: 'header-nav',
   filterRoot: 'filter-assignee',
   toDoRoot: 'toDoList',
