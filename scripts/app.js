@@ -47,6 +47,10 @@ const app = new TasksController(appParams);
 
 // test
 
+app.login('IvanovIvan');
+
+// test
+
 // setCurrentUser('IvanovIvan');
 
 // addTask({

@@ -172,7 +172,7 @@ class TasksController {
       document.getElementById('board').classList.add('undisplayed');
 
       this.header.display({ user: this.tasks.user, isTaskPage: true });
-      this.fullTask.display(task);
+      this.fullTask.display(task, this.tasks.user);
     } catch (err) {
       console.error(err.message);
     }

@@ -18,10 +18,14 @@ class DomHelper {
   }
 
   static createTaskCard(task, user) {
-    const container = document.createElement('li');
     const {
       _id, name, description, _createdAt, assignee, status, priority, isPrivate, comments,
     } = task;
+    const container = DomHelper.createNode('li', [], { id: `task-${_id}` });
+
+    container.addEventListener('click', () => {
+      app.showTask(_id);
+    });
 
     container.innerHTML = `
       <div class="task-card" id="task-${_id}">
@@ -126,7 +130,7 @@ class DomHelper {
     return container;
   }
 
-  static createFullTask(task) {
+  static createFullTask(task, user) {
     const {
       _id, name, description, _createdAt, assignee, status, priority, isPrivate, comments,
     } = task;
@@ -137,7 +141,7 @@ class DomHelper {
     fullTask.innerHTML = `
       <div class="full-task-header">
         <h2 class="title">${name}</h2>
-        <div class="full-task-buttons ${assignee === tasks.user ? '' : 'hidden'}">
+        <div class="full-task-buttons ${assignee === user ? '' : 'hidden'}">
           <button class="btn secondary-btn edit-btn"></button>
           <button class="btn secondary-btn delete-btn"></button>
         </div>
@@ -179,7 +183,7 @@ class DomHelper {
         </div>
       </div>`;
 
-    container.append(fullTask, DomHelper.createCommentsSection(comments, tasks.user));
+    container.append(fullTask, DomHelper.createCommentsSection(comments, user));
 
     return container;
   }
