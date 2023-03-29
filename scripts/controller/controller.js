@@ -2,83 +2,83 @@
 // внутри колумнов будет использоваться что-то типа ф-ций ниже
 // TODO придумать как это переписать по DRY при использовании с ивентами
 
-function getToDoFeed(skip = 0, top = 10, filterConfig = null) {
-  toDoTaskFeed.display({
-    user: tasks.user,
-    tasks: tasks.getPage(skip, top, filterConfig, TASK_STATUS.toDo),
-  });
-  console.log(`Render column ${TASK_STATUS.toDo}`);
-}
+// function getToDoFeed(skip = 0, top = 10, filterConfig = null) {
+//   toDoTaskFeed.display({
+//     user: tasks.user,
+//     tasks: tasks.getPage(skip, top, filterConfig, TASK_STATUS.toDo),
+//   });
+//   console.log(`Render column ${TASK_STATUS.toDo}`);
+// }
 
-function getInProgressTaskFeed(skip = 0, top = 10, filterConfig = null) {
-  inProgressTaskFeed.display({
-    user: tasks.user,
-    tasks: tasks.getPage(skip, top, filterConfig, TASK_STATUS.inProgress),
-  });
-  console.log(`Render column ${TASK_STATUS.inProgress}`);
-}
+// function getInProgressTaskFeed(skip = 0, top = 10, filterConfig = null) {
+//   inProgressTaskFeed.display({
+//     user: tasks.user,
+//     tasks: tasks.getPage(skip, top, filterConfig, TASK_STATUS.inProgress),
+//   });
+//   console.log(`Render column ${TASK_STATUS.inProgress}`);
+// }
 
-function getCompleteTaskFeed(skip = 0, top = 10, filterConfig = null) {
-  completeTaskFeed.display({
-    user: tasks.user,
-    tasks: tasks.getPage(skip, top, filterConfig, TASK_STATUS.complete),
-  });
-  console.log(`Render column ${TASK_STATUS.complete}`);
-}
+// function getCompleteTaskFeed(skip = 0, top = 10, filterConfig = null) {
+//   completeTaskFeed.display({
+//     user: tasks.user,
+//     tasks: tasks.getPage(skip, top, filterConfig, TASK_STATUS.complete),
+//   });
+//   console.log(`Render column ${TASK_STATUS.complete}`);
+// }
 
 // этот метод требует доработки, т.к. не могу придумать как нормально юзать TaskCollection.getPage,
 // чтобы пагинация работала независимо в колонках.
 // Вообще можно обойтись без него, написал потому что требуется в ДЗ
 
-function getFeed(skip = 0, top = 10, filterConfig = null) {
-  try {
-    getToDoFeed(skip, top, filterConfig);
-    getInProgressTaskFeed(skip, top, filterConfig);
-    getCompleteTaskFeed(skip, top, filterConfig);
-  } catch (err) {
-    console.error(err.message);
-  }
-}
+// function getFeed(skip = 0, top = 10, filterConfig = null) {
+//   try {
+//     getToDoFeed(skip, top, filterConfig);
+//     getInProgressTaskFeed(skip, top, filterConfig);
+//     getCompleteTaskFeed(skip, top, filterConfig);
+//   } catch (err) {
+//     console.error(err.message);
+//   }
+// }
 
-function setCurrentUser(user) {
-  try {
-    if (!checkIsLoginValid(user)) {
-      throw new Error(getCustomError.invalidLogin('setCurrentUser'));
-    }
+// function setCurrentUser(user) {
+//   try {
+//     if (!checkIsLoginValid(user)) {
+//       throw new Error(getCustomError.invalidLogin('setCurrentUser'));
+//     }
 
-    // имхо tasks и headerView правильнее передавать параметрами во все ф-ции, но в ТЗ так
-    // TODO придумать как переделать на единый источник истины по поводу user (мб localStorage)
+//     // имхо tasks и headerView правильнее передавать параметрами во все ф-ции, но в ТЗ так
+//     // TODO придумать как переделать на единый источник истины по поводу user (мб localStorage)
 
-    tasks.user = user;
-    headerView.display({ user });
-    filterView.display({ user, assignees: tasks.assignees });
+//     tasks.user = user;
+//     headerView.display({ user });
+//     filterView.display({ user, assignees: tasks.assignees });
 
-    getFeed();
-  } catch (err) {
-    console.error(err.message);
-  }
-}
+//     getFeed();
+//   } catch (err) {
+//     console.error(err.message);
+//   }
+// }
 
-function logOutUser() {
-  try {
-    if (!tasks.user) {
-      throw new Error('Before log out you need to Sign In.');
-    }
+// function logOutUser() {
+//   try {
+//     if (!tasks.user) {
+//       throw new Error('Before log out you need to Sign In.');
+//     }
 
-    document.getElementById('fullTask')?.remove();
-    document.getElementById('menu').classList.remove('undisplayed');
-    document.getElementById('board').classList.remove('undisplayed');
+//     document.getElementById('fullTask')?.remove();
+//     document.getElementById('menu').classList.remove('undisplayed');
+//     document.getElementById('board').classList.remove('undisplayed');
 
-    tasks.logOut();
+//     tasks.logOut();
 
-    headerView.display();
-    filterView.display({ assignees: tasks.assignees });
+//     headerView.display();
+//     filterView.display({ assignees: tasks.assignees });
 
-    getFeed();
-  } catch (err) {
-    console.error(err.message);
-  }
-}
+//     getFeed();
+//   } catch (err) {
+//     console.error(err.message);
+//   }
+// }
 
 function addTask(task) {
   try {
