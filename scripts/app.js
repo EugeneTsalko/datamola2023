@@ -17,14 +17,14 @@ const taskPage = new TaskView('main');
 
 // test
 
-// setCurrentUser('IvanovIvan');
+setCurrentUser('IvanovIvan');
 
-// addTask({
-//   name: 'test addtask',
-//   description: 'addtask descr',
-//   status: 'Complete',
-//   priority: 'Low',
-// });
+addTask({
+  name: 'test addtask',
+  description: 'addtask descr',
+  status: 'Complete',
+  priority: 'Low',
+});
 
 // addTask({
 //   name: 'THIS TASK WILL BE REMOVED',
@@ -35,14 +35,14 @@ const taskPage = new TaskView('main');
 
 // removeTask('24');
 
-// editTask('23', {
-//   name: 'Edited test Addtask',
-//   description: 'Edited addtask descr',
-//   assignee: 'EditedAssignee',
-//   status: 'In progress',
-//   priority: 'High',
-//   isPrivate: true,
-// });
+editTask('23', {
+  name: 'Edited test Addtask',
+  description: 'Edited addtask descr',
+  assignee: 'EditedAssignee',
+  status: 'In progress',
+  priority: 'High',
+  isPrivate: true,
+});
 
 // showTask('3');
 // closeTask();

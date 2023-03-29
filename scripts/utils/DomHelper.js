@@ -185,23 +185,20 @@ class DomHelper {
   }
 
   static reRenderTaskColumn(status, user = null) {
-    let taskFeed = null;
     switch (status) {
       case TASK_STATUS.toDo:
-        taskFeed = getToDoFeed;
+        getToDoFeed();
         break;
       case TASK_STATUS.inProgress:
-        taskFeed = getInProgressTaskFeed;
+        getInProgressTaskFeed();
         break;
 
       case TASK_STATUS.complete:
-        taskFeed = getCompleteTaskFeed;
+        getCompleteTaskFeed();
         break;
 
       default:
         break;
     }
-
-    taskFeed();
   }
 }
