@@ -34,7 +34,7 @@ initStorage();
 
 const appParams = {
   // tasksArr: mockTasks,
-  usersArr: mockUsers,
+  // usersArr: mockUsers,
   headerRoot: 'header-nav',
   filterRoot: 'filter-assignee',
   toDoRoot: 'toDoList',
