@@ -1,4 +1,9 @@
 :root {
+  --white: #ffffff;
+  --black: #333333;
+  --main: #78bec5;
+  --orange: #dc685a;
+  --yellow: #ecaf4f;
 }
 
 * {
@@ -8,9 +13,9 @@
 }
 
 body {
-  font-family: Arial, sans-serif;
+  font-family: 'Nanum Pen Script', cursive;
   font-size: 32px;
-  font-weight: 600;
+  color: var(--black);
   height: 100vh;
   display: grid;
   place-items: center;
@@ -24,10 +29,51 @@ body {
   gap: 0.25rem;
 }
 
-.box {
-  border: 1px solid red;
+.field {
+  display: grid;
+  place-items: center;
+  border-radius: 0.5rem;
+  font-size: 5rem;
+  color: var(--white);
+  background-color: var(--main);
 }
 
-.box:hover {
+.x {
+  background-color: var(--orange);
+}
+
+.o {
+  background-color: var(--yellow);
+}
+
+.o-win {
+  background-color: red;
+}
+
+.x-win {
+  background-color: blue;
+}
+
+.tie {
+  background-color: gray;
+}
+
+.field:hover {
   cursor: pointer;
+}
+
+.results {
+  display: none;
+  width: 200px;
+  top: 120px;
+  background-color: rgba(205, 133, 63, 0.8);
+  position: absolute;
+  left: 50%;
+  margin-left: -100px;
+  padding-top: 50px;
+  padding-bottom: 50px;
+  text-align: center;
+  border-radius: 5px;
+  color: white;
+  font-size: 0.5rem;
 }
