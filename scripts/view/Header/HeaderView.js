@@ -28,10 +28,10 @@ class HeaderView {
         if (isTaskPage) {
           navContent = `
             <span>Hi, ${this.user}!</span>
-            <a href="index.html" class="btn secondary-btn to-main-btn" id="toMainBtn">
-              <img src="./assets/svg/back.svg" alt="return">
-              <span>TO MAIN</span>
-            </a>
+            <button class="btn secondary-btn to-main-btn" id="toMainBtn">
+              <img src="./assets/svg/back.svg" alt="return" id="toMainBtn">
+              <span id="toMainBtn">TO MAIN</span>
+            </button>
             <button class="btn secondary-btn icon-btn profile-btn" id="profileBtn"></button>
             <button class="btn logout-btn" id="logOutBtn"></button>
           `;
@@ -39,10 +39,10 @@ class HeaderView {
 
         if (isProfilePage) {
           navContent = `
-            <a href="index.html" class="btn secondary-btn to-main-btn" id="toMainBtn">
-              <img src="./assets/svg/back.svg" alt="return">
-              <span>TO MAIN</span>
-            </a>
+            <button class="btn secondary-btn to-main-btn" id="toMainBtn">
+              <img src="./assets/svg/back.svg" alt="return" id="toMainBtn">
+              <span id="toMainBtn">TO MAIN</span>
+            </button>
             <button class="btn logout-btn" id="logOutBtn"></button>
           `;
         }

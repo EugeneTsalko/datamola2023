@@ -15,9 +15,27 @@ window.onload = function () {
     if (event.target.id === 'toMainBtn') {
       app.closeTask();
     }
+
+    if (event.target.id === 'signUpBtn') {
+      console.log('SIGN UP');
+    }
+
+    if (event.target.id === 'signInBtn') {
+      console.log('SIGN IN');
+      //
+      app.login('IvanovIvan');
+    }
+
+    if (event.target.id === 'profileBtn') {
+      console.log('TO PROFILE!');
+    }
+
+    if (event.target.id === 'logOutBtn') {
+      app.logOut();
+    }
+
+    if (event.target.id === 'addTaskBtn') {
+      console.log('ADD TASK!');
+    }
   });
-
-  //
-
-  app.login('IvanovIvan');
 };

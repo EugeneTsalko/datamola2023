@@ -28,7 +28,7 @@ class TasksController {
 
       this.tasks.user = user;
       this.header.display({ user });
-      this.filter.display({ user, assignees: this.tasks.assignees });
+      this.filter.display({ user: this.tasks.user, assignees: this.tasks.assignees });
 
       this.getFeed();
     } catch (err) {
@@ -189,6 +189,7 @@ class TasksController {
       document.getElementById('board').classList.remove('undisplayed');
 
       this.header.display({ user: this.tasks.user });
+      // this.filter.display({ user: this.tasks.user });
     } catch (err) {
       console.error(err.message);
     }

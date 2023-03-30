@@ -15,6 +15,10 @@ class FilterView {
           addTaskBtn.classList.remove('hidden');
         }
 
+        if (!user && !addTaskBtn.classList.contains('hidden')) {
+          addTaskBtn.classList.add('hidden');
+        }
+
         if (assignees) {
           const ul = DomHelper.createNode('ul', ['checkbox-dropdown-list', 'undisplayed'], {
             id: 'assigneesList',
@@ -23,10 +27,6 @@ class FilterView {
 
           this.root.append(ul);
         }
-      }
-
-      if (!params && !addTaskBtn.classList.contains('hidden')) {
-        addTaskBtn.classList.add('hidden');
       }
 
       console.log('Render Filter');
