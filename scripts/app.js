@@ -41,6 +41,7 @@ const appParams = {
   inProgressRoot: 'inProgressList',
   completeRoot: 'completeList',
   fullTaskRoot: 'main',
+  profileRoot: 'main',
 };
 
 const app = new TasksController(appParams);

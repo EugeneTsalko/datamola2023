@@ -205,4 +205,70 @@ class DomHelper {
         break;
     }
   }
+
+  static createProfilePage(user) {
+    const { _login, name, image } = user;
+    const container = DomHelper.createNode('section', ['user-container'], { id: 'profilePage' });
+
+    container.innerHTML = `
+      <div class="profile-info">
+        <div class="profile-header">
+          <h3>Hi, ${_login}!</h3>
+          <button class="btn secondary-btn close-btn" id="closeProfileBtn"></button>
+        </div>
+
+        <form class="user-form active">
+          <div class="avatar-container">
+            <div class="avatar active">
+              <img class="avatar-img" src="${image}" alt="user-img">
+            </div>
+            <button class="icon-btn avatar-btn-male"></button>
+            <button class="icon-btn avatar-btn-female"></button>
+            <label class="input-file-label">
+              <input type="file" name="input-file">
+            </label>
+          </div>
+
+          <label for="name" class="text-input">
+            <input type="text" id="name" placeholder="&nbsp;">
+            <span class="label">New name</span>
+            <span class="focus-bg"></span>
+          </label>
+
+          <label for="login" class="text-input hidden">
+            <input type="text" id="login" placeholder="&nbsp;">
+            <span class="label">Username</span>
+            <span class="focus-bg"></span>
+          </label>
+
+          <label for="old-password" class="text-input">
+            <input type="password" id="old-password" placeholder="&nbsp;">
+            <span class="label">Old password</span>
+            <span class="focus-bg"></span>
+          </label>
+
+          <label for="new-password" class="text-input">
+            <input type="password" id="new-password" placeholder="&nbsp;">
+            <span class="label">New password</span>
+            <span class="focus-bg"></span>
+          </label>
+
+          <label for="confirm-password" class="text-input">
+            <input type="password" id="confirm-password" placeholder="&nbsp;">
+            <span class="label">Confirm new password</span>
+            <span class="focus-bg"></span>
+          </label>
+
+          <div class="user-form-btns">
+            <button class="btn secondary-btn cancel-btn">CANCEL</button>
+            <button class="btn secondary-btn save-btn">SAVE</button>
+          </div>
+        </form>
+      </div>
+      
+    <img class="profile-cover" src="./assets/png/profile-cover.png" alt="profile cover">
+    `;
+
+    return container;
+  }
 }

@@ -12,8 +12,10 @@ window.onload = function () {
   // );
 
   document.addEventListener('click', (event) => {
+    event.preventDefault();
+
     if (event.target.id === 'toMainBtn') {
-      app.closeTask();
+      app.backToMain();
     }
 
     if (event.target.id === 'signUpBtn') {
@@ -28,6 +30,8 @@ window.onload = function () {
 
     if (event.target.id === 'profileBtn') {
       console.log('TO PROFILE!');
+      //
+      app.showProfile();
     }
 
     if (event.target.id === 'logOutBtn') {

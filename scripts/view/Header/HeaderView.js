@@ -27,12 +27,10 @@ class HeaderView {
 
         if (isTaskPage) {
           navContent = `
-            <span>Hi, ${this.user}!</span>
             <button class="btn secondary-btn to-main-btn" id="toMainBtn">
               <img src="./assets/svg/back.svg" alt="return" id="toMainBtn">
               <span id="toMainBtn">TO MAIN</span>
             </button>
-            <button class="btn secondary-btn icon-btn profile-btn" id="profileBtn"></button>
             <button class="btn logout-btn" id="logOutBtn"></button>
           `;
         }

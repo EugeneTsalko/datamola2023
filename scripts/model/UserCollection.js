@@ -8,6 +8,26 @@ class UserCollection {
     return this._collection;
   }
 
+  get(login) {
+    try {
+      if (!checkIsLoginValid(login)) {
+        throw new Error(getCustomError.invalidLogin('UserCollection.get'));
+      }
+
+      const user = this.collection.find((elem) => elem.login === login);
+
+      if (!user) {
+        throw new Error(`User with login: "${login}" was not found.`);
+      }
+
+      return user;
+    } catch (err) {
+      console.error(err.message);
+
+      return null;
+    }
+  }
+
   add(login, name, image) {
     try {
       const newUser = new User(login, name, image);

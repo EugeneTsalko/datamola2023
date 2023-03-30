@@ -9,6 +9,7 @@ class TasksController {
       inProgressRoot,
       completeRoot,
       fullTaskRoot,
+      profileRoot,
     } = params;
     this.tasks = new TaskCollection();
     this.users = new UserCollection();
@@ -18,6 +19,7 @@ class TasksController {
     this.inProgressFeed = new TaskFeedView(inProgressRoot);
     this.completeFeed = new TaskFeedView(completeRoot);
     this.fullTask = new TaskView(fullTaskRoot);
+    this.profile = new ProfileView(profileRoot);
   }
 
   login(user) {
@@ -178,18 +180,37 @@ class TasksController {
     }
   }
 
-  closeTask() {
+  backToMain() {
     try {
       if (!this.tasks.user) {
         throw new Error('You need to be authorized for this.');
       }
 
       document.getElementById('fullTask')?.remove();
+      document.getElementById('profilePage')?.remove();
       document.getElementById('menu').classList.remove('undisplayed');
       document.getElementById('board').classList.remove('undisplayed');
 
       this.header.display({ user: this.tasks.user });
-      // this.filter.display({ user: this.tasks.user });
+    } catch (err) {
+      console.error(err.message);
+    }
+  }
+
+  showProfile() {
+    try {
+      const user = this.users.get(this.tasks.user);
+
+      if (!user) {
+        throw new Error('Profile page can`t be shown.');
+      }
+
+      document.getElementById('profilePage')?.remove();
+      document.getElementById('menu').classList.add('undisplayed');
+      document.getElementById('board').classList.add('undisplayed');
+
+      this.header.display({ user: this.tasks.user, isProfilePage: true });
+      this.profile.display(user);
     } catch (err) {
       console.error(err.message);
     }
