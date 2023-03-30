@@ -47,7 +47,7 @@ const app = new TasksController(appParams);
 
 // test
 
-app.login('IvanovIvan');
+// app.login('IvanovIvan');
 
 // test
 
