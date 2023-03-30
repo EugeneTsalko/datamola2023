@@ -28,9 +28,9 @@ class UserCollection {
     }
   }
 
-  add(login, name, image) {
+  add(login, name, image, password) {
     try {
-      const newUser = new User(login, name, image);
+      const newUser = new User(login, name, image, password);
 
       if (!User.validate(newUser)) {
         throw new Error("Can't add invalid user.");

@@ -2,7 +2,7 @@ window.onload = function () {
   console.log('Page is loaded!');
 
   if (localStorage.getItem('user')) {
-    app.signIn(localStorage.getItem('user'));
+    app.login(localStorage.getItem('user'));
   } else {
     app.getFeed();
   }
@@ -21,9 +21,7 @@ window.onload = function () {
     }
 
     if (event.target.id === 'signInBtn') {
-      console.log('SIGN IN');
-      //
-      app.login('IvanovIvan');
+      app.showSignIn();
     }
 
     if (event.target.id === 'profileBtn') {
@@ -50,7 +48,19 @@ window.onload = function () {
         document.getElementById('auth')?.remove();
         document.getElementById('menu').classList.remove('undisplayed');
         document.getElementById('board').classList.remove('undisplayed');
-        app.signIn(user.login);
+        app.login(user.login);
+      }
+    }
+
+    if (event.target.id === 'authSignIn') {
+      const user = app.signIn();
+
+      console.log('auth', user);
+
+      if (user) {
+        document.getElementById('auth')?.remove();
+        document.getElementById('menu').classList.remove('undisplayed');
+        document.getElementById('board').classList.remove('undisplayed');
       }
     }
   });

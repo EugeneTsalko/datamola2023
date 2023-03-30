@@ -282,7 +282,7 @@ class DomHelper {
       </div>
 
       <form class="auth-form" id="authForm">
-        <label for="name" class="text-input">
+        <label for="name" class="text-input ${type === AUTH_TYPE.signUp ? '' : 'undisplayed'}">
           <input type="text" id="name" maxlength="100" placeholder="&nbsp;">
           <span class="label">Name*</span>
           <span class="focus-bg"></span>
@@ -297,13 +297,15 @@ class DomHelper {
           <span class="label">Password*</span>
           <span class="focus-bg"></span>
         </label>
-        <label for="passwordConfirm" class="text-input">
+        <label for="passwordConfirm" class="text-input ${
+  type === AUTH_TYPE.signUp ? '' : 'undisplayed'
+}">
           <input type="password" id="passwordConfirm" placeholder="&nbsp;">
           <span class="label">Confirm password*</span>
           <span class="focus-bg"></span>
         </label>
 
-        <div class="avatar-wrapper">
+        <div class="avatar-wrapper ${type === AUTH_TYPE.signUp ? '' : 'undisplayed'}">
           <p>Choose avatar:</p>
           <div class="avatar-container">
             <button class="icon-btn avatar-btn-male"></button>
@@ -315,7 +317,9 @@ class DomHelper {
         </div>
       </form>
 
-      <button type="submit" form="auth-form" class="btn" id="authSignUp">${type.toUpperCase()}</button>
+      <button type="submit" form="auth-form" class="btn" id="${
+  type === AUTH_TYPE.signUp ? 'authSignUp' : 'authSignIn'
+}">${type.toUpperCase()}</button>
       <div class="auth-footer">
         <span>${type === AUTH_TYPE.signUp ? 'Already' : 'Don`t'} have an account?</span>
         <button>${type === AUTH_TYPE.signUp ? 'Sign in' : 'Sign up'}</button>

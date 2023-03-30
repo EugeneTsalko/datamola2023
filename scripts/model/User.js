@@ -1,8 +1,9 @@
 class User {
-  constructor(login, name, image) {
+  constructor(login, name, image, password) {
     this._login = login;
     this.name = name;
     this.image = image;
+    this.password = password;
   }
 
   get login() {

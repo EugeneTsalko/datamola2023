@@ -38,6 +38,18 @@ class TasksController {
     }
   }
 
+  showSignIn() {
+    try {
+      document.getElementById('menu').classList.add('undisplayed');
+      document.getElementById('board').classList.add('undisplayed');
+
+      this.header.display({ isAuth: true });
+      this.auth.display(AUTH_TYPE.signIn);
+    } catch (err) {
+      console.error(err.message);
+    }
+  }
+
   signUp() {
     try {
       const form = document.getElementById('authForm');
@@ -50,7 +62,7 @@ class TasksController {
         throw new Error('Passwords should be the same and min 8 symbol length.');
       }
 
-      const user = new User(login, name, '../../UI/assets/svg/man.svg'); // TODO image
+      const user = new User(login, name, '../../UI/assets/svg/man.svg', pass); // TODO image
 
       console.log(name);
       if (!User.validate(user)) {
@@ -69,22 +81,40 @@ class TasksController {
     }
   }
 
-  signIn(user) {
+  signIn() {
     try {
-      if (!checkIsLoginValid(user)) {
-        throw new Error(getCustomError.invalidLogin('login'));
+      const form = document.getElementById('authForm');
+      const login = form.login.value;
+      const pass = form.password.value;
+
+      const user = this.users.get(login);
+
+      if (!user) {
+        throw new Error(`User with login "${login} doesn't exist".`);
       }
 
-      localStorage.setItem('user', user);
+      if (pass !== user.password) {
+        throw new Error('Invalid password');
+      }
 
-      this.tasks.user = user;
-      this.header.display({ user });
-      this.filter.display({ user: this.tasks.user, assignees: this.tasks.assignees });
+      this.login(user.login);
 
-      this.getFeed();
+      return user;
     } catch (err) {
       console.error(err.message);
+
+      return null;
     }
+  }
+
+  login(login) {
+    localStorage.setItem('user', login);
+
+    this.tasks.user = login;
+    this.header.display({ user: login });
+    this.filter.display({ user: this.tasks.user, assignees: this.tasks.assignees });
+
+    this.getFeed();
   }
 
   logOut() {
