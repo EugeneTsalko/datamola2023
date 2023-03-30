@@ -13,7 +13,7 @@ class HeaderView {
 
       if (checkIsObj(params)) {
         const {
-          user, isProfilePage, isTaskPage, isErrorPage,
+          user, isProfilePage, isTaskPage, isErrorPage, isAuth,
         } = params;
 
         if (user) {
@@ -42,6 +42,15 @@ class HeaderView {
               <span id="toMainBtn">TO MAIN</span>
             </button>
             <button class="btn logout-btn" id="logOutBtn"></button>
+          `;
+        }
+
+        if (isAuth) {
+          navContent = `
+            <button class="btn secondary-btn to-main-btn" id="toMainBtn">
+              <img src="./assets/svg/back.svg" alt="return" id="toMainBtn">
+              <span id="toMainBtn">TO MAIN</span>
+            </button>
           `;
         }
 

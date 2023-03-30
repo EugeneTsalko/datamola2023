@@ -10,6 +10,7 @@ class TasksController {
       completeRoot,
       fullTaskRoot,
       profileRoot,
+      authRoot,
     } = params;
     this.tasks = new TaskCollection();
     this.users = new UserCollection();
@@ -20,7 +21,10 @@ class TasksController {
     this.completeFeed = new TaskFeedView(completeRoot);
     this.fullTask = new TaskView(fullTaskRoot);
     this.profile = new ProfileView(profileRoot);
+    this.auth = new AuthorizationView(authRoot);
   }
+
+  //
 
   login(user) {
     try {
@@ -182,12 +186,9 @@ class TasksController {
 
   backToMain() {
     try {
-      if (!this.tasks.user) {
-        throw new Error('You need to be authorized for this.');
-      }
-
       document.getElementById('fullTask')?.remove();
       document.getElementById('profilePage')?.remove();
+      document.getElementById('auth')?.remove();
       document.getElementById('menu').classList.remove('undisplayed');
       document.getElementById('board').classList.remove('undisplayed');
 
@@ -211,6 +212,18 @@ class TasksController {
 
       this.header.display({ user: this.tasks.user, isProfilePage: true });
       this.profile.display(user);
+    } catch (err) {
+      console.error(err.message);
+    }
+  }
+
+  showSignUp() {
+    try {
+      document.getElementById('menu').classList.add('undisplayed');
+      document.getElementById('board').classList.add('undisplayed');
+
+      this.header.display({ isAuth: true });
+      this.auth.display(AUTH_TYPE.signUp);
     } catch (err) {
       console.error(err.message);
     }

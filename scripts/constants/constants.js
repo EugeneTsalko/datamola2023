@@ -17,3 +17,8 @@ const TASK_PRIORITY = {
 };
 
 USERNAME_MAX_LENGTH = 100;
+
+AUTH_TYPE = {
+  signIn: 'Sign in',
+  signUp: 'Sign up',
+};

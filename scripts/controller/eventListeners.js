@@ -20,6 +20,8 @@ window.onload = function () {
 
     if (event.target.id === 'signUpBtn') {
       console.log('SIGN UP');
+      //
+      app.showSignUp();
     }
 
     if (event.target.id === 'signInBtn') {

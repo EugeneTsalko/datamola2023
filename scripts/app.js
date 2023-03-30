@@ -42,6 +42,7 @@ const appParams = {
   completeRoot: 'completeList',
   fullTaskRoot: 'main',
   profileRoot: 'main',
+  authRoot: 'main',
 };
 
 const app = new TasksController(appParams);
