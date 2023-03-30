@@ -15,9 +15,9 @@ class User {
 
   static validate(user) {
     try {
-      if (!(user instanceof User)) {
-        throw new Error(getCustomError.notClassInstance('User'));
-      }
+      // if (!(user instanceof User)) {
+      //   throw new Error(getCustomError.notClassInstance('User'));
+      // }
 
       const error = validateObjBySchema(user, userSchema, 'User.validate');
 

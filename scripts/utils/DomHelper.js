@@ -281,7 +281,7 @@ class DomHelper {
         <span>${type} to continue.</span>
       </div>
 
-      <form class="auth-form" id="auth-form">
+      <form class="auth-form" id="authForm">
         <label for="name" class="text-input">
           <input type="text" id="name" maxlength="100" placeholder="&nbsp;">
           <span class="label">Name*</span>
@@ -293,12 +293,12 @@ class DomHelper {
           <span class="focus-bg"></span>
         </label>
         <label for="password" class="text-input">
-          <input type="text" id="password" placeholder="&nbsp;">
+          <input type="password" id="password" placeholder="&nbsp;">
           <span class="label">Password*</span>
           <span class="focus-bg"></span>
         </label>
         <label for="passwordConfirm" class="text-input">
-          <input type="text" id="passwordConfirm" placeholder="&nbsp;">
+          <input type="password" id="passwordConfirm" placeholder="&nbsp;">
           <span class="label">Confirm password*</span>
           <span class="focus-bg"></span>
         </label>

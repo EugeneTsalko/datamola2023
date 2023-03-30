@@ -24,13 +24,58 @@ class TasksController {
     this.auth = new AuthorizationView(authRoot);
   }
 
-  //
+  // auth
 
-  login(user) {
+  showSignUp() {
+    try {
+      document.getElementById('menu').classList.add('undisplayed');
+      document.getElementById('board').classList.add('undisplayed');
+
+      this.header.display({ isAuth: true });
+      this.auth.display(AUTH_TYPE.signUp);
+    } catch (err) {
+      console.error(err.message);
+    }
+  }
+
+  signUp() {
+    try {
+      const form = document.getElementById('authForm');
+      const name = form.name.value;
+      const login = form.login.value;
+      const pass = form.password.value;
+      const passConfirm = form.passwordConfirm.value;
+
+      if (pass.length < 8 || pass !== passConfirm) {
+        throw new Error('Passwords should be the same and min 8 symbol length.');
+      }
+
+      const user = new User(login, name, '../../UI/assets/svg/man.svg'); // TODO image
+
+      console.log(name);
+      if (!User.validate(user)) {
+        throw new Error('Invalid user');
+      }
+
+      if (!this.users.add(...Object.values(user))) {
+        throw new Error('Already exists');
+      }
+
+      return user;
+    } catch (err) {
+      console.error(err.message);
+
+      return null;
+    }
+  }
+
+  signIn(user) {
     try {
       if (!checkIsLoginValid(user)) {
-        throw new Error(getCustomError.invalidLogin('setCurrentUser'));
+        throw new Error(getCustomError.invalidLogin('login'));
       }
+
+      localStorage.setItem('user', user);
 
       this.tasks.user = user;
       this.header.display({ user });
@@ -51,6 +96,7 @@ class TasksController {
       document.getElementById('fullTask')?.remove();
       document.getElementById('menu').classList.remove('undisplayed');
       document.getElementById('board').classList.remove('undisplayed');
+      localStorage.removeItem('user');
 
       this.tasks.logOut();
 
@@ -212,18 +258,6 @@ class TasksController {
 
       this.header.display({ user: this.tasks.user, isProfilePage: true });
       this.profile.display(user);
-    } catch (err) {
-      console.error(err.message);
-    }
-  }
-
-  showSignUp() {
-    try {
-      document.getElementById('menu').classList.add('undisplayed');
-      document.getElementById('board').classList.add('undisplayed');
-
-      this.header.display({ isAuth: true });
-      this.auth.display(AUTH_TYPE.signUp);
     } catch (err) {
       console.error(err.message);
     }

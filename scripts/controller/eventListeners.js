@@ -1,15 +1,11 @@
 window.onload = function () {
   console.log('Page is loaded!');
-  // app.header.display();
-  app.getFeed();
 
-  const toDolist = document.getElementById('toDoList');
-
-  // toDolist.childNodes.forEach((card) =>
-  //   card.addEventListener('click', (event) => {
-  //     app.showTask(event.currentTarget.id.split('-')[1]);
-  //   }),
-  // );
+  if (localStorage.getItem('user')) {
+    app.signIn(localStorage.getItem('user'));
+  } else {
+    app.getFeed();
+  }
 
   document.addEventListener('click', (event) => {
     event.preventDefault();
@@ -42,6 +38,20 @@ window.onload = function () {
 
     if (event.target.id === 'addTaskBtn') {
       console.log('ADD TASK!');
+    }
+
+    if (event.target.id === 'authSignUp') {
+      //
+      const user = app.signUp();
+
+      console.log('auth', user);
+
+      if (user) {
+        document.getElementById('auth')?.remove();
+        document.getElementById('menu').classList.remove('undisplayed');
+        document.getElementById('board').classList.remove('undisplayed');
+        app.signIn(user.login);
+      }
     }
   });
 };
