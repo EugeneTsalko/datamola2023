@@ -53,20 +53,49 @@
       <nav>
         <div class="filter-container">
           <button class="btn secondary-btn icon-btn filter-btn"></button>
-          <div class="filter-bar">
-            <div class="checkbox-dropdown" id="filter-assignee">
+          <form class="filter-bar">
+            <div class="checkbox-dropdown" id="filterAssignee">
               <span>Assignee</span>
             </div>
-            <div class="checkbox-dropdown" id="filter-date">
+            <div class="checkbox-dropdown" id="filterDate">
               <span>Date</span>
+              <ul class="checkbox-dropdown-list" id="filterDateList">
+                <li>
+                  <label for="dateFrom">Date from: <input type="date" id="dateFrom"></label>
+                </li>
+                <li>
+                  <label for="dateTo">Date to:<input type="date" id="dateTo"></label>
+                </li>
+              </ul>
             </div>
-            <div class="checkbox-dropdown" id="filter-privacy">
+            <div class="checkbox-dropdown" id="filterPrivacy">
               <span>Privacy</span>
+              <ul class="checkbox-dropdown-list" id="filterPrivacyList">
+                <li>
+                  <input type="checkbox" name="privacy" id="private">
+                  <label for="private">Private</label>
+                </li>
+                <li>
+                  <input type="checkbox" name="privacy" id="public">
+                  <label for="public">Public</label>
+                </li>
+              </ul>
             </div>
-            <div class="checkbox-dropdown" id="filter-priority">
+            <div class="checkbox-dropdown" id="filterPriority">
               <span>Priority</span>
+              <ul class="checkbox-dropdown-list" id="filterPriorityList">
+                <li>
+                  <label for="low"><input type="checkbox" id="low">Low</label>
+                </li>
+                <li>
+                  <label for="medium"><input type="checkbox" id="medium">Medium</label>
+                </li>
+                <li>
+                  <label for="high"><input type="checkbox" id="high">High</label>
+                </li>
+              </ul>
             </div>
-          </div>
+          </form>
           <form class="search-form">
             <input type="text" class="search" placeholder="Search...">
             <button type="submit" class="search-btn"></button>

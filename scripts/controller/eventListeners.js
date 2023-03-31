@@ -8,7 +8,7 @@ window.onload = function () {
   }
 
   document.addEventListener('click', (event) => {
-    event.preventDefault();
+    // event.preventDefault();
 
     if (event.target.id === 'toMainBtn') {
       app.backToMain();
@@ -40,6 +40,8 @@ window.onload = function () {
 
     if (event.target.id === 'authSignUp') {
       //
+      event.preventDefault();
+
       const user = app.signUp();
 
       console.log('auth', user);
@@ -53,6 +55,8 @@ window.onload = function () {
     }
 
     if (event.target.id === 'authSignIn') {
+      event.preventDefault();
+
       const user = app.signIn();
 
       console.log('auth', user);
@@ -63,5 +67,42 @@ window.onload = function () {
         document.getElementById('board').classList.remove('undisplayed');
       }
     }
+
+    if (event.target.id.includes('filter')) {
+      event.target.classList.toggle('active');
+    }
   });
+
+  // document.addEventListener('input', (event) => {
+  //   if (event.target.id === 'assignee') {
+  //   }
+  // });
+
+  // document.getElementById('filterPrivacyList').addEventListener('change', (event) => {
+  //   console.log(document.querySelectorAll('input[name=privacy]:checked'));
+  //   const privacy = Array.from(document.querySelectorAll('input[name=privacy]:checked')).map(
+  //     (el) => el.id,
+  //   );
+  // });
+
+  const form = document.querySelector('.filter-bar');
+
+  const filterConfig = {};
+
+  form.addEventListener('change', (event) => {
+    const assignees = Array.from(document.querySelectorAll('input[name=assignee]:checked')).map(
+      (el) => el.value,
+    );
+
+    if (assignees.length) {
+      filterConfig.assignee = assignees;
+    } else {
+      delete filterConfig.assignee;
+    }
+
+    console.log(filterConfig);
+    app.getFeed(0, 10, filterConfig);
+  });
+
+  //
 };

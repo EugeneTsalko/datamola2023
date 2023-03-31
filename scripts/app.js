@@ -36,7 +36,7 @@ const appParams = {
   // tasksArr: mockTasks,
   // usersArr: mockUsers,
   headerRoot: 'header-nav',
-  filterRoot: 'filter-assignee',
+  filterRoot: 'filterAssignee',
   toDoRoot: 'toDoList',
   inProgressRoot: 'inProgressList',
   completeRoot: 'completeList',
