@@ -1,9 +1,17 @@
 :root {
   --white: #ffffff;
   --black: #333333;
-  --main: #78bec5;
-  --orange: #dc685a;
-  --yellow: #ecaf4f;
+  --main400: #57c5b6;
+  --main600: #159895;
+  --orange400: #dc685a;
+  --orange900: #d52b18;
+  --yellow400: #7186c5;
+  --yellow900: #3f5fbf;
+  --offset-s: 0.5rem;
+  --offset: 1rem;
+  --offset-l: 2rem;
+  --border-radius: 0.5rem;
+  --transition: 0.3s ease-in-out;
 }
 
 * {
@@ -21,6 +29,13 @@ body {
   place-items: center;
 }
 
+section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--offset);
+}
+
 #area {
   margin: 0 auto;
   display: grid;
@@ -32,30 +47,30 @@ body {
 .field {
   display: grid;
   place-items: center;
-  border-radius: 0.5rem;
+  border-radius: var(--border-radius);
   font-size: 5rem;
   color: var(--white);
-  background-color: var(--main);
+  background-color: var(--main400);
 }
 
 .x {
-  background-color: var(--orange);
+  background-color: var(--orange400);
 }
 
 .o {
-  background-color: var(--yellow);
+  background-color: var(--yellow400);
 }
 
 .o-win {
-  background-color: red;
+  background-color: var(--yellow900);
 }
 
 .x-win {
-  background-color: blue;
+  background-color: var(--orange900);
 }
 
 .tie {
-  background-color: gray;
+  background-color: var(--black);
 }
 
 .field:hover {
@@ -64,16 +79,37 @@ body {
 
 .results {
   display: none;
-  width: 200px;
-  top: 120px;
-  background-color: rgba(205, 133, 63, 0.8);
   position: absolute;
+  top: 55%;
   left: 50%;
-  margin-left: -100px;
-  padding-top: 50px;
-  padding-bottom: 50px;
-  text-align: center;
-  border-radius: 5px;
-  color: white;
-  font-size: 0.5rem;
+  transform: translate(-50%, -50%);
+  background-color: rgba(205, 133, 63, 0.8);
+  padding: var(--offset) var(--offset-l);
+  flex-direction: column;
+  gap: var(--offset-l);
+  align-items: center;
+  border-radius: var(--border-radius);
+  color: var(--white);
+  font-size: 4rem;
+  transition: var(--transition);
+}
+
+.score {
+  font-size: 2rem;
+}
+
+button {
+  font: inherit;
+  font-size: 2rem;
+  color: var(--white);
+  background-color: var(--main400);
+  border: none;
+  border-radius: var(--border-radius);
+  padding: var(--offset-s) var(--offset);
+  transition: var(--transition);
+}
+
+button:hover {
+  cursor: pointer;
+  background-color: var(--main600);
 }

@@ -1,6 +1,5 @@
 const area = document.getElementById('area');
-
-let board = [];
+const fields = document.querySelectorAll('.field');
 const huPlayer = 'X';
 const aiPlayer = 'O';
 const winCombos = [
@@ -13,18 +12,15 @@ const winCombos = [
   [0, 4, 8],
   [2, 4, 6],
 ];
-
-const fields = document.querySelectorAll('.field');
-
-document.getElementById('restart').addEventListener('click', startGame);
+let board = [];
 
 startGame();
 
 function startGame() {
   document.querySelector('.results').style.display = 'none';
   board = Array.from(Array(9).keys());
-
   area.addEventListener('click', turnClick);
+
   fields.forEach((field) => {
     field.textContent = '';
     field.classList.remove('x', 'o', 'x-win', 'o-win', 'tie');
@@ -32,12 +28,10 @@ function startGame() {
 }
 
 function turnClick(event) {
-  if (typeof board[event.target.id] === 'number') {
-    turn(event.target.id, huPlayer);
+  turn(event.target.id, huPlayer);
 
-    if (!checkWin(board, huPlayer) && !checkTie()) {
-      turn(bestSpot(), aiPlayer);
-    }
+  if (!checkWin(board, huPlayer) && !checkTie()) {
+    turn(aiSpot(), aiPlayer);
   }
 }
 
@@ -54,9 +48,9 @@ function turn(fieldId, player) {
 }
 
 function checkWin(board, player) {
-  let plays = board.reduce((acc, cur, i) => (cur === player ? acc.concat(i) : acc), []);
-
+  const plays = board.reduce((acc, cur, i) => (cur === player ? acc.concat(i) : acc), []);
   let gameWon = null;
+
   for (let [index, win] of winCombos.entries()) {
     if (win.every((elem) => plays.includes(elem))) {
       gameWon = { index: index, player: player };
@@ -68,10 +62,21 @@ function checkWin(board, player) {
 }
 
 function gameOver(gameWon) {
-  for (let index of winCombos[gameWon.index]) {
+  const humanWinCount = document.getElementById('humanWinCount');
+  const aiWinCount = document.getElementById('aiWinCount');
+
+  winCombos[gameWon.index].forEach((index) => {
     document
       .getElementById(index)
       .classList.add(`${gameWon.player == huPlayer ? 'x-win' : 'o-win'}`);
+  });
+
+  if (gameWon.player === huPlayer) {
+    humanWinCount.innerHTML = Number(humanWinCount.innerHTML) + 1;
+  }
+
+  if (gameWon.player === aiPlayer) {
+    aiWinCount.innerHTML = Number(aiWinCount.innerHTML) + 1;
   }
 
   area.removeEventListener('click', turnClick);
@@ -80,16 +85,12 @@ function gameOver(gameWon) {
 }
 
 function declareWinner(winner) {
-  document.getElementById('results').style.display = 'block';
+  document.getElementById('results').style.display = 'flex';
   document.getElementById('text').textContent = winner;
 }
 
 function emptySquares() {
   return board.filter((field) => typeof field === 'number');
-}
-
-function bestSpot() {
-  return minimax(board, aiPlayer).index;
 }
 
 function checkTie() {
@@ -98,61 +99,20 @@ function checkTie() {
       field.classList.add('tie');
     });
 
+    document.getElementById('tieCount').innerHTML =
+      Number(document.getElementById('tieCount').innerHTML) + 1;
+
     declareWinner('Tie Game!');
 
     return true;
   }
+
   return false;
 }
 
-function minimax(newBoard, player) {
-  let availSpots = emptySquares();
-
-  if (checkWin(newBoard, huPlayer)) {
-    return { score: -10 };
-  } else if (checkWin(newBoard, aiPlayer)) {
-    return { score: 10 };
-  } else if (availSpots.length === 0) {
-    return { score: 0 };
-  }
-
-  let moves = [];
-  for (let i = 0; i < availSpots.length; i++) {
-    let move = {};
-    move.index = newBoard[availSpots[i]];
-    newBoard[availSpots[i]] = player;
-
-    if (player == aiPlayer) {
-      let result = minimax(newBoard, huPlayer);
-      move.score = result.score;
-    } else {
-      let result = minimax(newBoard, aiPlayer);
-      move.score = result.score;
-    }
-
-    newBoard[availSpots[i]] = move.index;
-
-    moves.push(move);
-  }
-
-  let bestMove;
-  if (player === aiPlayer) {
-    let bestScore = -10000;
-    for (let i = 0; i < moves.length; i++) {
-      if (moves[i].score > bestScore) {
-        bestScore = moves[i].score;
-        bestMove = i;
-      }
-    }
-  } else {
-    let bestScore = 10000;
-    for (let i = 0; i < moves.length; i++) {
-      if (moves[i].score < bestScore) {
-        bestScore = moves[i].score;
-        bestMove = i;
-      }
-    }
-  }
-
-  return moves[bestMove];
+function aiSpot() {
+  const availSpots = emptySquares();
+  return availSpots[Math.floor(Math.random() * availSpots.length)];
 }
+
+document.getElementById('restart').addEventListener('click', startGame);
