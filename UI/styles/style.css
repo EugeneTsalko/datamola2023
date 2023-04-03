@@ -16,6 +16,7 @@
 @import url('./layout/full-task.css');
 @import url('./layout/comments.css');
 @import url('./layout/signup.css');
+@import url('./layout/task-form.css');
 
 @import url('./components/button.css');
 @import url('./components/search.css');

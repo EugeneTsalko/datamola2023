@@ -35,7 +35,44 @@ window.onload = function () {
     }
 
     if (event.target.id === 'addTaskBtn') {
+      const overlay = document.getElementById('overlay');
+      overlay.innerHTML = '';
+
       console.log('ADD TASK!');
+      document.getElementById('overlay').classList.add('active');
+      document.getElementById('overlay').append(DomHelper.createTaskForm());
+      // app.showTaskForm();
+    }
+
+    if (event.target.id === 'createTaskBtn') {
+      event.preventDefault();
+      const overlay = document.getElementById('overlay');
+      // console.log('CREATE TASK!');
+      const name = document.getElementById('setTitle').value;
+      const description = document.getElementById('setDescription').value;
+      const assignee = document.getElementById('setAssignee').value;
+      const priority = document.querySelector('input[name="setPriority"]:checked')?.value;
+      const isPrivate = document.querySelector('input[name="setPrivacy"]:checked')?.value === 'Private';
+      const status = document.querySelector('input[name="setStatus"]:checked')?.value || TASK_STATUS.toDo;
+
+      if (
+        app.addTask({
+          name,
+          description,
+          status,
+          priority,
+          isPrivate,
+        })
+      ) {
+        overlay.classList.remove('active');
+        overlay.innerHTML = '';
+      }
+    }
+
+    if (event.target.id === 'overlay') {
+      const overlay = document.getElementById('overlay');
+      console.log('OVERLAY');
+      overlay.classList.remove('active');
     }
 
     if (event.target.id === 'authSignUp') {

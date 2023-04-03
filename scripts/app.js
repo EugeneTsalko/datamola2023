@@ -43,6 +43,7 @@ const appParams = {
   fullTaskRoot: 'main',
   profileRoot: 'main',
   authRoot: 'main',
+  taskFromRoot: 'overlay',
 };
 
 const app = new TasksController(appParams);

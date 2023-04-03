@@ -43,7 +43,9 @@ body {
 }
 
 .overlay.active {
-  display: block;
+  display: flex;
+  justify-content: center;
+  padding: 5rem;
   position: fixed;
   top: 0;
   width: 100%;
