@@ -22,13 +22,19 @@ window.onload = function () {
     }
 
     if (event.target.id === 'signUpBtn') {
-      console.log('SIGN UP');
-      //
       app.showSignUp();
     }
 
     if (event.target.id === 'signInBtn') {
       app.showSignIn();
+    }
+
+    if (event.target.id === 'authSignUpRedirBtn') {
+      app.showSignIn();
+    }
+
+    if (event.target.id === 'authSignInRedirBtn') {
+      app.showSignUp();
     }
 
     if (event.target.id === 'profileBtn') {

@@ -30,6 +30,7 @@ class TasksController {
     try {
       document.getElementById('menu').classList.add('undisplayed');
       document.getElementById('board').classList.add('undisplayed');
+      document.getElementById('auth')?.remove();
 
       this.header.display({ isAuth: true });
       this.auth.display(AUTH_TYPE.signUp);
@@ -42,6 +43,7 @@ class TasksController {
     try {
       document.getElementById('menu').classList.add('undisplayed');
       document.getElementById('board').classList.add('undisplayed');
+      document.getElementById('auth')?.remove();
 
       this.header.display({ isAuth: true });
       this.auth.display(AUTH_TYPE.signIn);

@@ -4,18 +4,22 @@
   align-items: center;
   align-self: center;
   gap: var(--gap-l);
-  background-color: var(--gray500);
-  border: var(--main-border);
+  background-color: var(--white);
+  border: var(--border-main);
   border-radius: var(--border-radius);
   padding: var(--padding);
   width: 40%;
-  margin-top: 2rem;
+  margin-top: 3rem;
 }
 
 .auth-header {
   display: flex;
   flex-direction: column;
   align-items: center;
+}
+
+.auth-header h2 {
+  font-size: 2rem;
 }
 
 .auth-form {
@@ -29,4 +33,22 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+}
+
+.auth-redirect-btn {
+  color: var(--primary500);
+  background: none;
+  font-size: inherit;
+  transition: var(--transition);
+}
+
+.auth-redirect-btn:hover {
+  cursor: pointer;
+  color: var(--primary600);
+}
+
+@media screen and (width <= 520px) {
+  .auth {
+    margin-top: calc(3rem + 73px);
+  }
 }

@@ -58,8 +58,17 @@
   box-shadow: inset 0 -0.125rem 0 var(--primary500);
 }
 
+.text-input.error input:focus {
+  box-shadow: inset 0 -0.125rem 0 var(--red500);
+}
+
 .text-input input:focus + .label {
   color: var(--primary500);
+  transform: translate3d(0, -1.25rem, 0) scale(0.75);
+}
+
+.text-input.error input:focus + .label {
+  color: var(--red500);
   transform: translate3d(0, -1.25rem, 0) scale(0.75);
 }
 
@@ -70,4 +79,13 @@
 
 .text-input input:disabled + .label {
   color: var(--gray900);
+}
+
+.error-message {
+  padding-left: var(--gap);
+  font-size: 0.9rem;
+}
+
+.error {
+  color: var(--red500);
 }

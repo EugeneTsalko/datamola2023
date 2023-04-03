@@ -17,6 +17,10 @@
   background-color: var(--primary400);
 }
 
+.btn:disabled {
+  background-color: var(--gray600);
+}
+
 .secondary-btn {
   background-color: var(--white);
   color: var(--primary500);
