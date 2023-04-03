@@ -73,11 +73,11 @@
               <span>Privacy</span>
               <ul class="checkbox-dropdown-list" id="filterPrivacyList">
                 <li>
-                  <input type="checkbox" name="privacy" id="private">
+                  <input type="checkbox" name="privacy" value="Private" id="private">
                   <label for="private">Private</label>
                 </li>
                 <li>
-                  <input type="checkbox" name="privacy" id="public">
+                  <input type="checkbox" name="privacy" value="Public" id="public">
                   <label for="public">Public</label>
                 </li>
               </ul>
@@ -86,19 +86,19 @@
               <span>Priority</span>
               <ul class="checkbox-dropdown-list" id="filterPriorityList">
                 <li>
-                  <label for="low"><input type="checkbox" id="low">Low</label>
+                  <label for="low"><input type="checkbox" name="priority" value="Low" id="low">Low</label>
                 </li>
                 <li>
-                  <label for="medium"><input type="checkbox" id="medium">Medium</label>
+                  <label for="medium"><input type="checkbox" name="priority" value="Medium" id="medium">Medium</label>
                 </li>
                 <li>
-                  <label for="high"><input type="checkbox" id="high">High</label>
+                  <label for="high"><input type="checkbox" name="priority" value="High" id="high">High</label>
                 </li>
               </ul>
             </div>
           </form>
           <form class="search-form">
-            <input type="text" class="search" placeholder="Search...">
+            <input type="text" class="search" id="search" placeholder="Search...">
             <button type="submit" class="search-btn"></button>
           </form>
         </div>

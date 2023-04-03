@@ -279,10 +279,10 @@ class TaskCollection {
               return Date.parse(task._createdAt) >= Date.parse(filterConfig[key]);
             }
             if (key === 'dateTo') {
-              return Date.parse(task._createdAt) <= Date.parse(filterConfig[key]);
+              return Date.parse(task._createdAt) <= Date.parse(filterConfig[key]) + 86400000;
             }
             if (key === 'isPrivate') {
-              return filterConfig[key].includes(task.isPrivate);
+              return filterConfig[key] === task.isPrivate;
             }
             if (key === 'description') {
               return (

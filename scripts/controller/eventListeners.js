@@ -100,6 +100,65 @@ window.onload = function () {
       delete filterConfig.assignee;
     }
 
+    const priorities = Array.from(document.querySelectorAll('input[name=priority]:checked')).map(
+      (el) => el.value,
+    );
+
+    if (priorities.length) {
+      filterConfig.priority = priorities;
+    } else {
+      delete filterConfig.priority;
+    }
+
+    const privacy = Array.from(document.querySelectorAll('input[name=privacy]:checked')).map(
+      (el) => el.value,
+    );
+
+    if (privacy.length === 1) {
+      filterConfig.isPrivate = privacy[0] === 'Private';
+    } else {
+      delete filterConfig.isPrivate;
+    }
+
+    const dateFrom = document.getElementById('dateFrom').value;
+
+    if (dateFrom) {
+      filterConfig.dateFrom = dateFrom;
+    } else {
+      delete filterConfig.dateFrom;
+    }
+
+    const dateTo = document.getElementById('dateTo').value;
+
+    if (dateTo) {
+      filterConfig.dateTo = dateTo;
+    } else {
+      delete filterConfig.dateTo;
+    }
+
+    const textSearch = document.getElementById('search').value;
+
+    if (textSearch) {
+      filterConfig.description = textSearch;
+    } else {
+      delete filterConfig.description;
+    }
+
+    console.log(filterConfig);
+    app.getFeed(0, 10, filterConfig);
+  });
+
+  const search = document.querySelector('.search-form');
+
+  search.addEventListener('input', () => {
+    const textSearch = document.getElementById('search').value;
+
+    if (textSearch) {
+      filterConfig.description = textSearch;
+    } else {
+      delete filterConfig.description;
+    }
+
     console.log(filterConfig);
     app.getFeed(0, 10, filterConfig);
   });
