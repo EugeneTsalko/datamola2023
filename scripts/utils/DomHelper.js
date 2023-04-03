@@ -334,17 +334,20 @@ class DomHelper {
     return container;
   }
 
-  static createTaskForm(type, taskId, assignees) {
+  static createTaskForm(type, task, assignees) {
     const container = DomHelper.createNode('form', ['task-form'], { id: 'taskForm' });
+    const isEdit = type === 'edit';
 
     container.innerHTML = `
     <div class="form-header">
-      <h2>New Task</h2>
-      <button class="btn icon-btn close-btn"></button>
+      <h2 id="taskFormHeader">${isEdit ? `Edit Task with id: ${task._id}` : 'New Task'}</h2>
+      <button class="btn icon-btn close-btn" id="closeTaskFormBtn"></button>
     </div>
 
     <label for="setTitle" class="text-input">
-      <input type="text" id="setTitle" maxlength="100" placeholder="&nbsp;">
+      <input type="text" id="setTitle" maxlength="100" placeholder="&nbsp;" value="${
+  isEdit ? task.name : ''
+}">
       <span class="label">Title*</span>
       <span class="focus-bg"></span>
     </label>
@@ -352,7 +355,7 @@ class DomHelper {
     <label for="setDescription">
       Description*
       <textarea class="description-area" name="description" id="setDescription" cols="30" rows="10"
-        maxlength="280"></textarea>
+        maxlength="280">${isEdit ? task.description : ''}</textarea>
     </label>
   
     <label for="setAssignee">
@@ -393,7 +396,9 @@ class DomHelper {
 
     <div>
       <button class="btn secondary-btn" type="reset">RESET</button>
-      <button class="btn" type="submit" id="createTaskBtn">CREATE</button>
+      <button class="btn" type="submit" id="${isEdit ? 'editTaskFormBtn' : 'createTaskBtn'}">${
+  isEdit ? 'EDIT' : 'CREATE'
+}</button>
     </div>`;
 
     return container;

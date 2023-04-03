@@ -226,8 +226,12 @@ class TasksController {
         DomHelper.reRenderTaskColumn(oldTask.status);
         DomHelper.reRenderTaskColumn(status);
       }
+
+      return true;
     } catch (err) {
       console.error(err.message);
+
+      return false;
     }
   }
 

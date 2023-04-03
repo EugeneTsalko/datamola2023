@@ -96,6 +96,53 @@ window.onload = function () {
 
     if (event.target.id === 'editTaskBtn') {
       console.log('edit task');
+      const overlay = document.getElementById('overlay');
+      overlay.innerHTML = '';
+      document.getElementById('overlay').classList.add('active');
+
+      let taskId = event.target.closest('.task-card')?.id.split('-').at(-1);
+      let task;
+
+      if (taskId) {
+        task = app.tasks.get(taskId);
+      } else {
+        taskId = event.target.closest('.full-task-card')?.id.split('-').at(-1);
+        task = app.tasks.get(taskId);
+      }
+      document.getElementById('overlay').append(DomHelper.createTaskForm('edit', task));
+    }
+
+    if (event.target.id === 'editTaskFormBtn') {
+      event.preventDefault();
+
+      const name = document.getElementById('setTitle').value;
+      const description = document.getElementById('setDescription').value;
+      const assignee = document.getElementById('setAssignee').value;
+      const priority = document.querySelector('input[name="setPriority"]:checked')?.value;
+      const isPrivate = document.querySelector('input[name="setPrivacy"]:checked')?.value === 'Private';
+      const status = document.querySelector('input[name="setStatus"]:checked')?.value || TASK_STATUS.toDo;
+
+      const task = {
+        name,
+        description,
+        assignee,
+        status,
+        priority,
+        isPrivate,
+      };
+
+      const taskId = document.getElementById('taskFormHeader').textContent.split(' ').at(-1);
+
+      // console.log(taskId);
+
+      if (app.editTask(taskId, task)) {
+        overlay.classList.remove('active');
+        overlay.innerHTML = '';
+
+        if (document.getElementById('fullTask')) {
+          app.showTask(taskId);
+        }
+      }
     }
 
     if (event.target.id === 'authSignUp') {
