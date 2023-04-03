@@ -211,19 +211,25 @@ class DomHelper {
     }
   }
 
-  static createProfilePage(user) {
-    const { _login, name, image } = user;
+  static createProfilePage(user, type) {
+    const {
+      _login, name, image, password,
+    } = user;
     const container = DomHelper.createNode('section', ['user-container'], { id: 'profilePage' });
+    const isEdit = type === 'edit';
 
     container.innerHTML = `
       <div class="profile-info">
         <div class="profile-header">
           <h3>Hi, ${_login}!</h3>
-          <button class="btn secondary-btn close-btn" id="closeProfileBtn"></button>
+          <button class="btn secondary-btn close-btn ${
+  isEdit ? '' : 'undisplayed'
+}" id="closeProfileBtn"></button>
+          <img class="avatar-img ${isEdit ? 'undisplayed' : ''}" src="${image}" alt="user-img">
         </div>
 
         <form class="user-form active">
-          <div class="avatar-container">
+          <div class="avatar-container ${isEdit ? '' : 'undisplayed'}">
             <div class="avatar active">
               <img class="avatar-img" src="${image}" alt="user-img">
             </div>
@@ -235,38 +241,49 @@ class DomHelper {
           </div>
 
           <label for="name" class="text-input">
-            <input type="text" id="name" placeholder="&nbsp;">
-            <span class="label">New name</span>
+            <input type="text" id="name" placeholder="&nbsp;" ${isEdit ? '' : 'disabled'} value="${
+  isEdit ? '' : `${name}`
+}">
+            <span class="label">${isEdit ? 'New name' : 'Name'}</span>
             <span class="focus-bg"></span>
           </label>
 
-          <label for="login" class="text-input hidden">
-            <input type="text" id="login" placeholder="&nbsp;">
+          <label for="login" class="text-input ${isEdit ? 'hidden' : ''}">
+            <input type="text" id="login" placeholder="&nbsp;" disabled value="${_login}">
             <span class="label">Username</span>
             <span class="focus-bg"></span>
           </label>
 
-          <label for="old-password" class="text-input">
-            <input type="password" id="old-password" placeholder="&nbsp;">
-            <span class="label">Old password</span>
+          <label for="oldPassword" class="text-input">
+            <input type="password" id="oldPassword" placeholder="&nbsp;" ${
+  isEdit ? '' : 'disabled'
+} value="${isEdit ? '' : `${password}`}">
+            <span class="label">${isEdit ? 'Old password' : 'Password'}</span>
             <span class="focus-bg"></span>
           </label>
 
-          <label for="new-password" class="text-input">
-            <input type="password" id="new-password" placeholder="&nbsp;">
+          <label for="newPassword" class="text-input ${isEdit ? '' : 'undisplayed'}">
+            <input type="password" id="newPassword" placeholder="&nbsp;">
             <span class="label">New password</span>
             <span class="focus-bg"></span>
           </label>
 
-          <label for="confirm-password" class="text-input">
-            <input type="password" id="confirm-password" placeholder="&nbsp;">
+          <label for="confirmPassword" class="text-input ${isEdit ? '' : 'undisplayed'}">
+            <input type="password" id="confirmPassword" placeholder="&nbsp;">
             <span class="label">Confirm new password</span>
             <span class="focus-bg"></span>
           </label>
 
           <div class="user-form-btns">
-            <button class="btn secondary-btn cancel-btn">CANCEL</button>
-            <button class="btn secondary-btn save-btn">SAVE</button>
+            <button type="reset" class="btn secondary-btn cancel-btn ${
+  isEdit ? '' : 'undisplayed'
+}">CANCEL</button>
+            <button class="btn secondary-btn save-btn ${
+  isEdit ? '' : 'undisplayed'
+}" id="saveProfileBtn">SAVE</button>
+            <button class="btn secondary-btn save-btn ${
+  isEdit ? 'undisplayed' : ''
+}" id="editProfileBtn">EDIT</button>
           </div>
         </form>
       </div>

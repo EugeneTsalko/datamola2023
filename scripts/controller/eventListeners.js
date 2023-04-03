@@ -37,6 +37,51 @@ window.onload = function () {
       app.showProfile();
     }
 
+    if (event.target.id === 'editProfileBtn') {
+      event.preventDefault();
+      app.showProfile('edit');
+    }
+
+    if (event.target.id === 'closeProfileBtn') {
+      event.preventDefault();
+      app.showProfile();
+    }
+
+    if (event.target.id === 'saveProfileBtn') {
+      event.preventDefault();
+      try {
+        const user = app.users.get(localStorage.getItem('user'));
+        console.log(user);
+        const name = document.getElementById('name').value;
+        const oldPassword = document.getElementById('oldPassword').value;
+        const newPassword = document.getElementById('newPassword').value;
+        const confirmPassword = document.getElementById('confirmPassword').value;
+        const image = '../../UI/assets/svg/man.svg'; // TODO
+
+        if (user.name === name) {
+          throw new Error('New name must not be the same as the old one');
+        }
+
+        if (user.password !== oldPassword) {
+          throw new Error('Invalid old password.');
+        }
+
+        if (newPassword !== confirmPassword) {
+          throw new Error('New password should be confirmed.');
+        }
+
+        if (newPassword === oldPassword) {
+          throw new Error('Password must not be the same as the old one.');
+        }
+
+        if (app.editUser(name, image, newPassword)) {
+          app.showProfile();
+        }
+      } catch (err) {
+        console.error(err.message);
+      }
+    }
+
     if (event.target.id === 'logOutBtn') {
       app.logOut();
     }

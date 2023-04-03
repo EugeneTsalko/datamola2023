@@ -139,6 +139,20 @@ class TasksController {
     }
   }
 
+  editUser(name, image, password) {
+    try {
+      if (!this.users.edit(this.tasks.user, name, image, password)) {
+        throw new Error('Can`t edit user.');
+      }
+
+      return true;
+    } catch (err) {
+      console.error(err.message);
+
+      return false;
+    }
+  }
+
   //
 
   getToDoFeed(skip = 0, top = 10, filterConfig = null) {
@@ -286,7 +300,7 @@ class TasksController {
     }
   }
 
-  showProfile() {
+  showProfile(type) {
     try {
       const user = this.users.get(this.tasks.user);
 
@@ -299,7 +313,7 @@ class TasksController {
       document.getElementById('board').classList.add('undisplayed');
 
       this.header.display({ user: this.tasks.user, isProfilePage: true });
-      this.profile.display(user);
+      this.profile.display(user, type);
     } catch (err) {
       console.error(err.message);
     }

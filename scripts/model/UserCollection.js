@@ -28,6 +28,30 @@ class UserCollection {
     }
   }
 
+  edit(login, name, image, password) {
+    try {
+      const user = this.get(login);
+
+      user.name = name;
+      user.image = image;
+      user.password = password;
+
+      if (!User.validate(user)) {
+        throw new Error("Can't add invalid user.");
+      }
+
+      // this._collection.push(newUser);
+      console.log(`User "${user.login}" has been edited!`);
+
+      this.save();
+      return true;
+    } catch (err) {
+      console.error(err.message);
+
+      return false;
+    }
+  }
+
   add(login, name, image, password) {
     try {
       const newUser = new User(login, name, image, password);
