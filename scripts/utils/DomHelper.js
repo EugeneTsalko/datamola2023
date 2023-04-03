@@ -23,8 +23,13 @@ class DomHelper {
     } = task;
     const container = DomHelper.createNode('li', [], { id: `task-${_id}` });
 
-    container.addEventListener('click', () => {
-      app.showTask(_id);
+    container.addEventListener('click', (event) => {
+      if (event.target.id === 'deleteTaskBtn' || event.target.id === 'editTaskBtn') {
+        return;
+      }
+      // console.log(event.target);
+      console.log('CLICK ON TASK CARD');
+      app.showTask(event.currentTarget.id.split('-').at(-1));
     });
 
     container.innerHTML = `
@@ -32,8 +37,8 @@ class DomHelper {
         <div class="task-header">
           <h4>${name}</h4>
           <div class="task-buttons ${assignee === user ? '' : 'hidden'}">
-            <button class="btn secondary-btn edit-btn"></button>
-            <button class="btn secondary-btn delete-btn"></button>
+            <button class="btn secondary-btn edit-btn" id="editTaskBtn"></button>
+            <button class="btn secondary-btn delete-btn" id="deleteTaskBtn"></button>
           </div>
           <div class="task-priority ${priority.toLowerCase()}">${priority}</div>
         </div>
@@ -142,8 +147,8 @@ class DomHelper {
       <div class="full-task-header">
         <h2 class="title">${name}</h2>
         <div class="full-task-buttons ${assignee === user ? '' : 'hidden'}">
-          <button class="btn secondary-btn edit-btn"></button>
-          <button class="btn secondary-btn delete-btn"></button>
+          <button class="btn secondary-btn edit-btn" id="editTaskBtn"></button>
+          <button class="btn secondary-btn delete-btn" id="deleteTaskBtn"></button>
         </div>
         <div class="task-priority ${priority.toLowerCase()}">${priority}</div>
       </div>

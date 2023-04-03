@@ -11,7 +11,6 @@ class TasksController {
       fullTaskRoot,
       profileRoot,
       authRoot,
-      taskFormRoot,
     } = params;
     this.tasks = new TaskCollection();
     this.users = new UserCollection();
@@ -23,7 +22,6 @@ class TasksController {
     this.fullTask = new TaskView(fullTaskRoot);
     this.profile = new ProfileView(profileRoot);
     this.auth = new AuthorizationView(authRoot);
-    this.taskForm = new TaskFormView(taskFormRoot);
   }
 
   // auth
@@ -242,8 +240,12 @@ class TasksController {
       }
 
       DomHelper.reRenderTaskColumn(task.status);
+
+      return true;
     } catch (err) {
       console.error(err.message);
+
+      return false;
     }
   }
 
@@ -299,11 +301,11 @@ class TasksController {
     }
   }
 
-  showTaskForm() {
-    try {
-      this.taskForm.display();
-    } catch (err) {
-      console.error(err.message);
-    }
-  }
+  // showTaskForm() {
+  //   try {
+  //     this.taskForm.display();
+  //   } catch (err) {
+  //     console.error(err.message);
+  //   }
+  // }
 }

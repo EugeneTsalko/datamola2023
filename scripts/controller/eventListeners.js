@@ -7,8 +7,15 @@ window.onload = function () {
     app.getFeed();
   }
 
+  //
+
   document.addEventListener('click', (event) => {
     // event.preventDefault();
+
+    // if (event.target.classList.contains('task-card')) {
+    //   console.log('CLICK ON TASK CARD');
+    //   app.showTask(event.target.id.split('-')[1]);
+    // }
 
     if (event.target.id === 'toMainBtn') {
       app.backToMain();
@@ -73,6 +80,22 @@ window.onload = function () {
       const overlay = document.getElementById('overlay');
       console.log('OVERLAY');
       overlay.classList.remove('active');
+    }
+
+    if (event.target.id === 'deleteTaskBtn') {
+      let taskId = event.target.closest('.task-card')?.id.split('-').at(-1);
+      if (taskId) {
+        app.removeTask(taskId);
+      } else {
+        taskId = event.target.closest('.full-task-card')?.id.split('-').at(-1);
+        app.removeTask(taskId);
+        app.backToMain();
+      }
+      console.log('delete task');
+    }
+
+    if (event.target.id === 'editTaskBtn') {
+      console.log('edit task');
     }
 
     if (event.target.id === 'authSignUp') {
