@@ -19,6 +19,7 @@ class AuthorizationView {
           <input type="text" id="name" maxlength="100" placeholder="&nbsp;">
           <span class="label">Name*</span>
           <span class="focus-bg"></span>
+          <p class="error-message" id="nameError"></p>
         </label>
         <label for="login" class="text-input">
           <input type="text" id="login" placeholder="&nbsp;">
@@ -36,13 +37,16 @@ class AuthorizationView {
           <input type="password" id="passwordConfirm" placeholder="&nbsp;">
           <span class="label">Confirm password*</span>
           <span class="focus-bg"></span>
+          <p class="error-message" id="confirmPasswordError"></p>
         </label>
 
         <div class="avatar-wrapper ${isSignUp ? '' : 'undisplayed'}">
           <p>Choose avatar:</p>
           <div class="avatar-container">
-            <button class="icon-btn avatar-btn-male"></button>
-            <button class="icon-btn avatar-btn-female"></button>
+            <input type="radio" id="maleAvatar" name="avatar" value="../../assets/svg/man.svg">
+            <label for="maleAvatar" class="avatar-male"></label>
+            <input type="radio" id="femaleAvatar" name="avatar" value="../../assets/svg/woman.svg">
+            <label for="femaleAvatar" class="avatar-female"></label>
             <label class="input-file-label">
               <input type="file" name="input-file">
             </label>
@@ -61,8 +65,7 @@ class AuthorizationView {
       </div>
     `;
 
-    // return container;
-    this.root.append(container);
+    return container;
   }
 
   validateSignIn() {
@@ -73,8 +76,6 @@ class AuthorizationView {
       const passwordError = document.getElementById('passwordError');
 
       const user = app.users.get(login.value); //
-
-      const isValid = false;
 
       login.addEventListener('input', () => {
         loginError.innerHTML = '';
@@ -117,20 +118,9 @@ class AuthorizationView {
     }
   }
 
-  // static validate(type) {
-  //   try {
-  //     const login = document.getElementById('login').value;
-  //     const password
-  //   } catch (err) {
-  //     console.error(err.message);
-  //   }
-  // }
-
   display(type) {
     try {
-      // this.root.append(DomHelper.createAuthPage(type));
-      // this.root.append(this._createAuthPage(type));
-      this.createAuthPage(type);
+      this.root.append(this.createAuthPage(type));
 
       console.log(`Render ${type} view!`);
     } catch (err) {
