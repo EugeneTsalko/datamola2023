@@ -6,6 +6,8 @@ class AuthorizationView {
   createAuthPage(type) {
     const container = DomHelper.createNode('section', ['auth'], { id: 'auth' });
 
+    const isSignUp = type === AUTH_TYPE.signUp;
+
     container.innerHTML = `
       <div class="auth-header">
         <h2>Welcome!</h2>
@@ -13,7 +15,7 @@ class AuthorizationView {
       </div>
 
       <form class="auth-form" id="authForm">
-        <label for="name" class="text-input ${type === AUTH_TYPE.signUp ? '' : 'undisplayed'}">
+        <label for="name" class="text-input ${isSignUp ? '' : 'undisplayed'}">
           <input type="text" id="name" maxlength="100" placeholder="&nbsp;">
           <span class="label">Name*</span>
           <span class="focus-bg"></span>
@@ -22,23 +24,21 @@ class AuthorizationView {
           <input type="text" id="login" placeholder="&nbsp;">
           <span class="label">Login*</span>
           <span class="focus-bg"></span>
-          <p class="error-message"></p>
+          <p class="error-message" id="loginError"></p>
         </label>
         <label for="password" class="text-input">
-          <input type="password" id="password" placeholder="&nbsp;">
+          <input type="password" id="password" minLength="1" placeholder="&nbsp;">
           <span class="label">Password*</span>
           <span class="focus-bg"></span>
-          <p class="error-message"></p>
+          <p class="error-message" id="passwordError"></p>
         </label>
-        <label for="passwordConfirm" class="text-input ${
-  type === AUTH_TYPE.signUp ? '' : 'undisplayed'
-}">
+        <label for="passwordConfirm" class="text-input ${isSignUp ? '' : 'undisplayed'}">
           <input type="password" id="passwordConfirm" placeholder="&nbsp;">
           <span class="label">Confirm password*</span>
           <span class="focus-bg"></span>
         </label>
 
-        <div class="avatar-wrapper ${type === AUTH_TYPE.signUp ? '' : 'undisplayed'}">
+        <div class="avatar-wrapper ${isSignUp ? '' : 'undisplayed'}">
           <p>Choose avatar:</p>
           <div class="avatar-container">
             <button class="icon-btn avatar-btn-male"></button>
@@ -51,18 +51,70 @@ class AuthorizationView {
       </form>
 
       <button type="submit" form="auth-form" class="btn" id="${
-  type === AUTH_TYPE.signUp ? 'authSignUp' : 'authSignIn'
-}" disabled>${type.toUpperCase()}</button>
+  isSignUp ? 'authSignUp' : 'authSignIn'
+}" ${isSignUp ? 'disabled' : ''}>${type.toUpperCase()}</button>
       <div class="auth-footer">
-        <span>${type === AUTH_TYPE.signUp ? 'Already' : 'Don`t'} have an account?</span>
+        <span>${isSignUp ? 'Already' : 'Don`t'} have an account?</span>
         <button class="auth-redirect-btn" id="${
-  type === AUTH_TYPE.signUp ? 'authSignUpRedirBtn' : 'authSignInRedirBtn'
-}">${type === AUTH_TYPE.signUp ? 'Sign in' : 'Sign up'}</button>
+  isSignUp ? 'authSignUpRedirBtn' : 'authSignInRedirBtn'
+}">${isSignUp ? 'Sign in' : 'Sign up'}</button>
       </div>
     `;
 
     // return container;
     this.root.append(container);
+  }
+
+  validateSignIn() {
+    try {
+      const form = document.getElementById('authForm');
+      const { login, password } = form;
+      const loginError = document.getElementById('loginError');
+      const passwordError = document.getElementById('passwordError');
+
+      const user = app.users.get(login.value); //
+
+      const isValid = false;
+
+      login.addEventListener('input', () => {
+        loginError.innerHTML = '';
+        passwordError.innerHTML = '';
+      });
+
+      password.addEventListener('input', () => {
+        passwordError.innerHTML = '';
+      });
+
+      if (!login.value || !password.value) {
+        if (!login.value) {
+          throw new Error('Please, enter your login.', { cause: 'login' });
+        }
+
+        if (!password.value) {
+          throw new Error('Please, enter your password.', { cause: 'password' });
+        }
+      }
+
+      if (!user) {
+        throw new Error(`User with login "${login.value}" doesn't exist.`, { cause: 'login' });
+      }
+
+      if (password.value !== user.password) {
+        throw new Error('Invalid password', { cause: 'password' });
+      }
+
+      return user;
+    } catch (err) {
+      if (err.cause === 'login') {
+        loginError.innerHTML = err.message;
+      }
+
+      if (err.cause === 'password') {
+        passwordError.innerHTML = err.message;
+      }
+
+      return null;
+    }
   }
 
   // static validate(type) {

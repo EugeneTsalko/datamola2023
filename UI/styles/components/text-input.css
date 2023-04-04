@@ -82,8 +82,10 @@
 }
 
 .error-message {
+  color: var(--red500);
   padding-left: var(--gap);
   font-size: 0.9rem;
+  height: 1.2rem;
 }
 
 .error {

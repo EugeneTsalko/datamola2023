@@ -52,6 +52,38 @@ class TasksController {
     }
   }
 
+  signIn() {
+    try {
+      // const form = document.getElementById('authForm');
+      // const login = form.login.value;
+      // const pass = form.password.value;
+
+      // const user = this.users.get(login);
+
+      // if (!user) {
+      //   throw new Error(`User with login "${login}" doesn't exist.`);
+      // }
+
+      // if (pass !== user.password) {
+      //   throw new Error('Invalid password');
+      // }
+
+      const user = this.auth.validateSignIn();
+
+      if (!user) {
+        throw new Error('Something went wrong in Sign In.');
+      }
+
+      this.login(user.login);
+
+      return user;
+    } catch (err) {
+      console.error(err.message);
+
+      return null;
+    }
+  }
+
   signUp() {
     try {
       const form = document.getElementById('authForm');
@@ -74,32 +106,6 @@ class TasksController {
       if (!this.users.add(...Object.values(user))) {
         throw new Error('Already exists');
       }
-
-      return user;
-    } catch (err) {
-      console.error(err.message);
-
-      return null;
-    }
-  }
-
-  signIn() {
-    try {
-      const form = document.getElementById('authForm');
-      const login = form.login.value;
-      const pass = form.password.value;
-
-      const user = this.users.get(login);
-
-      if (!user) {
-        throw new Error(`User with login "${login} doesn't exist".`);
-      }
-
-      if (pass !== user.password) {
-        throw new Error('Invalid password');
-      }
-
-      this.login(user.login);
 
       return user;
     } catch (err) {

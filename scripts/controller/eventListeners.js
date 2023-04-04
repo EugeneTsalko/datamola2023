@@ -10,13 +10,6 @@ window.onload = function () {
   //
 
   document.addEventListener('click', (event) => {
-    // event.preventDefault();
-
-    // if (event.target.classList.contains('task-card')) {
-    //   console.log('CLICK ON TASK CARD');
-    //   app.showTask(event.target.id.split('-')[1]);
-    // }
-
     if (event.target.id === 'toMainBtn') {
       app.backToMain();
     }
@@ -29,6 +22,16 @@ window.onload = function () {
       app.showSignIn();
     }
 
+    if (event.target.id === 'authSignIn') {
+      event.preventDefault();
+      const user = app.signIn();
+      if (user) {
+        document.getElementById('auth')?.remove();
+        document.getElementById('menu').classList.remove('undisplayed');
+        document.getElementById('board').classList.remove('undisplayed');
+      }
+    }
+
     if (event.target.id === 'authSignUpRedirBtn') {
       app.showSignIn();
     }
@@ -38,8 +41,6 @@ window.onload = function () {
     }
 
     if (event.target.id === 'profileBtn') {
-      console.log('TO PROFILE!');
-      //
       app.showProfile();
     }
 
@@ -52,6 +53,8 @@ window.onload = function () {
       event.preventDefault();
       app.showProfile();
     }
+
+    //
 
     if (event.target.id === 'saveProfileBtn') {
       event.preventDefault();
@@ -209,20 +212,6 @@ window.onload = function () {
         document.getElementById('menu').classList.remove('undisplayed');
         document.getElementById('board').classList.remove('undisplayed');
         app.login(user.login);
-      }
-    }
-
-    if (event.target.id === 'authSignIn') {
-      event.preventDefault();
-
-      const user = app.signIn();
-
-      console.log('auth', user);
-
-      if (user) {
-        document.getElementById('auth')?.remove();
-        document.getElementById('menu').classList.remove('undisplayed');
-        document.getElementById('board').classList.remove('undisplayed');
       }
     }
 
