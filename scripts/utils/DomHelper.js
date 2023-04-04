@@ -27,9 +27,9 @@ class DomHelper {
       if (event.target.id === 'deleteTaskBtn' || event.target.id === 'editTaskBtn') {
         return;
       }
-      // console.log(event.target);
       console.log('CLICK ON TASK CARD');
       app.showTask(event.currentTarget.id.split('-').at(-1));
+      app.fullTask.listen();
     });
 
     container.innerHTML = `
@@ -122,11 +122,13 @@ class DomHelper {
     comments.forEach((comment) => commentsList.append(DomHelper.createComment(comment)));
     commentsContainer.append(commentsList);
 
-    const addCommentForm = DomHelper.createNode('form', ['add-comment-form']);
+    const addCommentForm = DomHelper.createNode('form', ['add-comment-form'], {
+      id: 'commentForm',
+    });
     addCommentForm.innerHTML = `
       <img class="user-img" src="${getUser(user, mockUsers)?.img}" alt="author image">
-      <textarea name="comment" id="new-comment" class="comment-textarea" maxlength="280" placeholder="Add new comment..."></textarea>
-      <button class="btn secondary-btn add-comment-btn" type="submit">
+      <textarea name="comment" id="newComment" class="comment-textarea" maxlength="280" placeholder="Add new comment..."></textarea>
+      <button class="btn secondary-btn add-comment-btn" type="submit" id="addCommentBtn">
         <span>ADD COMMENT</span>
       </button>`;
 

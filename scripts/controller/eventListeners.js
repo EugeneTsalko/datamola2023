@@ -206,7 +206,6 @@ window.onload = function () {
         }
       }
     }
-
     if (event.target.id.includes('filter')) {
       event.target.classList.toggle('active');
     }

@@ -298,4 +298,22 @@ class TasksController {
       console.error(err.message);
     }
   }
+  //
+
+  // addComment() {
+  //   try {
+  //     const form = document.getElementById('commentForm');
+  //     const text = document.getElementById('newComment').value;
+  //     const id = document.querySelector('.full-task-card').id.split('-').at(-1);
+
+  //     form.addEventListener('submit', (event) => {
+  //       event.preventDefault();
+  //       if (text) {
+  //         this.tasks.addComment(id, text);
+  //       }
+  //     });
+  //   } catch (err) {
+  //     console.error(err.message);
+  //   }
+  // }
 }
