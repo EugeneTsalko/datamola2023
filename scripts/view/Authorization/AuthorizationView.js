@@ -3,6 +3,72 @@ class AuthorizationView {
     this.root = document.getElementById(parentId);
   }
 
+  listen() {
+    const form = document.getElementById('authForm');
+    const {
+      name, login, password, passwordConfirm,
+    } = form;
+    const image = document.querySelector('input[name="avatar"]:checked')?.value
+      || '../../UI/assets/svg/man.svg';
+    const loginError = document.getElementById('loginError');
+    const passwordError = document.getElementById('passwordError');
+    const nameError = document.getElementById('nameError');
+    const passwordConfirmError = document.getElementById('passwordConfirmError');
+
+    form.addEventListener('input', () => {
+      const user = new User(login.value, name.value, image, password.value);
+      const isFormValid = password.value === passwordConfirm.value && User.validate(user);
+      if (isFormValid) {
+        document.getElementById('authSignUp').removeAttribute('disabled');
+      } else {
+        document.getElementById('authSignUp').setAttribute('disabled', '');
+      }
+    });
+
+    name.addEventListener('input', () => {
+      if (!checkStr(name.value, USERNAME_MAX_LENGTH)) {
+        nameError.innerHTML = 'Name should be 1-100 symbols.';
+      } else {
+        nameError.innerHTML = '';
+      }
+    });
+
+    login.addEventListener('input', () => {
+      if (!checkIsLoginValid(login.value)) {
+        loginError.innerHTML = 'Invalid login (only latin letters).';
+      } else {
+        loginError.innerHTML = '';
+        passwordError.innerHTML = '';
+      }
+    });
+
+    password.addEventListener('input', () => {
+      // switch (password.value) {
+      //   case !password.value.length:
+      //     passwordError.innerHTML = 'Invalid password.';
+      //     break;
+      //   case password.value !== passwordConfirm.value:
+      //     passwordError.innerHTML = 'Passwords should be the same.';
+      //     break;
+      //   default:
+      //     passwordError.innerHTML = '';
+      // }
+      if (!password.value.length) {
+        passwordError.innerHTML = 'Invalid password.';
+      } else {
+        passwordError.innerHTML = '';
+      }
+    });
+
+    passwordConfirm.addEventListener('input', () => {
+      if (password.value !== passwordConfirm.value) {
+        passwordConfirmError.innerHTML = 'Passwords should be the same.';
+      } else {
+        passwordConfirmError.innerHTML = '';
+      }
+    });
+  }
+
   createAuthPage(type) {
     const container = DomHelper.createNode('section', ['auth'], { id: 'auth' });
 
@@ -37,15 +103,15 @@ class AuthorizationView {
           <input type="password" id="passwordConfirm" placeholder="&nbsp;">
           <span class="label">Confirm password*</span>
           <span class="focus-bg"></span>
-          <p class="error-message" id="confirmPasswordError"></p>
+          <p class="error-message" id="passwordConfirmError"></p>
         </label>
 
         <div class="avatar-wrapper ${isSignUp ? '' : 'undisplayed'}">
           <p>Choose avatar:</p>
           <div class="avatar-container">
-            <input type="radio" id="maleAvatar" name="avatar" value="../../assets/svg/man.svg">
+            <input type="radio" id="maleAvatar" name="avatar" value="../../UI/assets/svg/man.svg">
             <label for="maleAvatar" class="avatar-male"></label>
-            <input type="radio" id="femaleAvatar" name="avatar" value="../../assets/svg/woman.svg">
+            <input type="radio" id="femaleAvatar" name="avatar" value="../../UI/assets/svg/woman.svg">
             <label for="femaleAvatar" class="avatar-female"></label>
             <label class="input-file-label">
               <input type="file" name="input-file">
@@ -70,21 +136,11 @@ class AuthorizationView {
 
   validateSignIn() {
     try {
+      this.listen();
       const form = document.getElementById('authForm');
       const { login, password } = form;
-      const loginError = document.getElementById('loginError');
-      const passwordError = document.getElementById('passwordError');
 
       const user = app.users.get(login.value); //
-
-      login.addEventListener('input', () => {
-        loginError.innerHTML = '';
-        passwordError.innerHTML = '';
-      });
-
-      password.addEventListener('input', () => {
-        passwordError.innerHTML = '';
-      });
 
       if (!login.value || !password.value) {
         if (!login.value) {
@@ -106,12 +162,41 @@ class AuthorizationView {
 
       return user;
     } catch (err) {
+      const loginError = document.getElementById('loginError');
+      const passwordError = document.getElementById('passwordError');
       if (err.cause === 'login') {
         loginError.innerHTML = err.message;
       }
 
       if (err.cause === 'password') {
         passwordError.innerHTML = err.message;
+      }
+
+      return null;
+    }
+  }
+
+  validateSignUp() {
+    try {
+      this.listen();
+      const form = document.getElementById('authForm');
+      const { name, login, password } = form;
+      const image = document.querySelector('input[name="avatar"]:checked')?.value
+        || '../../UI/assets/svg/man.svg';
+      const user = new User(login.value, name.value, image, password.value);
+
+      if (!app.users.add(...Object.values(user))) {
+        //
+        throw new Error(`User with login "${login.value}" already exists.`, { cause: 'login' });
+      }
+
+      return user;
+    } catch (err) {
+      if (err.cause === 'login') {
+        const loginError = document.getElementById('loginError');
+        loginError.innerHTML = err.message;
+      } else {
+        console.error(err.message);
       }
 
       return null;

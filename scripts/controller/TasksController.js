@@ -39,6 +39,22 @@ class TasksController {
     }
   }
 
+  signUp() {
+    try {
+      const user = this.auth.validateSignUp();
+
+      if (!user) {
+        throw new Error('Something went wrong in Sign Up.');
+      }
+
+      return user;
+    } catch (err) {
+      console.error(err.message);
+
+      return null;
+    }
+  }
+
   showSignIn() {
     try {
       document.getElementById('menu').classList.add('undisplayed');
@@ -54,20 +70,6 @@ class TasksController {
 
   signIn() {
     try {
-      // const form = document.getElementById('authForm');
-      // const login = form.login.value;
-      // const pass = form.password.value;
-
-      // const user = this.users.get(login);
-
-      // if (!user) {
-      //   throw new Error(`User with login "${login}" doesn't exist.`);
-      // }
-
-      // if (pass !== user.password) {
-      //   throw new Error('Invalid password');
-      // }
-
       const user = this.auth.validateSignIn();
 
       if (!user) {
@@ -75,37 +77,6 @@ class TasksController {
       }
 
       this.login(user.login);
-
-      return user;
-    } catch (err) {
-      console.error(err.message);
-
-      return null;
-    }
-  }
-
-  signUp() {
-    try {
-      const form = document.getElementById('authForm');
-      const name = form.name.value;
-      const login = form.login.value;
-      const pass = form.password.value;
-      const passConfirm = form.passwordConfirm.value;
-
-      if (pass.length < 8 || pass !== passConfirm) {
-        throw new Error('Passwords should be the same and min 8 symbol length.');
-      }
-
-      const user = new User(login, name, '../../UI/assets/svg/man.svg', pass); // TODO image
-
-      console.log(name);
-      if (!User.validate(user)) {
-        throw new Error('Invalid user');
-      }
-
-      if (!this.users.add(...Object.values(user))) {
-        throw new Error('Already exists');
-      }
 
       return user;
     } catch (err) {

@@ -7,8 +7,6 @@ window.onload = function () {
     app.getFeed();
   }
 
-  //
-
   document.addEventListener('click', (event) => {
     if (event.target.id === 'toMainBtn') {
       app.backToMain();
@@ -16,6 +14,18 @@ window.onload = function () {
 
     if (event.target.id === 'signUpBtn') {
       app.showSignUp();
+      app.auth.listen();
+    }
+
+    if (event.target.id === 'authSignUp') {
+      event.preventDefault();
+      const user = app.signUp();
+      if (user) {
+        document.getElementById('auth')?.remove();
+        document.getElementById('menu').classList.remove('undisplayed');
+        document.getElementById('board').classList.remove('undisplayed');
+        app.showSignIn();
+      }
     }
 
     if (event.target.id === 'signInBtn') {
@@ -196,22 +206,6 @@ window.onload = function () {
         if (document.getElementById('fullTask')) {
           app.showTask(taskId);
         }
-      }
-    }
-
-    if (event.target.id === 'authSignUp') {
-      //
-      event.preventDefault();
-
-      const user = app.signUp();
-
-      console.log('auth', user);
-
-      if (user) {
-        document.getElementById('auth')?.remove();
-        document.getElementById('menu').classList.remove('undisplayed');
-        document.getElementById('board').classList.remove('undisplayed');
-        app.login(user.login);
       }
     }
 
