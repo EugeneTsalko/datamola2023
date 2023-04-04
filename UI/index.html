@@ -26,6 +26,7 @@
   <script defer src="../scripts/view/Task/TaskView.js"></script>
   <script defer src="../scripts/view/Profile/ProfileView.js"></script>
   <script defer src="../scripts/view/Authorization/AuthorizationView.js"></script>
+  <script defer src="../scripts/controller/FilterController.js"></script>
   <script defer src="../scripts/controller/TasksController.js"></script>
 
   <script defer src="../scripts/app.js"></script>
@@ -52,9 +53,10 @@
         <span id="toMainBtn">ADD TASK</span>
       </button>
       <nav>
-        <div class="filter-container">
+        <form class="filter-container">
+          <button class="btn secondary-btn icon-btn reset-filter-btn hidden" id="resetFilterBtn"></button>
           <button class="btn secondary-btn icon-btn filter-btn"></button>
-          <form class="filter-bar">
+          <div class="filter-bar">
             <div class="checkbox-dropdown" id="filterAssignee">
               <span>Assignee</span>
             </div>
@@ -96,12 +98,9 @@
                 </li>
               </ul>
             </div>
-          </form>
-          <form class="search-form">
-            <input type="text" class="search" id="search" placeholder="Search...">
-            <button type="submit" class="search-btn"></button>
-          </form>
-        </div>
+          </div>
+          <input type="text" class="search" id="search" placeholder="Search...">
+        </form>
         <div class="view-container">
           <span>View:</span>
           <button class="btn secondary-btn kanban-btn active"></button>

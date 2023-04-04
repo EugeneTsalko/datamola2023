@@ -3,6 +3,18 @@ class FilterView {
     this.root = document.getElementById(parentId);
   }
 
+  createAssigneeFilter(assignee) {
+    const container = document.createElement('li');
+
+    container.innerHTML = `
+      <label>
+        <input type="checkbox" value="${assignee}" name="assignee" />
+        ${assignee}
+      </label>`;
+
+    return container;
+  }
+
   display(params) {
     try {
       document.getElementById('filterAssigneeList')?.remove();
@@ -23,7 +35,7 @@ class FilterView {
           const ul = DomHelper.createNode('ul', ['checkbox-dropdown-list'], {
             id: 'filterAssigneeList',
           });
-          assignees.forEach((assignee) => ul.append(DomHelper.createAssigneeFilter(assignee)));
+          assignees.forEach((assignee) => ul.append(this.createAssigneeFilter(assignee)));
 
           this.root.append(ul);
         }

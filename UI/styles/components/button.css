@@ -70,6 +70,16 @@
   display: none;
 }
 
+.reset-filter-btn {
+  width: 2.5rem;
+  height: 2.5rem;
+  background: url('../../assets/svg/cancel.svg') center no-repeat;
+}
+
+.reset-filter-btn:hover {
+  background-image: url('../../assets/svg/cancel-primary500.svg');
+}
+
 .filter-btn:hover:enabled {
   background-image: url('../../assets/svg/filter-primary500.svg');
 }

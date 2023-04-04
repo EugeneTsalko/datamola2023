@@ -107,13 +107,10 @@ window.onload = function () {
       app.logOut();
     }
 
-    if (event.target.id === 'addTaskBtn') {
+    if (event.target.id === 'closeTaskFormBtn') {
       const overlay = document.getElementById('overlay');
       overlay.innerHTML = '';
-
-      console.log('ADD TASK!');
-      document.getElementById('overlay').classList.add('active');
-      document.getElementById('overlay').append(DomHelper.createTaskForm());
+      overlay.classList.remove('active');
     }
 
     if (event.target.id === 'createTaskBtn') {
@@ -206,88 +203,88 @@ window.onload = function () {
         }
       }
     }
-    if (event.target.id.includes('filter')) {
-      event.target.classList.toggle('active');
-    }
+    // if (event.target.id.includes('filter')) {
+    //   event.target.classList.toggle('active');
+    // }
   });
 
-  const form = document.querySelector('.filter-bar');
+  // const form = document.querySelector('.filter-bar');
 
-  const filterConfig = {};
+  // const filterConfig = {};
 
-  form.addEventListener('change', (event) => {
-    const assignees = Array.from(document.querySelectorAll('input[name=assignee]:checked')).map(
-      (el) => el.value,
-    );
+  // form.addEventListener('change', (event) => {
+  //   const assignees = Array.from(document.querySelectorAll('input[name=assignee]:checked')).map(
+  //     (el) => el.value,
+  //   );
 
-    if (assignees.length) {
-      filterConfig.assignee = assignees;
-    } else {
-      delete filterConfig.assignee;
-    }
+  //   if (assignees.length) {
+  //     filterConfig.assignee = assignees;
+  //   } else {
+  //     delete filterConfig.assignee;
+  //   }
 
-    const priorities = Array.from(document.querySelectorAll('input[name=priority]:checked')).map(
-      (el) => el.value,
-    );
+  //   const priorities = Array.from(document.querySelectorAll('input[name=priority]:checked')).map(
+  //     (el) => el.value,
+  //   );
 
-    if (priorities.length) {
-      filterConfig.priority = priorities;
-    } else {
-      delete filterConfig.priority;
-    }
+  //   if (priorities.length) {
+  //     filterConfig.priority = priorities;
+  //   } else {
+  //     delete filterConfig.priority;
+  //   }
 
-    const privacy = Array.from(document.querySelectorAll('input[name=privacy]:checked')).map(
-      (el) => el.value,
-    );
+  //   const privacy = Array.from(document.querySelectorAll('input[name=privacy]:checked')).map(
+  //     (el) => el.value,
+  //   );
 
-    if (privacy.length === 1) {
-      filterConfig.isPrivate = privacy[0] === 'Private';
-    } else {
-      delete filterConfig.isPrivate;
-    }
+  //   if (privacy.length === 1) {
+  //     filterConfig.isPrivate = privacy[0] === 'Private';
+  //   } else {
+  //     delete filterConfig.isPrivate;
+  //   }
 
-    const dateFrom = document.getElementById('dateFrom').value;
+  //   const dateFrom = document.getElementById('dateFrom').value;
 
-    if (dateFrom) {
-      filterConfig.dateFrom = dateFrom;
-    } else {
-      delete filterConfig.dateFrom;
-    }
+  //   if (dateFrom) {
+  //     filterConfig.dateFrom = dateFrom;
+  //   } else {
+  //     delete filterConfig.dateFrom;
+  //   }
 
-    const dateTo = document.getElementById('dateTo').value;
+  //   const dateTo = document.getElementById('dateTo').value;
 
-    if (dateTo) {
-      filterConfig.dateTo = dateTo;
-    } else {
-      delete filterConfig.dateTo;
-    }
+  //   if (dateTo) {
+  //     filterConfig.dateTo = dateTo;
+  //   } else {
+  //     delete filterConfig.dateTo;
+  //   }
 
-    const textSearch = document.getElementById('search').value;
+  //   const textSearch = document.getElementById('search').value;
 
-    if (textSearch) {
-      filterConfig.description = textSearch;
-    } else {
-      delete filterConfig.description;
-    }
+  //   if (textSearch) {
+  //     filterConfig.description = textSearch;
+  //   } else {
+  //     delete filterConfig.description;
+  //   }
 
-    console.log(filterConfig);
-    app.getFeed(0, 10, filterConfig);
-  });
+  //   console.log(filterConfig);
+  //   app.getFeed(0, 10, filterConfig);
+  // });
 
-  const search = document.querySelector('.search-form');
+  // const search = document.querySelector('.search-form');
 
-  search.addEventListener('input', () => {
-    const textSearch = document.getElementById('search').value;
+  // search.addEventListener('input', () => {
+  //   const textSearch = document.getElementById('search').value;
 
-    if (textSearch) {
-      filterConfig.description = textSearch;
-    } else {
-      delete filterConfig.description;
-    }
+  //   if (textSearch) {
+  //     filterConfig.description = textSearch;
+  //   } else {
+  //     delete filterConfig.description;
+  //   }
 
-    console.log(filterConfig);
-    app.getFeed(0, 10, filterConfig);
-  });
+  //   console.log(filterConfig);
+  //   app.getFeed(0, 10, filterConfig);
+  // });
 
   //
 };

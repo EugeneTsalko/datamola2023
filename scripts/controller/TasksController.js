@@ -14,6 +14,8 @@ class TasksController {
     this.users = new UserCollection();
     this.header = new HeaderView(headerRoot);
     this.filter = new FilterView(filterRoot);
+    this.filterController = new FilterController();
+    this.filterController.listen();
     this.toDoFeed = new TaskFeedView(toDoRoot);
     this.inProgressFeed = new TaskFeedView(inProgressRoot);
     this.completeFeed = new TaskFeedView(completeRoot);
