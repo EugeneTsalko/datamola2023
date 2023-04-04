@@ -13,12 +13,13 @@
   transition: var(--transition);
 }
 
-.btn:hover {
+.btn:hover:enabled {
   background-color: var(--primary400);
 }
 
 .btn:disabled {
   background-color: var(--gray600);
+  color: var(--gray900);
 }
 
 .secondary-btn {
@@ -27,7 +28,7 @@
   border: var(--border-main);
 }
 
-.secondary-btn:hover {
+.secondary-btn:hover:enabled {
   background-color: var(--white);
   border-color: var(--primary500);
 }
@@ -46,7 +47,7 @@
   height: 100%;
 }
 
-.add-task-btn:hover {
+.add-task-btn:hover:enabled {
   background-color: var(--primary50);
 }
 
@@ -69,7 +70,7 @@
   display: none;
 }
 
-.filter-btn:hover {
+.filter-btn:hover:enabled {
   background-image: url('../../assets/svg/filter-primary500.svg');
 }
 
@@ -81,7 +82,7 @@
   padding: 0;
 }
 
-.edit-btn:hover {
+.edit-btn:hover:enabled {
   background-image: url('../../assets/svg/edit-primary500.svg');
 }
 
@@ -105,7 +106,7 @@
   height: 1.5rem;
 }
 
-.close-btn:hover {
+.close-btn:hover:enabled {
   background-image: url('../../assets/svg/cancel-primary500.svg');
 }
 

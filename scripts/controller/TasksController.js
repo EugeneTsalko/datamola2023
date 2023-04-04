@@ -31,6 +31,7 @@ class TasksController {
       document.getElementById('menu').classList.add('undisplayed');
       document.getElementById('board').classList.add('undisplayed');
       document.getElementById('auth')?.remove();
+      document.getElementById('profilePage')?.remove();
 
       this.header.display({ isAuth: true });
       this.auth.display(AUTH_TYPE.signUp);
@@ -60,6 +61,7 @@ class TasksController {
       document.getElementById('menu').classList.add('undisplayed');
       document.getElementById('board').classList.add('undisplayed');
       document.getElementById('auth')?.remove();
+      document.getElementById('profilePage')?.remove();
 
       this.header.display({ isAuth: true });
       this.auth.display(AUTH_TYPE.signIn);
@@ -103,6 +105,7 @@ class TasksController {
       }
 
       document.getElementById('fullTask')?.remove();
+      document.getElementById('profilePage')?.remove();
       document.getElementById('menu').classList.remove('undisplayed');
       document.getElementById('board').classList.remove('undisplayed');
       localStorage.removeItem('user');

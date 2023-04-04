@@ -43,16 +43,6 @@ class AuthorizationView {
     });
 
     password.addEventListener('input', () => {
-      // switch (password.value) {
-      //   case !password.value.length:
-      //     passwordError.innerHTML = 'Invalid password.';
-      //     break;
-      //   case password.value !== passwordConfirm.value:
-      //     passwordError.innerHTML = 'Passwords should be the same.';
-      //     break;
-      //   default:
-      //     passwordError.innerHTML = '';
-      // }
       if (!password.value.length) {
         passwordError.innerHTML = 'Invalid password.';
       } else {

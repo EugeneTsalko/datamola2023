@@ -57,6 +57,7 @@ window.onload = function () {
     if (event.target.id === 'editProfileBtn') {
       event.preventDefault();
       app.showProfile('edit');
+      app.profile.listen();
     }
 
     if (event.target.id === 'closeProfileBtn') {
@@ -70,34 +71,35 @@ window.onload = function () {
       event.preventDefault();
       try {
         const user = app.users.get(localStorage.getItem('user'));
-        console.log(user);
         const name = document.getElementById('name').value;
         const oldPassword = document.getElementById('oldPassword').value;
         const newPassword = document.getElementById('newPassword').value;
         const confirmPassword = document.getElementById('confirmPassword').value;
-        const image = '../../UI/assets/svg/man.svg'; // TODO
+        const image = document.querySelector('input[name="avatar"]:checked')?.value || user.image;
 
         if (user.name === name) {
-          throw new Error('New name must not be the same as the old one');
-        }
-
-        if (user.password !== oldPassword) {
-          throw new Error('Invalid old password.');
-        }
-
-        if (newPassword !== confirmPassword) {
-          throw new Error('New password should be confirmed.');
+          throw new Error('New name must not be the same as the old one.', { cause: 'name' });
         }
 
         if (newPassword === oldPassword) {
-          throw new Error('Password must not be the same as the old one.');
+          throw new Error('Password must not be the same as the old one.', {
+            cause: 'newPassword',
+          });
         }
 
         if (app.editUser(name, image, newPassword)) {
           app.showProfile();
         }
       } catch (err) {
-        console.error(err.message);
+        if (err.cause === 'oldPassword') {
+          document.getElementById('oldPasswordError').textContent = err.message;
+        }
+        if (err.cause === 'name') {
+          document.getElementById('nameError').textContent = err.message;
+        }
+        if (err.cause === 'newPassword') {
+          document.getElementById('newPasswordError').textContent = err.message;
+        }
       }
     }
 
