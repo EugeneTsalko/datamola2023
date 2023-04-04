@@ -114,13 +114,11 @@ window.onload = function () {
       console.log('ADD TASK!');
       document.getElementById('overlay').classList.add('active');
       document.getElementById('overlay').append(DomHelper.createTaskForm());
-      // app.showTaskForm();
     }
 
     if (event.target.id === 'createTaskBtn') {
       event.preventDefault();
       const overlay = document.getElementById('overlay');
-      // console.log('CREATE TASK!');
       const name = document.getElementById('setTitle').value;
       const description = document.getElementById('setDescription').value;
       const assignee = document.getElementById('setAssignee').value;
@@ -199,8 +197,6 @@ window.onload = function () {
 
       const taskId = document.getElementById('taskFormHeader').textContent.split(' ').at(-1);
 
-      // console.log(taskId);
-
       if (app.editTask(taskId, task)) {
         overlay.classList.remove('active');
         overlay.innerHTML = '';
@@ -215,18 +211,6 @@ window.onload = function () {
       event.target.classList.toggle('active');
     }
   });
-
-  // document.addEventListener('input', (event) => {
-  //   if (event.target.id === 'assignee') {
-  //   }
-  // });
-
-  // document.getElementById('filterPrivacyList').addEventListener('change', (event) => {
-  //   console.log(document.querySelectorAll('input[name=privacy]:checked'));
-  //   const privacy = Array.from(document.querySelectorAll('input[name=privacy]:checked')).map(
-  //     (el) => el.id,
-  //   );
-  // });
 
   const form = document.querySelector('.filter-bar');
 

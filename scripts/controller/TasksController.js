@@ -1,8 +1,6 @@
 class TasksController {
   constructor(params) {
     const {
-      // tasksArr,
-      // usersArr,
       headerRoot,
       filterRoot,
       toDoRoot,
@@ -300,12 +298,4 @@ class TasksController {
       console.error(err.message);
     }
   }
-
-  // showTaskForm() {
-  //   try {
-  //     this.taskForm.display();
-  //   } catch (err) {
-  //     console.error(err.message);
-  //   }
-  // }
 }
