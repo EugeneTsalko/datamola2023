@@ -24,6 +24,7 @@ const appParams = {
   fullTaskRoot: 'main',
   profileRoot: 'main',
   authRoot: 'main',
+  taskFormRoot: 'overlay',
 };
 
 const app = new TasksController(appParams);

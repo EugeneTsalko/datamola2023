@@ -29,13 +29,13 @@ class FilterController {
       });
     });
 
-    document.getElementById('addTaskBtn').addEventListener('click', () => {
-      const overlay = document.getElementById('overlay');
-      overlay.innerHTML = '';
-
-      overlay.classList.add('active');
-      overlay.append(DomHelper.createTaskForm());
-    });
+    // document.getElementById('addTaskBtn').addEventListener('click', () => {
+    //   const overlay = document.getElementById('overlay');
+    //   overlay.innerHTML = '';
+    //   overlay.classList.add('active');
+    //   const { assignees } = app.tasks; //
+    //   overlay.append(DomHelper.createTaskForm('add', null, assignees));
+    // });
 
     form.addEventListener('input', (event) => {
       const assignees = Array.from(document.querySelectorAll('input[name=assignee]:checked')).map(

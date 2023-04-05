@@ -9,6 +9,7 @@ class TasksController {
       fullTaskRoot,
       profileRoot,
       authRoot,
+      taskFormRoot,
     } = params;
     this.tasks = new TaskCollection();
     this.users = new UserCollection();
@@ -22,6 +23,7 @@ class TasksController {
     this.fullTask = new TaskView(fullTaskRoot);
     this.profile = new ProfileView(profileRoot);
     this.auth = new AuthorizationView(authRoot);
+    this.taskForm = new TaskFormView(taskFormRoot);
   }
 
   // auth
@@ -302,20 +304,17 @@ class TasksController {
   }
   //
 
-  // addComment() {
-  //   try {
-  //     const form = document.getElementById('commentForm');
-  //     const text = document.getElementById('newComment').value;
-  //     const id = document.querySelector('.full-task-card').id.split('-').at(-1);
+  showTaskForm(type, taskId) {
+    const overlay = this.taskForm.root;
+    const { assignees } = this.tasks;
 
-  //     form.addEventListener('submit', (event) => {
-  //       event.preventDefault();
-  //       if (text) {
-  //         this.tasks.addComment(id, text);
-  //       }
-  //     });
-  //   } catch (err) {
-  //     console.error(err.message);
-  //   }
-  // }
+    let task = null;
+    if (taskId) {
+      task = this.tasks.get(taskId);
+    }
+
+    overlay.innerHTML = '';
+    overlay.classList.add('active');
+    this.taskForm.display(type, task, assignees);
+  }
 }

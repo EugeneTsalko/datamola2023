@@ -107,7 +107,10 @@ window.onload = function () {
       app.logOut();
     }
 
+    //
+
     if (event.target.id === 'closeTaskFormBtn') {
+      event.preventDefault();
       const overlay = document.getElementById('overlay');
       overlay.innerHTML = '';
       overlay.classList.remove('active');
@@ -156,21 +159,9 @@ window.onload = function () {
     }
 
     if (event.target.id === 'editTaskBtn') {
-      console.log('edit task');
-      const overlay = document.getElementById('overlay');
-      overlay.innerHTML = '';
-      document.getElementById('overlay').classList.add('active');
-
-      let taskId = event.target.closest('.task-card')?.id.split('-').at(-1);
-      let task;
-
-      if (taskId) {
-        task = app.tasks.get(taskId);
-      } else {
-        taskId = event.target.closest('.full-task-card')?.id.split('-').at(-1);
-        task = app.tasks.get(taskId);
-      }
-      document.getElementById('overlay').append(DomHelper.createTaskForm('edit', task));
+      const taskId = event.target.closest('.task-card')?.id.split('-').at(-1)
+        || event.target.closest('.full-task-card')?.id.split('-').at(-1);
+      app.showTaskForm('edit', taskId);
     }
 
     if (event.target.id === 'editTaskFormBtn') {
@@ -203,89 +194,9 @@ window.onload = function () {
         }
       }
     }
-    // if (event.target.id.includes('filter')) {
-    //   event.target.classList.toggle('active');
-    //   console.log('click');
-    // }
   });
 
-  // const form = document.querySelector('.filter-bar');
-
-  // const filterConfig = {};
-
-  // form.addEventListener('change', (event) => {
-  //   const assignees = Array.from(document.querySelectorAll('input[name=assignee]:checked')).map(
-  //     (el) => el.value,
-  //   );
-
-  //   if (assignees.length) {
-  //     filterConfig.assignee = assignees;
-  //   } else {
-  //     delete filterConfig.assignee;
-  //   }
-
-  //   const priorities = Array.from(document.querySelectorAll('input[name=priority]:checked')).map(
-  //     (el) => el.value,
-  //   );
-
-  //   if (priorities.length) {
-  //     filterConfig.priority = priorities;
-  //   } else {
-  //     delete filterConfig.priority;
-  //   }
-
-  //   const privacy = Array.from(document.querySelectorAll('input[name=privacy]:checked')).map(
-  //     (el) => el.value,
-  //   );
-
-  //   if (privacy.length === 1) {
-  //     filterConfig.isPrivate = privacy[0] === 'Private';
-  //   } else {
-  //     delete filterConfig.isPrivate;
-  //   }
-
-  //   const dateFrom = document.getElementById('dateFrom').value;
-
-  //   if (dateFrom) {
-  //     filterConfig.dateFrom = dateFrom;
-  //   } else {
-  //     delete filterConfig.dateFrom;
-  //   }
-
-  //   const dateTo = document.getElementById('dateTo').value;
-
-  //   if (dateTo) {
-  //     filterConfig.dateTo = dateTo;
-  //   } else {
-  //     delete filterConfig.dateTo;
-  //   }
-
-  //   const textSearch = document.getElementById('search').value;
-
-  //   if (textSearch) {
-  //     filterConfig.description = textSearch;
-  //   } else {
-  //     delete filterConfig.description;
-  //   }
-
-  //   console.log(filterConfig);
-  //   app.getFeed(0, 10, filterConfig);
-  // });
-
-  // const search = document.querySelector('.search-form');
-
-  // search.addEventListener('input', () => {
-  //   const textSearch = document.getElementById('search').value;
-
-  //   if (textSearch) {
-  //     filterConfig.description = textSearch;
-  //   } else {
-  //     delete filterConfig.description;
-  //   }
-
-  //   console.log(filterConfig);
-  //   app.getFeed(0, 10, filterConfig);
-  // });
-
-  //
+  document.getElementById('addTaskBtn').addEventListener('click', () => {
+    app.showTaskForm('add', null);
+  });
 };
