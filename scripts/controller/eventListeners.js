@@ -176,14 +176,24 @@ window.onload = function () {
 
     if (event.target.id === 'deleteTaskBtn') {
       let taskId = event.target.closest('.task-card')?.id.split('-').at(-1);
-      if (taskId) {
-        app.removeTask(taskId);
-      } else {
-        taskId = event.target.closest('.full-task-card')?.id.split('-').at(-1);
-        app.removeTask(taskId);
-        app.backToMain();
-      }
-      console.log('delete task');
+      const modal = DomHelper.showModal();
+      document.body.append(modal);
+
+      document.getElementById('modalConfirm').addEventListener('click', () => {
+        if (taskId) {
+          app.removeTask(taskId);
+          modal.remove();
+        } else {
+          taskId = event.target.closest('.full-task-card')?.id.split('-').at(-1);
+          app.removeTask(taskId);
+          app.backToMain();
+          modal.remove();
+        }
+      });
+
+      document.getElementById('modalCancel').addEventListener('click', () => {
+        modal.remove();
+      });
     }
 
     if (event.target.id === 'editTaskBtn') {

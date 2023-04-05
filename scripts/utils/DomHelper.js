@@ -202,4 +202,27 @@ class DomHelper {
         break;
     }
   }
+
+  static showModal(type) {
+    const modalOverlay = DomHelper.createNode('div', ['overlay', 'active'], { id: 'modalOverlay' });
+    modalOverlay.innerHTML = `
+    <section class="modal">
+    <div class="modal-header">
+      <h3 class="modal-title">Delete task?</h3>
+    </div>
+    <p class="modal-text">
+      Are you sure? This will delete task permanently.
+    </p>
+    <div class="modal-btns">
+      <button class="btn secondary-btn" id="modalCancel">CANCEL</button>
+      <button class="btn modal-btn" id="modalConfirm">DELETE</button>
+    </div>
+  </section>
+    `;
+
+    // modalOverlay.addEventListener('click', () => {
+    //   console.log('MODAL');
+    // });
+    return modalOverlay;
+  }
 }

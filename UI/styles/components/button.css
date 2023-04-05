@@ -33,6 +33,11 @@
   border-color: var(--primary500);
 }
 
+.modal-btn {
+  background-color: var(--red500);
+  color: var(--white);
+}
+
 .logout-btn {
   width: 2.5rem;
   height: 2.5rem;
