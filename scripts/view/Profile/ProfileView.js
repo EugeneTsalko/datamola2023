@@ -50,6 +50,7 @@ class ProfileView {
           </label>
 
           <label for="oldPassword" class="text-input">
+            ${isEdit ? '<button class="icon-btn password-btn" id="passwordBtn"></button>' : ''}
             <input type="password" id="oldPassword" placeholder="&nbsp;" ${
   isEdit ? '' : 'disabled'
 } value="${isEdit ? '' : `${password}`}">
@@ -59,6 +60,7 @@ class ProfileView {
           </label>
 
           <label for="newPassword" class="text-input ${isEdit ? '' : 'undisplayed'}">
+            <button class="icon-btn password-btn" id="passwordBtn"></button>
             <input type="password" id="newPassword" placeholder="&nbsp;">
             <span class="label">New password</span>
             <span class="focus-bg"></span>
@@ -66,6 +68,7 @@ class ProfileView {
           </label>
 
           <label for="confirmPassword" class="text-input ${isEdit ? '' : 'undisplayed'}">
+            <button class="icon-btn password-btn" id="passwordBtn"></button>
             <input type="password" id="confirmPassword" placeholder="&nbsp;">
             <span class="label">Confirm new password</span>
             <span class="focus-bg"></span>

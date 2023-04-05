@@ -84,12 +84,14 @@ class AuthorizationView {
           <p class="error-message" id="loginError"></p>
         </label>
         <label for="password" class="text-input">
-          <input type="password" id="password" minLength="1" placeholder="&nbsp;">
+          <button class="icon-btn password-btn" id="passwordBtn"></button>
+          <input type="password" class="password" id="password" minLength="1" placeholder="&nbsp;">
           <span class="label">Password*</span>
           <span class="focus-bg"></span>
           <p class="error-message" id="passwordError"></p>
         </label>
         <label for="passwordConfirm" class="text-input ${isSignUp ? '' : 'undisplayed'}">
+          <button class="icon-btn password-btn" id="passwordBtn"></button>
           <input type="password" id="passwordConfirm" placeholder="&nbsp;">
           <span class="label">Confirm password*</span>
           <span class="focus-bg"></span>

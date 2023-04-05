@@ -57,6 +57,23 @@
   transition: var(--transition);
 }
 
+.password-btn {
+  background-image: url('../../assets//svg/eye.svg');
+  width: 2.5rem;
+  height: 2.5rem;
+  position: absolute;
+  right: 0.5rem;
+  top: 1rem;
+}
+
+.password-btn:hover {
+  background-color: transparent;
+}
+
+.password-btn.active {
+  background-image: url('../../assets//svg/eye-lock.svg');
+}
+
 .profile-btn {
   background-image: url('../../assets/svg/user.svg');
   width: 2.5rem;

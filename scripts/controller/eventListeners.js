@@ -64,6 +64,18 @@ window.onload = function () {
       event.preventDefault();
     }
 
+    if (event.target.id === 'passwordBtn') {
+      event.preventDefault();
+      event.target.classList.toggle('active');
+      const input = event.target.nextElementSibling;
+
+      if (input.type === 'password') {
+        input.type = 'text';
+      } else {
+        input.type = 'password';
+      }
+    }
+
     if (event.target.id === 'loadMoreBtn') {
       console.log('click');
       const column = event.target.closest('.column').id;
