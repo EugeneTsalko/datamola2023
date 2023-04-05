@@ -6,32 +6,43 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="./styles/style.css">
+  <link rel="icon" type="image/x-icon" href="./assets/favicon.ico">
   <script defer src="../scripts/constants/constants.js"></script>
   <script defer src="../scripts/mockData/mockTasks.js"></script>
   <script defer src="../scripts/mockData/mockUsers.js"></script>
   <script defer src="../scripts/utils/utils.js"></script>
   <script defer src="../scripts/utils/commentSchema.js"></script>
   <script defer src="../scripts/utils/taskSchema.js"></script>
+  <script defer src="../scripts/utils/userSchema.js"></script>
   <script defer src="../scripts/utils/DomHelper.js"></script>
   <script defer src="../scripts/model/Comment.js"></script>
   <script defer src="../scripts/model/Task.js"></script>
   <script defer src="../scripts/model/TaskCollection.js"></script>
+  <script defer src="../scripts/model/User.js"></script>
+  <script defer src="../scripts/model/UserCollection.js"></script>
   <script defer src="../scripts/view/Header/HeaderView.js"></script>
   <script defer src="../scripts/view/Filter/FilterView.js"></script>
   <script defer src="../scripts/view/TaskFeed/TaskFeedView.js"></script>
   <script defer src="../scripts/view/Task/TaskView.js"></script>
-  <script defer src="../scripts/controller/controller.js"></script>
+  <script defer src="../scripts/view/Profile/ProfileView.js"></script>
+  <script defer src="../scripts/view/Authorization/AuthorizationView.js"></script>
+  <script defer src="../scripts/view/TaskForm/TaskFormView.js"></script>
+  <script defer src="../scripts/controller/FilterController.js"></script>
+  <script defer src="../scripts/controller/TasksController.js"></script>
 
   <script defer src="../scripts/app.js"></script>
+  <script defer src="../scripts/controller/eventListeners.js"></script>
   <title>HTML for JS debug</title>
 </head>
 
 <body id="root">
-  <div class="overlay"></div>
+  <div class="overlay" id="overlay"></div>
 
   <header class="header sticky-header">
     <a href="index.html" class="logo-link"></a>
     <nav class="nav" id="header-nav">
+      <button class="btn secondary-btn" id="signUpBtn">SIGN UP</button>
+      <button class="btn" id="signInBtn">SIGN IN</button>
     </nav>
   </header>
 
@@ -39,31 +50,58 @@
 
     <div class="menu" id="menu">
       <button class="btn secondary-btn add-task-btn hidden" id="addTaskBtn">
-        <img src="./assets/svg/add.svg" alt="add">
-        <span>ADD TASK</span>
+        <img src="./assets/svg/add.svg" alt="add" id="toMainBtn">
+        <span id="toMainBtn">ADD TASK</span>
       </button>
       <nav>
-        <div class="filter-container">
+        <form class="filter-container">
+          <button class="btn secondary-btn icon-btn reset-filter-btn hidden" id="resetFilterBtn"></button>
           <button class="btn secondary-btn icon-btn filter-btn"></button>
           <div class="filter-bar">
-            <div class="checkbox-dropdown" id="filter-assignee">
+            <div class="checkbox-dropdown" id="filterAssignee">
               <span>Assignee</span>
             </div>
-            <div class="checkbox-dropdown" id="filter-date">
+            <div class="checkbox-dropdown" id="filterDate">
               <span>Date</span>
+              <ul class="checkbox-dropdown-list" id="filterDateList">
+                <li>
+                  <label for="dateFrom">Date from: <input type="date" id="dateFrom"></label>
+                </li>
+                <li>
+                  <label for="dateTo">Date to:<input type="date" id="dateTo"></label>
+                </li>
+              </ul>
             </div>
-            <div class="checkbox-dropdown" id="filter-privacy">
+            <div class="checkbox-dropdown" id="filterPrivacy">
               <span>Privacy</span>
+              <ul class="checkbox-dropdown-list" id="filterPrivacyList">
+                <li>
+                  <input type="checkbox" name="privacy" value="Private" id="private">
+                  <label for="private">Private</label>
+                </li>
+                <li>
+                  <input type="checkbox" name="privacy" value="Public" id="public">
+                  <label for="public">Public</label>
+                </li>
+              </ul>
             </div>
-            <div class="checkbox-dropdown" id="filter-priority">
+            <div class="checkbox-dropdown" id="filterPriority">
               <span>Priority</span>
+              <ul class="checkbox-dropdown-list" id="filterPriorityList">
+                <li>
+                  <label for="low"><input type="checkbox" name="priority" value="Low" id="low">Low</label>
+                </li>
+                <li>
+                  <label for="medium"><input type="checkbox" name="priority" value="Medium" id="medium">Medium</label>
+                </li>
+                <li>
+                  <label for="high"><input type="checkbox" name="priority" value="High" id="high">High</label>
+                </li>
+              </ul>
             </div>
           </div>
-          <form class="search-form">
-            <input type="text" class="search" placeholder="Search...">
-            <button type="submit" class="search-btn"></button>
-          </form>
-        </div>
+          <input type="text" class="search" id="search" placeholder="Search...">
+        </form>
         <div class="view-container">
           <span>View:</span>
           <button class="btn secondary-btn kanban-btn active"></button>

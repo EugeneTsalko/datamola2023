@@ -1,4 +1,5 @@
 class DomHelper {
+  // постараюсь перенести большую часть логики отсюда по классам, уже частично сделал
   static createNode(tag, classNames = [], attributes = {}, textContent = '') {
     const node = document.createElement(tag);
 
@@ -18,18 +19,26 @@ class DomHelper {
   }
 
   static createTaskCard(task, user) {
-    const container = document.createElement('li');
     const {
       _id, name, description, _createdAt, assignee, status, priority, isPrivate, comments,
     } = task;
+    const container = DomHelper.createNode('li', [], { id: `task-${_id}` });
+
+    container.addEventListener('click', (event) => {
+      if (event.target.id === 'deleteTaskBtn' || event.target.id === 'editTaskBtn') {
+        return;
+      }
+      app.showTask(event.currentTarget.id.split('-').at(-1));
+      app.fullTask.listen();
+    });
 
     container.innerHTML = `
       <div class="task-card" id="task-${_id}">
         <div class="task-header">
           <h4>${name}</h4>
-          <div class="task-buttons ${user ? '' : 'hidden'}">
-            <button class="btn secondary-btn edit-btn"></button>
-            <button class="btn secondary-btn delete-btn"></button>
+          <div class="task-buttons ${assignee === user ? '' : 'hidden'}">
+            <button class="btn secondary-btn edit-btn" id="editTaskBtn"></button>
+            <button class="btn secondary-btn delete-btn" id="deleteTaskBtn"></button>
           </div>
           <div class="task-priority ${priority.toLowerCase()}">${priority}</div>
         </div>
@@ -60,22 +69,12 @@ class DomHelper {
   }
 
   static createAddMoreBtn() {
-    const btn = DomHelper.createNode('button', ['btn', 'secondary-btn', 'load-more-btn']);
+    const btn = DomHelper.createNode('button', ['btn', 'secondary-btn', 'load-more-btn'], {
+      id: 'loadMoreBtn',
+    });
     btn.innerHTML = '<img src="./assets/svg/refresh.svg" alt="refresh"><span>Load more</span>';
 
     return btn;
-  }
-
-  static createAssigneeFilter(assignee) {
-    const container = document.createElement('li');
-
-    container.innerHTML = `
-      <label>
-        <input type="checkbox" value="${assignee}" name="assignee" />
-        ${assignee}
-      </label>`;
-
-    return container;
   }
 
   static createComment(comment) {
@@ -113,11 +112,13 @@ class DomHelper {
     comments.forEach((comment) => commentsList.append(DomHelper.createComment(comment)));
     commentsContainer.append(commentsList);
 
-    const addCommentForm = DomHelper.createNode('form', ['add-comment-form']);
+    const addCommentForm = DomHelper.createNode('form', ['add-comment-form'], {
+      id: 'commentForm',
+    });
     addCommentForm.innerHTML = `
       <img class="user-img" src="${getUser(user, mockUsers)?.img}" alt="author image">
-      <textarea name="comment" id="new-comment" class="comment-textarea" maxlength="280" placeholder="Add new comment..."></textarea>
-      <button class="btn secondary-btn add-comment-btn" type="submit">
+      <textarea name="comment" id="newComment" class="comment-textarea" maxlength="280" placeholder="Add new comment..."></textarea>
+      <button class="btn secondary-btn add-comment-btn" type="submit" id="addCommentBtn">
         <span>ADD COMMENT</span>
       </button>`;
 
@@ -126,7 +127,7 @@ class DomHelper {
     return container;
   }
 
-  static createFullTask(task) {
+  static createFullTask(task, user) {
     const {
       _id, name, description, _createdAt, assignee, status, priority, isPrivate, comments,
     } = task;
@@ -137,9 +138,9 @@ class DomHelper {
     fullTask.innerHTML = `
       <div class="full-task-header">
         <h2 class="title">${name}</h2>
-        <div class="full-task-buttons">
-          <button class="btn secondary-btn edit-btn"></button>
-          <button class="btn secondary-btn delete-btn"></button>
+        <div class="full-task-buttons ${assignee === user ? '' : 'hidden'}">
+          <button class="btn secondary-btn edit-btn" id="editTaskBtn"></button>
+          <button class="btn secondary-btn delete-btn" id="deleteTaskBtn"></button>
         </div>
         <div class="task-priority ${priority.toLowerCase()}">${priority}</div>
       </div>
@@ -179,29 +180,47 @@ class DomHelper {
         </div>
       </div>`;
 
-    container.append(fullTask, DomHelper.createCommentsSection(comments, tasks.user));
+    container.append(fullTask, DomHelper.createCommentsSection(comments, user));
 
     return container;
   }
 
   static reRenderTaskColumn(status, user = null) {
-    let taskFeed = null;
     switch (status) {
       case TASK_STATUS.toDo:
-        taskFeed = getToDoFeed;
+        app.getToDoFeed();
         break;
+
       case TASK_STATUS.inProgress:
-        taskFeed = getInProgressTaskFeed;
+        app.getInProgressTaskFeed();
         break;
 
       case TASK_STATUS.complete:
-        taskFeed = getCompleteTaskFeed;
+        app.getCompleteTaskFeed();
         break;
 
       default:
         break;
     }
+  }
 
-    taskFeed();
+  static showModal(type) {
+    const modalOverlay = DomHelper.createNode('div', ['overlay', 'active'], { id: 'modalOverlay' });
+    modalOverlay.innerHTML = `
+    <section class="modal">
+    <div class="modal-header">
+      <h3 class="modal-title">Delete task?</h3>
+    </div>
+    <p class="modal-text">
+      Are you sure? This will delete task permanently.
+    </p>
+    <div class="modal-btns">
+      <button class="btn secondary-btn" id="modalCancel">CANCEL</button>
+      <button class="btn modal-btn" id="modalConfirm">DELETE</button>
+    </div>
+  </section>
+    `;
+
+    return modalOverlay;
   }
 }

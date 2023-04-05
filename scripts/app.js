@@ -1,50 +1,31 @@
-// init
+// инит стореджа, в задании с АПИ исчезнет
+function initStorage() {
+  const tasks = localStorage.getItem('tasks');
+  const users = localStorage.getItem('users');
 
-const tasks = new TaskCollection(mockTasks);
+  if (!tasks) {
+    localStorage.setItem('tasks', JSON.stringify(mockTasks));
+  }
 
-const headerView = new HeaderView('header-nav');
-headerView.display();
+  if (!users) {
+    localStorage.setItem('users', JSON.stringify(mockUsers));
+  }
+}
 
-const filterView = new FilterView('filter-assignee');
+initStorage();
 
-const toDoTaskFeed = new TaskFeedView('toDoList');
+//
 
-const inProgressTaskFeed = new TaskFeedView('inProgressList');
+const appParams = {
+  headerRoot: 'header-nav',
+  filterRoot: 'filterAssignee',
+  toDoRoot: 'toDoList',
+  inProgressRoot: 'inProgressList',
+  completeRoot: 'completeList',
+  fullTaskRoot: 'main',
+  profileRoot: 'main',
+  authRoot: 'main',
+  taskFormRoot: 'overlay',
+};
 
-const completeTaskFeed = new TaskFeedView('completeList');
-
-const taskPage = new TaskView('main');
-
-// test
-
-// setCurrentUser('IvanovIvan');
-
-// addTask({
-//   name: 'test addtask',
-//   description: 'addtask descr',
-//   status: 'Complete',
-//   priority: 'Low',
-// });
-
-// addTask({
-//   name: 'THIS TASK WILL BE REMOVED',
-//   description: 'THIS TASK WILL BE REMOVED',
-//   status: 'To Do',
-//   priority: 'Low',
-// });
-
-// removeTask('24');
-
-// editTask('23', {
-//   name: 'Edited test Addtask',
-//   description: 'Edited addtask descr',
-//   assignee: 'EditedAssignee',
-//   status: 'In progress',
-//   priority: 'High',
-//   isPrivate: true,
-// });
-
-// showTask('3');
-// closeTask();
-
-// getFeed(10, 20);
+const app = new TasksController(appParams);

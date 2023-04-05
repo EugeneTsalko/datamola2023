@@ -1,0 +1,93 @@
+.auth {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  align-self: center;
+  gap: var(--gap);
+  background-color: var(--white);
+  border: var(--border-main);
+  border-radius: var(--border-radius);
+  padding: var(--padding);
+  max-width: 40%;
+  min-width: 18rem;
+  width: 100%;
+  margin-top: 3rem;
+}
+
+.auth-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.auth-header h2 {
+  font-size: 2rem;
+}
+
+.auth-form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-s);
+  width: 100%;
+}
+
+.avatar-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--gap-s);
+}
+
+.auth-redirect-btn {
+  color: var(--primary500);
+  background: none;
+  font-size: inherit;
+  transition: var(--transition);
+}
+
+.auth-redirect-btn:hover {
+  cursor: pointer;
+  color: var(--primary600);
+}
+
+.avatar-male {
+  background-image: url('../../assets/svg/man.svg');
+  background-size: 4rem 4rem;
+  width: 4rem;
+  height: 4rem;
+  transition: var(--transition);
+}
+
+.avatar-male:hover {
+  cursor: pointer;
+}
+
+.avatar-female {
+  background-image: url('../../assets/svg/woman.svg');
+  background-size: 4rem 4rem;
+  width: 4rem;
+  height: 4rem;
+  transition: var(--transition);
+}
+
+.avatar-female:hover {
+  cursor: pointer;
+}
+
+input[name='avatar'] {
+  display: none;
+}
+
+input[name='avatar']:checked + .avatar-female {
+  background-image: url('../../assets/svg/woman-primary500.svg');
+}
+
+input[name='avatar']:checked + .avatar-male {
+  background-image: url('../../assets/svg/man-primary500.svg');
+}
+
+@media screen and (width <= 520px) {
+  .auth {
+    margin-top: calc(3rem + 73px);
+  }
+}

@@ -5,11 +5,7 @@
 .search {
   width: 15rem;
   border: var(--border-main);
-  border-right: none;
-  border-top-right-radius: 0;
-  border-bottom-right-radius: 0;
-  border-top-left-radius: var(--border-radius-s);
-  border-bottom-left-radius: var(--border-radius-s);
+  border-radius: var(--border-radius-s);
   font: var(--font-body-large);
   padding: 0.25rem 1rem;
   transition: var(--transition);
@@ -20,7 +16,7 @@
   border-color: var(--primary500);
 }
 
-.search-btn {
+/* .search-btn {
   width: 2.5rem;
   height: 2.5rem;
   background: url('../../assets/svg/search.svg') center no-repeat;
@@ -42,7 +38,7 @@
 .search:focus + .search-btn {
   border: var(--border-main);
   border-left: none;
-}
+} */
 
 @media screen and (width <= 1024px) {
   .search {

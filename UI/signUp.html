@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/x-icon" href="./assets/favicon.ico">
+  <link rel="stylesheet" href="./styles/style.css">
+  <title>TrelloMola by EugeneTsalko</title>
+</head>
+
+<body>
+  <div class="overlay"></div>
+  <header class="header">
+    <a href="main.html" class="logo-link"></a>
+    <nav class="nav">
+      <a href="main.html" class="btn secondary-btn to-main-btn">
+        <!-- <button class="btn secondary-btn to-main-btn"> -->
+        <img src="./assets/svg/back.svg" alt="return">
+        <span>TO MAIN</span>
+        <!-- </button> -->
+      </a>
+      <a href="user.html" class="btn secondary-btn icon-btn profile-btn">
+      </a>
+      <button class="btn logout-btn"></button>
+    </nav>
+  </header>
+
+  <main class="main">
+    <!-- Здесь будет <div class="menu hidden">...</div> -->
+
+    <!-- Здесь будет <section class="board hidden">...</section> -->
+
+    <section class="auth">
+      <div class="auth-header">
+        <h2>Welcome!</h2>
+        <span>Sign up to continue.</span>
+      </div>
+
+      <form class="auth-form" id="auth-form">
+        <label for="name" class="text-input">
+          <input type="text" id="name" maxlength="100" placeholder="&nbsp;">
+          <span class="label">Name*</span>
+          <span class="focus-bg"></span>
+        </label>
+        <label for="login" class="text-input">
+          <input type="text" id="login" placeholder="&nbsp;">
+          <span class="label">Login*</span>
+          <span class="focus-bg"></span>
+        </label>
+        <label for="password" class="text-input">
+          <input type="text" id="password" placeholder="&nbsp;">
+          <span class="label">Password*</span>
+          <span class="focus-bg"></span>
+        </label>
+        <label for="passwordConfirm" class="text-input">
+          <input type="text" id="passwordConfirm" placeholder="&nbsp;">
+          <span class="label">Confirm password*</span>
+          <span class="focus-bg"></span>
+        </label>
+
+        <div class="avatar-wrapper">
+          <p>Choose avatar:</p>
+          <div class="avatar-container">
+            <input type="radio" id="maleAvatar" name="avatar" value="../../assets/svg/man.svg">
+            <label for="maleAvatar" class="avatar-male"></label>
+            <input type="radio" id="femaleAvatar" name="avatar" value="../../assets/svg/woman.svg">
+            <label for="femaleAvatar" class="avatar-female"></label>
+            <label class="input-file-label">
+              <input type="file" name="input-file">
+            </label>
+          </div>
+        </div>
+      </form>
+
+      <button type="submit" form="auth-form" class="btn">SIGN UP</button>
+      <div class="auth-footer">
+        <span>Already have an account? Sign in</span>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-info">
+      <span>© TRELLOMOLA</span>
+      <span>v.1.0.0</span>
+      <span>Eugene Tsalko</span>
+      <span>tefworkmail@gmail.com</span>
+    </div>
+    <div class="select-lang">
+      <img src="./assets/svg/language.svg" alt="globe">
+      <select name="language" id="lang-select">
+        <option value="english">English</option>
+        <option value="russian">Русский</option>
+      </select>
+    </div>
+  </footer>
+</body>
+
+</html>

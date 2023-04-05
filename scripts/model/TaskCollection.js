@@ -1,12 +1,26 @@
 class TaskCollection {
-  constructor(tasksArr) {
+  constructor() {
     this._user = null;
-    this._tasks = tasksArr.map((task) => {
+    this.restore();
+  }
+
+  save() {
+    localStorage.setItem('tasks', JSON.stringify(this.collection));
+  }
+
+  restore() {
+    const storageTasks = JSON.parse(localStorage.getItem('tasks'));
+
+    this._collection = storageTasks.map((task) => {
       const collectionTask = new Task(...Object.values(structuredClone(task)));
+      collectionTask._createdAt = new Date(collectionTask._createdAt);
       if (collectionTask.comments.length) {
-        collectionTask.comments = collectionTask.comments.map(
-          (comment) => new Comment(...Object.values(comment)),
-        );
+        collectionTask.comments = collectionTask.comments.map((comment) => {
+          const collectionComment = new Comment(...Object.values(comment));
+          collectionComment._createdAt = new Date(collectionComment._createdAt);
+
+          return collectionComment;
+        });
       }
 
       return collectionTask;
@@ -34,28 +48,28 @@ class TaskCollection {
     this._user = null;
   }
 
-  get tasks() {
-    return this._tasks;
+  get collection() {
+    return this._collection;
   }
 
-  set tasks(value) {
-    console.error(getCustomError.protectedProp('tasks', this.tasks, value));
+  set collection(value) {
+    console.error(getCustomError.protectedProp('tasks', this.collection, value));
   }
 
   get toDoTasks() {
-    return this.tasks.filter((task) => task.status === TASK_STATUS.toDo);
+    return this.collection.filter((task) => task.status === TASK_STATUS.toDo);
   }
 
   get inProgressTasks() {
-    return this.tasks.filter((task) => task.status === TASK_STATUS.inProgress);
+    return this.collection.filter((task) => task.status === TASK_STATUS.inProgress);
   }
 
   get completeTasks() {
-    return this.tasks.filter((task) => task.status === TASK_STATUS.complete);
+    return this.collection.filter((task) => task.status === TASK_STATUS.complete);
   }
 
   get assignees() {
-    return Array.from(new Set(this.tasks.map((task) => task.assignee)));
+    return Array.from(new Set(this.collection.map((task) => task.assignee)));
   }
 
   get(id) {
@@ -64,7 +78,7 @@ class TaskCollection {
         throw new Error(getCustomError.invalidId('TaskCollection.get'));
       }
 
-      const task = findTaskById(id, this.tasks);
+      const task = findTaskById(id, this.collection);
 
       if (!task) {
         throw new Error(getCustomError.taskNotFound(id, 'TaskCollection.get'));
@@ -83,7 +97,7 @@ class TaskCollection {
   add(name, description, status, priority, isPrivate) {
     try {
       const task = new Task(
-        generateId(this.tasks),
+        generateId(this.collection),
         name,
         description,
         new Date(),
@@ -97,9 +111,10 @@ class TaskCollection {
         throw new Error("Can't add invalid task.");
       }
 
-      this._tasks.push(task);
+      this._collection.push(task);
       console.log(`Task has been added with id: "${task.id}"!`);
 
+      this.save();
       return true;
     } catch (err) {
       console.error(err.message);
@@ -120,12 +135,13 @@ class TaskCollection {
 
       tasksArr.forEach((task) => {
         if (Task.validate(task)) {
-          this._tasks.push(task);
+          this._collection.push(task);
         } else {
           inValidTasks.push(task);
         }
       });
 
+      this.save();
       return inValidTasks;
     } catch (err) {
       console.error(err.message);
@@ -140,7 +156,7 @@ class TaskCollection {
         throw new Error(getCustomError.invalidId('TaskCollection.edit'));
       }
 
-      const task = findTaskById(id, this.tasks);
+      const task = findTaskById(id, this.collection);
       console.log(task);
 
       if (!task) {
@@ -157,15 +173,27 @@ class TaskCollection {
         throw new Error(getCustomError.notEnoughParams('TaskCollection.edit'));
       }
 
+      // const editedTask = new Task(
+      //   id,
+      //   name || task.name,
+      //   description || task.description,
+      //   task._createdAt,
+      //   assignee || task.assignee,
+      //   status || task.status,
+      //   priority || task.priority,
+      //   isPrivate || task.isPrivate,
+      //   task.comments,
+      // );
+
       const editedTask = new Task(
         id,
-        name || task.name,
-        description || task.description,
+        name,
+        description,
         task._createdAt,
-        assignee || task.assignee,
-        status || task.status,
-        priority || task.priority,
-        isPrivate || task.isPrivate,
+        assignee,
+        status,
+        priority,
+        isPrivate,
         task.comments,
       );
 
@@ -173,11 +201,12 @@ class TaskCollection {
         throw new Error('Edited task is not valid');
       }
 
-      const index = findTaskIndexById(id, this.tasks);
-      this._tasks[index] = editedTask;
+      const index = findTaskIndexById(id, this.collection);
+      this._collection[index] = editedTask;
 
       console.log(`Task with id: "${id} has been edited!"`);
 
+      this.save();
       return true;
     } catch (err) {
       console.error(err.message);
@@ -192,25 +221,26 @@ class TaskCollection {
         throw new Error(getCustomError.invalidId('TaskCollection.remove'));
       }
 
-      if (!findTaskById(id, this.tasks)) {
+      if (!findTaskById(id, this.collection)) {
         throw new Error(getCustomError.taskNotFound(id, 'TaskCollection.remove'));
       }
 
-      const index = this.tasks.findIndex((task) => task.id === id);
+      const index = this.collection.findIndex((task) => task.id === id);
 
-      if (this.user !== this.tasks[index].assignee) {
+      if (this.user !== this.collection[index].assignee) {
         throw new Error(
           getCustomError.notEnoughRights(
             this.user,
-            this.tasks[index].assignee,
+            this.collection[index].assignee,
             'TaskCollection.remove',
           ),
         );
       }
 
-      this._tasks.splice(index, 1);
+      this._collection.splice(index, 1);
       console.log(`Task with "id": ${id} was successfully removed!`);
 
+      this.save();
       return true;
     } catch (err) {
       console.error(err.message);
@@ -231,7 +261,7 @@ class TaskCollection {
         throw new Error(getCustomError.invalidObjParam('filterConfig', 'TaskCollection.getPage'));
       }
 
-      let result = structuredClone(this.tasks);
+      let result = structuredClone(this.collection);
 
       if (type) {
         switch (type) {
@@ -261,10 +291,10 @@ class TaskCollection {
               return Date.parse(task._createdAt) >= Date.parse(filterConfig[key]);
             }
             if (key === 'dateTo') {
-              return Date.parse(task._createdAt) <= Date.parse(filterConfig[key]);
+              return Date.parse(task._createdAt) <= Date.parse(filterConfig[key]) + 86400000;
             }
             if (key === 'isPrivate') {
-              return filterConfig[key].includes(task.isPrivate);
+              return filterConfig[key] === task.isPrivate;
             }
             if (key === 'description') {
               return (
@@ -292,7 +322,8 @@ class TaskCollection {
   }
 
   clear() {
-    this._tasks = [];
+    this._collection = [];
+    this.save();
     console.log('Task collection was cleared.');
   }
 
@@ -302,21 +333,22 @@ class TaskCollection {
         throw new Error(getCustomError.invalidId('TaskCollection.addComment'));
       }
 
-      if (!findTaskById(id, this.tasks)) {
+      if (!findTaskById(id, this.collection)) {
         throw new Error(getCustomError.taskNotFound(id, 'TaskCollection.addComment'));
       }
 
-      const comments = getComments(this.tasks);
+      const comments = getComments(this.collection);
       const newComment = new Comment(generateId(comments), text, new Date(), this.user);
 
       if (!Comment.validate(newComment)) {
         throw new Error("Can't add invalid comment.");
       }
 
-      const index = findTaskIndexById(id, this.tasks);
-      this._tasks[index].comments.push(newComment);
+      const index = findTaskIndexById(id, this.collection);
+      this._collection[index].comments.push(newComment);
       console.log(`New comment has been added to task with id: "${id}"!`);
 
+      this.save();
       return true;
     } catch (err) {
       console.error(err.message);

@@ -15,3 +15,15 @@ const TASK_PRIORITY = {
   medium: 'Medium',
   high: 'High',
 };
+
+const TASK_PRIVACY = {
+  private: 'Private',
+  public: 'Public',
+};
+
+USERNAME_MAX_LENGTH = 100;
+
+AUTH_TYPE = {
+  signIn: 'Sign in',
+  signUp: 'Sign up',
+};

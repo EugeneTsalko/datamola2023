@@ -13,7 +13,16 @@ class TaskFeedView {
 
       if (tasks) {
         this.root.innerHTML = '';
-        tasks.forEach((task) => this.root.append(DomHelper.createTaskCard(task, user)));
+        tasks.forEach((task) => {
+          if (task.assignee !== user && task.isPrivate) {
+            return;
+          }
+          this.root.append(DomHelper.createTaskCard(task, user));
+        });
+
+        if (!tasks.length) {
+          this.root.innerHTML = 'Tasks was not find.';
+        }
 
         if (tasks.length >= 10) {
           this.root.append(DomHelper.createAddMoreBtn());

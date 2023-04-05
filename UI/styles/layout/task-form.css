@@ -1,0 +1,56 @@
+.task-form {
+  border: var(--border-main);
+  border-radius: var(--border-radius);
+  background-color: var(--white);
+  padding: var(--padding);
+  width: 60%;
+  min-width: 18rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  gap: var(--spacing-l);
+}
+
+.task-form > div > p {
+  margin-bottom: var(--spacing-s);
+  font-weight: 700;
+}
+
+.form-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: var(--border-main);
+}
+
+.description-area {
+  background-color: rgba(0, 0, 0, 0.02);
+  width: 100%;
+  resize: none;
+  font: inherit;
+  padding: 0.5rem 3rem 0 1rem;
+}
+
+label[for='setAssignee'] {
+  font-weight: 700;
+}
+
+#setAssignee {
+  margin-left: var(--spacing);
+  font: var(--font-body-large);
+}
+
+.form-inputs {
+  display: flex;
+  gap: var(--gap-s);
+}
+
+.form-inputs > label {
+  margin-right: var(--gap);
+}
+
+.form-btns {
+  display: flex;
+  gap: var(--gap-l);
+  align-self: center;
+}
