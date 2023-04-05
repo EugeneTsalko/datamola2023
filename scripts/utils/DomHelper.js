@@ -69,7 +69,9 @@ class DomHelper {
   }
 
   static createAddMoreBtn() {
-    const btn = DomHelper.createNode('button', ['btn', 'secondary-btn', 'load-more-btn']);
+    const btn = DomHelper.createNode('button', ['btn', 'secondary-btn', 'load-more-btn'], {
+      id: 'loadMoreBtn',
+    });
     btn.innerHTML = '<img src="./assets/svg/refresh.svg" alt="refresh"><span>Load more</span>';
 
     return btn;

@@ -20,6 +20,10 @@ class TaskFeedView {
           this.root.append(DomHelper.createTaskCard(task, user));
         });
 
+        if (!tasks.length) {
+          this.root.innerHTML = 'Tasks was not find.';
+        }
+
         if (tasks.length >= 10) {
           this.root.append(DomHelper.createAddMoreBtn());
         }

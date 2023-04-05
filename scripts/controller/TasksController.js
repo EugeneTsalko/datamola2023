@@ -24,6 +24,11 @@ class TasksController {
     this.profile = new ProfileView(profileRoot);
     this.auth = new AuthorizationView(authRoot);
     this.taskForm = new TaskFormView(taskFormRoot);
+    this.pagination = {
+      toDoTop: 10,
+      inProgressTop: 10,
+      completeTop: 10,
+    };
   }
 
   // auth
@@ -123,6 +128,8 @@ class TasksController {
     }
   }
 
+  // user
+
   editUser(name, image, password) {
     try {
       if (!this.users.edit(this.tasks.user, name, image, password)) {
@@ -137,9 +144,13 @@ class TasksController {
     }
   }
 
-  //
+  // feed
 
-  getToDoFeed(skip = 0, top = 10, filterConfig = null) {
+  getToDoFeed(
+    skip = 0,
+    top = this.pagination.toDoTop,
+    filterConfig = this.filterController.filterConfig,
+  ) {
     this.toDoFeed.display({
       user: this.tasks.user,
       tasks: this.tasks.getPage(skip, top, filterConfig, TASK_STATUS.toDo),
@@ -147,15 +158,24 @@ class TasksController {
     console.log(`Render column ${TASK_STATUS.toDo}`);
   }
 
-  getInProgressTaskFeed(skip = 0, top = 10, filterConfig = null) {
+  getInProgressFeed(
+    skip = 0,
+    top = this.pagination.inProgressTop,
+    filterConfig = this.filterController.filterConfig,
+  ) {
     this.inProgressFeed.display({
       user: this.tasks.user,
       tasks: this.tasks.getPage(skip, top, filterConfig, TASK_STATUS.inProgress),
     });
     console.log(`Render column ${TASK_STATUS.inProgress}`);
+    console.log(this.tasks.getPage(skip, top, filterConfig, TASK_STATUS.inProgress));
   }
 
-  getCompleteTaskFeed(skip = 0, top = 10, filterConfig = null) {
+  getCompleteFeed(
+    skip = 0,
+    top = this.pagination.completeTop,
+    filterConfig = this.filterController.filterConfig,
+  ) {
     this.completeFeed.display({
       user: this.tasks.user,
       tasks: this.tasks.getPage(skip, top, filterConfig, TASK_STATUS.complete),
@@ -163,17 +183,27 @@ class TasksController {
     console.log(`Render column ${TASK_STATUS.complete}`);
   }
 
-  getFeed(skip = 0, top = 10, filterConfig = null) {
+  // getFeed(skip = 0, top = 10, filterConfig = this.filterController.filterConfig) {
+  //   try {
+  //     this.getToDoFeed(skip, top, filterConfig);
+  //     this.getInProgressTaskFeed(skip, top, filterConfig);
+  //     this.getCompleteTaskFeed(skip, top, filterConfig);
+  //   } catch (err) {
+  //     console.error(err.message);
+  //   }
+  // }
+
+  getFeed(skip = 0, top = 10, filterConfig = this.filterController.filterConfig) {
     try {
       this.getToDoFeed(skip, top, filterConfig);
-      this.getInProgressTaskFeed(skip, top, filterConfig);
-      this.getCompleteTaskFeed(skip, top, filterConfig);
+      this.getInProgressFeed(skip, top, filterConfig);
+      this.getCompleteFeed(skip, top, filterConfig);
     } catch (err) {
       console.error(err.message);
     }
   }
 
-  //
+  // task
 
   addTask(task) {
     try {

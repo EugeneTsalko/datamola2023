@@ -5,8 +5,6 @@ class FilterController {
     this.skip = 0;
   }
 
-  paginate() {}
-
   listen() {
     const filters = Array.from(document.querySelectorAll('.checkbox-dropdown'));
 
@@ -17,7 +15,7 @@ class FilterController {
       event.preventDefault();
       this.filterConfig = {};
       form.reset();
-      app.getFeed(this.skip, this.top, this.filterConfig);
+      app.getFeed(this.skip, this.top, this.filterConfig); //
       resetBtn.classList.add('hidden');
     });
 
