@@ -23,8 +23,9 @@ class FilterController {
 
     filters.forEach((el) => {
       el.addEventListener('click', (event) => {
-        event.stopPropagation();
-        event.currentTarget.classList.toggle('active');
+        if (event.target === el.firstElementChild || event.target === el) {
+          event.currentTarget.classList.toggle('active');
+        }
       });
     });
 
