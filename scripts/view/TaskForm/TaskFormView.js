@@ -10,7 +10,10 @@ class TaskFormView {
     let assigneesOptions = '';
 
     assignees.forEach((assignee) => {
-      assigneesOptions += `<option value="${assignee}">${assignee}</option>`;
+      assigneesOptions += `<option value="${assignee}" ${
+        assignee === app.tasks.user ? 'selected' : ''
+      }
+      >${assignee}</option>`;
     });
 
     container.innerHTML = `
@@ -26,12 +29,9 @@ class TaskFormView {
       <span class="label">Title*</span>
       <span class="focus-bg"></span>
     </label>
-  
-    <label for="setDescription">
-      Description*
-      <textarea class="description-area" name="description" id="setDescription" cols="30" rows="10"
-        maxlength="280">${isEdit ? task.description : ''}</textarea>
-    </label>
+        
+    <textarea class="description-area" name="description" id="setDescription" cols="30" rows="5" placeholder="Description*"
+      maxlength="280">${isEdit ? task.description : ''}</textarea>
   
     <label for="setAssignee">
       Assignee
@@ -42,33 +42,55 @@ class TaskFormView {
   
     <div>
       <p>Priority*</p>
-      <input type="radio" id="low" value="Low" name="setPriority">
-      <label for="low">Low</label>
-      <input type="radio" id="medium" value="Medium" name="setPriority">
-      <label for="medium">Medium</label>
-      <input type="radio" id="high" value="High" name="setPriority">
-      <label for="high">High</label>
+      <div class="form-inputs">
+        <input type="radio" id="low" value="Low" name="setPriority"  ${
+  isEdit && TASK_PRIORITY.low === task.priority ? 'checked' : ''
+}>
+        <label for="low" class="task-priority low">Low</label>
+        <input type="radio" id="medium" value="Medium" name="setPriority" ${
+  isEdit && TASK_PRIORITY.medium === task.priority ? 'checked' : ''
+}>
+        <label for="medium" class="task-priority medium">Medium</label>
+        <input type="radio" id="high" value="High" name="setPriority" ${
+  isEdit && TASK_PRIORITY.high === task.priority ? 'checked' : ''
+}>
+        <label for="high" class="task-priority high">High</label>
+      </div>
     </div>
   
     <div>
       <p>Privacy</p>
-      <input type="radio" id="public" value="Public" name="setPrivacy">
+      <div class="form-inputs">
+      <input type="radio" id="public" value="Public" name="setPrivacy" ${
+  isEdit && !task.isPrivate ? 'checked' : ''
+} >
       <label for="public">Public</label>
-      <input type="radio" id="private" value="Private" name="setPrivacy">
+      <input type="radio" id="private" value="Private" name="setPrivacy"  ${
+  isEdit && task.isPrivate ? 'checked' : ''
+}>
       <label for="private">Private</label>
+      </div>
     </div>
   
     <div>
       <p>Status</p>
-      <input type="radio" id="toDo" value="To Do" name="setStatus">
+      <div class="form-inputs">
+      <input type="radio" id="toDo" value="To Do" ${
+  isEdit && TASK_STATUS.toDo === task.status ? 'checked' : ''
+} name="setStatus">
       <label for="toDo">To Do</label>
-      <input type="radio" id="inProgress" value="In progress" name="setStatus">
+      <input type="radio" id="inProgress" value="In progress" ${
+  isEdit && TASK_STATUS.inProgress === task.status ? 'checked' : ''
+} name="setStatus">
       <label for="inProgress">In progress</label>
-      <input type="radio" id="complete" value="Complete" name="setStatus">
+      <input type="radio" id="complete" value="Complete" ${
+  isEdit && TASK_STATUS.complete === task.status ? 'checked' : ''
+} name="setStatus">
       <label for="complete">Complete</label>
+      </div>
     </div>
 
-    <div>
+    <div class="form-btns">
       <button class="btn secondary-btn" type="reset">RESET</button>
       <button class="btn" type="submit" id="${isEdit ? 'editTaskFormBtn' : 'createTaskBtn'}">${
   isEdit ? 'EDIT' : 'CREATE'

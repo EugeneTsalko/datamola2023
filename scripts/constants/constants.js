@@ -16,6 +16,11 @@ const TASK_PRIORITY = {
   high: 'High',
 };
 
+const TASK_PRIVACY = {
+  private: 'Private',
+  public: 'Public',
+};
+
 USERNAME_MAX_LENGTH = 100;
 
 AUTH_TYPE = {

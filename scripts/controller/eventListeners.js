@@ -171,7 +171,7 @@ window.onload = function () {
       const description = document.getElementById('setDescription').value;
       const assignee = document.getElementById('setAssignee').value;
       const priority = document.querySelector('input[name="setPriority"]:checked')?.value;
-      const isPrivate = document.querySelector('input[name="setPrivacy"]:checked')?.value === 'Private';
+      const isPrivate = document.querySelector('input[name="setPrivacy"]:checked')?.value === TASK_PRIVACY.private;
       const status = document.querySelector('input[name="setStatus"]:checked')?.value || TASK_STATUS.toDo;
 
       const task = {

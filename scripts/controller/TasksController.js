@@ -302,6 +302,7 @@ class TasksController {
       console.error(err.message);
     }
   }
+
   //
 
   showTaskForm(type, taskId) {

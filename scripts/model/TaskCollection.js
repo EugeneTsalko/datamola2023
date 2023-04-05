@@ -173,15 +173,27 @@ class TaskCollection {
         throw new Error(getCustomError.notEnoughParams('TaskCollection.edit'));
       }
 
+      // const editedTask = new Task(
+      //   id,
+      //   name || task.name,
+      //   description || task.description,
+      //   task._createdAt,
+      //   assignee || task.assignee,
+      //   status || task.status,
+      //   priority || task.priority,
+      //   isPrivate || task.isPrivate,
+      //   task.comments,
+      // );
+
       const editedTask = new Task(
         id,
-        name || task.name,
-        description || task.description,
+        name,
+        description,
         task._createdAt,
-        assignee || task.assignee,
-        status || task.status,
-        priority || task.priority,
-        isPrivate || task.isPrivate,
+        assignee,
+        status,
+        priority,
+        isPrivate,
         task.comments,
       );
 
