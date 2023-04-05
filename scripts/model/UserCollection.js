@@ -1,6 +1,5 @@
 class UserCollection {
-  constructor(usersArr) {
-    // this._collection = usersArr.map((user) => new User(...Object.values(user)));
+  constructor() {
     this.restore();
   }
 
@@ -40,7 +39,6 @@ class UserCollection {
         throw new Error("Can't add invalid user.");
       }
 
-      // this._collection.push(newUser);
       console.log(`User "${user.login}" has been edited!`);
 
       this.save();

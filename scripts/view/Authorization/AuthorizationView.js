@@ -3,62 +3,6 @@ class AuthorizationView {
     this.root = document.getElementById(parentId);
   }
 
-  listen() {
-    const form = document.getElementById('authForm');
-    const {
-      name, login, password, passwordConfirm,
-    } = form;
-    const image = document.querySelector('input[name="avatar"]:checked')?.value
-      || '../../UI/assets/svg/man.svg';
-    const loginError = document.getElementById('loginError');
-    const passwordError = document.getElementById('passwordError');
-    const nameError = document.getElementById('nameError');
-    const passwordConfirmError = document.getElementById('passwordConfirmError');
-
-    form.addEventListener('input', () => {
-      const user = new User(login.value, name.value, image, password.value);
-      const isFormValid = password.value === passwordConfirm.value && User.validate(user);
-      if (isFormValid) {
-        document.getElementById('authSignUp').removeAttribute('disabled');
-      } else {
-        document.getElementById('authSignUp').setAttribute('disabled', '');
-      }
-    });
-
-    name.addEventListener('input', () => {
-      if (!checkStr(name.value, USERNAME_MAX_LENGTH)) {
-        nameError.innerHTML = 'Name should be 1-100 symbols.';
-      } else {
-        nameError.innerHTML = '';
-      }
-    });
-
-    login.addEventListener('input', () => {
-      if (!checkIsLoginValid(login.value)) {
-        loginError.innerHTML = 'Invalid login (only latin letters).';
-      } else {
-        loginError.innerHTML = '';
-        passwordError.innerHTML = '';
-      }
-    });
-
-    password.addEventListener('input', () => {
-      if (!password.value.length) {
-        passwordError.innerHTML = 'Invalid password.';
-      } else {
-        passwordError.innerHTML = '';
-      }
-    });
-
-    passwordConfirm.addEventListener('input', () => {
-      if (password.value !== passwordConfirm.value) {
-        passwordConfirmError.innerHTML = 'Passwords should be the same.';
-      } else {
-        passwordConfirmError.innerHTML = '';
-      }
-    });
-  }
-
   createAuthPage(type) {
     const container = DomHelper.createNode('section', ['auth'], { id: 'auth' });
 
@@ -193,6 +137,62 @@ class AuthorizationView {
 
       return null;
     }
+  }
+
+  listen() {
+    const form = document.getElementById('authForm');
+    const {
+      name, login, password, passwordConfirm,
+    } = form;
+    const image = document.querySelector('input[name="avatar"]:checked')?.value
+      || '../../UI/assets/svg/man.svg';
+    const loginError = document.getElementById('loginError');
+    const passwordError = document.getElementById('passwordError');
+    const nameError = document.getElementById('nameError');
+    const passwordConfirmError = document.getElementById('passwordConfirmError');
+
+    form.addEventListener('input', () => {
+      const user = new User(login.value, name.value, image, password.value);
+      const isFormValid = password.value === passwordConfirm.value && User.validate(user);
+      if (isFormValid) {
+        document.getElementById('authSignUp').removeAttribute('disabled');
+      } else {
+        document.getElementById('authSignUp').setAttribute('disabled', '');
+      }
+    });
+
+    name.addEventListener('input', () => {
+      if (!checkStr(name.value, USERNAME_MAX_LENGTH)) {
+        nameError.innerHTML = 'Name should be 1-100 symbols.';
+      } else {
+        nameError.innerHTML = '';
+      }
+    });
+
+    login.addEventListener('input', () => {
+      if (!checkIsLoginValid(login.value)) {
+        loginError.innerHTML = 'Invalid login (only latin letters).';
+      } else {
+        loginError.innerHTML = '';
+        passwordError.innerHTML = '';
+      }
+    });
+
+    password.addEventListener('input', () => {
+      if (!password.value.length) {
+        passwordError.innerHTML = 'Invalid password.';
+      } else {
+        passwordError.innerHTML = '';
+      }
+    });
+
+    passwordConfirm.addEventListener('input', () => {
+      if (password.value !== passwordConfirm.value) {
+        passwordConfirmError.innerHTML = 'Passwords should be the same.';
+      } else {
+        passwordConfirmError.innerHTML = '';
+      }
+    });
   }
 
   display(type) {

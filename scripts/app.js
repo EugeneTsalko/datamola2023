@@ -1,3 +1,4 @@
+// инит стореджа, в задании с АПИ исчезнет
 function initStorage() {
   const tasks = localStorage.getItem('tasks');
   const users = localStorage.getItem('users');

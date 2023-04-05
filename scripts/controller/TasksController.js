@@ -130,6 +130,25 @@ class TasksController {
 
   // user
 
+  showProfile(type) {
+    try {
+      const user = this.users.get(this.tasks.user);
+
+      if (!user) {
+        throw new Error('Profile page can`t be shown.');
+      }
+
+      document.getElementById('profilePage')?.remove();
+      document.getElementById('menu').classList.add('undisplayed');
+      document.getElementById('board').classList.add('undisplayed');
+
+      this.header.display({ user: this.tasks.user, isProfilePage: true });
+      this.profile.display(user, type);
+    } catch (err) {
+      console.error(err.message);
+    }
+  }
+
   editUser(name, image, password) {
     try {
       if (!this.users.edit(this.tasks.user, name, image, password)) {
@@ -183,16 +202,6 @@ class TasksController {
     console.log(`Render column ${TASK_STATUS.complete}`);
   }
 
-  // getFeed(skip = 0, top = 10, filterConfig = this.filterController.filterConfig) {
-  //   try {
-  //     this.getToDoFeed(skip, top, filterConfig);
-  //     this.getInProgressTaskFeed(skip, top, filterConfig);
-  //     this.getCompleteTaskFeed(skip, top, filterConfig);
-  //   } catch (err) {
-  //     console.error(err.message);
-  //   }
-  // }
-
   getFeed(skip = 0, top = 10, filterConfig = this.filterController.filterConfig) {
     try {
       this.getToDoFeed(skip, top, filterConfig);
@@ -204,6 +213,39 @@ class TasksController {
   }
 
   // task
+
+  showTask(id) {
+    try {
+      const task = this.tasks.get(id);
+
+      if (!task || !this.tasks.user) {
+        throw new Error('Task page can`t be shown.');
+      }
+
+      document.getElementById('fullTask')?.remove();
+      document.getElementById('menu').classList.add('undisplayed');
+      document.getElementById('board').classList.add('undisplayed');
+
+      this.header.display({ user: this.tasks.user, isTaskPage: true });
+      this.fullTask.display(task, this.tasks.user);
+    } catch (err) {
+      console.error(err.message);
+    }
+  }
+
+  showTaskForm(type, taskId) {
+    const overlay = this.taskForm.root;
+    const { assignees } = this.tasks;
+
+    let task = null;
+    if (taskId) {
+      task = this.tasks.get(taskId);
+    }
+
+    overlay.innerHTML = '';
+    overlay.classList.add('active');
+    this.taskForm.display(type, task, assignees);
+  }
 
   addTask(task) {
     try {
@@ -281,24 +323,7 @@ class TasksController {
     }
   }
 
-  showTask(id) {
-    try {
-      const task = this.tasks.get(id);
-
-      if (!task || !this.tasks.user) {
-        throw new Error('Task page can`t be shown.');
-      }
-
-      document.getElementById('fullTask')?.remove();
-      document.getElementById('menu').classList.add('undisplayed');
-      document.getElementById('board').classList.add('undisplayed');
-
-      this.header.display({ user: this.tasks.user, isTaskPage: true });
-      this.fullTask.display(task, this.tasks.user);
-    } catch (err) {
-      console.error(err.message);
-    }
-  }
+  // other
 
   backToMain() {
     try {
@@ -312,40 +337,5 @@ class TasksController {
     } catch (err) {
       console.error(err.message);
     }
-  }
-
-  showProfile(type) {
-    try {
-      const user = this.users.get(this.tasks.user);
-
-      if (!user) {
-        throw new Error('Profile page can`t be shown.');
-      }
-
-      document.getElementById('profilePage')?.remove();
-      document.getElementById('menu').classList.add('undisplayed');
-      document.getElementById('board').classList.add('undisplayed');
-
-      this.header.display({ user: this.tasks.user, isProfilePage: true });
-      this.profile.display(user, type);
-    } catch (err) {
-      console.error(err.message);
-    }
-  }
-
-  //
-
-  showTaskForm(type, taskId) {
-    const overlay = this.taskForm.root;
-    const { assignees } = this.tasks;
-
-    let task = null;
-    if (taskId) {
-      task = this.tasks.get(taskId);
-    }
-
-    overlay.innerHTML = '';
-    overlay.classList.add('active');
-    this.taskForm.display(type, task, assignees);
   }
 }

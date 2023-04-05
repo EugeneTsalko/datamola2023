@@ -1,4 +1,5 @@
 class DomHelper {
+  // постараюсь перенести большую часть логики отсюда по классам, уже частично сделал
   static createNode(tag, classNames = [], attributes = {}, textContent = '') {
     const node = document.createElement(tag);
 
@@ -27,7 +28,6 @@ class DomHelper {
       if (event.target.id === 'deleteTaskBtn' || event.target.id === 'editTaskBtn') {
         return;
       }
-      console.log('CLICK ON TASK CARD');
       app.showTask(event.currentTarget.id.split('-').at(-1));
       app.fullTask.listen();
     });
@@ -190,6 +190,7 @@ class DomHelper {
       case TASK_STATUS.toDo:
         app.getToDoFeed();
         break;
+
       case TASK_STATUS.inProgress:
         app.getInProgressTaskFeed();
         break;
@@ -220,9 +221,6 @@ class DomHelper {
   </section>
     `;
 
-    // modalOverlay.addEventListener('click', () => {
-    //   console.log('MODAL');
-    // });
     return modalOverlay;
   }
 }

@@ -102,10 +102,6 @@ class TaskFormView {
 
   display(type, task, assignees) {
     try {
-      // if (!checkIsObj(user)) {
-      //   throw new Error('Parameter user should be obj User.');
-      // }
-
       this.root.append(this.createTaskForm(type, task, assignees));
 
       console.log('Render taskForm view!');

@@ -5,6 +5,8 @@ class FilterController {
     this.skip = 0;
   }
 
+  // будет доработано
+
   listen() {
     const filters = Array.from(document.querySelectorAll('.checkbox-dropdown'));
 
@@ -26,14 +28,6 @@ class FilterController {
         }
       });
     });
-
-    // document.getElementById('addTaskBtn').addEventListener('click', () => {
-    //   const overlay = document.getElementById('overlay');
-    //   overlay.innerHTML = '';
-    //   overlay.classList.add('active');
-    //   const { assignees } = app.tasks; //
-    //   overlay.append(DomHelper.createTaskForm('add', null, assignees));
-    // });
 
     form.addEventListener('input', (event) => {
       const assignees = Array.from(document.querySelectorAll('input[name=assignee]:checked')).map(
@@ -97,7 +91,6 @@ class FilterController {
         resetBtn.classList.add('hidden');
       }
 
-      // console.log(this.filterConfig);
       app.getFeed(this.skip, this.top, this.filterConfig);
     });
   }

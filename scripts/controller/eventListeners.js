@@ -1,6 +1,8 @@
 window.onload = function () {
   console.log('Page is loaded!');
 
+  // постараюсь избавится от этого файла, разнести логику по классам.
+
   if (localStorage.getItem('user')) {
     app.login(localStorage.getItem('user'));
   } else {
@@ -77,23 +79,23 @@ window.onload = function () {
     }
 
     if (event.target.id === 'loadMoreBtn') {
-      console.log('click');
       const column = event.target.closest('.column').id;
+
       if (column === 'toDoColumn') {
         app.pagination.toDoTop += 10;
         app.getToDoFeed();
       }
+
       if (column === 'inProgressColumn') {
         app.pagination.inProgressTop += 10;
         app.getInProgressFeed();
       }
+
       if (column === 'completeColumn') {
         app.pagination.completeTop += 10;
         app.getCompleteFeed();
       }
     }
-
-    //
 
     if (event.target.id === 'saveProfileBtn') {
       event.preventDefault();
@@ -122,9 +124,11 @@ window.onload = function () {
         if (err.cause === 'oldPassword') {
           document.getElementById('oldPasswordError').textContent = err.message;
         }
+
         if (err.cause === 'name') {
           document.getElementById('nameError').textContent = err.message;
         }
+
         if (err.cause === 'newPassword') {
           document.getElementById('newPasswordError').textContent = err.message;
         }
@@ -134,8 +138,6 @@ window.onload = function () {
     if (event.target.id === 'logOutBtn') {
       app.logOut();
     }
-
-    //
 
     if (event.target.id === 'closeTaskFormBtn') {
       event.preventDefault();
@@ -149,7 +151,7 @@ window.onload = function () {
       const overlay = document.getElementById('overlay');
       const name = document.getElementById('setTitle').value;
       const description = document.getElementById('setDescription').value;
-      const assignee = document.getElementById('setAssignee').value;
+      // const assignee = document.getElementById('setAssignee').value;
       const priority = document.querySelector('input[name="setPriority"]:checked')?.value;
       const isPrivate = document.querySelector('input[name="setPrivacy"]:checked')?.value === TASK_PRIVACY.private;
       const status = document.querySelector('input[name="setStatus"]:checked')?.value || TASK_STATUS.toDo;
@@ -170,7 +172,6 @@ window.onload = function () {
 
     if (event.target.id === 'overlay') {
       const overlay = document.getElementById('overlay');
-      console.log('OVERLAY');
       overlay.classList.remove('active');
     }
 
