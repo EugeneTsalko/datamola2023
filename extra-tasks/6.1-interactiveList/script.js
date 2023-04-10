@@ -11,7 +11,7 @@ function createListContent(list) {
     listContent += createListContent(el.children);
   });
 
-  return `<ul>${listContent}</ul>`;
+  return `<ul id="ul">${listContent}</ul>`;
 }
 
 function createList(title, list) {
@@ -59,7 +59,7 @@ const list = [
 
 createList('TEST TITLE', list);
 
-document.addEventListener('click', (event) => {
+document.getElementById('ul').addEventListener('click', (event) => {
   if (event.target.nextSibling?.tagName === 'UL') {
     event.target.nextSibling.classList.toggle('hidden');
   }
