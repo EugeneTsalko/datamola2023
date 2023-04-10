@@ -10,6 +10,7 @@ class TasksController {
       profileRoot,
       authRoot,
       taskFormRoot,
+      apiUrl,
     } = params;
     this.tasks = new TaskCollection();
     this.users = new UserCollection();
@@ -24,6 +25,7 @@ class TasksController {
     this.profile = new ProfileView(profileRoot);
     this.auth = new AuthorizationView(authRoot);
     this.taskForm = new TaskFormView(taskFormRoot);
+    this.api = new TaskFeedApiService(apiUrl);
     this.pagination = {
       toDoTop: 10,
       inProgressTop: 10,
@@ -253,9 +255,7 @@ class TasksController {
         throw new Error(getCustomError.invalidObjParam('task', 'TasksController.addTask'));
       }
 
-      const {
-        name, description, status, priority, isPrivate,
-      } = task;
+      const { name, description, status, priority, isPrivate } = task;
 
       if (!this.tasks.add(name, description, status, priority, isPrivate)) {
         throw new Error('Task wasn`t added.');
@@ -281,9 +281,7 @@ class TasksController {
         throw new Error(getCustomError.invalidObjParam('task', 'TasksController.editTask'));
       }
 
-      const {
-        name, description, assignee, status, priority, isPrivate,
-      } = task;
+      const { name, description, assignee, status, priority, isPrivate } = task;
       const oldTask = this.tasks.get(id);
 
       if (!this.tasks.edit(id, name, description, assignee, status, priority, isPrivate)) {

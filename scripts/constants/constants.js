@@ -21,9 +21,15 @@ const TASK_PRIVACY = {
   public: 'Public',
 };
 
-USERNAME_MAX_LENGTH = 100;
+const USERNAME_MAX_LENGTH = 100;
 
-AUTH_TYPE = {
+const AUTH_TYPE = {
   signIn: 'Sign in',
   signUp: 'Sign up',
+};
+
+const ENDPOINTS = {
+  auth: '/api/auth/login',
+  tasks: '/api/tasks',
+  allUsers: '/api/user/allUsers',
 };

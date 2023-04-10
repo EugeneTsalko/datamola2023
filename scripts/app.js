@@ -26,6 +26,9 @@ const appParams = {
   profileRoot: 'main',
   authRoot: 'main',
   taskFormRoot: 'overlay',
+  apiUrl: 'http://169.60.206.50:7777',
 };
 
 const app = new TasksController(appParams);
+
+//
