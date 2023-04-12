@@ -283,7 +283,9 @@ class TasksController {
         throw new Error(getCustomError.invalidObjParam('task', 'TasksController.addTask'));
       }
 
-      const { name, description, status, priority, isPrivate } = task;
+      const {
+        name, description, status, priority, isPrivate,
+      } = task;
 
       if (!this.tasks.add(name, description, status, priority, isPrivate)) {
         throw new Error('Task wasn`t added.');
@@ -309,7 +311,9 @@ class TasksController {
         throw new Error(getCustomError.invalidObjParam('task', 'TasksController.editTask'));
       }
 
-      const { name, description, assignee, status, priority, isPrivate } = task;
+      const {
+        name, description, assignee, status, priority, isPrivate,
+      } = task;
       const oldTask = this.tasks.get(id);
 
       if (!this.tasks.edit(id, name, description, assignee, status, priority, isPrivate)) {

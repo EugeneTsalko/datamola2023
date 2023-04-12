@@ -157,10 +157,8 @@ window.onload = async function () {
       const description = document.getElementById('setDescription').value;
       // const assignee = document.getElementById('setAssignee').value;
       const priority = document.querySelector('input[name="setPriority"]:checked')?.value;
-      const isPrivate =
-        document.querySelector('input[name="setPrivacy"]:checked')?.value === TASK_PRIVACY.private;
-      const status =
-        document.querySelector('input[name="setStatus"]:checked')?.value || TASK_STATUS.toDo;
+      const isPrivate = document.querySelector('input[name="setPrivacy"]:checked')?.value === TASK_PRIVACY.private;
+      const status = document.querySelector('input[name="setStatus"]:checked')?.value || TASK_STATUS.toDo;
 
       if (
         app.addTask({
@@ -204,9 +202,8 @@ window.onload = async function () {
     }
 
     if (event.target.id === 'editTaskBtn') {
-      const taskId =
-        event.target.closest('.task-card')?.id.split('-').at(-1) ||
-        event.target.closest('.full-task-card')?.id.split('-').at(-1);
+      const taskId = event.target.closest('.task-card')?.id.split('-').at(-1)
+        || event.target.closest('.full-task-card')?.id.split('-').at(-1);
       app.showTaskForm('edit', taskId);
     }
 
@@ -217,10 +214,8 @@ window.onload = async function () {
       const description = document.getElementById('setDescription').value;
       const assignee = document.getElementById('setAssignee').value;
       const priority = document.querySelector('input[name="setPriority"]:checked')?.value;
-      const isPrivate =
-        document.querySelector('input[name="setPrivacy"]:checked')?.value === TASK_PRIVACY.private;
-      const status =
-        document.querySelector('input[name="setStatus"]:checked')?.value || TASK_STATUS.toDo;
+      const isPrivate = document.querySelector('input[name="setPrivacy"]:checked')?.value === TASK_PRIVACY.private;
+      const status = document.querySelector('input[name="setStatus"]:checked')?.value || TASK_STATUS.toDo;
 
       const task = {
         name,
