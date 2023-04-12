@@ -19,10 +19,9 @@ class DomHelper {
   }
 
   static createTaskCard(task, user) {
-    const {
-      _id, name, description, _createdAt, assignee, status, priority, isPrivate, comments,
-    } = task;
-    const container = DomHelper.createNode('li', [], { id: `task-${_id}` });
+    const { id, name, description, createdAt, assignee, status, priority, isPrivate, comments } =
+      task;
+    const container = DomHelper.createNode('li', [], { id: `task-${id}` });
 
     container.addEventListener('click', (event) => {
       if (event.target.id === 'deleteTaskBtn' || event.target.id === 'editTaskBtn') {
@@ -33,7 +32,7 @@ class DomHelper {
     });
 
     container.innerHTML = `
-      <div class="task-card" id="task-${_id}">
+      <div class="task-card" id="task-${id}">
         <div class="task-header">
           <h4>${name}</h4>
           <div class="task-buttons ${assignee === user ? '' : 'hidden'}">
@@ -46,8 +45,8 @@ class DomHelper {
         <div class="task-footer">
           <div class="task-info-container">
             <div class="task-date-container">
-              <span class="task-time">${getHumanTime(_createdAt)}</span>
-              <span class="task-date">${getHumanDate(_createdAt)}</span>
+              <span class="task-time">${getHumanTime(createdAt)}</span>
+              <span class="task-date">${getHumanDate(createdAt)}</span>
             </div>
             <div class="task-info">
               <span class="task-status">${status}</span>
@@ -59,8 +58,10 @@ class DomHelper {
             </div>
           </div>
           <div class="task-assignee">
-            <span class="assignee-name">${assignee}</span>
-            <img class="assignee-img" src="${getUser(assignee, mockUsers)?.img}" alt="assignee img">
+            <span class="assignee-name">${assignee.userName}</span>
+            <img class="assignee-img" src="data:image/png;base64,${
+              assignee.photo
+            }" alt="assignee img">
           </div>
         </div>
       </div>`;
@@ -79,9 +80,7 @@ class DomHelper {
 
   static createComment(comment) {
     const container = document.createElement('li');
-    const {
-      _id, text, _createdAt, author,
-    } = comment;
+    const { _id, text, _createdAt, author } = comment;
 
     container.innerHTML = `
       <div class="comment" id="comment-${_id}">
@@ -128,9 +127,8 @@ class DomHelper {
   }
 
   static createFullTask(task, user) {
-    const {
-      _id, name, description, _createdAt, assignee, status, priority, isPrivate, comments,
-    } = task;
+    const { _id, name, description, _createdAt, assignee, status, priority, isPrivate, comments } =
+      task;
     const container = DomHelper.createNode('section', ['full-task-container'], { id: 'fullTask' });
 
     const fullTask = DomHelper.createNode('div', ['full-task-card'], { id: `task-${_id}` });

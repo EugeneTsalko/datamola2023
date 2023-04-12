@@ -1,13 +1,17 @@
-window.onload = function () {
+window.onload = async function () {
   console.log('Page is loaded!');
 
   // постараюсь избавится от этого файла, разнести логику по классам.
 
-  if (localStorage.getItem('user')) {
-    app.login(localStorage.getItem('user'));
-  } else {
-    app.getFeed();
-  }
+  // if (localStorage.getItem('user')) {
+  //   app.login(localStorage.getItem('user'));
+  // } else {
+  //   app.getFeed();
+  // }
+
+  await app.start();
+
+  app.getFeed();
 
   document.addEventListener('click', (event) => {
     if (event.target.id === 'toMainBtn') {

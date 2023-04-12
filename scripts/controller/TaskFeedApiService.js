@@ -25,7 +25,9 @@ class TaskFeedApiService {
 
   async getTasks(from = 0, to = 10, status = 0) {
     try {
-      const response = await fetch(`${this.url}${ENDPOINTS.tasks}`);
+      const response = await fetch(
+        `${this.url}${ENDPOINTS.tasks}?skip=${from}&to=${to}&status=${status}`,
+      );
 
       const result = await response.json();
 
@@ -41,8 +43,6 @@ class TaskFeedApiService {
     try {
       const response = await fetch(this.url + ENDPOINTS.allUsers);
       const result = await response.json();
-
-      console.log('result: ', result);
 
       return result;
     } catch (err) {

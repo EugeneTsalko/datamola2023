@@ -10,6 +10,13 @@ const TASK_STATUS = {
   complete: 'Complete',
 };
 
+const API_STATUS = {
+  toDo: 1,
+  inProgress: 2,
+  complete: 3,
+  all: 0,
+};
+
 const TASK_PRIORITY = {
   low: 'Low',
   medium: 'Medium',

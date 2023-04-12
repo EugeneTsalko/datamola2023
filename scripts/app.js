@@ -1,11 +1,11 @@
 // инит стореджа, в задании с АПИ исчезнет
 function initStorage() {
-  const tasks = localStorage.getItem('tasks');
+  // const tasks = localStorage.getItem('tasks');
   const users = localStorage.getItem('users');
 
-  if (!tasks) {
-    localStorage.setItem('tasks', JSON.stringify(mockTasks));
-  }
+  // if (!tasks) {
+  //   localStorage.setItem('tasks', JSON.stringify(mockTasks));
+  // }
 
   if (!users) {
     localStorage.setItem('users', JSON.stringify(mockUsers));
@@ -30,5 +30,9 @@ const appParams = {
 };
 
 const app = new TasksController(appParams);
+
+// await app.start();
+// const tasks = app.api.getTasks();
+// console.log(await tasks);
 
 //
