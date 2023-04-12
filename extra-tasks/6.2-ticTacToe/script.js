@@ -28,6 +28,10 @@ function startGame() {
 }
 
 function turnClick(event) {
+  if (event.target.innerHTML) {
+    return;
+  }
+
   turn(event.target.id, huPlayer);
 
   if (!checkWin(board, huPlayer) && !checkTie()) {
