@@ -36,7 +36,12 @@ const AUTH_TYPE = {
 };
 
 const ENDPOINTS = {
-  auth: '/api/auth/login',
-  tasks: '/api/tasks',
-  allUsers: '/api/user/allUsers',
+  auth: 'api/auth/login',
+  tasks: 'api/tasks',
+  editTask: (taskId) => `api/tasks/${taskId}`,
+  comments: (taskId) => `api/tasks/${taskId}/comments`,
+  allUsers: 'api/user/allUsers',
+  myProfile: 'api/user/myProfile',
+  register: 'api/user/register',
+  editUser: (userId) => `api/user/${userId}`,
 };

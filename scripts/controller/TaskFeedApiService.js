@@ -5,7 +5,7 @@ class TaskFeedApiService {
 
   async auth(login, password) {
     try {
-      const response = await fetch(this.url + ENDPOINTS.auth, {
+      const response = await fetch(`${this.url}/${ENDPOINTS.auth}`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -26,7 +26,7 @@ class TaskFeedApiService {
   async getTasks(from = 0, to = 10, status = 0) {
     try {
       const response = await fetch(
-        `${this.url}${ENDPOINTS.tasks}?skip=${from}&to=${to}&status=${status}`,
+        `${this.url}/${ENDPOINTS.tasks}?skip=${from}&to=${to}&status=${status}`,
       );
 
       const result = await response.json();
@@ -41,7 +41,7 @@ class TaskFeedApiService {
 
   async getAllUsers() {
     try {
-      const response = await fetch(this.url + ENDPOINTS.allUsers);
+      const response = await fetch(`${this.url}/${ENDPOINTS.allUsers}`);
       const result = await response.json();
 
       return result;
