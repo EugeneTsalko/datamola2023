@@ -3,15 +3,17 @@ window.onload = async function () {
 
   // постараюсь избавится от этого файла, разнести логику по классам.
 
-  // if (localStorage.getItem('user')) {
-  //   app.login(localStorage.getItem('user'));
-  // } else {
-  //   app.getFeed();
-  // }
+  app.filter.display({ assignees: app.tasks.assignees });
 
-  await app.start();
+  if (localStorage.getItem('user')) {
+    app.login(localStorage.getItem('user'));
+  } else {
+    app.getFeed();
+  }
 
-  app.getFeed();
+  // await app.start();
+
+  // app.getFeed();
 
   document.addEventListener('click', (event) => {
     if (event.target.id === 'toMainBtn') {
@@ -68,6 +70,7 @@ window.onload = async function () {
 
     if (event.target.id === 'closeProfileBtn') {
       event.preventDefault();
+      app.showProfile();
     }
 
     if (event.target.id === 'passwordBtn') {

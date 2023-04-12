@@ -12,8 +12,8 @@ class TasksController {
       taskFormRoot,
       apiUrl,
     } = params;
-    // this.tasks = new TaskCollection();
-    // this.users = new UserCollection();
+    this.tasks = new TaskCollection();
+    this.users = new UserCollection();
     this.header = new HeaderView(headerRoot);
     this.filter = new FilterView(filterRoot);
     this.filterController = new FilterController();
@@ -37,7 +37,7 @@ class TasksController {
   // start
 
   async start() {
-    this.tasks = await this.api.getTasks();
+    // this.tasksApi = await this.api.getTasks();
     // this.toDoTasks = await this.api.getTasks(0, this.pagination.toDoTop, API_STATUS.toDo);
     // this.inProgressTasks = await this.api.getTasks(
     //   0,
@@ -52,7 +52,6 @@ class TasksController {
     this.toDoTasks = this.tasks.filter((task) => task.status === TASK_STATUS.toDo);
     this.inProgressTasks = this.tasks.filter((task) => task.status === TASK_STATUS.inProgress);
     this.completeTasks = this.tasks.filter((task) => task.status === TASK_STATUS.complete);
-
     // this.users = await this.api.getAllUsers();
   }
 
@@ -145,7 +144,7 @@ class TasksController {
       this.tasks.logOut();
 
       this.header.display();
-      this.filter.display({ assignees: this.assignees });
+      this.filter.display({ assignees: this.tasks.assignees });
 
       this.getFeed();
     } catch (err) {
@@ -196,10 +195,10 @@ class TasksController {
     filterConfig = this.filterController.filterConfig,
   ) {
     this.toDoFeed.display({
-      // user: this.tasks.user,
-      // tasks: this.tasks.getPage(skip, top, filterConfig, TASK_STATUS.toDo),
-      user: 'IvanovIvan',
-      tasks: this.toDoTasks,
+      user: this.tasks.user,
+      tasks: this.tasks.getPage(skip, top, filterConfig, TASK_STATUS.toDo),
+      // user: 'IvanovIvan',
+      // tasks: this.toDoTasks,
     });
     console.log(`Render column ${TASK_STATUS.toDo}`);
   }
@@ -210,10 +209,10 @@ class TasksController {
     filterConfig = this.filterController.filterConfig,
   ) {
     this.inProgressFeed.display({
-      // user: this.tasks.user,
-      // tasks: this.tasks.getPage(skip, top, filterConfig, TASK_STATUS.inProgress),
-      user: 'IvanovIvan',
-      tasks: this.inProgressTasks,
+      user: this.tasks.user,
+      tasks: this.tasks.getPage(skip, top, filterConfig, TASK_STATUS.inProgress),
+      // user: 'IvanovIvan',
+      // tasks: this.inProgressTasks,
     });
     console.log(`Render column ${TASK_STATUS.inProgress}`);
   }
@@ -224,10 +223,10 @@ class TasksController {
     filterConfig = this.filterController.filterConfig,
   ) {
     this.completeFeed.display({
-      // user: this.tasks.user,
-      // tasks: this.tasks.getPage(skip, top, filterConfig, TASK_STATUS.complete),
-      user: 'IvanovIvan',
-      tasks: this.completeTasks,
+      user: this.tasks.user,
+      tasks: this.tasks.getPage(skip, top, filterConfig, TASK_STATUS.complete),
+      // user: 'IvanovIvan',
+      // tasks: this.completeTasks,
     });
     console.log(`Render column ${TASK_STATUS.complete}`);
   }

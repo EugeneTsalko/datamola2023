@@ -19,20 +19,21 @@ class DomHelper {
   }
 
   static createTaskCard(task, user) {
-    const {
-      id, name, description, createdAt, assignee, status, priority, isPrivate, comments,
-    } = task;
-    const container = DomHelper.createNode('li', [], { id: `task-${id}` });
+    try {
+      const {
+        id, name, description, createdAt, assignee, status, priority, isPrivate, comments,
+      } = task;
+      const container = DomHelper.createNode('li', [], { id: `task-${id}` });
 
-    container.addEventListener('click', (event) => {
-      if (event.target.id === 'deleteTaskBtn' || event.target.id === 'editTaskBtn') {
-        return;
-      }
-      app.showTask(event.currentTarget.id.split('-').at(-1));
-      app.fullTask.listen();
-    });
+      container.addEventListener('click', (event) => {
+        if (event.target.id === 'deleteTaskBtn' || event.target.id === 'editTaskBtn') {
+          return;
+        }
+        app.showTask(event.currentTarget.id.split('-').at(-1));
+        app.fullTask.listen();
+      });
 
-    container.innerHTML = `
+      container.innerHTML = `
       <div class="task-card" id="task-${id}">
         <div class="task-header">
           <h4>${name}</h4>
@@ -59,15 +60,20 @@ class DomHelper {
             </div>
           </div>
           <div class="task-assignee">
-            <span class="assignee-name">${assignee.userName}</span>
+            <span class="assignee-name">${assignee?.userName}</span>
             <img class="assignee-img" src="data:image/png;base64,${
-  assignee.photo
+  assignee?.photo
 }" alt="assignee img">
           </div>
         </div>
       </div>`;
 
-    return container;
+      return container;
+    } catch (err) {
+      console.error(err.message);
+
+      return null;
+    }
   }
 
   static createAddMoreBtn() {

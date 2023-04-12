@@ -30,7 +30,7 @@ class ProfileView {
             <input type="radio" id="femaleAvatar" name="avatar" value="../../UI/assets/svg/woman.svg">
             <label for="femaleAvatar" class="avatar-female"></label>
             <label class="input-file-label">
-              <input type="file" name="input-file">
+              <input type="file" name="avatar">
             </label>
           </div>
 
@@ -78,7 +78,7 @@ class ProfileView {
           <div class="user-form-btns">
             <button id="profileResetBtn" type="reset" class="btn secondary-btn cancel-btn ${
   isEdit ? '' : 'undisplayed'
-}" disabled>CANCEL</button>
+}" disabled>RESET</button>
             <button class="btn secondary-btn save-btn ${
   isEdit ? '' : 'undisplayed'
 }" id="saveProfileBtn" disabled>SAVE</button>
@@ -106,6 +106,7 @@ class ProfileView {
     const confirmPasswordError = document.getElementById('confirmPasswordError');
     const resetBtn = document.getElementById('profileResetBtn');
     const saveBtn = document.getElementById('saveProfileBtn');
+    const closeEditBtn = document.getElementById('closeProfileBtn');
 
     let isNameValid = false;
     let isOldPassValid = false;
@@ -172,6 +173,11 @@ class ProfileView {
         p.textContent = '';
       });
     });
+
+    // closeEditBtn.addEventListener('click', (event) => {
+    //   event.preventDefault();
+    //   app.showProfile();
+    // });
   }
 
   display(user, type) {
