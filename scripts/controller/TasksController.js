@@ -40,6 +40,15 @@ class TasksController {
   // start
 
   async start() {
+    this.users = await this.api.getAllUsers();
+    this.tasksApi = await this.api.getTasks();
+
+    this.toDoTasks = await this.tasksApi.filter((task) => task.status === TASK_STATUS.toDo);
+    this.inProgressTasks = await this.tasksApi.filter(
+      (task) => task.status === TASK_STATUS.inProgress,
+    );
+    this.completeTasks = await this.tasksApi.filter((task) => task.status === TASK_STATUS.complete);
+
     const user = localStorage.getItem('user');
     const token = localStorage.getItem('token');
 
@@ -47,10 +56,10 @@ class TasksController {
       this.user = JSON.parse(user);
       this.login(this.user, token);
     } else {
-      this.getFeed();
+      this.filter.display({ assignees: this.users });
+      // this.getFeed();
     }
 
-    this.tasksApi = await this.api.getTasks();
     // this.toDoTasks = await this.api.getTasks(0, this.pagination.toDoTop, API_STATUS.toDo);
     // this.inProgressTasks = await this.api.getTasks(
     //   0,
@@ -62,12 +71,6 @@ class TasksController {
     //   this.pagination.completeTop,
     //   API_STATUS.complete,
     // );
-    this.toDoTasks = await this.tasksApi.filter((task) => task.status === TASK_STATUS.toDo);
-    this.inProgressTasks = await this.tasksApi.filter(
-      (task) => task.status === TASK_STATUS.inProgress,
-    );
-    this.completeTasks = await this.tasksApi.filter((task) => task.status === TASK_STATUS.complete);
-    this.users = await this.api.getAllUsers();
   }
 
   // auth
@@ -148,22 +151,26 @@ class TasksController {
   }
 
   login(user, token) {
-    // localStorage.setItem('user', login);
+    try {
+      // localStorage.setItem('user', login);
 
-    // this.tasks.user = login;
-    this.user = user;
-    localStorage.setItem('user', JSON.stringify(user));
-    localStorage.setItem('token', token);
+      // this.tasks.user = login;
+      this.user = user;
+      localStorage.setItem('user', JSON.stringify(user));
+      localStorage.setItem('token', token);
 
-    this.header.display({ user: this.user });
-    this.filter.display({ user: this.user, assignees: this.users });
+      this.header.display({ user: this.user });
+      this.filter.display({ user: this.user, assignees: this.users });
 
-    this.getFeed();
+      // this.getFeed();
+    } catch (err) {
+      console.log(err.message);
+    }
   }
 
   logOut() {
     try {
-      if (!this.tasks.user) {
+      if (!this.user) {
         throw new Error('Before log out you need to Sign In.');
       }
 
@@ -172,11 +179,12 @@ class TasksController {
       document.getElementById('menu').classList.remove('undisplayed');
       document.getElementById('board').classList.remove('undisplayed');
       localStorage.removeItem('user');
+      localStorage.removeItem('token');
 
-      this.tasks.logOut();
+      // this.tasks.logOut();
 
       this.header.display();
-      this.filter.display({ assignees: this.tasks.assignees });
+      this.filter.display({ assignees: this.users });
 
       this.getFeed();
     } catch (err) {
