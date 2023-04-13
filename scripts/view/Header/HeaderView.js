@@ -19,7 +19,7 @@ class HeaderView {
         if (user) {
           this.user = user;
           navContent = `
-            <span>Hi, ${this.user}!</span>
+            <span>Hi, ${this.user.userName}!</span>
             <button class="btn secondary-btn icon-btn profile-btn" id="profileBtn"></button>
             <button class="btn logout-btn" id="logOutBtn"></button>
           `;

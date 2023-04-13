@@ -76,7 +76,7 @@ class AuthorizationView {
       const form = document.getElementById('authForm');
       const { login, password } = form;
 
-      const user = app.users.get(login.value); //
+      const user = app.getUser(login.value);
 
       if (!login.value || !password.value) {
         if (!login.value) {
@@ -92,9 +92,9 @@ class AuthorizationView {
         throw new Error(`User with login "${login.value}" doesn't exist.`, { cause: 'login' });
       }
 
-      if (password.value !== user.password) {
-        throw new Error('Invalid password', { cause: 'password' });
-      }
+      // if (password.value !== user.password) {
+      //   throw new Error('Invalid password', { cause: 'password' });
+      // }
 
       return user;
     } catch (err) {
@@ -155,9 +155,9 @@ class AuthorizationView {
       const user = new User(login.value, name.value, image, password.value);
       const isFormValid = password.value === passwordConfirm.value && User.validate(user);
       if (isFormValid) {
-        document.getElementById('authSignUp').removeAttribute('disabled');
+        document.getElementById('authSignUp')?.removeAttribute('disabled');
       } else {
-        document.getElementById('authSignUp').setAttribute('disabled', '');
+        document.getElementById('authSignUp')?.setAttribute('disabled', '');
       }
     });
 

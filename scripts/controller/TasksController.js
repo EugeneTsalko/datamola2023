@@ -12,6 +12,9 @@ class TasksController {
       taskFormRoot,
       apiUrl,
     } = params;
+    this.tasks = [];
+    this.users = [];
+    this.user = null;
     // this.tasks = new TaskCollection();
     // this.users = new UserCollection();
     this.header = new HeaderView(headerRoot);
@@ -103,32 +106,52 @@ class TasksController {
     }
   }
 
-  signIn() {
+  async signIn() {
     try {
       const user = this.auth.validateSignIn();
+      console.log(user);
 
       if (!user) {
         throw new Error('Something went wrong in Sign In.');
       }
 
-      this.login(user.login);
+      const form = document.getElementById('authForm');
+      const { login, password } = form;
+
+      form.addEventListener('input', () => {
+        console.log('sddgn');
+      });
+
+      const response = await this.api.auth(login.value, password.value);
+      console.log(response);
+
+      if (response?.statusCode) {
+        throw new Error(response?.message);
+      }
+
+      this.login(user, response.token);
 
       return user;
     } catch (err) {
+      const passwordError = document.getElementById('passwordError');
+      passwordError.textContent = err.message;
       console.error(err.message);
 
       return null;
     }
   }
 
-  login(login) {
-    localStorage.setItem('user', login);
+  login(user, token) {
+    // localStorage.setItem('user', login);
 
-    this.tasks.user = login;
-    this.header.display({ user: login });
-    this.filter.display({ user: this.tasks.user, assignees: this.tasks.assignees });
+    // this.tasks.user = login;
+    this.user = user;
+    localStorage.setItem('token', token);
 
-    this.getFeed();
+    this.header.display({ user: this.user });
+    this.filter.display({ user: this.user, assignees: this.users });
+
+    // this.getFeed();
   }
 
   logOut() {
@@ -369,6 +392,24 @@ class TasksController {
       this.header.display({ user });
     } catch (err) {
       console.error(err.message);
+    }
+  }
+
+  // other
+
+  getUser(login) {
+    try {
+      const user = this.users.find((elem) => elem.login === login);
+
+      // if (!user) {
+      //   throw new Error(`User with login: "${login}" was not found.`);
+      // }
+
+      return user;
+    } catch (err) {
+      console.error(err.message);
+
+      return null;
     }
   }
 }

@@ -11,11 +11,11 @@ window.onload = async function () {
 
   await app.start();
   // app.filter.display({ assignees: app.tasks.assignees }); // рендер ассайни при первои запуске
-  app.filter.display({ assignees: app.users.map((user) => user.userName) });
+  app.filter.display({ assignees: app.users });
 
   // app.getFeed();
 
-  document.addEventListener('click', (event) => {
+  document.addEventListener('click', async (event) => {
     if (event.target.id === 'toMainBtn') {
       app.backToMain();
     }
@@ -42,7 +42,7 @@ window.onload = async function () {
 
     if (event.target.id === 'authSignIn') {
       event.preventDefault();
-      const user = app.signIn();
+      const user = await app.signIn();
       if (user) {
         document.getElementById('auth')?.remove();
         document.getElementById('menu').classList.remove('undisplayed');
