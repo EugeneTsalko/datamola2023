@@ -64,3 +64,28 @@ const getCustomError = {
   protectedProp: (prop, value, newValue) => `Property "${prop}" is protected. You can't change "${value}" to "${newValue}."`,
   notClassInstance: (className) => `Parameter should be an instance of "${className}" class.`,
 };
+
+const getSrcBase64 = (base64) => {
+  const firstChar = base64.at(0);
+  let result = base64;
+
+  switch (firstChar) {
+    case BASE64_TYPE.jpg:
+      result = `${BASE64_PREFIX.jpg}${base64}`;
+      break;
+
+    case BASE64_TYPE.svg:
+      result = `${BASE64_PREFIX.svg}${base64}`;
+      break;
+
+    case BASE64_TYPE.gif:
+      result = `${BASE64_PREFIX.gif}${base64}`;
+      break;
+
+    default:
+      result = `${BASE64_PREFIX.png}${base64}`;
+      break;
+  }
+
+  return result;
+};

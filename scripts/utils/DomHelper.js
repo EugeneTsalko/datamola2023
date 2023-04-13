@@ -72,9 +72,7 @@ class DomHelper {
           </div>
           <div class="task-assignee">
             <span class="assignee-name">${assignee?.userName}</span>
-            <img class="assignee-img" src="data:image/png;base64,${
-  assignee?.photo
-}" alt="assignee img">
+            <img class="assignee-img" src="${getSrcBase64(assignee.photo)}" alt="assignee img">
           </div>
         </div>
       </div>`;
@@ -109,7 +107,7 @@ class DomHelper {
         </p>
         <div class="comment-footer">
           <div class="comment-author">
-            <img class="author-img" src="data:image/png;base64,${creator.photo}" alt="author image">
+            <img class="author-img" src="${getSrcBase64(creator.photo)}" alt="author image">
             <span class="author-name">${creator.userName}</span>
           </div>
           <div class="comment-date-container">
@@ -137,7 +135,7 @@ class DomHelper {
       id: 'commentForm',
     });
     addCommentForm.innerHTML = `
-      <img class="user-img" src="data:image/png;base64,${user.photo}" alt="author image">
+      <img class="user-img" src="${getSrcBase64(user.photo)}" alt="author image">
       <textarea name="comment" id="newComment" class="comment-textarea" maxlength="280" placeholder="Add new comment..."></textarea>
       <button class="btn secondary-btn add-comment-btn" id="addCommentBtn">
         <span>ADD COMMENT</span>
@@ -207,7 +205,7 @@ class DomHelper {
           <div class="full-task-assignee">
             <span class="full-assignee-name">${assignee.userName}</span>
             <img class="full-task-assignee-img" 
-            src="data:image/png;base64,${assignee.photo}" alt="assignee image">
+            src="${getSrcBase64(assignee.photo)}" alt="assignee image">
           </div>
         </div>
       </div>`;

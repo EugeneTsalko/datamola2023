@@ -39,15 +39,25 @@ class TasksController {
 
   // start
 
+  async fetchTasks() {
+    try {
+      this.tasksApi = await this.api.getTasks();
+
+      this.toDoTasks = await this.tasksApi.filter((task) => task.status === TASK_STATUS.toDo);
+      this.inProgressTasks = await this.tasksApi.filter(
+        (task) => task.status === TASK_STATUS.inProgress,
+      );
+      this.completeTasks = await this.tasksApi.filter(
+        (task) => task.status === TASK_STATUS.complete,
+      );
+    } catch (err) {
+      console.error(err.message);
+    }
+  }
+
   async start() {
     this.users = await this.api.getAllUsers();
-    this.tasksApi = await this.api.getTasks();
-
-    this.toDoTasks = await this.tasksApi.filter((task) => task.status === TASK_STATUS.toDo);
-    this.inProgressTasks = await this.tasksApi.filter(
-      (task) => task.status === TASK_STATUS.inProgress,
-    );
-    this.completeTasks = await this.tasksApi.filter((task) => task.status === TASK_STATUS.complete);
+    await this.fetchTasks();
 
     const user = localStorage.getItem('user');
     const token = localStorage.getItem('token');
@@ -395,7 +405,7 @@ class TasksController {
 
   // other
 
-  backToMain() {
+  async backToMain() {
     try {
       document.getElementById('fullTask')?.remove();
       document.getElementById('profilePage')?.remove();
@@ -404,6 +414,9 @@ class TasksController {
       document.getElementById('board').classList.remove('undisplayed');
 
       const user = this.user || null;
+
+      await this.fetchTasks();
+      this.getFeed();
 
       this.header.display({ user });
     } catch (err) {

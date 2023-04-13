@@ -21,7 +21,7 @@ window.onload = async function () {
 
   document.addEventListener('click', async (event) => {
     if (event.target.id === 'toMainBtn') {
-      app.backToMain();
+      await app.backToMain();
     }
 
     if (event.target.id === 'signUpBtn') {

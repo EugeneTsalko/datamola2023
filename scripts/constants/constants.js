@@ -45,3 +45,23 @@ const ENDPOINTS = {
   register: 'api/user/register',
   editUser: (userId) => `api/user/${userId}`,
 };
+
+const BASE64_TYPE = {
+  jpg: '/',
+  png: 'i',
+  gif: 'R',
+  svg: 'P',
+  bmp: 'Q',
+  ico: 'A',
+};
+
+const BASE64_PREFIX = {
+  jpg: 'data:image/jpeg;base64,',
+  png: 'data:image/png;base64,',
+  gif: 'data:image/gif;base64,',
+  svg: 'data:image/svg+xml;base64,',
+  bmp: 'data:image/bmp;base64,',
+  ico: 'data:image/x-icon;base64,',
+};
+
+// data:image/png;base64,
