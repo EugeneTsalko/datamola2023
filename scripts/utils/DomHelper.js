@@ -99,22 +99,22 @@ class DomHelper {
   static createComment(comment) {
     const container = document.createElement('li');
     const {
-      _id, text, _createdAt, author,
+      id, text, createdAt, creator,
     } = comment;
 
     container.innerHTML = `
-      <div class="comment" id="comment-${_id}">
+      <div class="comment" id="comment-${id}">
         <p class="comment-text">
           ${text}
         </p>
         <div class="comment-footer">
           <div class="comment-author">
-            <img class="author-img" src="${getUser(author, mockUsers)?.img}" alt="author image">
-            <span class="author-name">${author}</span>
+            <img class="author-img" src="data:image/png;base64,${creator.photo}" alt="author image">
+            <span class="author-name">${creator.userName}</span>
           </div>
           <div class="comment-date-container">
-            <span class="comment-date">${getHumanDate(_createdAt)}</span>
-            <span class="comment-time">${getHumanTime(_createdAt)}</span>
+            <span class="comment-date">${getHumanDate(createdAt)}</span>
+            <span class="comment-time">${getHumanTime(createdAt)}</span>
           </div>
         </div>
       </div>`;
@@ -135,7 +135,7 @@ class DomHelper {
       id: 'commentForm',
     });
     addCommentForm.innerHTML = `
-      <img class="user-img" src="${getUser(user, mockUsers)?.img}" alt="author image">
+      <img class="user-img" src="data:image/png;base64,${user.photo}" alt="author image">
       <textarea name="comment" id="newComment" class="comment-textarea" maxlength="280" placeholder="Add new comment..."></textarea>
       <button class="btn secondary-btn add-comment-btn" type="submit" id="addCommentBtn">
         <span>ADD COMMENT</span>
@@ -148,16 +148,27 @@ class DomHelper {
 
   static createFullTask(task, user) {
     const {
-      _id, name, description, _createdAt, assignee, status, priority, isPrivate, comments,
+      id,
+      name,
+      description,
+      createdAt,
+      assignee,
+      creator,
+      status,
+      priority,
+      isPrivate,
+      comments,
     } = task;
     const container = DomHelper.createNode('section', ['full-task-container'], { id: 'fullTask' });
 
-    const fullTask = DomHelper.createNode('div', ['full-task-card'], { id: `task-${_id}` });
+    const fullTask = DomHelper.createNode('div', ['full-task-card'], { id: `task-${id}` });
+
+    const isHidden = creator.login === user.login;
 
     fullTask.innerHTML = `
       <div class="full-task-header">
         <h2 class="title">${name}</h2>
-        <div class="full-task-buttons ${assignee === user ? '' : 'hidden'}">
+        <div class="full-task-buttons ${isHidden ? '' : 'hidden'}">
           <button class="btn secondary-btn edit-btn" id="editTaskBtn"></button>
           <button class="btn secondary-btn delete-btn" id="deleteTaskBtn"></button>
         </div>
@@ -174,8 +185,8 @@ class DomHelper {
         <div class="full-task-info">
           <span class="full-task-info-title">date</span>
           <div class="full-task-date">
-            <span>${getHumanTime(_createdAt)}</span>
-            <span>${getHumanDate(_createdAt)}</span>
+            <span>${getHumanTime(createdAt)}</span>
+            <span>${getHumanDate(createdAt)}</span>
           </div>
         </div>
 
@@ -192,9 +203,9 @@ class DomHelper {
         <div class="full-task-info">
           <span class="full-task-info-title">assignee</span>
           <div class="full-task-assignee">
-            <span class="full-assignee-name">${assignee}</span>
+            <span class="full-assignee-name">${assignee.userName}</span>
             <img class="full-task-assignee-img" 
-            src="${getUser(assignee, mockUsers)?.img}" alt="assignee image">
+            src="data:image/png;base64,${assignee.photo}" alt="assignee image">
           </div>
         </div>
       </div>`;

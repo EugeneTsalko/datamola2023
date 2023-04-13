@@ -281,11 +281,13 @@ class TasksController {
 
   // task
 
-  showTask(id) {
+  async showTask(id) {
     try {
-      const task = this.tasks.get(id);
+      // const task = this.tasks.get(id);
+      const task = await this.api.getFullTask(id);
+      console.log(task);
 
-      if (!task || !this.tasks.user) {
+      if (!task || !this.user) {
         throw new Error('Task page can`t be shown.');
       }
 
@@ -293,8 +295,8 @@ class TasksController {
       document.getElementById('menu').classList.add('undisplayed');
       document.getElementById('board').classList.add('undisplayed');
 
-      this.header.display({ user: this.tasks.user, isTaskPage: true });
-      this.fullTask.display(task, this.tasks.user);
+      this.header.display({ user: this.user, isTaskPage: true });
+      this.fullTask.display(task, this.user);
     } catch (err) {
       console.error(err.message);
     }
