@@ -44,7 +44,8 @@ class TasksController {
     const token = localStorage.getItem('token');
 
     if (user && token) {
-      this.login(JSON.parse(user), token);
+      this.user = JSON.parse(user);
+      this.login(this.user, token);
     } else {
       this.getFeed();
     }

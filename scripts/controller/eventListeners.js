@@ -11,7 +11,7 @@ window.onload = async function () {
 
   await app.start();
   // app.filter.display({ assignees: app.tasks.assignees }); // рендер ассайни при первои запуске
-  app.filter.display({ assignees: app.users });
+  // app.filter.display({ assignees: app.users });
 
   // app.getFeed();
 
