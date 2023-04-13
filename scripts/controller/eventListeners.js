@@ -3,8 +3,6 @@ window.onload = async function () {
 
   // постараюсь избавится от этого файла, разнести логику по классам.
 
-  // app.filter.display({ assignees: app.tasks.assignees }); // рендер ассайни при первои запуске
-
   // if (localStorage.getItem('user')) {
   //   app.login(localStorage.getItem('user'));
   // } else {
@@ -12,6 +10,8 @@ window.onload = async function () {
   // }
 
   await app.start();
+  // app.filter.display({ assignees: app.tasks.assignees }); // рендер ассайни при первои запуске
+  app.filter.display({ assignees: app.users.map((user) => user.userName) });
 
   // app.getFeed();
 
