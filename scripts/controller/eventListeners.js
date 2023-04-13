@@ -107,26 +107,37 @@ window.onload = async function () {
     if (event.target.id === 'saveProfileBtn') {
       event.preventDefault();
       try {
-        const user = app.users.get(localStorage.getItem('user'));
+        // const user = app.users.get(localStorage.getItem('user'));
+        const { user } = app;
         const name = document.getElementById('name').value;
-        const oldPassword = document.getElementById('oldPassword').value;
+        // const oldPassword = document.getElementById('oldPassword').value;
         const newPassword = document.getElementById('newPassword').value;
-        const confirmPassword = document.getElementById('confirmPassword').value;
-        const image = document.querySelector('input[name="avatar"]:checked')?.value || user.image;
+        const retypedPassword = document.getElementById('confirmPassword').value;
+        const photo = document.querySelector('input[name="avatar"]:checked')?.value || user.photo;
 
-        if (user.name === name) {
-          throw new Error('New name must not be the same as the old one.', { cause: 'name' });
+        // if (user.userName === name) {
+        //   throw new Error('New name must not be the same as the old one.', { cause: 'name' });
+        // }
+
+        // if (newPassword === oldPassword) {
+        //   throw new Error('Password must not be the same as the old one.', {
+        //     cause: 'newPassword',
+        //   });
+        // }
+
+        // if (app.editUser(name, image, newPassword)) {
+        //   app.showProfile();
+        // }
+        const response = await app.api.editUser(user.id, name, newPassword, retypedPassword, photo);
+        console.log(response);
+
+        if (response?.error) {
+          throw new Error(response?.message);
         }
 
-        if (newPassword === oldPassword) {
-          throw new Error('Password must not be the same as the old one.', {
-            cause: 'newPassword',
-          });
-        }
-
-        if (app.editUser(name, image, newPassword)) {
-          app.showProfile();
-        }
+        app.user = response;
+        localStorage.setItem('user', JSON.stringify(response));
+        app.showProfile();
       } catch (err) {
         if (err.cause === 'oldPassword') {
           document.getElementById('oldPasswordError').textContent = err.message;

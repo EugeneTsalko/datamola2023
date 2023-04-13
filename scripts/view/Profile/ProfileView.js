@@ -4,30 +4,30 @@ class ProfileView {
   }
 
   createProfilePage(user, type) {
-    const {
-      _login, name, image, password,
-    } = user;
+    const { login, userName, photo } = user;
     const container = DomHelper.createNode('section', ['user-container'], { id: 'profilePage' });
     const isEdit = type === 'edit';
 
     container.innerHTML = `
       <div class="profile-info">
         <div class="profile-header">
-          <h3>Hi, ${_login}!</h3>
+          <h3>Hi, ${userName}!</h3>
           <button class="btn secondary-btn close-btn ${
   isEdit ? '' : 'undisplayed'
 }" id="closeProfileBtn"></button>
-          <img class="avatar-img ${isEdit ? 'undisplayed' : ''}" src="${image}" alt="user-img">
+          <img class="avatar-img ${
+  isEdit ? 'undisplayed' : ''
+}" src="data:image/png;base64,${photo}" alt="user-img">
         </div>
 
         <form class="user-form active" id="profileForm">
           <div class="avatar-container ${isEdit ? '' : 'undisplayed'}">
             <div class="avatar active">
-              <img class="avatar-img" src="${image}" alt="user-img">
+              <img class="avatar-img" src="data:image/png;base64,${photo}" alt="user-img">
             </div>
-            <input type="radio" id="maleAvatar" name="avatar" value="../../UI/assets/svg/man.svg">
+            <input type="radio" id="maleAvatar" name="avatar" value="${STANDARD_IMG.male}">
             <label for="maleAvatar" class="avatar-male"></label>
-            <input type="radio" id="femaleAvatar" name="avatar" value="../../UI/assets/svg/woman.svg">
+            <input type="radio" id="femaleAvatar" name="avatar" value="${STANDARD_IMG.female}">
             <label for="femaleAvatar" class="avatar-female"></label>
             <label class="input-file-label">
               <input type="file" name="avatar">
@@ -36,7 +36,7 @@ class ProfileView {
 
           <label for="name" class="text-input">
             <input type="text" id="name" placeholder="&nbsp;" ${isEdit ? '' : 'disabled'} value="${
-  isEdit ? '' : `${name}`
+  isEdit ? '' : `${userName}`
 }">
             <span class="label">${isEdit ? 'New name' : 'Name'}</span>
             <span class="focus-bg"></span>
@@ -44,8 +44,8 @@ class ProfileView {
           </label>
 
           <label for="login" class="text-input ${isEdit ? 'undisplayed' : ''}">
-            <input type="text" id="login" placeholder="&nbsp;" disabled value="${_login}">
-            <span class="label">Username</span>
+            <input type="text" id="login" placeholder="&nbsp;" disabled value="${login}">
+            <span class="label">Login</span>
             <span class="focus-bg"></span>
           </label>
 
@@ -53,7 +53,7 @@ class ProfileView {
             ${isEdit ? '<button class="icon-btn password-btn" id="passwordBtn"></button>' : ''}
             <input type="password" id="oldPassword" placeholder="&nbsp;" ${
   isEdit ? '' : 'disabled'
-} value="${isEdit ? '' : `${password}`}">
+} value="${isEdit ? '' : '********'}">
             <span class="label">${isEdit ? 'Old password' : 'Password'}</span>
             <span class="focus-bg"></span>
             ${isEdit ? '<p class="error-message" id="oldPasswordError"></p>' : ''}

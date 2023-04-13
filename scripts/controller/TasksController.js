@@ -194,7 +194,7 @@ class TasksController {
 
   showProfile(type) {
     try {
-      const user = this.users.get(this.tasks.user);
+      const { user } = this;
 
       if (!user) {
         throw new Error('Profile page can`t be shown.');
@@ -204,7 +204,7 @@ class TasksController {
       document.getElementById('menu').classList.add('undisplayed');
       document.getElementById('board').classList.add('undisplayed');
 
-      this.header.display({ user: this.tasks.user, isProfilePage: true });
+      this.header.display({ user: this.user, isProfilePage: true });
       this.profile.display(user, type);
     } catch (err) {
       console.error(err.message);
