@@ -40,6 +40,15 @@ class TasksController {
   // start
 
   async start() {
+    const user = localStorage.getItem('user');
+    const token = localStorage.getItem('token');
+
+    if (user && token) {
+      this.login(JSON.parse(user), token);
+    } else {
+      this.getFeed();
+    }
+
     this.tasksApi = await this.api.getTasks();
     // this.toDoTasks = await this.api.getTasks(0, this.pagination.toDoTop, API_STATUS.toDo);
     // this.inProgressTasks = await this.api.getTasks(
@@ -118,10 +127,6 @@ class TasksController {
       const form = document.getElementById('authForm');
       const { login, password } = form;
 
-      form.addEventListener('input', () => {
-        console.log('sddgn');
-      });
-
       const response = await this.api.auth(login.value, password.value);
       console.log(response);
 
@@ -146,12 +151,13 @@ class TasksController {
 
     // this.tasks.user = login;
     this.user = user;
+    localStorage.setItem('user', JSON.stringify(user));
     localStorage.setItem('token', token);
 
     this.header.display({ user: this.user });
     this.filter.display({ user: this.user, assignees: this.users });
 
-    // this.getFeed();
+    this.getFeed();
   }
 
   logOut() {
