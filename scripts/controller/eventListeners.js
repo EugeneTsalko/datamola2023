@@ -3,15 +3,15 @@ window.onload = async function () {
 
   // постараюсь избавится от этого файла, разнести логику по классам.
 
-  app.filter.display({ assignees: app.tasks.assignees });
+  // app.filter.display({ assignees: app.tasks.assignees }); // рендер ассайни при первои запуске
 
-  if (localStorage.getItem('user')) {
-    app.login(localStorage.getItem('user'));
-  } else {
-    app.getFeed();
-  }
+  // if (localStorage.getItem('user')) {
+  //   app.login(localStorage.getItem('user'));
+  // } else {
+  //   app.getFeed();
+  // }
 
-  // await app.start();
+  await app.start();
 
   // app.getFeed();
 

@@ -12,8 +12,8 @@ class TasksController {
       taskFormRoot,
       apiUrl,
     } = params;
-    this.tasks = new TaskCollection();
-    this.users = new UserCollection();
+    // this.tasks = new TaskCollection();
+    // this.users = new UserCollection();
     this.header = new HeaderView(headerRoot);
     this.filter = new FilterView(filterRoot);
     this.filterController = new FilterController();
@@ -37,7 +37,7 @@ class TasksController {
   // start
 
   async start() {
-    // this.tasksApi = await this.api.getTasks();
+    this.tasksApi = await this.api.getTasks();
     // this.toDoTasks = await this.api.getTasks(0, this.pagination.toDoTop, API_STATUS.toDo);
     // this.inProgressTasks = await this.api.getTasks(
     //   0,
@@ -49,10 +49,12 @@ class TasksController {
     //   this.pagination.completeTop,
     //   API_STATUS.complete,
     // );
-    this.toDoTasks = this.tasks.filter((task) => task.status === TASK_STATUS.toDo);
-    this.inProgressTasks = this.tasks.filter((task) => task.status === TASK_STATUS.inProgress);
-    this.completeTasks = this.tasks.filter((task) => task.status === TASK_STATUS.complete);
-    // this.users = await this.api.getAllUsers();
+    this.toDoTasks = await this.tasksApi.filter((task) => task.status === TASK_STATUS.toDo);
+    this.inProgressTasks = await this.tasksApi.filter(
+      (task) => task.status === TASK_STATUS.inProgress,
+    );
+    this.completeTasks = await this.tasksApi.filter((task) => task.status === TASK_STATUS.complete);
+    this.users = await this.api.getAllUsers();
   }
 
   // auth
@@ -362,7 +364,9 @@ class TasksController {
       document.getElementById('menu').classList.remove('undisplayed');
       document.getElementById('board').classList.remove('undisplayed');
 
-      this.header.display({ user: this.tasks.user });
+      const user = this.user || null;
+
+      this.header.display({ user });
     } catch (err) {
       console.error(err.message);
     }
