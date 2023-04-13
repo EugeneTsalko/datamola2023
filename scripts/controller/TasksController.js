@@ -297,6 +297,7 @@ class TasksController {
 
       this.header.display({ user: this.user, isTaskPage: true });
       this.fullTask.display(task, this.user);
+      this.fullTask.listen();
     } catch (err) {
       console.error(err.message);
     }

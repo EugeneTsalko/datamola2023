@@ -4,17 +4,27 @@ class TaskView {
   }
 
   listen() {
-    document.getElementById('addCommentBtn').addEventListener('click', (event) => {
-      event.preventDefault();
-      const text = document.getElementById('newComment').value;
-      const id = document.querySelector('.full-task-card').id.split('-').at(-1);
+    try {
+      document.getElementById('addCommentBtn').addEventListener('click', async (event) => {
+        event.preventDefault();
+        const text = document.getElementById('newComment').value;
+        const id = document.querySelector('.full-task-card').id.split('-').at(-1);
 
-      if (text) {
-        app.tasks.addComment(id, text);
-        document.getElementById('newComment').value = '';
-        app.showTask(id);
-      }
-    });
+        if (text) {
+          // app.tasks.addComment(id, text);
+          const response = await app.api.addComment(id, text);
+
+          if (response.error) {
+            throw new Error(response.message);
+          }
+
+          document.getElementById('newComment').value = '';
+          app.showTask(id);
+        }
+      });
+    } catch (err) {
+      console.error(err.message);
+    }
   }
 
   display(task, user) {

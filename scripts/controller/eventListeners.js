@@ -1,6 +1,10 @@
 window.onload = async function () {
   console.log('Page is loaded!');
 
+  // setInterval(() => {
+  //   console.log('short polling');
+  // }, 1000); // mock short polling
+
   // постараюсь избавится от этого файла, разнести логику по классам.
 
   // if (localStorage.getItem('user')) {

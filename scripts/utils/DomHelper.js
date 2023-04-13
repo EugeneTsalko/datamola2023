@@ -34,12 +34,12 @@ class DomHelper {
       } = task;
       const container = DomHelper.createNode('li', [], { id: `task-${id}` });
 
-      container.addEventListener('click', (event) => {
+      container.addEventListener('click', async (event) => {
         if (event.target.id === 'deleteTaskBtn' || event.target.id === 'editTaskBtn') {
           return;
         }
-        app.showTask(event.currentTarget.id.split('-').at(-1));
-        app.fullTask.listen();
+        await app.showTask(event.currentTarget.id.split('-').at(-1));
+        // app.fullTask.listen();
       });
 
       const isHidden = creator?.login === user?.login;
@@ -128,7 +128,9 @@ class DomHelper {
     const commentsContainer = DomHelper.createNode('div', ['comments']);
     const commentsList = DomHelper.createNode('ul');
 
-    comments.forEach((comment) => commentsList.append(DomHelper.createComment(comment)));
+    comments
+      .sort((a, b) => new Date(a.createdAt) - new Date(b.createdAt))
+      .forEach((comment) => commentsList.append(DomHelper.createComment(comment)));
     commentsContainer.append(commentsList);
 
     const addCommentForm = DomHelper.createNode('form', ['add-comment-form'], {
@@ -137,7 +139,7 @@ class DomHelper {
     addCommentForm.innerHTML = `
       <img class="user-img" src="data:image/png;base64,${user.photo}" alt="author image">
       <textarea name="comment" id="newComment" class="comment-textarea" maxlength="280" placeholder="Add new comment..."></textarea>
-      <button class="btn secondary-btn add-comment-btn" type="submit" id="addCommentBtn">
+      <button class="btn secondary-btn add-comment-btn" id="addCommentBtn">
         <span>ADD COMMENT</span>
       </button>`;
 

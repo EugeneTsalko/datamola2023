@@ -150,7 +150,7 @@ class TaskFeedApiService {
           'Content-Type': 'application/json',
           Authorization: `Bearer ${localStorage.getItem('token')}`,
         },
-        body: JSON.stringify(text),
+        body: JSON.stringify({ text }),
       });
 
       const result = await response.json();
