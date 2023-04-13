@@ -14,7 +14,7 @@ class TaskFeedView {
       if (tasks) {
         this.root.innerHTML = '';
         tasks.forEach((task) => {
-          if (task.assignee !== user && task.isPrivate) {
+          if (task.assignee.login !== user?.login && task.isPrivate) {
             return;
           }
           this.root.append(DomHelper.createTaskCard(task, user));

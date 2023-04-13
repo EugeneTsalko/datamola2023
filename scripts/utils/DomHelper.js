@@ -21,7 +21,16 @@ class DomHelper {
   static createTaskCard(task, user) {
     try {
       const {
-        id, name, description, createdAt, assignee, status, priority, isPrivate, comments,
+        id,
+        name,
+        description,
+        createdAt,
+        assignee,
+        creator,
+        status,
+        priority,
+        isPrivate,
+        comments,
       } = task;
       const container = DomHelper.createNode('li', [], { id: `task-${id}` });
 
@@ -33,11 +42,13 @@ class DomHelper {
         app.fullTask.listen();
       });
 
+      const isHidden = creator?.login === user?.login;
+
       container.innerHTML = `
       <div class="task-card" id="task-${id}">
         <div class="task-header">
           <h4>${name}</h4>
-          <div class="task-buttons ${assignee === user ? '' : 'hidden'}">
+          <div class="task-buttons ${isHidden ? '' : 'hidden'}">
             <button class="btn secondary-btn edit-btn" id="editTaskBtn"></button>
             <button class="btn secondary-btn delete-btn" id="deleteTaskBtn"></button>
           </div>
