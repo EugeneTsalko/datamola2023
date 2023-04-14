@@ -188,8 +188,9 @@ window.onload = async function () {
 
       console.log(response);
       if (!response.error) {
-        await app.fetchTasks();
-        app.getFeed();
+        // await app.fetchTasks();
+        // app.getFeed();
+        await app.backToMain();
         overlay.classList.remove('active');
         overlay.innerHTML = '';
       }
@@ -201,18 +202,16 @@ window.onload = async function () {
     }
 
     if (event.target.id === 'deleteTaskBtn') {
-      let taskId = event.target.closest('.task-card')?.id.split('-').at(-1);
+      const taskId = event.target.closest('.task-card')?.id.split('-').at(-1)
+        || event.target.closest('.full-task-card')?.id.split('-').at(-1);
       const modal = DomHelper.showModal();
       document.body.append(modal);
 
-      document.getElementById('modalConfirm').addEventListener('click', () => {
-        if (taskId) {
-          app.removeTask(taskId);
-          modal.remove();
-        } else {
-          taskId = event.target.closest('.full-task-card')?.id.split('-').at(-1);
-          app.removeTask(taskId);
-          app.backToMain();
+      document.getElementById('modalConfirm').addEventListener('click', async () => {
+        const response = await app.api.deleteTask(taskId);
+        console.log(response);
+        if (!response.error) {
+          await app.backToMain();
           modal.remove();
         }
       });

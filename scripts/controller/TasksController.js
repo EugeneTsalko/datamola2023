@@ -411,6 +411,8 @@ class TasksController {
       document.getElementById('fullTask')?.remove();
       document.getElementById('profilePage')?.remove();
       document.getElementById('auth')?.remove();
+      // document.getElementById('modalOverlay')?.remove();
+      // document.getElementById('overlay')?.remove();
       document.getElementById('menu').classList.remove('undisplayed');
       document.getElementById('board').classList.remove('undisplayed');
 
