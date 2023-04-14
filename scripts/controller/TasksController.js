@@ -474,6 +474,9 @@ class TasksController {
                 || task.name.toLowerCase().includes(filterConfig[key].toLowerCase())
               );
             }
+            if (key === 'assignee') {
+              return filterConfig[key].includes(task[key].userName);
+            }
             return filterConfig[key].includes(task[key]);
           });
         });
