@@ -56,9 +56,11 @@ class AuthorizationView {
         </div>
       </form>
 
-      <button type="submit" form="auth-form" class="btn" id="${
-  isSignUp ? 'authSignUp' : 'authSignIn'
-}" ${isSignUp ? 'disabled' : ''}>${type.toUpperCase()}</button>
+      <p class="error-message" id="formError"></p>
+
+      <button form="auth-form" class="btn" id="${isSignUp ? 'authSignUp' : 'authSignIn'}" ${
+  isSignUp ? 'disabled' : ''
+}>${type.toUpperCase()}</button>
       <div class="auth-footer">
         <span>${isSignUp ? 'Already' : 'Don`t'} have an account?</span>
         <button class="auth-redirect-btn" id="${
@@ -150,12 +152,16 @@ class AuthorizationView {
     const passwordError = document.getElementById('passwordError');
     const nameError = document.getElementById('nameError');
     const passwordConfirmError = document.getElementById('passwordConfirmError');
+    const formError = document.getElementById('formError');
 
     form.addEventListener('input', () => {
       const user = new User(login.value, name.value, image, password.value);
       const isFormValid = password.value === passwordConfirm.value && User.validate(user);
+      formError.textContent = '';
       if (isFormValid) {
         document.getElementById('authSignUp')?.removeAttribute('disabled');
+        passwordError.textContent = '';
+        passwordConfirmError.textContent = '';
       } else {
         document.getElementById('authSignUp')?.setAttribute('disabled', '');
       }

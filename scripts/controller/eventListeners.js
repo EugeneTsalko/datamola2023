@@ -21,12 +21,15 @@ window.onload = async function () {
 
     if (event.target.id === 'authSignUp') {
       event.preventDefault();
-      const user = app.signUp();
+      const user = await app.signUp();
       if (user) {
-        document.getElementById('auth')?.remove();
-        document.getElementById('menu').classList.remove('undisplayed');
-        document.getElementById('board').classList.remove('undisplayed');
-        app.showSignIn();
+        await app.fetchUsers();
+        setTimeout(() => {
+          document.getElementById('auth')?.remove();
+          document.getElementById('menu').classList.remove('undisplayed');
+          document.getElementById('board').classList.remove('undisplayed');
+          app.showSignIn();
+        }, 1500);
       }
     }
 
@@ -265,3 +268,7 @@ window.onload = async function () {
     app.showTaskForm('add', null);
   });
 };
+
+document.addEventListener('error', (event) => {
+  console.log('popup ', eevnt.message);
+});

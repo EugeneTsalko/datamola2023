@@ -48,8 +48,16 @@ class TasksController {
     }
   }
 
+  async fetchUsers() {
+    try {
+      this.users = await this.api.getAllUsers();
+    } catch (err) {
+      console.error(err.message);
+    }
+  }
+
   async start() {
-    this.users = await this.api.getAllUsers();
+    await this.fetchUsers();
     await this.fetchTasks();
 
     const user = localStorage.getItem('user');
@@ -80,17 +88,43 @@ class TasksController {
     }
   }
 
-  signUp() {
+  async signUp() {
     try {
-      const user = this.auth.validateSignUp();
+      // const user = this.auth.validateSignUp();
 
-      if (!user) {
-        throw new Error('Something went wrong in Sign Up.');
+      // if (!user) {
+      //   throw new Error('Something went wrong in Sign Up.');
+      // }
+
+      // return user;
+
+      this.auth.listen();
+      const form = document.getElementById('authForm');
+      const {
+        name, login, password, passwordConfirm,
+      } = form;
+      const photo = document.querySelector('input[name="avatar"]:checked')?.value || STANDARD_IMG.anon;
+      const formError = document.getElementById('formError');
+
+      const user = await this.api.register(
+        login.value,
+        name.value,
+        password.value,
+        passwordConfirm.value,
+        photo,
+      );
+
+      if (user.error) {
+        throw new Error(user.message);
       }
+
+      formError.classList.add('success');
+      formError.textContent = 'Successful registration! Please, wait...';
+      document.getElementById('authSignUp')?.setAttribute('disabled', '');
 
       return user;
     } catch (err) {
-      console.error(err.message);
+      formError.textContent = err.message;
 
       return null;
     }
@@ -168,6 +202,7 @@ class TasksController {
       document.getElementById('board').classList.remove('undisplayed');
       localStorage.removeItem('user');
       localStorage.removeItem('token');
+      this.user = null;
 
       this.header.display();
       this.filter.display({ assignees: this.users });
@@ -256,6 +291,8 @@ class TasksController {
       this.getToDoFeed(skip, top, filterConfig);
       this.getInProgressFeed(skip, top, filterConfig);
       this.getCompleteFeed(skip, top, filterConfig);
+
+      console.log('getfeed');
     } catch (err) {
       console.error(err.message);
     }
