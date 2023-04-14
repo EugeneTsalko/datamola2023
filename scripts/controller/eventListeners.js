@@ -16,7 +16,6 @@ window.onload = async function () {
 
     if (event.target.id === 'signUpBtn') {
       app.showSignUp();
-      app.auth.listen();
     }
 
     if (event.target.id === 'authSignUp') {
@@ -41,9 +40,11 @@ window.onload = async function () {
       event.preventDefault();
       const user = await app.signIn();
       if (user) {
-        document.getElementById('auth')?.remove();
-        document.getElementById('menu').classList.remove('undisplayed');
-        document.getElementById('board').classList.remove('undisplayed');
+        setTimeout(() => {
+          document.getElementById('auth')?.remove();
+          document.getElementById('menu').classList.remove('undisplayed');
+          document.getElementById('board').classList.remove('undisplayed');
+        }, 1500);
       }
     }
 

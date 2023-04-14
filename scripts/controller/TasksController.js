@@ -83,6 +83,7 @@ class TasksController {
 
       this.header.display({ isAuth: true });
       this.auth.display(AUTH_TYPE.signUp);
+      this.auth.listenSignUp();
     } catch (err) {
       console.error(err.message);
     }
@@ -90,15 +91,6 @@ class TasksController {
 
   async signUp() {
     try {
-      // const user = this.auth.validateSignUp();
-
-      // if (!user) {
-      //   throw new Error('Something went wrong in Sign Up.');
-      // }
-
-      // return user;
-
-      this.auth.listen();
       const form = document.getElementById('authForm');
       const {
         name, login, password, passwordConfirm,
@@ -139,6 +131,7 @@ class TasksController {
 
       this.header.display({ isAuth: true });
       this.auth.display(AUTH_TYPE.signIn);
+      this.auth.listenSignIn();
     } catch (err) {
       console.error(err.message);
     }
@@ -146,30 +139,26 @@ class TasksController {
 
   async signIn() {
     try {
-      const user = this.auth.validateSignIn();
-      console.log(user);
-
-      if (!user) {
-        throw new Error('Something went wrong in Sign In.');
-      }
-
       const form = document.getElementById('authForm');
       const { login, password } = form;
 
       const response = await this.api.auth(login.value, password.value);
-      console.log(response);
 
-      if (response?.statusCode) {
+      if (response.error) {
         throw new Error(response?.message);
       }
 
+      const user = this.getUser(login.value);
       this.login(user, response.token);
+
+      formError.classList.add('success');
+      formError.textContent = 'Successful sign in! Please, wait...';
+      document.getElementById('authSignIn')?.setAttribute('disabled', '');
 
       return user;
     } catch (err) {
-      const passwordError = document.getElementById('passwordError');
-      passwordError.textContent = err.message;
-      console.error(err.message);
+      const formError = document.getElementById('formError');
+      formError.textContent = err.message;
 
       return null;
     }
