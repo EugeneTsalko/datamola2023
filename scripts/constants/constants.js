@@ -63,5 +63,3 @@ const BASE64_PREFIX = {
   bmp: 'data:image/bmp;base64,',
   ico: 'data:image/x-icon;base64,',
 };
-
-// data:image/png;base64,

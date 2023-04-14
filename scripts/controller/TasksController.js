@@ -15,8 +15,6 @@ class TasksController {
     this.tasks = [];
     this.users = [];
     this.user = null;
-    // this.tasks = new TaskCollection();
-    // this.users = new UserCollection();
     this.header = new HeaderView(headerRoot);
     this.filter = new FilterView(filterRoot);
     this.filterController = new FilterController();
@@ -34,7 +32,6 @@ class TasksController {
       inProgressTop: 10,
       completeTop: 10,
     };
-    // this.start();
   }
 
   // start
@@ -69,18 +66,6 @@ class TasksController {
       this.filter.display({ assignees: this.users });
       this.getFeed();
     }
-
-    // this.toDoTasks = await this.api.getTasks(0, this.pagination.toDoTop, API_STATUS.toDo);
-    // this.inProgressTasks = await this.api.getTasks(
-    //   0,
-    //   this.pagination.inProgressTop,
-    //   API_STATUS.inProgress,
-    // );
-    // this.completeTasks = await this.api.getTasks(
-    //   0,
-    //   this.pagination.completeTop,
-    //   API_STATUS.complete,
-    // );
   }
 
   // auth
@@ -162,9 +147,6 @@ class TasksController {
 
   login(user, token) {
     try {
-      // localStorage.setItem('user', login);
-
-      // this.tasks.user = login;
       this.user = user;
       localStorage.setItem('user', JSON.stringify(user));
       localStorage.setItem('token', token);
@@ -293,7 +275,6 @@ class TasksController {
 
   async showTask(id) {
     try {
-      // const task = this.tasks.get(id);
       const task = await this.api.getFullTask(id);
       console.log(task);
 
@@ -319,7 +300,6 @@ class TasksController {
 
     let task = null;
     if (taskId) {
-      // task = this.tasks.get(taskId);
       task = await this.api.getFullTask(taskId);
     }
 
@@ -411,8 +391,6 @@ class TasksController {
       document.getElementById('fullTask')?.remove();
       document.getElementById('profilePage')?.remove();
       document.getElementById('auth')?.remove();
-      // document.getElementById('modalOverlay')?.remove();
-      // document.getElementById('overlay')?.remove();
       document.getElementById('menu').classList.remove('undisplayed');
       document.getElementById('board').classList.remove('undisplayed');
 
@@ -432,10 +410,6 @@ class TasksController {
   getUser(login) {
     try {
       const user = this.users.find((elem) => elem.login === login);
-
-      // if (!user) {
-      //   throw new Error(`User with login: "${login}" was not found.`);
-      // }
 
       return user;
     } catch (err) {

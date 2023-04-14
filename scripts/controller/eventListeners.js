@@ -7,17 +7,7 @@ window.onload = async function () {
 
   // постараюсь избавится от этого файла, разнести логику по классам.
 
-  // if (localStorage.getItem('user')) {
-  //   app.login(localStorage.getItem('user'));
-  // } else {
-  //   app.getFeed();
-  // }
-
   await app.start();
-  // app.filter.display({ assignees: app.tasks.assignees }); // рендер ассайни при первои запуске
-  // app.filter.display({ assignees: app.users });
-
-  // app.getFeed();
 
   document.addEventListener('click', async (event) => {
     if (event.target.id === 'toMainBtn') {
@@ -111,7 +101,6 @@ window.onload = async function () {
     if (event.target.id === 'saveProfileBtn') {
       event.preventDefault();
       try {
-        // const user = app.users.get(localStorage.getItem('user'));
         const { user } = app;
         const name = document.getElementById('name').value;
         // const oldPassword = document.getElementById('oldPassword').value;
@@ -132,6 +121,7 @@ window.onload = async function () {
         // if (app.editUser(name, image, newPassword)) {
         //   app.showProfile();
         // }
+
         const response = await app.api.editUser(user.id, name, newPassword, retypedPassword, photo);
         console.log(response);
 
@@ -188,8 +178,6 @@ window.onload = async function () {
 
       console.log(response);
       if (!response.error) {
-        // await app.fetchTasks();
-        // app.getFeed();
         await app.backToMain();
         overlay.classList.remove('active');
         overlay.innerHTML = '';
@@ -232,7 +220,6 @@ window.onload = async function () {
 
       const name = document.getElementById('setTitle').value;
       const description = document.getElementById('setDescription').value;
-      // const assignee = document.getElementById('setAssignee').value;
       const assignee = app.getUserByUserName(document.getElementById('setAssignee').value);
       const priority = document.querySelector('input[name="setPriority"]:checked')?.value;
       const isPrivate = document.querySelector('input[name="setPrivacy"]:checked')?.value === TASK_PRIVACY.private;

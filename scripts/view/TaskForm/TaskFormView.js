@@ -10,9 +10,10 @@ class TaskFormView {
     let assigneesOptions = '';
 
     assignees.forEach((assignee) => {
-      assigneesOptions += `<option value="${assignee.userName}" ${
-        assignee.login === task.assignee.login ? 'selected' : ''
-      }
+      const isSelected = isEdit
+        ? assignee.login === task.assignee.login
+        : assignee.login === app.user.login;
+      assigneesOptions += `<option value="${assignee.userName}" ${isSelected ? 'selected' : ''}
       >${assignee.userName}</option>`;
     });
 
