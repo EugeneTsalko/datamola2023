@@ -26,7 +26,7 @@ class TaskFeedApiService {
   async getTasks(from = 0, to = 10, status = API_STATUS.all) {
     try {
       const response = await fetch(
-        `${this.url}/${ENDPOINTS.tasks}?skip=${from}&to=${to}&status=${status}`,
+        `${this.url}/${ENDPOINTS.tasks}?skip=${from}&top=${to}&status=${status}`,
       );
 
       const result = await response.json();
