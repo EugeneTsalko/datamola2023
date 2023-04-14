@@ -38,15 +38,11 @@ class TasksController {
 
   async fetchTasks() {
     try {
-      this.tasksApi = await this.api.getTasks();
+      this.tasks = await this.api.getTasks();
 
-      this.toDoTasks = await this.tasksApi.filter((task) => task.status === TASK_STATUS.toDo);
-      this.inProgressTasks = await this.tasksApi.filter(
-        (task) => task.status === TASK_STATUS.inProgress,
-      );
-      this.completeTasks = await this.tasksApi.filter(
-        (task) => task.status === TASK_STATUS.complete,
-      );
+      this.toDoTasks = this.tasks.filter((task) => task.status === TASK_STATUS.toDo);
+      this.inProgressTasks = this.tasks.filter((task) => task.status === TASK_STATUS.inProgress);
+      this.completeTasks = this.tasks.filter((task) => task.status === TASK_STATUS.complete);
     } catch (err) {
       console.error(err.message);
     }
@@ -225,10 +221,8 @@ class TasksController {
     filterConfig = this.filterController.filterConfig,
   ) {
     this.toDoFeed.display({
-      // user: this.tasks.user,
-      // tasks: this.tasks.getPage(skip, top, filterConfig, TASK_STATUS.toDo),
       user: this.user,
-      tasks: this.toDoTasks,
+      tasks: this.getPage(skip, top, filterConfig, TASK_STATUS.toDo),
     });
     console.log(`Render column ${TASK_STATUS.toDo}`);
   }
@@ -239,10 +233,8 @@ class TasksController {
     filterConfig = this.filterController.filterConfig,
   ) {
     this.inProgressFeed.display({
-      // user: this.tasks.user,
-      // tasks: this.tasks.getPage(skip, top, filterConfig, TASK_STATUS.inProgress),
       user: this.user,
-      tasks: this.inProgressTasks,
+      tasks: this.getPage(skip, top, filterConfig, TASK_STATUS.inProgress),
     });
     console.log(`Render column ${TASK_STATUS.inProgress}`);
   }
@@ -253,10 +245,8 @@ class TasksController {
     filterConfig = this.filterController.filterConfig,
   ) {
     this.completeFeed.display({
-      // user: this.tasks.user,
-      // tasks: this.tasks.getPage(skip, top, filterConfig, TASK_STATUS.complete),
       user: this.user,
-      tasks: this.completeTasks,
+      tasks: this.getPage(skip, top, filterConfig, TASK_STATUS.complete),
     });
     console.log(`Render column ${TASK_STATUS.complete}`);
   }
@@ -424,6 +414,78 @@ class TasksController {
       const user = this.users.find((elem) => elem.userName === userName);
 
       return user;
+    } catch (err) {
+      console.error(err.message);
+
+      return null;
+    }
+  }
+
+  getPage(skip = 0, top = 10, filterConfig = null, type = null) {
+    try {
+      if (skip < 0 || top < 0 || !Number.isInteger(skip) || !Number.isInteger(top)) {
+        throw new Error(
+          getCustomError.invalidIntegerParam('skip and top', 'TaskCollection.getPage'),
+        );
+      }
+
+      if (filterConfig && !checkIsObj(filterConfig)) {
+        throw new Error(getCustomError.invalidObjParam('filterConfig', 'TaskCollection.getPage'));
+      }
+
+      let result = structuredClone(this.tasks);
+
+      if (type) {
+        switch (type) {
+          case TASK_STATUS.toDo:
+            result = structuredClone(this.toDoTasks);
+            break;
+          case TASK_STATUS.inProgress:
+            result = structuredClone(this.inProgressTasks);
+            break;
+
+          case TASK_STATUS.complete:
+            result = structuredClone(this.completeTasks);
+            break;
+
+          default:
+            break;
+        }
+      }
+
+      result.sort((a, b) => Date.parse(b.createdAt) - Date.parse(a.createdAt));
+
+      if (filterConfig) {
+        const keys = Object.keys(filterConfig);
+        keys.forEach((key) => {
+          result = result.filter((task) => {
+            if (key === 'dateFrom') {
+              return Date.parse(task.createdAt) >= Date.parse(filterConfig[key]);
+            }
+            if (key === 'dateTo') {
+              return Date.parse(task.createdAt) <= Date.parse(filterConfig[key]) + 86400000;
+            }
+            if (key === 'isPrivate') {
+              return filterConfig[key] === task.isPrivate;
+            }
+            if (key === 'description') {
+              return (
+                task.description.toLowerCase().includes(filterConfig[key].toLowerCase())
+                || task.name.toLowerCase().includes(filterConfig[key].toLowerCase())
+              );
+            }
+            return filterConfig[key].includes(task[key]);
+          });
+        });
+      }
+
+      result = result.splice(skip, top);
+
+      if (!result.length) {
+        console.log('Nothing was found for your request.');
+      }
+
+      return result;
     } catch (err) {
       console.error(err.message);
 
