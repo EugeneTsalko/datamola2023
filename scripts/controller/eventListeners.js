@@ -232,7 +232,8 @@ window.onload = async function () {
 
       const name = document.getElementById('setTitle').value;
       const description = document.getElementById('setDescription').value;
-      const assignee = document.getElementById('setAssignee').value;
+      // const assignee = document.getElementById('setAssignee').value;
+      const assignee = app.getUserByUserName(document.getElementById('setAssignee').value);
       const priority = document.querySelector('input[name="setPriority"]:checked')?.value;
       const isPrivate = document.querySelector('input[name="setPrivacy"]:checked')?.value === TASK_PRIVACY.private;
       const status = document.querySelector('input[name="setStatus"]:checked')?.value || TASK_STATUS.toDo;
@@ -248,12 +249,26 @@ window.onload = async function () {
 
       const taskId = document.getElementById('taskFormHeader').textContent.split(' ').at(-1);
 
-      if (app.editTask(taskId, task)) {
-        overlay.classList.remove('active');
-        overlay.innerHTML = '';
+      const response = await app.api.editTask(
+        taskId,
+        name,
+        description,
+        assignee.id,
+        status,
+        priority,
+        isPrivate,
+      );
 
+      console.log(response);
+      if (!response.error) {
         if (document.getElementById('fullTask')) {
-          app.showTask(taskId);
+          await app.showTask(taskId);
+          overlay.classList.remove('active');
+          overlay.innerHTML = '';
+        } else {
+          await app.backToMain();
+          overlay.classList.remove('active');
+          overlay.innerHTML = '';
         }
       }
     }

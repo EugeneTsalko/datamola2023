@@ -11,7 +11,7 @@ class TaskFormView {
 
     assignees.forEach((assignee) => {
       assigneesOptions += `<option value="${assignee.userName}" ${
-        assignee.login === app.user.login ? 'selected' : ''
+        assignee.login === task.assignee.login ? 'selected' : ''
       }
       >${assignee.userName}</option>`;
     });
