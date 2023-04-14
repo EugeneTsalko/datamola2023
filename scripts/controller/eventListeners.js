@@ -129,25 +129,16 @@ window.onload = async function () {
         const response = await app.api.editUser(user.id, name, newPassword, retypedPassword, photo);
         console.log(response);
 
-        if (response?.error) {
-          throw new Error(response?.message);
+        if (response.message) {
+          throw new Error(response.message);
         }
 
         app.user = response;
         localStorage.setItem('user', JSON.stringify(response));
         app.showProfile();
       } catch (err) {
-        if (err.cause === 'oldPassword') {
-          document.getElementById('oldPasswordError').textContent = err.message;
-        }
-
-        if (err.cause === 'name') {
-          document.getElementById('nameError').textContent = err.message;
-        }
-
-        if (err.cause === 'newPassword') {
-          document.getElementById('newPasswordError').textContent = err.message;
-        }
+        const nameError = document.getElementById('nameError');
+        nameError.textContent = err.message;
       }
     }
 

@@ -223,20 +223,6 @@ class TasksController {
     }
   }
 
-  editUser(name, image, password) {
-    try {
-      if (!this.users.edit(this.tasks.user, name, image, password)) {
-        throw new Error('Can`t edit user.');
-      }
-
-      return true;
-    } catch (err) {
-      console.error(err.message);
-
-      return false;
-    }
-  }
-
   // feed
 
   getToDoFeed(

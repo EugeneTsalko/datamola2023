@@ -101,7 +101,7 @@ class ProfileView {
       name, oldPassword, newPassword, confirmPassword,
     } = form;
     const nameError = document.getElementById('nameError');
-    const oldPasswordError = document.getElementById('oldPasswordError');
+    // const oldPasswordError = document.getElementById('oldPasswordError');
     const newPasswordError = document.getElementById('newPasswordError');
     const confirmPasswordError = document.getElementById('confirmPasswordError');
     const resetBtn = document.getElementById('profileResetBtn');
@@ -109,13 +109,13 @@ class ProfileView {
     const closeEditBtn = document.getElementById('closeProfileBtn');
 
     let isNameValid = false;
-    let isOldPassValid = false;
+    // let isOldPassValid = false;
     let isNewPassValid = false;
     let isConfirmPassValid = false;
 
     form.addEventListener('input', () => {
       resetBtn.removeAttribute('disabled');
-      const isFormValid = isNameValid && isOldPassValid && isNewPassValid && isConfirmPassValid;
+      const isFormValid = isNameValid && isNewPassValid && isConfirmPassValid;
       if (isFormValid) {
         saveBtn.removeAttribute('disabled');
       } else {
@@ -133,23 +133,20 @@ class ProfileView {
       }
     });
 
-    oldPassword.addEventListener('input', () => {
-      if (!oldPassword.value.length) {
-        oldPasswordError.innerHTML = 'Invalid password.';
-        isOldPassValid = false;
-      } else {
-        oldPasswordError.innerHTML = '';
-        isOldPassValid = true;
-      }
-    });
+    // oldPassword.addEventListener('input', () => {
+    //   if (!oldPassword.value.length) {
+    //     oldPasswordError.innerHTML = 'Invalid password.';
+    //     isOldPassValid = false;
+    //   } else {
+    //     oldPasswordError.innerHTML = '';
+    //     isOldPassValid = true;
+    //   }
+    // });
 
     newPassword.addEventListener('input', () => {
       if (!newPassword.value.length) {
         newPasswordError.innerHTML = 'Invalid password.';
         confirmPasswordError.innerHTML = 'Invalid password.';
-        isNewPassValid = false;
-      } else if (newPassword.value === oldPassword.value) {
-        newPasswordError.innerHTML = 'New and old password must be different.';
         isNewPassValid = false;
       } else {
         newPasswordError.innerHTML = '';
