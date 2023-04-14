@@ -173,20 +173,23 @@ window.onload = async function () {
       const overlay = document.getElementById('overlay');
       const name = document.getElementById('setTitle').value;
       const description = document.getElementById('setDescription').value;
-      // const assignee = document.getElementById('setAssignee').value;
+      const assignee = app.getUserByUserName(document.getElementById('setAssignee').value);
       const priority = document.querySelector('input[name="setPriority"]:checked')?.value;
       const isPrivate = document.querySelector('input[name="setPrivacy"]:checked')?.value === TASK_PRIVACY.private;
       const status = document.querySelector('input[name="setStatus"]:checked')?.value || TASK_STATUS.toDo;
+      const response = await app.api.addTask(
+        name,
+        description,
+        assignee.id,
+        status,
+        priority,
+        isPrivate,
+      );
 
-      if (
-        app.addTask({
-          name,
-          description,
-          status,
-          priority,
-          isPrivate,
-        })
-      ) {
+      console.log(response);
+      if (!response.error) {
+        await app.fetchTasks();
+        app.getFeed();
         overlay.classList.remove('active');
         overlay.innerHTML = '';
       }

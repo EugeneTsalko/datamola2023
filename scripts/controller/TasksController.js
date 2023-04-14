@@ -313,18 +313,19 @@ class TasksController {
     }
   }
 
-  showTaskForm(type, taskId) {
+  async showTaskForm(type, taskId) {
     const overlay = this.taskForm.root;
-    const { assignees } = this.tasks;
+    const { users } = this;
 
     let task = null;
     if (taskId) {
-      task = this.tasks.get(taskId);
+      // task = this.tasks.get(taskId);
+      task = await this.api.getFullTask(taskId);
     }
 
     overlay.innerHTML = '';
     overlay.classList.add('active');
-    this.taskForm.display(type, task, assignees);
+    this.taskForm.display(type, task, users);
   }
 
   addTask(task) {
@@ -433,6 +434,18 @@ class TasksController {
       // if (!user) {
       //   throw new Error(`User with login: "${login}" was not found.`);
       // }
+
+      return user;
+    } catch (err) {
+      console.error(err.message);
+
+      return null;
+    }
+  }
+
+  getUserByUserName(userName) {
+    try {
+      const user = this.users.find((elem) => elem.userName === userName);
 
       return user;
     } catch (err) {

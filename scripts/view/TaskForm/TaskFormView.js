@@ -10,15 +10,15 @@ class TaskFormView {
     let assigneesOptions = '';
 
     assignees.forEach((assignee) => {
-      assigneesOptions += `<option value="${assignee}" ${
-        assignee === app.tasks.user ? 'selected' : ''
+      assigneesOptions += `<option value="${assignee.userName}" ${
+        assignee.login === app.user.login ? 'selected' : ''
       }
-      >${assignee}</option>`;
+      >${assignee.userName}</option>`;
     });
 
     container.innerHTML = `
     <div class="form-header">
-      <h2 id="taskFormHeader">${isEdit ? `Edit Task with id: ${task._id}` : 'New Task'}</h2>
+      <h2 id="taskFormHeader">${isEdit ? `Edit Task with id: ${task.id}` : 'New Task'}</h2>
       <button class="btn icon-btn close-btn" id="closeTaskFormBtn"></button>
     </div>
 
