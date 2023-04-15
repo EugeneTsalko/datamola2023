@@ -151,21 +151,8 @@ window.onload = async function () {
     if (event.target.id === 'deleteTaskBtn') {
       const taskId = event.target.closest('.task-card')?.id.split('-').at(-1)
         || event.target.closest('.full-task-card')?.id.split('-').at(-1);
-      const modal = DomHelper.showModal();
-      document.body.append(modal);
 
-      document.getElementById('modalConfirm').addEventListener('click', async () => {
-        const response = await app.api.deleteTask(taskId);
-        console.log(response);
-        if (!response.error) {
-          await app.backToMain();
-          modal.remove();
-        }
-      });
-
-      document.getElementById('modalCancel').addEventListener('click', () => {
-        modal.remove();
-      });
+      await app.deleteTask(taskId);
     }
 
     if (event.target.id === 'editTaskBtn') {

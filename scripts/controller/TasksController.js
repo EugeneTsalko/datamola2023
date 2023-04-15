@@ -407,21 +407,28 @@ class TasksController {
     }
   }
 
-  removeTask(id) {
+  async deleteTask(id) {
     try {
-      const task = this.tasks.get(id);
+      const modal = DomHelper.showModal();
+      document.body.append(modal);
 
-      if (!this.tasks.remove(id)) {
-        throw new Error('Task wasn`t removed.');
-      }
+      document.getElementById('modalConfirm').addEventListener('click', async () => {
+        const response = await this.api.deleteTask(id);
 
-      DomHelper.reRenderTaskColumn(task.status);
+        console.log(response);
+        if (response.error) {
+          throw new Error(response.message);
+        }
 
-      return true;
+        await app.backToMain();
+        modal.remove();
+      });
+
+      document.getElementById('modalCancel').addEventListener('click', () => {
+        modal.remove();
+      });
     } catch (err) {
       console.error(err.message);
-
-      return false;
     }
   }
 
