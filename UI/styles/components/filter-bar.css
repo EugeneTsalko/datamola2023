@@ -55,10 +55,12 @@
 .checkbox-dropdown-list {
   display: none;
   width: max-content;
+  max-width: 12rem;
+  max-height: 50vh;
+  overflow: auto;
   border: var(--border-main);
   position: absolute;
   top: 2rem;
-  /* left: -0.875rem; */
   z-index: 2;
   background-color: var(--white);
   border-radius: var(--border-radius-s);
