@@ -139,9 +139,22 @@ class TaskFormView {
 
       resetBtn.addEventListener('click', (event) => {
         event.preventDefault();
-        form.reset();
-        resetBtn.setAttribute('disabled', '');
-        submitBtn.setAttribute('disabled', '');
+
+        //
+        const modal = DomHelper.showModal('form');
+        document.body.append(modal);
+
+        document.getElementById('modalConfirm').addEventListener('click', () => {
+          form.reset();
+          resetBtn.setAttribute('disabled', '');
+          submitBtn.setAttribute('disabled', '');
+          modal.remove();
+        });
+
+        document.getElementById('modalCancel').addEventListener('click', () => {
+          modal.remove();
+        });
+        //
 
         if (errorMessage.textContent) {
           errorMessage.textContent = '';
