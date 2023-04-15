@@ -315,7 +315,7 @@ class TasksController {
     }
   }
 
-  async addTask(task) {
+  async addTask() {
     try {
       const overlay = document.getElementById('overlay');
       const name = document.getElementById('setTitle').value;
@@ -335,6 +335,8 @@ class TasksController {
         isPrivate,
       );
 
+      console.log(response);
+
       if (response.error) {
         throw new Error(response.message);
       }
@@ -351,37 +353,57 @@ class TasksController {
     }
   }
 
-  editTask(id, task) {
+  async editTask() {
     try {
-      if (!checkStr(id)) {
-        throw new Error(getCustomError.invalidId('TasksController.editTask'));
+      const name = document.getElementById('setTitle').value;
+      const description = document.getElementById('setDescription').value;
+      const assignee = app.getUserByUserName(document.getElementById('setAssignee').value);
+      const priority = document.querySelector('input[name="setPriority"]:checked')?.value;
+      const isPrivate = document.querySelector('input[name="setPrivacy"]:checked')?.value === TASK_PRIVACY.private;
+      const status = document.querySelector('input[name="setStatus"]:checked')?.value || TASK_STATUS.toDo;
+      const errorMessage = document.getElementById('taskFormMsg');
+
+      const task = {
+        name,
+        description,
+        assignee,
+        status,
+        priority,
+        isPrivate,
+      };
+
+      const taskId = document.getElementById('taskFormHeader').textContent.split(' ').at(-1);
+
+      const response = await app.api.editTask(
+        taskId,
+        name,
+        description,
+        assignee.id,
+        status,
+        priority,
+        isPrivate,
+      );
+
+      console.log(response);
+
+      if (response.error) {
+        throw new Error(response.message);
       }
 
-      if (!checkIsObj(task)) {
-        throw new Error(getCustomError.invalidObjParam('task', 'TasksController.editTask'));
-      }
+      errorMessage.classList.add('success');
+      errorMessage.textContent = 'Task was successfully edited!';
 
-      const {
-        name, description, assignee, status, priority, isPrivate,
-      } = task;
-      const oldTask = this.tasks.get(id);
-
-      if (!this.tasks.edit(id, name, description, assignee, status, priority, isPrivate)) {
-        throw new Error('Task wasn`t edited.');
-      }
-
-      if (oldTask.status === status) {
-        DomHelper.reRenderTaskColumn(status);
+      if (document.getElementById('fullTask')) {
+        await this.showTask(taskId);
+        overlay.classList.remove('active');
+        overlay.innerHTML = '';
       } else {
-        DomHelper.reRenderTaskColumn(oldTask.status);
-        DomHelper.reRenderTaskColumn(status);
+        await this.backToMain();
+        overlay.classList.remove('active');
+        overlay.innerHTML = '';
       }
-
-      return true;
     } catch (err) {
       console.error(err.message);
-
-      return false;
     }
   }
 

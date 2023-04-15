@@ -107,24 +107,9 @@ window.onload = async function () {
       try {
         const { user } = app;
         const name = document.getElementById('name').value;
-        // const oldPassword = document.getElementById('oldPassword').value;
         const newPassword = document.getElementById('newPassword').value;
         const retypedPassword = document.getElementById('confirmPassword').value;
         const photo = document.querySelector('input[name="avatar"]:checked')?.value || user.photo;
-
-        // if (user.userName === name) {
-        //   throw new Error('New name must not be the same as the old one.', { cause: 'name' });
-        // }
-
-        // if (newPassword === oldPassword) {
-        //   throw new Error('Password must not be the same as the old one.', {
-        //     cause: 'newPassword',
-        //   });
-        // }
-
-        // if (app.editUser(name, image, newPassword)) {
-        //   app.showProfile();
-        // }
 
         const response = await app.api.editUser(user.id, name, newPassword, retypedPassword, photo);
         console.log(response);
@@ -191,47 +176,7 @@ window.onload = async function () {
 
     if (event.target.id === 'editTaskFormBtn') {
       event.preventDefault();
-
-      const name = document.getElementById('setTitle').value;
-      const description = document.getElementById('setDescription').value;
-      const assignee = app.getUserByUserName(document.getElementById('setAssignee').value);
-      const priority = document.querySelector('input[name="setPriority"]:checked')?.value;
-      const isPrivate = document.querySelector('input[name="setPrivacy"]:checked')?.value === TASK_PRIVACY.private;
-      const status = document.querySelector('input[name="setStatus"]:checked')?.value || TASK_STATUS.toDo;
-
-      const task = {
-        name,
-        description,
-        assignee,
-        status,
-        priority,
-        isPrivate,
-      };
-
-      const taskId = document.getElementById('taskFormHeader').textContent.split(' ').at(-1);
-
-      const response = await app.api.editTask(
-        taskId,
-        name,
-        description,
-        assignee.id,
-        status,
-        priority,
-        isPrivate,
-      );
-
-      console.log(response);
-      if (!response.error) {
-        if (document.getElementById('fullTask')) {
-          await app.showTask(taskId);
-          overlay.classList.remove('active');
-          overlay.innerHTML = '';
-        } else {
-          await app.backToMain();
-          overlay.classList.remove('active');
-          overlay.innerHTML = '';
-        }
-      }
+      await app.editTask();
     }
   });
 
@@ -241,5 +186,5 @@ window.onload = async function () {
 };
 
 document.addEventListener('error', (event) => {
-  console.log('popup ', eevnt.message);
+  console.log('popup ', event.message);
 });
