@@ -255,4 +255,14 @@ class DomHelper {
 
     return modalOverlay;
   }
+
+  static toast(text, type) {
+    const className = type === 'error' ? ['toast', 'error'] : ['toast'];
+    const content = type === 'error' ? `Ooops... ${text}` : text;
+    const toast = DomHelper.createNode('div', className, {}, content);
+    document.body.append(toast);
+    setTimeout(() => {
+      toast.remove();
+    }, 3000);
+  }
 }

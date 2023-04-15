@@ -56,20 +56,29 @@ class TasksController {
     }
   }
 
+  initUser() {
+    try {
+      const user = localStorage.getItem('user');
+      const token = localStorage.getItem('token');
+
+      if (user && token) {
+        this.user = JSON.parse(user);
+        this.login(this.user, token);
+        return;
+      }
+
+      this.filter.display({ assignees: this.users });
+      this.getFeed();
+    } catch (err) {
+      console.error(err.message);
+    }
+  }
+
   async start() {
     await this.fetchUsers();
     await this.fetchTasks();
 
-    const user = localStorage.getItem('user');
-    const token = localStorage.getItem('token');
-
-    if (user && token) {
-      this.user = JSON.parse(user);
-      this.login(this.user, token);
-    } else {
-      this.filter.display({ assignees: this.users });
-      this.getFeed();
-    }
+    this.initUser();
   }
 
   // auth

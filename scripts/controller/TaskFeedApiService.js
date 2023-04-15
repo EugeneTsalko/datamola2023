@@ -15,6 +15,10 @@ class TaskFeedApiService {
 
       const result = await response.json();
 
+      if (!response.ok) {
+        throw new Error(`Oops... ${result.message}.`);
+      }
+
       return result;
     } catch (err) {
       console.error(err.message);
@@ -31,9 +35,14 @@ class TaskFeedApiService {
 
       const result = await response.json();
 
+      if (!response.ok) {
+        throw new Error(result.message);
+      }
+
       return result;
     } catch (err) {
       console.error(err.message);
+      DomHelper.toast(err.message, 'error');
 
       return err;
     }
@@ -59,6 +68,10 @@ class TaskFeedApiService {
       });
 
       const result = await response.json();
+
+      if (!response.ok) {
+        throw new Error(`Oops... ${result.message}.`);
+      }
 
       return result;
     } catch (err) {
@@ -89,6 +102,10 @@ class TaskFeedApiService {
 
       const result = await response.json();
 
+      if (!response.ok) {
+        throw new Error(`Oops... ${result.message}.`);
+      }
+
       return result;
     } catch (err) {
       console.error(err.message);
@@ -108,6 +125,10 @@ class TaskFeedApiService {
 
       const result = await response.json();
 
+      if (!response.ok) {
+        throw new Error(`Oops... ${result.message}.`);
+      }
+
       return result;
     } catch (err) {
       console.error(err.message);
@@ -121,6 +142,10 @@ class TaskFeedApiService {
       const response = await fetch(`${this.url}/${ENDPOINTS.editTask(taskId)}`);
       const result = await response.json();
 
+      if (!response.ok) {
+        throw new Error(`Oops... ${result.message}.`);
+      }
+
       return result;
     } catch (err) {
       console.error(err.message);
@@ -133,6 +158,10 @@ class TaskFeedApiService {
     try {
       const response = await fetch(`${this.url}/${ENDPOINTS.comments(taskId)}`);
       const result = await response.json();
+
+      if (!response.ok) {
+        throw new Error(`Oops... ${result.message}.`);
+      }
 
       return result;
     } catch (err) {
@@ -155,6 +184,10 @@ class TaskFeedApiService {
 
       const result = await response.json();
 
+      if (!response.ok) {
+        throw new Error(`Oops... ${result.message}.`);
+      }
+
       return result;
     } catch (err) {
       console.error(err.message);
@@ -167,6 +200,10 @@ class TaskFeedApiService {
     try {
       const response = await fetch(`${this.url}/${ENDPOINTS.allUsers}`);
       const result = await response.json();
+
+      if (!response.ok) {
+        throw new Error(`Oops... ${result.message}.`);
+      }
 
       return result;
     } catch (err) {
@@ -185,6 +222,10 @@ class TaskFeedApiService {
         },
       });
       const result = await response.json();
+
+      if (!response.ok) {
+        throw new Error(`Oops... ${result.message}.`);
+      }
 
       return result;
     } catch (err) {
@@ -213,6 +254,10 @@ class TaskFeedApiService {
 
       const result = await response.json();
 
+      if (!response.ok) {
+        throw new Error(`Oops... ${result.message}.`);
+      }
+
       return result;
     } catch (err) {
       console.error(err.message);
@@ -240,6 +285,10 @@ class TaskFeedApiService {
 
       const result = await response.json();
 
+      if (!response.ok) {
+        throw new Error(`Oops... ${result.message}.`);
+      }
+
       return result;
     } catch (err) {
       console.error(err.message);
@@ -258,6 +307,10 @@ class TaskFeedApiService {
       });
 
       const result = await response.json();
+
+      if (!response.ok) {
+        throw new Error(`Oops... ${result.message}.`);
+      }
 
       return result;
     } catch (err) {
