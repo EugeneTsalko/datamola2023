@@ -205,6 +205,8 @@ class TasksController {
       this.header.display();
       this.filter.display({ assignees: this.users });
 
+      DomHelper.toast('Bye!');
+
       this.getFeed();
     } catch (err) {
       console.error(err.message);
@@ -229,6 +231,39 @@ class TasksController {
       this.profile.display(user, type);
     } catch (err) {
       console.error(err.message);
+    }
+  }
+
+  async editUser() {
+    try {
+      // const { user } = app;
+      const name = document.getElementById('name').value;
+      const newPassword = document.getElementById('newPassword').value;
+      const retypedPassword = document.getElementById('confirmPassword').value;
+      const photo = document.querySelector('input[name="avatar"]:checked')?.value || user.photo;
+
+      const response = await this.api.editUser(
+        this.user.id,
+        name,
+        newPassword,
+        retypedPassword,
+        photo,
+      );
+
+      console.log(response);
+
+      if (response.message) {
+        throw new Error(response.message);
+      }
+
+      DomHelper.toast('Profile was successfully edited!');
+
+      this.user = response;
+      localStorage.setItem('user', JSON.stringify(response));
+      app.showProfile();
+    } catch (err) {
+      const nameError = document.getElementById('nameError');
+      nameError.textContent = err.message;
     }
   }
 
@@ -350,8 +385,7 @@ class TasksController {
         throw new Error(response.message);
       }
 
-      errorMessage.classList.add('success');
-      errorMessage.textContent = 'Task was successfully added!';
+      DomHelper.toast('Task was successfully added!');
 
       await this.backToMain();
       overlay.classList.remove('active');
@@ -399,8 +433,7 @@ class TasksController {
         throw new Error(response.message);
       }
 
-      errorMessage.classList.add('success');
-      errorMessage.textContent = 'Task was successfully edited!';
+      DomHelper.toast('Task was successfully edited!');
 
       if (document.getElementById('fullTask')) {
         await this.showTask(taskId);

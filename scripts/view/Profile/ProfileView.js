@@ -49,20 +49,14 @@ class ProfileView {
             <span class="focus-bg"></span>
           </label>
 
-          <label for="oldPassword" class="text-input">
-            ${isEdit ? '<button class="icon-btn password-btn" id="passwordBtn"></button>' : ''}
-            <input type="password" id="oldPassword" placeholder="&nbsp;" ${
+          <label for="newPassword" class="text-input">
+            <button class="icon-btn password-btn" id="passwordBtn" ${
   isEdit ? '' : 'disabled'
-} value="${isEdit ? '' : '********'}">
-            <span class="label">${isEdit ? 'Old password' : 'Password'}</span>
-            <span class="focus-bg"></span>
-            ${isEdit ? '<p class="error-message" id="oldPasswordError"></p>' : ''}
-          </label>
-
-          <label for="newPassword" class="text-input ${isEdit ? '' : 'undisplayed'}">
-            <button class="icon-btn password-btn" id="passwordBtn"></button>
-            <input type="password" id="newPassword" placeholder="&nbsp;">
-            <span class="label">New password</span>
+}></button>
+            <input type="password" id="newPassword" placeholder="&nbsp;" value="${
+  isEdit ? '' : '********'
+}">
+            <span class="label">${isEdit ? 'New password' : 'Password'}</span>
             <span class="focus-bg"></span>
             ${isEdit ? '<p class="error-message" id="newPasswordError"></p>' : ''}
           </label>
@@ -101,7 +95,6 @@ class ProfileView {
       name, oldPassword, newPassword, confirmPassword,
     } = form;
     const nameError = document.getElementById('nameError');
-    // const oldPasswordError = document.getElementById('oldPasswordError');
     const newPasswordError = document.getElementById('newPasswordError');
     const confirmPasswordError = document.getElementById('confirmPasswordError');
     const resetBtn = document.getElementById('profileResetBtn');
@@ -109,7 +102,6 @@ class ProfileView {
     const closeEditBtn = document.getElementById('closeProfileBtn');
 
     let isNameValid = false;
-    // let isOldPassValid = false;
     let isNewPassValid = false;
     let isConfirmPassValid = false;
 
@@ -132,16 +124,6 @@ class ProfileView {
         isNameValid = true;
       }
     });
-
-    // oldPassword.addEventListener('input', () => {
-    //   if (!oldPassword.value.length) {
-    //     oldPasswordError.innerHTML = 'Invalid password.';
-    //     isOldPassValid = false;
-    //   } else {
-    //     oldPasswordError.innerHTML = '';
-    //     isOldPassValid = true;
-    //   }
-    // });
 
     newPassword.addEventListener('input', () => {
       if (!newPassword.value.length) {

@@ -1,13 +1,13 @@
 window.onload = async function () {
   console.log('Page is loaded!');
 
-  // setInterval(() => {
-  //   console.log('short polling');
-  // }, 1000); // mock short polling
-
   // постараюсь избавится от этого файла, разнести логику по классам.
 
   await app.start();
+
+  // setInterval(() => {
+  //   app.getFeed();
+  // }, SHORT_POLLING_TIME); // short polling
 
   document.addEventListener('click', async (event) => {
     if (event.target.id === 'toMainBtn') {
@@ -103,27 +103,11 @@ window.onload = async function () {
     }
 
     if (event.target.id === 'saveProfileBtn') {
-      event.preventDefault();
       try {
-        const { user } = app;
-        const name = document.getElementById('name').value;
-        const newPassword = document.getElementById('newPassword').value;
-        const retypedPassword = document.getElementById('confirmPassword').value;
-        const photo = document.querySelector('input[name="avatar"]:checked')?.value || user.photo;
-
-        const response = await app.api.editUser(user.id, name, newPassword, retypedPassword, photo);
-        console.log(response);
-
-        if (response.message) {
-          throw new Error(response.message);
-        }
-
-        app.user = response;
-        localStorage.setItem('user', JSON.stringify(response));
-        app.showProfile();
+        event.preventDefault();
+        await app.editUser();
       } catch (err) {
-        const nameError = document.getElementById('nameError');
-        nameError.textContent = err.message;
+        console.error(err.message);
       }
     }
 

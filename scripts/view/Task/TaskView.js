@@ -11,7 +11,6 @@ class TaskView {
         const id = document.querySelector('.full-task-card').id.split('-').at(-1);
 
         if (text) {
-          // app.tasks.addComment(id, text);
           const response = await app.api.addComment(id, text);
 
           if (response.error) {
@@ -20,6 +19,7 @@ class TaskView {
 
           document.getElementById('newComment').value = '';
           app.showTask(id);
+          DomHelper.toast('Comment was added!');
         }
       });
     } catch (err) {

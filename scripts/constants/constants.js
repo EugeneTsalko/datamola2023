@@ -63,3 +63,5 @@ const BASE64_PREFIX = {
   bmp: 'data:image/bmp;base64,',
   ico: 'data:image/x-icon;base64,',
 };
+
+const SHORT_POLLING_TIME = 300000;

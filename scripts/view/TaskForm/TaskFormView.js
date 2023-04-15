@@ -94,7 +94,7 @@ class TaskFormView {
     <p class="error-message" id="taskFormMsg"></p>
 
     <div class="form-btns">
-      <button class="btn secondary-btn" type="reset" disabled>RESET</button>
+      <button class="btn secondary-btn cancel-btn" type="reset" disabled>RESET</button>
       <button class="btn" type="submit" id="${
   isEdit ? 'editTaskFormBtn' : 'createTaskBtn'
 }" disabled>${isEdit ? 'EDIT' : 'CREATE'}</button>
