@@ -19,6 +19,7 @@
 
 .btn:disabled {
   background-color: var(--gray600);
+  border: none;
   color: var(--gray900);
 }
 

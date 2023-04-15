@@ -24,7 +24,7 @@ class TaskFormView {
     </div>
 
     <label for="setTitle" class="text-input">
-      <input type="text" id="setTitle" maxlength="100" placeholder="&nbsp;" value="${
+      <input type="text" id="setTitle" maxlength="100" autocomplete="off" placeholder="&nbsp;" value="${
   isEdit ? task.name : ''
 }">
       <span class="label">Title*</span>
@@ -33,13 +33,6 @@ class TaskFormView {
         
     <textarea class="description-area" name="description" id="setDescription" cols="30" rows="5" placeholder="Description*"
       maxlength="280">${isEdit ? task.description : ''}</textarea>
-  
-    <label for="setAssignee">
-      Assignee
-      <select id="setAssignee">
-        ${assigneesOptions}
-      </select>
-    </label>
   
     <div>
       <p>Priority*</p>
@@ -58,6 +51,13 @@ class TaskFormView {
         <label for="high" class="task-priority high">High</label>
       </div>
     </div>
+
+    <label for="setAssignee">
+    Assignee
+    <select id="setAssignee">
+      ${assigneesOptions}
+    </select>
+  </label>
   
     <div>
       <p>Privacy</p>
@@ -91,14 +91,65 @@ class TaskFormView {
       </div>
     </div>
 
+    <p class="error-message" id="taskFormMsg"></p>
+
     <div class="form-btns">
-      <button class="btn secondary-btn" type="reset">RESET</button>
-      <button class="btn" type="submit" id="${isEdit ? 'editTaskFormBtn' : 'createTaskBtn'}">${
-  isEdit ? 'EDIT' : 'CREATE'
-}</button>
+      <button class="btn secondary-btn" type="reset" disabled>RESET</button>
+      <button class="btn" type="submit" id="${
+  isEdit ? 'editTaskFormBtn' : 'createTaskBtn'
+}" disabled>${isEdit ? 'EDIT' : 'CREATE'}</button>
     </div>`;
 
     return container;
+  }
+
+  listen() {
+    try {
+      const form = document.getElementById('taskForm');
+      const { setTitle, setDescription } = form;
+      const submitBtn = document.getElementById('editTaskFormBtn') || document.getElementById('createTaskBtn');
+      const resetBtn = document.querySelector('button[type="reset"]');
+      const errorMessage = document.getElementById('taskFormMsg');
+
+      form.addEventListener('input', () => {
+        const priority = document.querySelector('input[name="setPriority"]:checked')?.value;
+        const privacy = document.querySelector('input[name="setPrivacy"]:checked')?.value;
+        const status = document.querySelector('input[name="setStatus"]:checked')?.value;
+        const isFormValid = Boolean(setTitle.value && setDescription.value && priority);
+        const isResetEnabled = Boolean(
+          setTitle.value || setDescription.value || priority || privacy || status,
+        );
+
+        if (errorMessage.textContent) {
+          errorMessage.textContent = '';
+        }
+
+        if (isFormValid) {
+          submitBtn?.removeAttribute('disabled');
+        } else {
+          submitBtn?.setAttribute('disabled', '');
+        }
+
+        if (isResetEnabled) {
+          resetBtn?.removeAttribute('disabled');
+        } else {
+          resetBtn?.setAttribute('disabled', '');
+        }
+      });
+
+      resetBtn.addEventListener('click', (event) => {
+        event.preventDefault();
+        form.reset();
+        resetBtn.setAttribute('disabled', '');
+        submitBtn.setAttribute('disabled', '');
+
+        if (errorMessage.textContent) {
+          errorMessage.textContent = '';
+        }
+      });
+    } catch (err) {
+      console.error(err.message);
+    }
   }
 
   display(type, task, assignees) {

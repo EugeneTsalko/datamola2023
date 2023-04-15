@@ -297,40 +297,57 @@ class TasksController {
   }
 
   async showTaskForm(type, taskId) {
-    const overlay = this.taskForm.root;
-    const { users } = this;
-
-    let task = null;
-    if (taskId) {
-      task = await this.api.getFullTask(taskId);
-    }
-
-    overlay.innerHTML = '';
-    overlay.classList.add('active');
-    this.taskForm.display(type, task, users);
-  }
-
-  addTask(task) {
     try {
-      if (!checkIsObj(task)) {
-        throw new Error(getCustomError.invalidObjParam('task', 'TasksController.addTask'));
+      const overlay = this.taskForm.root;
+      const { users } = this;
+
+      let task = null;
+      if (taskId) {
+        task = await this.api.getFullTask(taskId);
       }
 
-      const {
-        name, description, status, priority, isPrivate,
-      } = task;
-
-      if (!this.tasks.add(name, description, status, priority, isPrivate)) {
-        throw new Error('Task wasn`t added.');
-      }
-
-      DomHelper.reRenderTaskColumn(status);
-
-      return true;
+      overlay.innerHTML = '';
+      overlay.classList.add('active');
+      this.taskForm.display(type, task, users);
+      this.taskForm.listen();
     } catch (err) {
       console.error(err.message);
+    }
+  }
 
-      return false;
+  async addTask(task) {
+    try {
+      const overlay = document.getElementById('overlay');
+      const name = document.getElementById('setTitle').value;
+      const description = document.getElementById('setDescription').value;
+      const assignee = app.getUserByUserName(document.getElementById('setAssignee').value);
+      const priority = document.querySelector('input[name="setPriority"]:checked')?.value;
+      const isPrivate = document.querySelector('input[name="setPrivacy"]:checked')?.value === TASK_PRIVACY.private;
+      const status = document.querySelector('input[name="setStatus"]:checked')?.value || TASK_STATUS.toDo;
+      const errorMessage = document.getElementById('taskFormMsg');
+
+      const response = await app.api.addTask(
+        name,
+        description,
+        assignee.id,
+        status,
+        priority,
+        isPrivate,
+      );
+
+      if (response.error) {
+        throw new Error(response.message);
+      }
+
+      errorMessage.classList.add('success');
+      errorMessage.textContent = 'Task was successfully added!';
+
+      await this.backToMain();
+      overlay.classList.remove('active');
+      overlay.innerHTML = '';
+    } catch (err) {
+      errorMessage.textContent = err.message;
+      console.error(err.message);
     }
   }
 
