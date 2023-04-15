@@ -15,8 +15,10 @@ class TaskFeedApiService {
 
       const result = await response.json();
 
+      console.log(response);
+
       if (!response.ok) {
-        throw new Error(`Oops... ${result.message}.`);
+        return new CustomError(result.status, result.message);
       }
 
       return result;
@@ -36,13 +38,13 @@ class TaskFeedApiService {
       const result = await response.json();
 
       if (!response.ok) {
-        throw new Error(result.message);
+        return new CustomError(result.status, result.message);
       }
 
       return result;
     } catch (err) {
       console.error(err.message);
-      DomHelper.toast(err.message, 'error');
+      // DomHelper.toast(err.message, 'error');
 
       return err;
     }
@@ -70,7 +72,7 @@ class TaskFeedApiService {
       const result = await response.json();
 
       if (!response.ok) {
-        throw new Error(`Oops... ${result.message}.`);
+        return new CustomError(result.status, result.message);
       }
 
       return result;
@@ -103,7 +105,7 @@ class TaskFeedApiService {
       const result = await response.json();
 
       if (!response.ok) {
-        throw new Error(`Oops... ${result.message}.`);
+        return new CustomError(result.status, result.message);
       }
 
       return result;
@@ -126,7 +128,7 @@ class TaskFeedApiService {
       const result = await response.json();
 
       if (!response.ok) {
-        throw new Error(`Oops... ${result.message}.`);
+        return new CustomError(result.status, result.message);
       }
 
       return result;
@@ -143,7 +145,7 @@ class TaskFeedApiService {
       const result = await response.json();
 
       if (!response.ok) {
-        throw new Error(`Oops... ${result.message}.`);
+        return new CustomError(result.status, result.message);
       }
 
       return result;
@@ -160,7 +162,7 @@ class TaskFeedApiService {
       const result = await response.json();
 
       if (!response.ok) {
-        throw new Error(`Oops... ${result.message}.`);
+        return new CustomError(result.status, result.message);
       }
 
       return result;
@@ -185,7 +187,7 @@ class TaskFeedApiService {
       const result = await response.json();
 
       if (!response.ok) {
-        throw new Error(`Oops... ${result.message}.`);
+        return new CustomError(result.status, result.message);
       }
 
       return result;
@@ -202,7 +204,7 @@ class TaskFeedApiService {
       const result = await response.json();
 
       if (!response.ok) {
-        throw new Error(`Oops... ${result.message}.`);
+        return new CustomError(result.status, result.message);
       }
 
       return result;
@@ -224,7 +226,7 @@ class TaskFeedApiService {
       const result = await response.json();
 
       if (!response.ok) {
-        throw new Error(`Oops... ${result.message}.`);
+        return new CustomError(result.status, result.message);
       }
 
       return result;
@@ -255,7 +257,7 @@ class TaskFeedApiService {
       const result = await response.json();
 
       if (!response.ok) {
-        throw new Error(`Oops... ${result.message}.`);
+        return new CustomError(result.status, result.message);
       }
 
       return result;
@@ -309,7 +311,7 @@ class TaskFeedApiService {
       const result = await response.json();
 
       if (!response.ok) {
-        throw new Error(`Oops... ${result.message}.`);
+        return new CustomError(result.status, result.message);
       }
 
       return result;

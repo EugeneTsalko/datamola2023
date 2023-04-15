@@ -83,25 +83,6 @@ window.onload = async function () {
       }
     }
 
-    if (event.target.id === 'loadMoreBtn') {
-      const column = event.target.closest('.column').id;
-
-      if (column === 'toDoColumn') {
-        app.pagination.toDoTop += 10;
-        app.getToDoFeed();
-      }
-
-      if (column === 'inProgressColumn') {
-        app.pagination.inProgressTop += 10;
-        app.getInProgressFeed();
-      }
-
-      if (column === 'completeColumn') {
-        app.pagination.completeTop += 10;
-        app.getCompleteFeed();
-      }
-    }
-
     if (event.target.id === 'saveProfileBtn') {
       try {
         event.preventDefault();

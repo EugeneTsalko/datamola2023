@@ -91,6 +91,10 @@ class DomHelper {
     });
     btn.innerHTML = '<img src="./assets/svg/refresh.svg" alt="refresh"><span>Load more</span>';
 
+    btn.addEventListener('click', (event) => {
+      app.paginate(event.target);
+    });
+
     return btn;
   }
 

@@ -84,7 +84,7 @@ class FilterController {
         delete this.filterConfig.description;
       }
 
-      console.log(Object.keys(this.filterConfig).length);
+      // console.log(Object.keys(this.filterConfig).length);
       if (Object.keys(this.filterConfig).length) {
         resetBtn.classList.remove('hidden');
       } else {

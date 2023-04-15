@@ -12,9 +12,11 @@ class TasksController {
       taskFormRoot,
       apiUrl,
     } = params;
+    this.data = [];
     this.tasks = [];
     this.users = [];
     this.user = null;
+    this.token = null;
     this.header = new HeaderView(headerRoot);
     this.filter = new FilterView(filterRoot);
     this.filterController = new FilterController();
@@ -38,7 +40,22 @@ class TasksController {
 
   async fetchTasks() {
     try {
-      this.tasks = await this.api.getTasks();
+      // this.data = await this.api.getTasks();
+      this.data = dataTasks;
+    } catch (err) {
+      console.error(err.message);
+    }
+  }
+
+  makeTasks(data, user) {
+    try {
+      this.tasks = user
+        ? data.filter(
+          (task) => !task.isPrivate
+              || user.login === task.assignee.login
+              || user.login === task.creator.login,
+        )
+        : data.filter((task) => !task.isPrivate);
 
       this.toDoTasks = this.tasks.filter((task) => task.status === TASK_STATUS.toDo);
       this.inProgressTasks = this.tasks.filter((task) => task.status === TASK_STATUS.inProgress);
@@ -50,7 +67,8 @@ class TasksController {
 
   async fetchUsers() {
     try {
-      this.users = await this.api.getAllUsers();
+      // this.users = await this.api.getAllUsers();
+      this.users = dataUsers;
     } catch (err) {
       console.error(err.message);
     }
@@ -63,22 +81,31 @@ class TasksController {
 
       if (user && token) {
         this.user = JSON.parse(user);
-        this.login(this.user, token);
-        return;
+        this.token = token;
       }
-
-      this.filter.display({ assignees: this.users });
-      this.getFeed();
     } catch (err) {
       console.error(err.message);
     }
   }
 
   async start() {
-    await this.fetchUsers();
-    await this.fetchTasks();
+    try {
+      await this.fetchUsers();
+      await this.fetchTasks();
+      this.initUser();
 
-    this.initUser();
+      if (this.user) {
+        this.makeTasks(this.data, this.user);
+        this.login(this.user, this.token);
+        return;
+      }
+
+      this.filter.display({ assignees: this.users });
+      this.makeTasks(this.data, null);
+      this.getFeed();
+    } catch (err) {
+      console.error(err.message);
+    }
   }
 
   // auth
@@ -153,15 +180,19 @@ class TasksController {
 
       const response = await this.api.auth(login.value, password.value);
 
+      console.log('response: ', response);
+
       if (response.error) {
-        throw new Error(response?.message);
+        throw new Error(response.message);
       }
 
       const user = this.getUser(login.value);
       this.login(user, response.token);
 
-      formError.classList.add('success');
-      formError.textContent = 'Successful sign in! Please, wait...';
+      DomHelper.toast('Successful sign in! Please, wait...');
+
+      // formError.classList.add('success');
+      // formError.textContent = 'Successful sign in! Please, wait...';
       document.getElementById('authSignIn')?.setAttribute('disabled', '');
 
       return user;
@@ -182,6 +213,9 @@ class TasksController {
       this.header.display({ user: this.user });
       this.filter.display({ user: this.user, assignees: this.users });
 
+      // await this.fetchTasks(this.user);
+      this.makeTasks(this.data, this.user);
+
       this.getFeed();
     } catch (err) {
       console.log(err.message);
@@ -201,11 +235,14 @@ class TasksController {
       localStorage.removeItem('user');
       localStorage.removeItem('token');
       this.user = null;
+      this.token = null;
 
       this.header.display();
       this.filter.display({ assignees: this.users });
 
       DomHelper.toast('Bye!');
+
+      this.makeTasks(this.data, null);
 
       this.getFeed();
     } catch (err) {
@@ -252,7 +289,7 @@ class TasksController {
 
       console.log(response);
 
-      if (response.message) {
+      if (response.error) {
         throw new Error(response.message);
       }
 
@@ -274,10 +311,14 @@ class TasksController {
     top = this.pagination.toDoTop,
     filterConfig = this.filterController.filterConfig,
   ) {
+    const data = this.getPage(skip, top, filterConfig, TASK_STATUS.toDo);
     this.toDoFeed.display({
       user: this.user,
-      tasks: this.getPage(skip, top, filterConfig, TASK_STATUS.toDo),
+      tasks: data,
     });
+    if (data.length >= 10 && data.length < this.toDoTasks.length) {
+      this.toDoFeed.root.append(DomHelper.createAddMoreBtn());
+    }
     console.log(`Render column ${TASK_STATUS.toDo}`);
   }
 
@@ -286,10 +327,14 @@ class TasksController {
     top = this.pagination.inProgressTop,
     filterConfig = this.filterController.filterConfig,
   ) {
+    const data = this.getPage(skip, top, filterConfig, TASK_STATUS.inProgress);
     this.inProgressFeed.display({
       user: this.user,
-      tasks: this.getPage(skip, top, filterConfig, TASK_STATUS.inProgress),
+      tasks: data,
     });
+    if (data.length >= 10 && data.length < this.inProgressTasks.length) {
+      this.inProgressFeed.root.append(DomHelper.createAddMoreBtn());
+    }
     console.log(`Render column ${TASK_STATUS.inProgress}`);
   }
 
@@ -298,10 +343,14 @@ class TasksController {
     top = this.pagination.completeTop,
     filterConfig = this.filterController.filterConfig,
   ) {
+    const data = this.getPage(skip, top, filterConfig, TASK_STATUS.complete);
     this.completeFeed.display({
       user: this.user,
-      tasks: this.getPage(skip, top, filterConfig, TASK_STATUS.complete),
+      tasks: data,
     });
+    if (data.length >= 10 && data.length < this.completeTasks.length) {
+      this.completeFeed.root.append(DomHelper.createAddMoreBtn());
+    }
     console.log(`Render column ${TASK_STATUS.complete}`);
   }
 
@@ -310,8 +359,29 @@ class TasksController {
       this.getToDoFeed(skip, top, filterConfig);
       this.getInProgressFeed(skip, top, filterConfig);
       this.getCompleteFeed(skip, top, filterConfig);
+    } catch (err) {
+      console.error(err.message);
+    }
+  }
 
-      console.log('getfeed');
+  paginate(btn) {
+    try {
+      const column = btn.closest('.task-list');
+
+      if (column.id === 'toDoList') {
+        app.pagination.toDoTop += 10;
+        app.getToDoFeed();
+      }
+
+      if (column.id === 'inProgressList') {
+        app.pagination.inProgressTop += 10;
+        app.getInProgressFeed();
+      }
+
+      if (column.id === 'completeList') {
+        app.pagination.completeTop += 10;
+        app.getCompleteFeed();
+      }
     } catch (err) {
       console.error(err.message);
     }
@@ -323,6 +393,10 @@ class TasksController {
     try {
       const task = await this.api.getFullTask(id);
       console.log(task);
+
+      if (task.error) {
+        throw new Error(task.message);
+      }
 
       if (!task || !this.user) {
         throw new Error('Task page can`t be shown.');
@@ -348,6 +422,10 @@ class TasksController {
       let task = null;
       if (taskId) {
         task = await this.api.getFullTask(taskId);
+
+        if (task.error) {
+          throw new Error(task.message);
+        }
       }
 
       overlay.innerHTML = '';
