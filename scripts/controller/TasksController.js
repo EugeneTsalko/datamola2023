@@ -142,6 +142,8 @@ class TasksController {
         photo,
       );
 
+      this.users.push(user); // костыль для работы без бэка
+
       if (user.error) {
         throw new Error(user.message);
       }
@@ -301,6 +303,30 @@ class TasksController {
     } catch (err) {
       const nameError = document.getElementById('nameError');
       nameError.textContent = err.message;
+    }
+  }
+
+  getUser(login) {
+    try {
+      const user = this.users.find((elem) => elem.login === login);
+
+      return user;
+    } catch (err) {
+      console.error(err.message);
+
+      return null;
+    }
+  }
+
+  getUserByUserName(userName) {
+    try {
+      const user = this.users.find((elem) => elem.userName === userName);
+
+      return user;
+    } catch (err) {
+      console.error(err.message);
+
+      return null;
     }
   }
 
@@ -552,53 +578,6 @@ class TasksController {
     }
   }
 
-  // other
-
-  async backToMain() {
-    try {
-      document.getElementById('fullTask')?.remove();
-      document.getElementById('profilePage')?.remove();
-      document.getElementById('auth')?.remove();
-      document.getElementById('menu').classList.remove('undisplayed');
-      document.getElementById('board').classList.remove('undisplayed');
-
-      const user = this.user || null;
-
-      await this.fetchTasks();
-      this.getFeed();
-
-      this.header.display({ user });
-    } catch (err) {
-      console.error(err.message);
-    }
-  }
-
-  // other
-
-  getUser(login) {
-    try {
-      const user = this.users.find((elem) => elem.login === login);
-
-      return user;
-    } catch (err) {
-      console.error(err.message);
-
-      return null;
-    }
-  }
-
-  getUserByUserName(userName) {
-    try {
-      const user = this.users.find((elem) => elem.userName === userName);
-
-      return user;
-    } catch (err) {
-      console.error(err.message);
-
-      return null;
-    }
-  }
-
   getPage(skip = 0, top = 10, filterConfig = null, type = null) {
     try {
       if (skip < 0 || top < 0 || !Number.isInteger(skip) || !Number.isInteger(top)) {
@@ -671,6 +650,27 @@ class TasksController {
       console.error(err.message);
 
       return null;
+    }
+  }
+
+  // other
+
+  async backToMain() {
+    try {
+      document.getElementById('fullTask')?.remove();
+      document.getElementById('profilePage')?.remove();
+      document.getElementById('auth')?.remove();
+      document.getElementById('menu').classList.remove('undisplayed');
+      document.getElementById('board').classList.remove('undisplayed');
+
+      const user = this.user || null;
+
+      await this.fetchTasks();
+      this.getFeed();
+
+      this.header.display({ user });
+    } catch (err) {
+      console.error(err.message);
     }
   }
 }

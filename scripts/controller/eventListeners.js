@@ -130,6 +130,12 @@ window.onload = async function () {
       event.preventDefault();
       await app.editTask();
     }
+
+    if (event.target.id === 'showFilterBtn') {
+      event.preventDefault();
+      const filter = event.target.nextElementSibling;
+      filter.classList.toggle('active');
+    }
   });
 
   document.getElementById('addTaskBtn').addEventListener('click', () => {
