@@ -112,7 +112,6 @@ window.onload = async () => {
     if (event.target.id === 'overlay') {
       const overlay = document.getElementById('overlay');
       overlay.classList.remove('active');
-      overlay.firstChild.remove();
     }
 
     if (event.target.id === 'deleteTaskBtn') {

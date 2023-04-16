@@ -461,7 +461,7 @@ class TasksController {
       overlay.classList.add('active');
 
       this.taskForm.display(type, task, users);
-      this.taskForm.listen();
+      // this.taskForm.listen();
     } catch (err) {
       this.showErrorPage(err.message);
       console.error(err.message);
@@ -670,10 +670,10 @@ class TasksController {
   cleanMain() {
     document.getElementById('menu').classList.add('undisplayed');
     document.getElementById('board').classList.add('undisplayed');
+    document.getElementById('overlay')?.classList.remove('active');
     document.getElementById('auth')?.remove();
     document.getElementById('profilePage')?.remove();
     document.getElementById('fullTask')?.remove();
-    document.getElementById('overlay')?.remove();
     document.getElementById('modalOverlay')?.remove();
   }
 }
