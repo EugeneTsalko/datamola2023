@@ -40,8 +40,8 @@ class TasksController {
 
   async fetchTasks() {
     try {
-      // this.data = await this.api.getTasks();
-      this.data = dataTasks;
+      this.data = await this.api.getTasks();
+      // this.data = dataTasks;
     } catch (err) {
       console.error(err.message);
     }
@@ -67,8 +67,8 @@ class TasksController {
 
   async fetchUsers() {
     try {
-      // this.users = await this.api.getAllUsers();
-      this.users = dataUsers;
+      this.users = await this.api.getAllUsers();
+      // this.users = dataUsers;
     } catch (err) {
       console.error(err.message);
     }
@@ -79,7 +79,7 @@ class TasksController {
       const user = localStorage.getItem('user');
       const token = localStorage.getItem('token');
 
-      if (user && token) {
+      if (user && token && user !== 'undefined' && token !== 'undefined') {
         this.user = JSON.parse(user);
         this.token = token;
       }
