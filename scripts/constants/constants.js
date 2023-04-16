@@ -10,6 +10,13 @@ const TASK_STATUS = {
   complete: 'Complete',
 };
 
+const API_STATUS = {
+  toDo: 1,
+  inProgress: 2,
+  complete: 3,
+  all: 0,
+};
+
 const TASK_PRIORITY = {
   low: 'Low',
   medium: 'Medium',
@@ -21,9 +28,49 @@ const TASK_PRIVACY = {
   public: 'Public',
 };
 
-USERNAME_MAX_LENGTH = 100;
+const USERNAME_MAX_LENGTH = 100;
 
-AUTH_TYPE = {
+const AUTH_TYPE = {
   signIn: 'Sign in',
   signUp: 'Sign up',
+};
+
+const ENDPOINTS = {
+  auth: 'api/auth/login',
+  tasks: 'api/tasks',
+  editTask: (taskId) => `api/tasks/${taskId}`,
+  comments: (taskId) => `api/tasks/${taskId}/comments`,
+  allUsers: 'api/user/allUsers',
+  myProfile: 'api/user/myProfile',
+  register: 'api/user/register',
+  editUser: (userId) => `api/user/${userId}`,
+};
+
+const BASE64_TYPE = {
+  jpg: '/',
+  png: 'i',
+  gif: 'R',
+  svg: 'P',
+  bmp: 'Q',
+  ico: 'A',
+};
+
+const BASE64_PREFIX = {
+  jpg: 'data:image/jpeg;base64,',
+  png: 'data:image/png;base64,',
+  gif: 'data:image/gif;base64,',
+  svg: 'data:image/svg+xml;base64,',
+  bmp: 'data:image/bmp;base64,',
+  ico: 'data:image/x-icon;base64,',
+};
+
+const SHORT_POLLING_TIME = 300000;
+
+const MESSAGES = {
+  signUpSuccess: 'Successful registration! Please, wait...',
+  signInSuccess: 'Successful sign in! Please, wait...',
+  logOut: 'Bye! Take care.',
+  editProfileSuccess: 'Profile was successfully edited!',
+  addTaskSuccess: 'Task was successfully added!',
+  editTaskSuccess: 'Task was successfully edited!',
 };

@@ -14,18 +14,18 @@ class TaskFeedView {
       if (tasks) {
         this.root.innerHTML = '';
         tasks.forEach((task) => {
-          if (task.assignee !== user && task.isPrivate) {
-            return;
-          }
+          // if (
+          //   task.assignee.login !== user?.login
+          //   && task.isPrivate
+          //   && task.creator.login !== user?.login
+          // ) {
+          //   return;
+          // }
           this.root.append(DomHelper.createTaskCard(task, user));
         });
 
         if (!tasks.length) {
           this.root.innerHTML = 'Tasks was not find.';
-        }
-
-        if (tasks.length >= 10) {
-          this.root.append(DomHelper.createAddMoreBtn());
         }
       }
     } catch (err) {

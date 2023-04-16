@@ -8,6 +8,10 @@
   background-color: var(--white);
 }
 
+.filter-bar.active {
+  display: flex;
+}
+
 .checkbox-dropdown {
   padding: 0.125rem 2rem 0.125rem 0.25rem;
   position: relative;
@@ -45,8 +49,17 @@
 }
 
 @media screen and (width <= 744px) {
+  .filter-container {
+    position: relative;
+  }
   .filter-bar {
     display: none;
+    flex-direction: column;
+    align-items: flex-end;
+    position: absolute;
+    left: 0;
+    top: 50px;
+    z-index: 1;
   }
 }
 
@@ -55,10 +68,12 @@
 .checkbox-dropdown-list {
   display: none;
   width: max-content;
+  max-width: 12rem;
+  max-height: 50vh;
+  overflow: auto;
   border: var(--border-main);
   position: absolute;
   top: 2rem;
-  /* left: -0.875rem; */
   z-index: 2;
   background-color: var(--white);
   border-radius: var(--border-radius-s);

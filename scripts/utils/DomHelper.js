@@ -19,24 +19,36 @@ class DomHelper {
   }
 
   static createTaskCard(task, user) {
-    const {
-      _id, name, description, _createdAt, assignee, status, priority, isPrivate, comments,
-    } = task;
-    const container = DomHelper.createNode('li', [], { id: `task-${_id}` });
+    try {
+      const {
+        id,
+        name,
+        description,
+        createdAt,
+        assignee,
+        creator,
+        status,
+        priority,
+        isPrivate,
+        comments,
+      } = task;
+      const container = DomHelper.createNode('li', [], { id: `task-${id}` });
 
-    container.addEventListener('click', (event) => {
-      if (event.target.id === 'deleteTaskBtn' || event.target.id === 'editTaskBtn') {
-        return;
-      }
-      app.showTask(event.currentTarget.id.split('-').at(-1));
-      app.fullTask.listen();
-    });
+      container.addEventListener('click', async (event) => {
+        if (event.target.id === 'deleteTaskBtn' || event.target.id === 'editTaskBtn') {
+          return;
+        }
+        await app.showTask(event.currentTarget.id.split('-').at(-1));
+        // app.fullTask.listen();
+      });
 
-    container.innerHTML = `
-      <div class="task-card" id="task-${_id}">
+      const isHidden = creator?.login === user?.login;
+
+      container.innerHTML = `
+      <div class="task-card" id="task-${id}">
         <div class="task-header">
           <h4>${name}</h4>
-          <div class="task-buttons ${assignee === user ? '' : 'hidden'}">
+          <div class="task-buttons ${isHidden ? '' : 'hidden'}">
             <button class="btn secondary-btn edit-btn" id="editTaskBtn"></button>
             <button class="btn secondary-btn delete-btn" id="deleteTaskBtn"></button>
           </div>
@@ -46,8 +58,8 @@ class DomHelper {
         <div class="task-footer">
           <div class="task-info-container">
             <div class="task-date-container">
-              <span class="task-time">${getHumanTime(_createdAt)}</span>
-              <span class="task-date">${getHumanDate(_createdAt)}</span>
+              <span class="task-time">${getHumanTime(createdAt)}</span>
+              <span class="task-date">${getHumanDate(createdAt)}</span>
             </div>
             <div class="task-info">
               <span class="task-status">${status}</span>
@@ -59,13 +71,18 @@ class DomHelper {
             </div>
           </div>
           <div class="task-assignee">
-            <span class="assignee-name">${assignee}</span>
-            <img class="assignee-img" src="${getUser(assignee, mockUsers)?.img}" alt="assignee img">
+            <span class="assignee-name">${assignee?.userName}</span>
+            <img class="assignee-img" src="${getSrcBase64(assignee.photo)}" alt="assignee img">
           </div>
         </div>
       </div>`;
 
-    return container;
+      return container;
+    } catch (err) {
+      console.error(err.message);
+
+      return null;
+    }
   }
 
   static createAddMoreBtn() {
@@ -74,28 +91,32 @@ class DomHelper {
     });
     btn.innerHTML = '<img src="./assets/svg/refresh.svg" alt="refresh"><span>Load more</span>';
 
+    btn.addEventListener('click', (event) => {
+      app.paginate(event.target);
+    });
+
     return btn;
   }
 
   static createComment(comment) {
     const container = document.createElement('li');
     const {
-      _id, text, _createdAt, author,
+      id, text, createdAt, creator,
     } = comment;
 
     container.innerHTML = `
-      <div class="comment" id="comment-${_id}">
+      <div class="comment" id="comment-${id}">
         <p class="comment-text">
           ${text}
         </p>
         <div class="comment-footer">
           <div class="comment-author">
-            <img class="author-img" src="${getUser(author, mockUsers)?.img}" alt="author image">
-            <span class="author-name">${author}</span>
+            <img class="author-img" src="${getSrcBase64(creator.photo)}" alt="author image">
+            <span class="author-name">${creator.userName}</span>
           </div>
           <div class="comment-date-container">
-            <span class="comment-date">${getHumanDate(_createdAt)}</span>
-            <span class="comment-time">${getHumanTime(_createdAt)}</span>
+            <span class="comment-date">${getHumanDate(createdAt)}</span>
+            <span class="comment-time">${getHumanTime(createdAt)}</span>
           </div>
         </div>
       </div>`;
@@ -109,16 +130,18 @@ class DomHelper {
     const commentsContainer = DomHelper.createNode('div', ['comments']);
     const commentsList = DomHelper.createNode('ul');
 
-    comments.forEach((comment) => commentsList.append(DomHelper.createComment(comment)));
+    comments
+      .sort((a, b) => new Date(a.createdAt) - new Date(b.createdAt))
+      .forEach((comment) => commentsList.append(DomHelper.createComment(comment)));
     commentsContainer.append(commentsList);
 
     const addCommentForm = DomHelper.createNode('form', ['add-comment-form'], {
       id: 'commentForm',
     });
     addCommentForm.innerHTML = `
-      <img class="user-img" src="${getUser(user, mockUsers)?.img}" alt="author image">
+      <img class="user-img" src="${getSrcBase64(user.photo)}" alt="author image">
       <textarea name="comment" id="newComment" class="comment-textarea" maxlength="280" placeholder="Add new comment..."></textarea>
-      <button class="btn secondary-btn add-comment-btn" type="submit" id="addCommentBtn">
+      <button class="btn secondary-btn add-comment-btn" id="addCommentBtn">
         <span>ADD COMMENT</span>
       </button>`;
 
@@ -129,16 +152,27 @@ class DomHelper {
 
   static createFullTask(task, user) {
     const {
-      _id, name, description, _createdAt, assignee, status, priority, isPrivate, comments,
+      id,
+      name,
+      description,
+      createdAt,
+      assignee,
+      creator,
+      status,
+      priority,
+      isPrivate,
+      comments,
     } = task;
     const container = DomHelper.createNode('section', ['full-task-container'], { id: 'fullTask' });
 
-    const fullTask = DomHelper.createNode('div', ['full-task-card'], { id: `task-${_id}` });
+    const fullTask = DomHelper.createNode('div', ['full-task-card'], { id: `task-${id}` });
+
+    const isHidden = creator.login === user.login;
 
     fullTask.innerHTML = `
       <div class="full-task-header">
         <h2 class="title">${name}</h2>
-        <div class="full-task-buttons ${assignee === user ? '' : 'hidden'}">
+        <div class="full-task-buttons ${isHidden ? '' : 'hidden'}">
           <button class="btn secondary-btn edit-btn" id="editTaskBtn"></button>
           <button class="btn secondary-btn delete-btn" id="deleteTaskBtn"></button>
         </div>
@@ -155,8 +189,8 @@ class DomHelper {
         <div class="full-task-info">
           <span class="full-task-info-title">date</span>
           <div class="full-task-date">
-            <span>${getHumanTime(_createdAt)}</span>
-            <span>${getHumanDate(_createdAt)}</span>
+            <span>${getHumanTime(createdAt)}</span>
+            <span>${getHumanDate(createdAt)}</span>
           </div>
         </div>
 
@@ -173,9 +207,9 @@ class DomHelper {
         <div class="full-task-info">
           <span class="full-task-info-title">assignee</span>
           <div class="full-task-assignee">
-            <span class="full-assignee-name">${assignee}</span>
+            <span class="full-assignee-name">${assignee.userName}</span>
             <img class="full-task-assignee-img" 
-            src="${getUser(assignee, mockUsers)?.img}" alt="assignee image">
+            src="${getSrcBase64(assignee.photo)}" alt="assignee image">
           </div>
         </div>
       </div>`;
@@ -206,21 +240,33 @@ class DomHelper {
 
   static showModal(type) {
     const modalOverlay = DomHelper.createNode('div', ['overlay', 'active'], { id: 'modalOverlay' });
+    const isForm = type === 'form';
     modalOverlay.innerHTML = `
     <section class="modal">
     <div class="modal-header">
-      <h3 class="modal-title">Delete task?</h3>
+      <h3 class="modal-title">${isForm ? 'Reset form?' : 'Delete task?'}</h3>
     </div>
     <p class="modal-text">
-      Are you sure? This will delete task permanently.
+    Are you sure?
+    ${isForm ? ' This will clear all fields.' : ' This will delete task permanently.'}
     </p>
     <div class="modal-btns">
       <button class="btn secondary-btn" id="modalCancel">CANCEL</button>
-      <button class="btn modal-btn" id="modalConfirm">DELETE</button>
+      <button class="btn modal-btn" id="modalConfirm">${isForm ? 'RESET' : 'DELETE'}</button>
     </div>
   </section>
     `;
 
     return modalOverlay;
+  }
+
+  static toast(text, type) {
+    const className = type === 'error' ? ['toast', 'error'] : ['toast'];
+    const content = type === 'error' ? `Ooops... ${text}` : text;
+    const toast = DomHelper.createNode('div', className, {}, content);
+    document.body.append(toast);
+    setTimeout(() => {
+      toast.remove();
+    }, 3000);
   }
 }

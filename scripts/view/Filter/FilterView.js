@@ -35,7 +35,7 @@ class FilterView {
           const ul = DomHelper.createNode('ul', ['checkbox-dropdown-list'], {
             id: 'filterAssigneeList',
           });
-          assignees.forEach((assignee) => ul.append(this.createAssigneeFilter(assignee)));
+          assignees.forEach((assignee) => ul.append(this.createAssigneeFilter(assignee.userName)));
 
           this.root.append(ul);
         }

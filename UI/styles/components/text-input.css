@@ -82,10 +82,15 @@
 }
 
 .error-message {
+  align-self: center;
   color: var(--red500);
   padding-left: var(--gap);
   font-size: 0.9rem;
   height: 1.2rem;
+}
+
+.success {
+  color: var(--green900);
 }
 
 .error {

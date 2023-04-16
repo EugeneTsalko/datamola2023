@@ -41,16 +41,17 @@ const getComments = (arr) => {
 const getUser = (login, arr) => arr.find((user) => user.login === login);
 
 const getHumanTime = (date) => {
-  let humanMinutes = date.getMinutes();
+  let humanMinutes = new Date(date).getMinutes();
 
   if (humanMinutes < 10) {
     humanMinutes = `0${humanMinutes}`;
   }
 
-  return `${date.getHours()}:${humanMinutes}`;
+  return `${new Date(date).getHours()}:${humanMinutes}`;
 };
 
-const getHumanDate = (date) => date.toDateString().split(' ').slice(1, 3).join(' ');
+const getHumanDate = (date) => new Date(date).toDateString().split(' ').slice(1, 3)
+  .join(' ');
 
 const getCustomError = {
   invalidId: (funcName) => `Error in ${funcName}. Parameter "id" is required and should be a non-empty string.`,
@@ -63,3 +64,37 @@ const getCustomError = {
   protectedProp: (prop, value, newValue) => `Property "${prop}" is protected. You can't change "${value}" to "${newValue}."`,
   notClassInstance: (className) => `Parameter should be an instance of "${className}" class.`,
 };
+
+const getSrcBase64 = (base64) => {
+  const firstChar = base64.at(0);
+  let result = base64;
+
+  switch (firstChar) {
+    case BASE64_TYPE.jpg:
+      result = `${BASE64_PREFIX.jpg}${base64}`;
+      break;
+
+    case BASE64_TYPE.svg:
+      result = `${BASE64_PREFIX.svg}${base64}`;
+      break;
+
+    case BASE64_TYPE.gif:
+      result = `${BASE64_PREFIX.gif}${base64}`;
+      break;
+
+    default:
+      result = `${BASE64_PREFIX.png}${base64}`;
+      break;
+  }
+
+  return result;
+};
+
+const blobToDataUrl = (blob) => new Promise((resolve, reject) => {
+  const reader = new FileReader();
+  reader.onload = () => resolve(reader.result);
+  reader.onerror = reject;
+  reader.readAsDataURL(blob);
+});
+
+const blobToBase64 = (blob) => blobToDataUrl(blob).then((text) => text.slice(text.indexOf(',') + 1));

@@ -4,39 +4,39 @@ class ProfileView {
   }
 
   createProfilePage(user, type) {
-    const {
-      _login, name, image, password,
-    } = user;
+    const { login, userName, photo } = user;
     const container = DomHelper.createNode('section', ['user-container'], { id: 'profilePage' });
     const isEdit = type === 'edit';
 
     container.innerHTML = `
       <div class="profile-info">
         <div class="profile-header">
-          <h3>Hi, ${_login}!</h3>
+          <h3>Hi, ${userName}!</h3>
           <button class="btn secondary-btn close-btn ${
   isEdit ? '' : 'undisplayed'
 }" id="closeProfileBtn"></button>
-          <img class="avatar-img ${isEdit ? 'undisplayed' : ''}" src="${image}" alt="user-img">
+          <img class="avatar-img ${
+  isEdit ? 'undisplayed' : ''
+}" src="data:image/png;base64,${photo}" alt="user-img">
         </div>
 
         <form class="user-form active" id="profileForm">
           <div class="avatar-container ${isEdit ? '' : 'undisplayed'}">
             <div class="avatar active">
-              <img class="avatar-img" src="${image}" alt="user-img">
+              <img class="avatar-img" src="data:image/png;base64,${photo}" alt="user-img">
             </div>
-            <input type="radio" id="maleAvatar" name="avatar" value="../../UI/assets/svg/man.svg">
+            <input type="radio" id="maleAvatar" name="avatar" value="${STANDARD_IMG.male}">
             <label for="maleAvatar" class="avatar-male"></label>
-            <input type="radio" id="femaleAvatar" name="avatar" value="../../UI/assets/svg/woman.svg">
+            <input type="radio" id="femaleAvatar" name="avatar" value="${STANDARD_IMG.female}">
             <label for="femaleAvatar" class="avatar-female"></label>
             <label class="input-file-label">
-              <input type="file" name="input-file">
+              <input type="file" name="avatar" id="fileInput">
             </label>
           </div>
 
           <label for="name" class="text-input">
             <input type="text" id="name" placeholder="&nbsp;" ${isEdit ? '' : 'disabled'} value="${
-  isEdit ? '' : `${name}`
+  isEdit ? '' : `${userName}`
 }">
             <span class="label">${isEdit ? 'New name' : 'Name'}</span>
             <span class="focus-bg"></span>
@@ -44,25 +44,19 @@ class ProfileView {
           </label>
 
           <label for="login" class="text-input ${isEdit ? 'undisplayed' : ''}">
-            <input type="text" id="login" placeholder="&nbsp;" disabled value="${_login}">
-            <span class="label">Username</span>
+            <input type="text" id="login" placeholder="&nbsp;" disabled value="${login}">
+            <span class="label">Login</span>
             <span class="focus-bg"></span>
           </label>
 
-          <label for="oldPassword" class="text-input">
-            ${isEdit ? '<button class="icon-btn password-btn" id="passwordBtn"></button>' : ''}
-            <input type="password" id="oldPassword" placeholder="&nbsp;" ${
+          <label for="newPassword" class="text-input">
+            <button class="icon-btn password-btn" id="passwordBtn" ${
   isEdit ? '' : 'disabled'
-} value="${isEdit ? '' : `${password}`}">
-            <span class="label">${isEdit ? 'Old password' : 'Password'}</span>
-            <span class="focus-bg"></span>
-            ${isEdit ? '<p class="error-message" id="oldPasswordError"></p>' : ''}
-          </label>
-
-          <label for="newPassword" class="text-input ${isEdit ? '' : 'undisplayed'}">
-            <button class="icon-btn password-btn" id="passwordBtn"></button>
-            <input type="password" id="newPassword" placeholder="&nbsp;">
-            <span class="label">New password</span>
+}></button>
+            <input type="password" id="newPassword" placeholder="&nbsp;" value="${
+  isEdit ? '' : '********'
+}">
+            <span class="label">${isEdit ? 'New password' : 'Password'}</span>
             <span class="focus-bg"></span>
             ${isEdit ? '<p class="error-message" id="newPasswordError"></p>' : ''}
           </label>
@@ -78,7 +72,7 @@ class ProfileView {
           <div class="user-form-btns">
             <button id="profileResetBtn" type="reset" class="btn secondary-btn cancel-btn ${
   isEdit ? '' : 'undisplayed'
-}" disabled>CANCEL</button>
+}" disabled>RESET</button>
             <button class="btn secondary-btn save-btn ${
   isEdit ? '' : 'undisplayed'
 }" id="saveProfileBtn" disabled>SAVE</button>
@@ -97,28 +91,34 @@ class ProfileView {
 
   listen() {
     const form = document.getElementById('profileForm');
-    const {
-      name, oldPassword, newPassword, confirmPassword,
-    } = form;
+    const { name, newPassword, confirmPassword } = form;
     const nameError = document.getElementById('nameError');
-    const oldPasswordError = document.getElementById('oldPasswordError');
     const newPasswordError = document.getElementById('newPasswordError');
     const confirmPasswordError = document.getElementById('confirmPasswordError');
     const resetBtn = document.getElementById('profileResetBtn');
     const saveBtn = document.getElementById('saveProfileBtn');
 
     let isNameValid = false;
-    let isOldPassValid = false;
     let isNewPassValid = false;
     let isConfirmPassValid = false;
 
     form.addEventListener('input', () => {
       resetBtn.removeAttribute('disabled');
-      const isFormValid = isNameValid && isOldPassValid && isNewPassValid && isConfirmPassValid;
+      const isFormValid = isNameValid && isNewPassValid && isConfirmPassValid;
       if (isFormValid) {
         saveBtn.removeAttribute('disabled');
       } else {
         saveBtn.setAttribute('disabled', '');
+      }
+
+      const defaultPhoto = document.querySelector('input[name="avatar"]:checked');
+      const file = document.querySelector('input[type="file"]').files[0];
+
+      if (file && Object.keys(BASE64_TYPE).some((ext) => file.name.includes(`.${ext}`))) {
+        document.querySelector('.input-file-label').classList.add('active');
+        if (defaultPhoto) {
+          defaultPhoto.checked = false;
+        }
       }
     });
 
@@ -132,23 +132,10 @@ class ProfileView {
       }
     });
 
-    oldPassword.addEventListener('input', () => {
-      if (!oldPassword.value.length) {
-        oldPasswordError.innerHTML = 'Invalid password.';
-        isOldPassValid = false;
-      } else {
-        oldPasswordError.innerHTML = '';
-        isOldPassValid = true;
-      }
-    });
-
     newPassword.addEventListener('input', () => {
       if (!newPassword.value.length) {
         newPasswordError.innerHTML = 'Invalid password.';
         confirmPasswordError.innerHTML = 'Invalid password.';
-        isNewPassValid = false;
-      } else if (newPassword.value === oldPassword.value) {
-        newPasswordError.innerHTML = 'New and old password must be different.';
         isNewPassValid = false;
       } else {
         newPasswordError.innerHTML = '';
@@ -170,6 +157,7 @@ class ProfileView {
       document.querySelectorAll('.error-message').forEach((el) => {
         const p = el;
         p.textContent = '';
+        document.querySelector('.input-file-label').classList.remove('active');
       });
     });
   }

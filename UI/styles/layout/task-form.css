@@ -54,3 +54,20 @@ label[for='setAssignee'] {
   gap: var(--gap-l);
   align-self: center;
 }
+
+@media screen and (width <= 700px) {
+  .task-form {
+    width: 90%;
+  }
+}
+
+@media screen and (width <= 450px) {
+  .task-form {
+    padding: var(--padding-s);
+  }
+
+  .form-inputs > label {
+    margin-right: 0;
+    font-size: smaller;
+  }
+}

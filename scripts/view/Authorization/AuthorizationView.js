@@ -56,9 +56,11 @@ class AuthorizationView {
         </div>
       </form>
 
-      <button type="submit" form="auth-form" class="btn" id="${
+      <p class="error-message" id="formError"></p>
+
+      <button form="auth-form" class="btn" id="${
   isSignUp ? 'authSignUp' : 'authSignIn'
-}" ${isSignUp ? 'disabled' : ''}>${type.toUpperCase()}</button>
+}" disabled>${type.toUpperCase()}</button>
       <div class="auth-footer">
         <span>${isSignUp ? 'Already' : 'Don`t'} have an account?</span>
         <button class="auth-redirect-btn" id="${
@@ -70,76 +72,23 @@ class AuthorizationView {
     return container;
   }
 
-  validateSignIn() {
-    try {
-      this.listen();
-      const form = document.getElementById('authForm');
-      const { login, password } = form;
+  listenSignIn() {
+    const form = document.getElementById('authForm');
+    const { login, password } = form;
 
-      const user = app.users.get(login.value); //
+    form.addEventListener('input', () => {
+      const isFormValid = password.value && login.value;
+      formError.textContent = '';
 
-      if (!login.value || !password.value) {
-        if (!login.value) {
-          throw new Error('Please, enter your login.', { cause: 'login' });
-        }
-
-        if (!password.value) {
-          throw new Error('Please, enter your password.', { cause: 'password' });
-        }
-      }
-
-      if (!user) {
-        throw new Error(`User with login "${login.value}" doesn't exist.`, { cause: 'login' });
-      }
-
-      if (password.value !== user.password) {
-        throw new Error('Invalid password', { cause: 'password' });
-      }
-
-      return user;
-    } catch (err) {
-      const loginError = document.getElementById('loginError');
-      const passwordError = document.getElementById('passwordError');
-      if (err.cause === 'login') {
-        loginError.innerHTML = err.message;
-      }
-
-      if (err.cause === 'password') {
-        passwordError.innerHTML = err.message;
-      }
-
-      return null;
-    }
-  }
-
-  validateSignUp() {
-    try {
-      this.listen();
-      const form = document.getElementById('authForm');
-      const { name, login, password } = form;
-      const image = document.querySelector('input[name="avatar"]:checked')?.value
-        || '../../UI/assets/svg/man.svg';
-      const user = new User(login.value, name.value, image, password.value);
-
-      if (!app.users.add(...Object.values(user))) {
-        //
-        throw new Error(`User with login "${login.value}" already exists.`, { cause: 'login' });
-      }
-
-      return user;
-    } catch (err) {
-      if (err.cause === 'login') {
-        const loginError = document.getElementById('loginError');
-        loginError.innerHTML = err.message;
+      if (isFormValid) {
+        document.getElementById('authSignIn')?.removeAttribute('disabled');
       } else {
-        console.error(err.message);
+        document.getElementById('authSignIn')?.setAttribute('disabled', '');
       }
-
-      return null;
-    }
+    });
   }
 
-  listen() {
+  listenSignUp() {
     const form = document.getElementById('authForm');
     const {
       name, login, password, passwordConfirm,
@@ -150,14 +99,29 @@ class AuthorizationView {
     const passwordError = document.getElementById('passwordError');
     const nameError = document.getElementById('nameError');
     const passwordConfirmError = document.getElementById('passwordConfirmError');
+    const formError = document.getElementById('formError');
 
     form.addEventListener('input', () => {
-      const user = new User(login.value, name.value, image, password.value);
-      const isFormValid = password.value === passwordConfirm.value && User.validate(user);
+      // eslint-disable-next-line max-len
+      const isFormValid = password.value === passwordConfirm.value && login.value && name.value && password.value;
+
+      formError.textContent = '';
       if (isFormValid) {
-        document.getElementById('authSignUp').removeAttribute('disabled');
+        document.getElementById('authSignUp')?.removeAttribute('disabled');
+        passwordError.textContent = '';
+        passwordConfirmError.textContent = '';
       } else {
-        document.getElementById('authSignUp').setAttribute('disabled', '');
+        document.getElementById('authSignUp')?.setAttribute('disabled', '');
+      }
+
+      const defaultPhoto = document.querySelector('input[name="avatar"]:checked');
+      const file = document.querySelector('input[type="file"]').files[0];
+
+      if (file && Object.keys(BASE64_TYPE).some((ext) => file.name.includes(`.${ext}`))) {
+        document.querySelector('.input-file-label').classList.add('active');
+        if (defaultPhoto) {
+          defaultPhoto.checked = false;
+        }
       }
     });
 
