@@ -285,18 +285,23 @@ class TasksController {
 
   async editUser() {
     try {
-      // const { user } = app;
       const name = document.getElementById('name').value;
       const newPassword = document.getElementById('newPassword').value;
       const retypedPassword = document.getElementById('confirmPassword').value;
-      const photo = document.querySelector('input[name="avatar"]:checked')?.value || user.photo;
+      const defaultPhoto = document.querySelector('input[name="avatar"]:checked');
+      const file = document.querySelector('input[type="file"]').files[0];
+      let base64photo = '';
+      if (file && Object.keys(BASE64_TYPE).some((ext) => file.name.includes(`.${ext}`))) {
+        base64photo = await blobToBase64(file);
+        console.log('!!!', base64photo);
+      }
 
       const response = await this.api.editUser(
         this.user.id,
         name,
         newPassword,
         retypedPassword,
-        photo,
+        base64photo || defaultPhoto?.value || this.user.photo,
       );
 
       console.log(response);
@@ -309,10 +314,11 @@ class TasksController {
 
       this.user = response;
       localStorage.setItem('user', JSON.stringify(response));
-      app.showProfile();
+      this.showProfile();
     } catch (err) {
-      const nameError = document.getElementById('nameError');
-      nameError.textContent = err.message;
+      const error = document.getElementById('confirmPasswordError');
+      error.textContent = err.message;
+      console.error(err.message);
     }
   }
 

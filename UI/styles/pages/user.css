@@ -47,6 +47,10 @@
   transition: var(--transition);
 }
 
+.input-file-label.active {
+  background-image: url('../../assets/svg/add-circle-primary500.svg');
+}
+
 .input-file-label:hover {
   background-image: url('../../assets/svg/add-circle-primary500.svg');
 }

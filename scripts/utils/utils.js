@@ -89,3 +89,12 @@ const getSrcBase64 = (base64) => {
 
   return result;
 };
+
+const blobToDataUrl = (blob) => new Promise((resolve, reject) => {
+  const reader = new FileReader();
+  reader.onload = () => resolve(reader.result);
+  reader.onerror = reject;
+  reader.readAsDataURL(blob);
+});
+
+const blobToBase64 = (blob) => blobToDataUrl(blob).then((text) => text.slice(text.indexOf(',') + 1));

@@ -287,7 +287,7 @@ class TaskFeedApiService {
       const result = await response.json();
 
       if (!response.ok) {
-        throw new Error(`Oops... ${result.message}.`);
+        return new CustomError(result.status, result.message);
       }
 
       return result;

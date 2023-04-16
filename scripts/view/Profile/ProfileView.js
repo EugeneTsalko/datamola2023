@@ -30,7 +30,7 @@ class ProfileView {
             <input type="radio" id="femaleAvatar" name="avatar" value="${STANDARD_IMG.female}">
             <label for="femaleAvatar" class="avatar-female"></label>
             <label class="input-file-label">
-              <input type="file" name="avatar">
+              <input type="file" name="avatar" id="fileInput">
             </label>
           </div>
 
@@ -91,15 +91,14 @@ class ProfileView {
 
   listen() {
     const form = document.getElementById('profileForm');
-    const {
-      name, oldPassword, newPassword, confirmPassword,
-    } = form;
+    const { name, newPassword, confirmPassword } = form;
     const nameError = document.getElementById('nameError');
     const newPasswordError = document.getElementById('newPasswordError');
     const confirmPasswordError = document.getElementById('confirmPasswordError');
     const resetBtn = document.getElementById('profileResetBtn');
     const saveBtn = document.getElementById('saveProfileBtn');
-    const closeEditBtn = document.getElementById('closeProfileBtn');
+
+    // const closeEditBtn = document.getElementById('closeProfileBtn');
 
     let isNameValid = false;
     let isNewPassValid = false;
@@ -112,6 +111,16 @@ class ProfileView {
         saveBtn.removeAttribute('disabled');
       } else {
         saveBtn.setAttribute('disabled', '');
+      }
+
+      const defaultPhoto = document.querySelector('input[name="avatar"]:checked');
+      const file = document.querySelector('input[type="file"]').files[0];
+
+      if (file && Object.keys(BASE64_TYPE).some((ext) => file.name.includes(`.${ext}`))) {
+        document.querySelector('.input-file-label').classList.add('active');
+        if (defaultPhoto) {
+          defaultPhoto.checked = false;
+        }
       }
     });
 
@@ -150,6 +159,7 @@ class ProfileView {
       document.querySelectorAll('.error-message').forEach((el) => {
         const p = el;
         p.textContent = '';
+        document.querySelector('.input-file-label').classList.remove('active');
       });
     });
 
