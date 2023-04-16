@@ -113,6 +113,16 @@ class AuthorizationView {
       } else {
         document.getElementById('authSignUp')?.setAttribute('disabled', '');
       }
+
+      const defaultPhoto = document.querySelector('input[name="avatar"]:checked');
+      const file = document.querySelector('input[type="file"]').files[0];
+
+      if (file && Object.keys(BASE64_TYPE).some((ext) => file.name.includes(`.${ext}`))) {
+        document.querySelector('.input-file-label').classList.add('active');
+        if (defaultPhoto) {
+          defaultPhoto.checked = false;
+        }
+      }
     });
 
     name.addEventListener('input', () => {

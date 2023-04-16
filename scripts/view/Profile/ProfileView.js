@@ -98,8 +98,6 @@ class ProfileView {
     const resetBtn = document.getElementById('profileResetBtn');
     const saveBtn = document.getElementById('saveProfileBtn');
 
-    // const closeEditBtn = document.getElementById('closeProfileBtn');
-
     let isNameValid = false;
     let isNewPassValid = false;
     let isConfirmPassValid = false;
@@ -162,11 +160,6 @@ class ProfileView {
         document.querySelector('.input-file-label').classList.remove('active');
       });
     });
-
-    // closeEditBtn.addEventListener('click', (event) => {
-    //   event.preventDefault();
-    //   app.showProfile();
-    // });
   }
 
   display(user, type) {

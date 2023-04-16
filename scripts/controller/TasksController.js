@@ -50,7 +50,7 @@ class TasksController {
 
       this.data = response;
 
-      // this.data = dataTasks;
+      // this.data = dataTasks; // костыль для работы без бэка
     } catch (err) {
       this.showErrorPage(err.message);
       console.error(err.message);
@@ -78,7 +78,7 @@ class TasksController {
   async fetchUsers() {
     try {
       this.users = await this.api.getAllUsers();
-      // this.users = dataUsers;
+      // this.users = dataUsers; // костыль для работы без бэка
     } catch (err) {
       console.error(err.message);
     }
@@ -141,18 +141,25 @@ class TasksController {
       const {
         name, login, password, passwordConfirm,
       } = form;
-      const photo = document.querySelector('input[name="avatar"]:checked')?.value || STANDARD_IMG.anon;
       const formError = document.getElementById('formError');
+
+      const defaultPhoto = document.querySelector('input[name="avatar"]:checked')?.value;
+      const file = document.querySelector('input[type="file"]').files[0];
+      let base64photo = '';
+      if (file && Object.keys(BASE64_TYPE).some((ext) => file.name.includes(`.${ext}`))) {
+        base64photo = await blobToBase64(file);
+        console.log('!!!', base64photo);
+      }
 
       const user = await this.api.register(
         login.value,
         name.value,
         password.value,
         passwordConfirm.value,
-        photo,
+        base64photo || defaultPhoto || STANDARD_IMG.anon,
       );
 
-      this.users.push(user); // костыль для работы без бэка
+      // this.users.push(user); // костыль для работы без бэка
 
       if (user.error) {
         throw new Error(user.message);
@@ -202,9 +209,6 @@ class TasksController {
       this.login(user, response.token);
 
       DomHelper.toast('Successful sign in! Please, wait...');
-
-      // formError.classList.add('success');
-      // formError.textContent = 'Successful sign in! Please, wait...';
       document.getElementById('authSignIn')?.setAttribute('disabled', '');
 
       return user;
@@ -225,7 +229,6 @@ class TasksController {
       this.header.display({ user: this.user });
       this.filter.display({ user: this.user, assignees: this.users });
 
-      // await this.fetchTasks(this.user);
       this.makeTasks(this.data, this.user);
 
       this.getFeed();
@@ -685,6 +688,7 @@ class TasksController {
       const user = this.user || null;
 
       await this.fetchTasks();
+      this.makeTasks(this.data, this.user);
       this.getFeed();
 
       this.header.display({ user });
