@@ -5,9 +5,11 @@ window.onload = async function () {
 
   await app.start();
 
-  // setInterval(() => {
-  //   app.getFeed();
-  // }, SHORT_POLLING_TIME); // short polling
+  setInterval(async () => {
+    await app.fetchTasks();
+    app.makeTasks(app.data, app.user);
+    app.getFeed();
+  }, SHORT_POLLING_TIME); // short polling
 
   document.addEventListener('click', async (event) => {
     if (event.target.id === 'toMainBtn') {
