@@ -138,6 +138,10 @@ window.onload = async function () {
       const filter = event.target.nextElementSibling;
       filter.classList.toggle('active');
     }
+
+    if (event.target.id === 'errorBtn') {
+      app.backToMain();
+    }
   });
 
   document.getElementById('addTaskBtn').addEventListener('click', () => {

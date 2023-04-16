@@ -4,7 +4,7 @@ class ErrorView {
   }
 
   render(message) {
-    const container = DomHelper.createNode('section', ['error-section']);
+    const container = DomHelper.createNode('section', ['error-section'], { id: 'errorPage' });
 
     container.innerHTML = `
     <h2 class="error-header">Sorry, something went wrong...</h2>

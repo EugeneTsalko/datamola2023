@@ -664,6 +664,7 @@ class TasksController {
       document.getElementById('auth')?.remove();
       document.getElementById('menu').classList.remove('undisplayed');
       document.getElementById('board').classList.remove('undisplayed');
+      document.getElementById('errorPage')?.remove();
 
       const user = this.user || null;
 
@@ -671,6 +672,23 @@ class TasksController {
       this.getFeed();
 
       this.header.display({ user });
+    } catch (err) {
+      console.error(err.message);
+    }
+  }
+
+  showErrorPage(message) {
+    try {
+      document.getElementById('fullTask')?.remove();
+      document.getElementById('profilePage')?.remove();
+      document.getElementById('auth')?.remove();
+      document.getElementById('overlay')?.remove();
+      document.getElementById('modalOverlay')?.remove();
+      document.getElementById('menu')?.classList.add('undisplayed');
+      document.getElementById('board')?.classList.add('undisplayed');
+
+      this.header.display({ isErrorPage: true });
+      this.errorPage.display(message);
     } catch (err) {
       console.error(err.message);
     }
