@@ -44,7 +44,6 @@ class TaskFeedApiService {
       return result;
     } catch (err) {
       console.error(err.message);
-      // DomHelper.toast(err.message, 'error');
 
       return err;
     }

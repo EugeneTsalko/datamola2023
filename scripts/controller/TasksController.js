@@ -42,9 +42,17 @@ class TasksController {
 
   async fetchTasks() {
     try {
-      this.data = await this.api.getTasks();
+      const response = await this.api.getTasks();
+
+      if (response.error) {
+        throw new Error(response.message);
+      }
+
+      this.data = response;
+
       // this.data = dataTasks;
     } catch (err) {
+      this.showErrorPage(err.message);
       console.error(err.message);
     }
   }
@@ -551,6 +559,7 @@ class TasksController {
         overlay.innerHTML = '';
       }
     } catch (err) {
+      errorMessage.textContent = err.message;
       console.error(err.message);
     }
   }
@@ -576,6 +585,7 @@ class TasksController {
         modal.remove();
       });
     } catch (err) {
+      DomHelper.toast(err.message, 'error');
       console.error(err.message);
     }
   }
