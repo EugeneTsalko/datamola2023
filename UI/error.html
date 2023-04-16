@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/x-icon" href="./assets/favicon.ico">
+  <link rel="stylesheet" href="./styles/style.css">
+  <title>TrelloMola by EugeneTsalko</title>
+  <script defer src="../extra-tasks/6.2-ticTacToe/script.js"></script>
+</head>
+
+<body>
+
+
+  <header class="header sticky-header">
+    <a href="main.html" class="logo-link"></a>
+    <nav class="nav">
+      <span>Hi, username!</span>
+      <a href="user.html" class="btn secondary-btn icon-btn profile-btn"> </a>
+      <button class="btn logout-btn"></button>
+    </nav>
+  </header>
+
+  <main class="main">
+    <div class="menu undisplayed">
+      <button class="btn secondary-btn add-task-btn">
+        <img src="./assets/svg/add.svg" alt="add">
+        <span>ADD TASK</span>
+      </button>
+      <nav>
+        <div class="filter-container">
+          <button class="btn secondary-btn icon-btn filter-btn"></button>
+          <!-- Чекбоксы снизу сделаны как заглушки, будут работать с JS -->
+          <div class="filter-bar">
+            <div class="checkbox-dropdown">
+              <span>Assignee</span>
+            </div>
+            <div class="checkbox-dropdown">
+              <span>Date</span>
+            </div>
+            <div class="checkbox-dropdown">
+              <span>Privacy</span>
+            </div>
+            <div class="checkbox-dropdown">
+              <span>Priority</span>
+            </div>
+          </div>
+          <form class="search-form">
+            <input type="text" class="search" placeholder="Search...">
+            <button type="submit" class="search-btn"></button>
+          </form>
+        </div>
+        <div class="view-container">
+          <span>View:</span>
+          <button class="btn secondary-btn kanban-btn active"></button>
+          <button class="btn secondary-btn table-btn"></button>
+        </div>
+      </nav>
+    </div>
+    <section class="error-section">
+      <h2 class="error-header">Sorry, something went wrong...</h2>
+      <p class="error-text">Ooops... error message.</p>
+      <button class="btn" id="errorBtn">BACK TO MAIN</button>
+
+      <section class="game-section">
+        <div id="area">
+          <div class="field" id="0"></div>
+          <div class="field" id="1"></div>
+          <div class="field" id="2"></div>
+          <div class="field" id="3"></div>
+          <div class="field" id="4"></div>
+          <div class="field" id="5"></div>
+          <div class="field" id="6"></div>
+          <div class="field" id="7"></div>
+          <div class="field" id="8"></div>
+        </div>
+        <div class="results" id="results">
+          <span class="text" id="text"></span>
+          <div class="score">
+            <p>You: <span id="humanWinCount">0</span> - Tie: <span id="tieCount">0</span> - AI: <span
+                id="aiWinCount">0</span></p>
+          </div>
+          <button class="btn" id="restart">RESTART GAME</button>
+        </div>
+      </section>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-info">
+      <span>© TRELLOMOLA</span>
+      <span>v.1.0.0</span>
+      <span>Eugene Tsalko</span>
+      <span>tefworkmail@gmail.com</span>
+    </div>
+    <div class="select-lang">
+      <label for="lang-select"></label>
+      <select name="language" id="lang-select">
+        <option value="english">English</option>
+        <option value="russian">Русский</option>
+      </select>
+    </div>
+  </footer>
+</body>
+
+</html>

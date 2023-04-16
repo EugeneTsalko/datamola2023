@@ -98,7 +98,7 @@ section {
   font-size: 2rem;
 }
 
-button {
+/* button {
   font: inherit;
   font-size: 2rem;
   color: var(--white);
@@ -107,9 +107,9 @@ button {
   border-radius: var(--border-radius);
   padding: var(--offset-s) var(--offset);
   transition: var(--transition);
-}
+} */
 
-button:hover {
+/* button:hover {
   cursor: pointer;
   background-color: var(--main600);
-}
+} */

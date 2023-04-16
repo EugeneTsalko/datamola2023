@@ -9,6 +9,7 @@ class TasksController {
       fullTaskRoot,
       profileRoot,
       authRoot,
+      errorRoot,
       taskFormRoot,
       apiUrl,
     } = params;
@@ -27,6 +28,7 @@ class TasksController {
     this.fullTask = new TaskView(fullTaskRoot);
     this.profile = new ProfileView(profileRoot);
     this.auth = new AuthorizationView(authRoot);
+    this.errorPage = new ErrorView(errorRoot);
     this.taskForm = new TaskFormView(taskFormRoot);
     this.api = new TaskFeedApiService(apiUrl);
     this.pagination = {

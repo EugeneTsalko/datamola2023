@@ -25,6 +25,7 @@ const appParams = {
   fullTaskRoot: 'main',
   profileRoot: 'main',
   authRoot: 'main',
+  errorRoot: 'main',
   taskFormRoot: 'overlay',
   apiUrl: 'http://169.60.206.50:7777',
 };
