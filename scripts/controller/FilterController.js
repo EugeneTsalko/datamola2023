@@ -5,8 +5,6 @@ class FilterController {
     this.skip = 0;
   }
 
-  // будет доработано
-
   listen() {
     const filters = Array.from(document.querySelectorAll('.checkbox-dropdown'));
 
@@ -84,7 +82,6 @@ class FilterController {
         delete this.filterConfig.description;
       }
 
-      // console.log(Object.keys(this.filterConfig).length);
       if (Object.keys(this.filterConfig).length) {
         resetBtn.classList.remove('hidden');
       } else {

@@ -65,3 +65,12 @@ const BASE64_PREFIX = {
 };
 
 const SHORT_POLLING_TIME = 300000;
+
+const MESSAGES = {
+  signUpSuccess: 'Successful registration! Please, wait...',
+  signInSuccess: 'Successful sign in! Please, wait...',
+  logOut: 'Bye! Take care.',
+  editProfileSuccess: 'Profile was successfully edited!',
+  addTaskSuccess: 'Task was successfully added!',
+  editTaskSuccess: 'Task was successfully edited!',
+};

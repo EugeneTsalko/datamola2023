@@ -154,7 +154,6 @@ class TaskFormView {
         document.getElementById('modalCancel').addEventListener('click', () => {
           modal.remove();
         });
-        //
 
         if (errorMessage.textContent) {
           errorMessage.textContent = '';

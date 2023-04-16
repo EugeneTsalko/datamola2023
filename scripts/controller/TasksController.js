@@ -77,9 +77,16 @@ class TasksController {
 
   async fetchUsers() {
     try {
-      this.users = await this.api.getAllUsers();
+      const response = await this.api.getAllUsers();
+
+      if (response.error) {
+        throw new Error(response.message);
+      }
+
+      this.users = response;
       // this.users = dataUsers; // костыль для работы без бэка
     } catch (err) {
+      this.showErrorPage(err.message);
       console.error(err.message);
     }
   }
@@ -122,11 +129,7 @@ class TasksController {
 
   showSignUp() {
     try {
-      document.getElementById('menu').classList.add('undisplayed');
-      document.getElementById('board').classList.add('undisplayed');
-      document.getElementById('auth')?.remove();
-      document.getElementById('profilePage')?.remove();
-
+      this.cleanMain();
       this.header.display({ isAuth: true });
       this.auth.display(AUTH_TYPE.signUp);
       this.auth.listenSignUp();
@@ -166,12 +169,13 @@ class TasksController {
       }
 
       formError.classList.add('success');
-      formError.textContent = 'Successful registration! Please, wait...';
+      formError.textContent = MESSAGES.signUpSuccess;
       document.getElementById('authSignUp')?.setAttribute('disabled', '');
 
       return user;
     } catch (err) {
       formError.textContent = err.message;
+      console.error(err.message);
 
       return null;
     }
@@ -179,10 +183,7 @@ class TasksController {
 
   showSignIn() {
     try {
-      document.getElementById('menu').classList.add('undisplayed');
-      document.getElementById('board').classList.add('undisplayed');
-      document.getElementById('auth')?.remove();
-      document.getElementById('profilePage')?.remove();
+      this.cleanMain();
 
       this.header.display({ isAuth: true });
       this.auth.display(AUTH_TYPE.signIn);
@@ -199,8 +200,6 @@ class TasksController {
 
       const response = await this.api.auth(login.value, password.value);
 
-      console.log('response: ', response);
-
       if (response.error) {
         throw new Error(response.message);
       }
@@ -208,13 +207,14 @@ class TasksController {
       const user = this.getUser(login.value);
       this.login(user, response.token);
 
-      DomHelper.toast('Successful sign in! Please, wait...');
+      DomHelper.toast(MESSAGES.signInSuccess);
       document.getElementById('authSignIn')?.setAttribute('disabled', '');
 
       return user;
     } catch (err) {
       const formError = document.getElementById('formError');
       formError.textContent = err.message;
+      console.error(err.message);
 
       return null;
     }
@@ -239,10 +239,6 @@ class TasksController {
 
   logOut() {
     try {
-      if (!this.user) {
-        throw new Error('Before log out you need to Sign In.');
-      }
-
       document.getElementById('fullTask')?.remove();
       document.getElementById('profilePage')?.remove();
       document.getElementById('menu').classList.remove('undisplayed');
@@ -255,7 +251,7 @@ class TasksController {
       this.header.display();
       this.filter.display({ assignees: this.users });
 
-      DomHelper.toast('Bye!');
+      DomHelper.toast(MESSAGES.logOut);
 
       this.makeTasks(this.data, null);
 
@@ -269,18 +265,10 @@ class TasksController {
 
   showProfile(type) {
     try {
-      const { user } = this;
-
-      if (!user) {
-        throw new Error('Profile page can`t be shown.');
-      }
-
-      document.getElementById('profilePage')?.remove();
-      document.getElementById('menu').classList.add('undisplayed');
-      document.getElementById('board').classList.add('undisplayed');
+      this.cleanMain();
 
       this.header.display({ user: this.user, isProfilePage: true });
-      this.profile.display(user, type);
+      this.profile.display(this.user, type);
     } catch (err) {
       console.error(err.message);
     }
@@ -292,11 +280,12 @@ class TasksController {
       const newPassword = document.getElementById('newPassword').value;
       const retypedPassword = document.getElementById('confirmPassword').value;
       const defaultPhoto = document.querySelector('input[name="avatar"]:checked');
+
       const file = document.querySelector('input[type="file"]').files[0];
       let base64photo = '';
+
       if (file && Object.keys(BASE64_TYPE).some((ext) => file.name.includes(`.${ext}`))) {
         base64photo = await blobToBase64(file);
-        console.log('!!!', base64photo);
       }
 
       const response = await this.api.editUser(
@@ -307,20 +296,17 @@ class TasksController {
         base64photo || defaultPhoto?.value || this.user.photo,
       );
 
-      console.log(response);
-
       if (response.error) {
         throw new Error(response.message);
       }
 
-      DomHelper.toast('Profile was successfully edited!');
+      DomHelper.toast(MESSAGES.editProfileSuccess);
 
       this.user = response;
       localStorage.setItem('user', JSON.stringify(response));
       this.showProfile();
     } catch (err) {
-      const error = document.getElementById('confirmPasswordError');
-      error.textContent = err.message;
+      DomHelper.toast(err.message, 'error');
       console.error(err.message);
     }
   }
@@ -437,7 +423,6 @@ class TasksController {
   async showTask(id) {
     try {
       const task = await this.api.getFullTask(id);
-      console.log(task);
 
       if (task.error) {
         throw new Error(task.message);
@@ -447,14 +432,13 @@ class TasksController {
         throw new Error('Task page can`t be shown.');
       }
 
-      document.getElementById('fullTask')?.remove();
-      document.getElementById('menu').classList.add('undisplayed');
-      document.getElementById('board').classList.add('undisplayed');
+      this.cleanMain();
 
       this.header.display({ user: this.user, isTaskPage: true });
       this.fullTask.display(task, this.user);
       this.fullTask.listen();
     } catch (err) {
+      this.showErrorPage(err.message);
       console.error(err.message);
     }
   }
@@ -463,8 +447,8 @@ class TasksController {
     try {
       const overlay = this.taskForm.root;
       const { users } = this;
-
       let task = null;
+
       if (taskId) {
         task = await this.api.getFullTask(taskId);
 
@@ -475,9 +459,11 @@ class TasksController {
 
       overlay.innerHTML = '';
       overlay.classList.add('active');
+
       this.taskForm.display(type, task, users);
       this.taskForm.listen();
     } catch (err) {
+      this.showErrorPage(err.message);
       console.error(err.message);
     }
   }
@@ -491,7 +477,6 @@ class TasksController {
       const priority = document.querySelector('input[name="setPriority"]:checked')?.value;
       const isPrivate = document.querySelector('input[name="setPrivacy"]:checked')?.value === TASK_PRIVACY.private;
       const status = document.querySelector('input[name="setStatus"]:checked')?.value || TASK_STATUS.toDo;
-      const errorMessage = document.getElementById('taskFormMsg');
 
       const response = await app.api.addTask(
         name,
@@ -502,18 +487,17 @@ class TasksController {
         isPrivate,
       );
 
-      console.log(response);
-
       if (response.error) {
         throw new Error(response.message);
       }
 
-      DomHelper.toast('Task was successfully added!');
+      DomHelper.toast(MESSAGES.addTaskSuccess);
 
       await this.backToMain();
       overlay.classList.remove('active');
       overlay.innerHTML = '';
     } catch (err) {
+      const errorMessage = document.getElementById('taskFormMsg');
       errorMessage.textContent = err.message;
       console.error(err.message);
     }
@@ -521,24 +505,13 @@ class TasksController {
 
   async editTask() {
     try {
+      const taskId = document.getElementById('taskFormHeader').textContent.split(' ').at(-1);
       const name = document.getElementById('setTitle').value;
       const description = document.getElementById('setDescription').value;
       const assignee = app.getUserByUserName(document.getElementById('setAssignee').value);
       const priority = document.querySelector('input[name="setPriority"]:checked')?.value;
       const isPrivate = document.querySelector('input[name="setPrivacy"]:checked')?.value === TASK_PRIVACY.private;
       const status = document.querySelector('input[name="setStatus"]:checked')?.value || TASK_STATUS.toDo;
-      const errorMessage = document.getElementById('taskFormMsg');
-
-      const task = {
-        name,
-        description,
-        assignee,
-        status,
-        priority,
-        isPrivate,
-      };
-
-      const taskId = document.getElementById('taskFormHeader').textContent.split(' ').at(-1);
 
       const response = await app.api.editTask(
         taskId,
@@ -550,24 +523,25 @@ class TasksController {
         isPrivate,
       );
 
-      console.log(response);
-
       if (response.error) {
         throw new Error(response.message);
       }
 
-      DomHelper.toast('Task was successfully edited!');
+      DomHelper.toast(MESSAGES.editTaskSuccess);
 
       if (document.getElementById('fullTask')) {
         await this.showTask(taskId);
+
         overlay.classList.remove('active');
         overlay.innerHTML = '';
       } else {
         await this.backToMain();
+
         overlay.classList.remove('active');
         overlay.innerHTML = '';
       }
     } catch (err) {
+      const errorMessage = document.getElementById('taskFormMsg');
       errorMessage.textContent = err.message;
       console.error(err.message);
     }
@@ -581,7 +555,6 @@ class TasksController {
       document.getElementById('modalConfirm').addEventListener('click', async () => {
         const response = await this.api.deleteTask(id);
 
-        console.log(response);
         if (response.error) {
           throw new Error(response.message);
         }
@@ -601,16 +574,6 @@ class TasksController {
 
   getPage(skip = 0, top = 10, filterConfig = null, type = null) {
     try {
-      if (skip < 0 || top < 0 || !Number.isInteger(skip) || !Number.isInteger(top)) {
-        throw new Error(
-          getCustomError.invalidIntegerParam('skip and top', 'TaskCollection.getPage'),
-        );
-      }
-
-      if (filterConfig && !checkIsObj(filterConfig)) {
-        throw new Error(getCustomError.invalidObjParam('filterConfig', 'TaskCollection.getPage'));
-      }
-
       let result = structuredClone(this.tasks);
 
       if (type) {
@@ -662,10 +625,6 @@ class TasksController {
 
       result = result.splice(skip, top);
 
-      if (!result.length) {
-        console.log('Nothing was found for your request.');
-      }
-
       return result;
     } catch (err) {
       console.error(err.message);
@@ -689,8 +648,8 @@ class TasksController {
 
       await this.fetchTasks();
       this.makeTasks(this.data, this.user);
-      this.getFeed();
 
+      this.getFeed();
       this.header.display({ user });
     } catch (err) {
       console.error(err.message);
@@ -699,18 +658,22 @@ class TasksController {
 
   showErrorPage(message) {
     try {
-      document.getElementById('fullTask')?.remove();
-      document.getElementById('profilePage')?.remove();
-      document.getElementById('auth')?.remove();
-      document.getElementById('overlay')?.remove();
-      document.getElementById('modalOverlay')?.remove();
-      document.getElementById('menu')?.classList.add('undisplayed');
-      document.getElementById('board')?.classList.add('undisplayed');
+      this.cleanMain();
 
       this.header.display({ isErrorPage: true });
       this.errorPage.display(message);
     } catch (err) {
       console.error(err.message);
     }
+  }
+
+  cleanMain() {
+    document.getElementById('menu').classList.add('undisplayed');
+    document.getElementById('board').classList.add('undisplayed');
+    document.getElementById('auth')?.remove();
+    document.getElementById('profilePage')?.remove();
+    document.getElementById('fullTask')?.remove();
+    document.getElementById('overlay')?.remove();
+    document.getElementById('modalOverlay')?.remove();
   }
 }

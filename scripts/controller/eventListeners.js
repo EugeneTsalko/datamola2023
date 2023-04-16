@@ -1,12 +1,11 @@
-window.onload = async function () {
+window.onload = async () => {
   console.log('Page is loaded!');
-
-  // постараюсь избавится от этого файла, разнести логику по классам.
 
   await app.start();
 
   setInterval(async () => {
     await app.fetchTasks();
+
     app.makeTasks(app.data, app.user);
     app.getFeed();
   }, SHORT_POLLING_TIME); // short polling
@@ -22,7 +21,9 @@ window.onload = async function () {
 
     if (event.target.id === 'authSignUp') {
       event.preventDefault();
+
       const user = await app.signUp();
+
       if (user) {
         await app.fetchUsers();
         setTimeout(() => {
@@ -40,7 +41,9 @@ window.onload = async function () {
 
     if (event.target.id === 'authSignIn') {
       event.preventDefault();
+
       const user = await app.signIn();
+
       if (user) {
         setTimeout(() => {
           document.getElementById('auth')?.remove();
@@ -86,12 +89,8 @@ window.onload = async function () {
     }
 
     if (event.target.id === 'saveProfileBtn') {
-      try {
-        event.preventDefault();
-        await app.editUser();
-      } catch (err) {
-        console.error(err.message);
-      }
+      event.preventDefault();
+      await app.editUser();
     }
 
     if (event.target.id === 'logOutBtn') {
@@ -113,6 +112,7 @@ window.onload = async function () {
     if (event.target.id === 'overlay') {
       const overlay = document.getElementById('overlay');
       overlay.classList.remove('active');
+      overlay.firstChild.remove();
     }
 
     if (event.target.id === 'deleteTaskBtn') {
@@ -125,6 +125,7 @@ window.onload = async function () {
     if (event.target.id === 'editTaskBtn') {
       const taskId = event.target.closest('.task-card')?.id.split('-').at(-1)
         || event.target.closest('.full-task-card')?.id.split('-').at(-1);
+
       app.showTaskForm('edit', taskId);
     }
 
@@ -148,7 +149,3 @@ window.onload = async function () {
     app.showTaskForm('add', null);
   });
 };
-
-document.addEventListener('error', (event) => {
-  console.log('popup ', event.message);
-});
