@@ -300,6 +300,8 @@ class TasksController {
         throw new Error(response.message);
       }
 
+      await this.fetchUsers();
+
       DomHelper.toast(MESSAGES.editProfileSuccess);
 
       this.user = response;
@@ -461,7 +463,7 @@ class TasksController {
       overlay.classList.add('active');
 
       this.taskForm.display(type, task, users);
-      // this.taskForm.listen();
+      this.taskForm.listen();
     } catch (err) {
       this.showErrorPage(err.message);
       console.error(err.message);
@@ -651,6 +653,7 @@ class TasksController {
 
       this.getFeed();
       this.header.display({ user });
+      this.filter.display({ user, assignees: this.users });
     } catch (err) {
       console.error(err.message);
     }

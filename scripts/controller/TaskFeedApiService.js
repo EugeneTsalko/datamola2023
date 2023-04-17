@@ -155,7 +155,7 @@ class TaskFeedApiService {
     }
   }
 
-  async getСomments(taskId) {
+  async getComments(taskId) {
     try {
       const response = await fetch(`${this.url}/${ENDPOINTS.comments(taskId)}`);
       const result = await response.json();
